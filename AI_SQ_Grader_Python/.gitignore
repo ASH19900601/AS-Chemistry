@@ -1,0 +1,8 @@
+# files the program creates while it runs
+LearningRecords.json
+LearningRecords.json.*
+Reports/
+Backups/
+Downloads/
+__pycache__/
+*.pyc

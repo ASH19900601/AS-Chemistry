@@ -1,0 +1,15 @@
+# AI SQ Grader settings. Each line is Key=Value; lines starting with # are comments.
+#
+# Provider: Offline   - built-in demo marker (key words only, no internet, no API key)
+#           OpenAI    - https://api.openai.com/v1
+#           DeepSeek  - https://api.deepseek.com/v1
+#           or the base URL of another OpenAI-compatible service, e.g. https://api.example.com/v1
+# The API key is never stored in this file. Set the environment variable SQ_API_KEY, or type
+# the key when the program asks for it.
+Provider=Offline
+ModelName=gpt-4o-mini
+
+# Mark scheme download service (optional). When enabled, the file name is added to the URL,
+# e.g. <DownloadServiceURL>9701_s23_ms_22.pdf
+DownloadEnabled=FALSE
+DownloadServiceURL=

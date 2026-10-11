@@ -1,0 +1,1172 @@
+# CAIE mark-scheme code corpus: AS / python
+# Source: Cambridge International mark schemes (MS) 2016-2025, re-extracted from the PDFs
+#         listed in tools/ms_manifest.csv (SHA-256 verified). Cambridge retains copyright;
+#         this file is for private study.
+# Levels: IG = IGCSE 0478 Papers 1-2; AS = 9608/9618 Papers 1-2; AL = 9608/9618 Papers 3-4.
+# Each block header: block id | source PDF and physical page(s) | language (basis) | MS prose
+#         just above the block (truncated). Identical blocks repeated in other variants are
+#         listed once; corpus/blocks.jsonl records every block and its duplicate_of link.
+# Extraction is automatic (monospace-font detection, indentation rebuilt from x positions).
+# Typos in the code are Cambridge's own and are kept; wrapped lines may be re-joined.
+# The PDF page is authoritative.
+
+=== 9608_s16_ms_21_p5_b10 | 9608_s16_ms_21.pdf p5 | python (keywords) | context: (b) (i) VB: / OR
+Lookup = []
+For i in range(128) :
+Lookup.append("")
+
+=== 9608_s16_ms_21_p12_b23 | 9608_s16_ms_21.pdf p12 | python (label) | context: 3 (b) (ii): Python
+StartPos = int(input("Enter start position: "))
+NumToChange = int(input("Enter number to change: "))
+for n in range(NumToChange) :
+     NewChar = input("Input new value for position: ")
+     LookUp[StartPos + n - 1] = NewChar
+print(str(NumToChange) + " entries changed")
+
+=== 9608_s16_ms_21_p12_b24 | 9608_s16_ms_21.pdf p12 | python (keywords) | context: ALTERNATIVE:
+StartPos = int(input("Enter start position: "))
+NumToChange = int(input("Enter number to change: "))
+n = 0
+while n < NumToChange :
+     NewChar = input("Input new value for position: ")
+     LookUp[StartPos + n] = NewChar
+     n = n + 1
+print(str(NumToChange) + " entries changed")
+
+=== 9608_s16_ms_21_p14_b28 | 9608_s16_ms_21.pdf p14 | python (label) | context: 5 (b): Python
+def InputData() :
+     #CDTitle String (or CDTitle = "")
+     #CDArtist String (or CDArtist = "")
+     #CDLocation String (or CDLocation = "")
+     FileHandle = open("MyMusic", "w")
+     CDTitle = input("Input CD Title: ")
+     while CDTitle != "##" : CDArtist = input("Input CD Artist: ")
+           CDLocation = input("Input CD location: ")
+           FileHandle.write(CDTitle + ":" + CDArtist + ":" + CDLocation)
+           CDTitle = input("Input CD Title: ")
+     FileHandle.close()
+
+=== 9608_s16_ms_23_p10_b20 | 9608_s16_ms_23.pdf p10 | python (label) | context: Q3 (b): Python
+startIndex = int(input("enter start position"))
+numberToOutput = int(input("enter how many"))
+for index in range(startIndex, (startIndex + numberToOutput)) :
+   OriginalChar = chr(index)
+   CipherChar = Lookup[index]
+   print("Index " + (index) + ": Character " + OriginalChar + " has subst char " + CipherChar)
+
+=== 9608_s16_ms_23_p12_b24 | 9608_s16_ms_23.pdf p12 | python (label) | context: Q5 (b): Python
+#total  : Integer
+#CDSearch, LineOfText, LineString  : String
+Def OutPutLocationList():
+   FileHandle = open("MyMusicPy.TXT", "r")
+   total = 0
+   CDSearch = input("Enter location to search")
+   LineOfText = FileHandle.readline()
+   while len(LineOfText) > 0:
+      LineString = LineOfText[80:87]    #extact last 8 characters
+(location)
+      if LineString == CDSearch:
+         total = total+1
+         CDTitle = LineOfText[0:39]    #extract CD title
+         CDArtist = LineOfText[40:79]  #extract CD artist
+         print(CDTitle + ": " + CDArtist)
+         LineOfText = FileHandle.readline()  #read next line
+   print("There are " + str(total) + " in that location")
+   FileHandle.close()
+
+=== 9608_w16_ms_21_p6_b8 | 9608_w16_ms_21.pdf p6 | python (label) | context: Pascal / Python
+def CalculateCustomerID(AnyName):
+
+=== 9608_w16_ms_21_p6_b11 | 9608_w16_ms_21.pdf p6 | python (label) | context: Pascal / Python
+Return CustomerID
+
+=== 9608_w16_ms_21_p12_b19 | 9608_w16_ms_21.pdf p12 | python (label) | context: 3(b)(ii): Python
+# Surname String
+# NextChar Char
+# NextCodeNumber, I, CustomerID, SLength Integer
+Surname = input("Key in Surname ")
+SLength = len(Surname)
+CustomerID = 0
+for i in range(SLength):
+   # NextChar is a single character from surname
+   NextChar = Surname[i]
+   NextCodeNumber = ord(NextChar)
+   CustomerID = CustomerID + NextCodeNumber
+print("Customer ID is " + str(CustomerID))
+
+=== 9608_w16_ms_21_p13_b22 | 9608_w16_ms_21.pdf p13 | python (label) | context: 4(e): Python
+def ProductCodeSearch(SearchCode):
+   # list indexes start at zero
+   i = 0
+   Found = "no"
+   while not(i == 1001 or Found == "yes"):
+      if SearchCode == PCode[i]:
+         Found = "yes"
+         FoundIndex = i
+      else:
+         i = i + 1
+   if Found == "no":
+      FoundIndex = -1
+   return FoundIndex
+
+=== 9608_w16_ms_22_p7_b14 | 9608_w16_ms_22.pdf p7 | python (label) | context: Pascal / Python
+def GenerateNumber (AnyName):
+
+=== 9608_w16_ms_22_p11_b25 | 9608_w16_ms_22.pdf p11 | python (label) | context: Q4 (b): Python
+import random
+# i : Integer
+# NextNumber : Integer
+for i in range(1, 5) :
+   NextNumber = 1 + int(150 * random.random())
+   print(NextNumber)
+
+=== 9608_w16_ms_22_p11_b26 | 9608_w16_ms_22.pdf p11 | python (keywords) | context: Alternative:
+import random
+# i Integer
+# NextNumber Integer
+for i in range(1, 5) :
+   NextNumber = random.randint(1, 150)
+   print(NextNumber)
+
+=== 9608_w16_ms_22_p11_b27 | 9608_w16_ms_22.pdf p11 | python (keywords) | context: OR
+import random
+# i Integer
+# Num1, Num2, Num3, Num4 Integer
+Num1 = random.randint(1, 150)
+Num2 = random.randint(1, 150)
+Num3 = random.randint(1, 150)
+Num4 = random.randint(1, 150)
+print(Num1, Num2, Num3, Num4)
+
+=== 9608_w16_ms_22_p14_b33 | 9608_w16_ms_22.pdf p14 | python (label) | context: Q5 (b) (ii): Python
+# PlayerName : List
+# NextPlayer : String
+# File : File handle
+File = open("Names.txt", "r")
+PlayerName = []
+while (1) :
+   NextPlayer = File.readline()
+   if not NextPlayer :
+      break
+   else :
+      PlayerName.append(NextPlayer)
+File.close()
+
+=== 9608_w16_ms_22_p14_b34 | 9608_w16_ms_22.pdf p14 | python (keywords) | context: Alternative:
+# PlayerName : List
+# NextPlayer : String
+# File : File handle
+# i : Integer
+File = open("Names.txt", "r")
+PlayerName = []
+for i in range(1, 9) :
+   NextPlayer = File.readline()
+   PlayerName.append(NextPlayer)
+File.close()
+
+=== 9608_w16_ms_22_p14_b35 | 9608_w16_ms_22.pdf p14 | python (keywords) | context: Alternative:
+# PlayerName : List
+# NextPlayer : String
+# File : File handle
+# i : Integer
+File = open("Names.txt", "r")
+PlayerName = ["" for i in range(8)]
+for i in range(1, 9) :
+   PlayerName[i – 1] = File.readline()
+File.close()
+
+=== 9608_w16_ms_22_p15_b38 | 9608_w16_ms_22.pdf p15 | python (label) | context: Q5 (b) (iii): Python
+Found = FALSE
+PlayerName = [j.strip() for j in PlayerName]
+if ThisPlayerName in PlayerName :
+   PlayerNumber = PlayerName.index(ThisPlayerName) + 1
+   Found = TRUE
+
+=== 9608_w16_ms_22_p15_b39 | 9608_w16_ms_22.pdf p15 | python (keywords) | context: Alternative:
+Found = False
+i = 1
+while not Found and i < 9 :
+   if ThisPlayerName == PlayerName[i].strip() :
+      Found = True
+      PlayerNumber = i
+   else :
+      i = i + 1
+
+=== 9608_w16_ms_22_p15_b40 | 9608_w16_ms_22.pdf p15 | python (keywords) | context: Alternative:
+Found = False
+for i in range(1, 9) :
+   if ThisPlayerName == PlayerName[i].strip() :
+      Found = True
+      PlayerNumber = i
+
+=== 9608_s17_ms_21_p10_b17 | 9608_s17_ms_21.pdf p10 | python (label) | context: Q5 : Python
+def SearchFile():
+   # FileData : STRING
+   # ArrayRow : INTEGER
+   # SearchID : STRING
+   ArrayRow = 0
+   MyFile = open("Loginfile.txt", 'r')
+   SearchID = input()
+   FileData = MyFile.readline()
+   While FileData != ""
+      If SearchID = = FileData[:5]                  #First 5 characters
+         LoginEvents[ArrayRow][1] = FileData[5:9]   #next 4 characters
+         LoginEvents[ArrayRow][2] = FileData[-14:]  #last 14 characters
+         ArrayRow = ArrayRow + 1
+      FileData = MyFile.readline()
+
+=== 9608_s17_ms_21_p10_b19 | 9608_s17_ms_21.pdf p10 | python (keywords) | context: Alternative:
+def SearchFile():
+   # FileData : STRING
+   # ArrayRow : INTEGER
+   # SearchID : STRING
+   ArrayRow = 0
+   Myfile = open("Loginfile.txt", 'r')
+   SearchID = input()
+   For FileData in MyFile
+      IF SearchID = = FileData[:5]                  #First 5 characters
+         LoginEvents[ArrayRow][1] = FileData[5:9]   #next 4 characters
+         LoginEvents[ArrayRow][2] = FileData[-14:]  #last 14 characters
+         ArrayRow = ArrayRow + 1
+   MyFile.close()
+   return()
+
+=== 9608_s17_ms_21_p13_b23 | 9608_s17_ms_21.pdf p13 | python (label) | context: Q6 (a): Python
+def ValidatePassword(InString):
+   # lCaseChar, uCaseChar, numChar : INTEGER
+   # nextChar : CHAR
+   # returnFlag : BOOLEAN
+   # n : INTEGER
+   returnFlag = TRUE
+   lCaseChar = 0
+   uCaseChar = 0
+   numChar = 0
+   for n in range (0, Len(InString))
+      nextChar = InString[n]
+      If nextChar > = 'a' and nextChar < = 'z':
+         lCaseChar = lCaseChar + 1
+      ELSE:
+         IF nextChar > = 'A' and nextChar < = 'Z':
+            uCaseChar = uCaseChar + 1
+         ELSE:
+            IF nextChar > = '0' and nextChar < = '9':
+               numChar = numChar + 1
+            ELSE:
+               returnFlag = False    //invalid character
+   IF Not (lCaseChar > = 2 and uCaseChar > = 2 and numChar > = 3):
+      returnFlag = FALSE
+   Return (returnFlag)
+#next code block
+
+=== 9608_w17_ms_21_p12_b17 | 9608_w17_ms_21.pdf p12 | python (label) | context: Q3(b): Python
+def FindRepeats():
+   #Repeats, i Integer
+   #FirstID, SecondID string
+   Repeats = 0
+   for i in range(0, len(UserNameArray)-1):
+      FirstID = (UserNameArray[i])[:6]
+      SecondID = (UserNameArray[i+1])[:6]
+      if FirstID == SecondID:
+         print(UserNameArray[i+1])
+         Repeats = Repeats + 1
+      if Repeats == 0:
+         print("The array contains no repeated UserIDs")
+      else:
+         print("There are ", Repeats, " repeated UserIDs")
+
+=== 9608_w17_ms_21_p12_b18 | 9608_w17_ms_21.pdf p12 | python (keywords) | context: Alternative:
+def FindRepeats ():
+   RepeatCount = 0                       ## Defined as an integer
+   for i in range (1,100):               ## depending on next two
+lines(0,99) (2,101)
+      FirstID = UserNameArray[i-1]       ## Defined as string
+      SecondID = UserNameArray[i]        ## Defined as string
+      if FirstID[0:6] == SecondID[0:6]:  ## Using split
+         print (UserNameArray[i])
+         RepeatCount += 1
+   if repeatCount == 0:
+      print ('The array contains no repeated UserIDs')
+   else:
+      print ('There are ', RepeatCount,' repeated UserIDs')
+
+=== 9608_w17_ms_22_p11_b18 | 9608_w17_ms_22.pdf p11 | python (label) | context: 2017 / Q4 (a): Python
+# frequency is an array from 1 to 10 of type integer;
+# nextNumber is an integer which stores the created random number
+# expected is an integer which stores the expected frequency of each number
+def TestRandom (repetitions):
+   import random
+   frequency = [0 for i in range(1,11)]  # initialise each frequency count
+to 0
+   expected = repetitions / 10
+   for i in range(1, repetitions + 1):
+      nextNumber = random.randint(1,10)
+      frequency[nextNumber] = frequency[nextNumber]+ 1
+   print ("The expected frequency is ",  expected)
+   print("   Number  Frequency  Difference")
+   for i in range(1,11):
+      print ("    ", i, "    ", frequency[i],"    ", frequency[i] -
+expected)
+
+=== 9608_w17_ms_22_p11_b19 | 9608_w17_ms_22.pdf p11 | python (keywords) | context: Alternative:
+def TestRandom (repetitions):
+   expected = repetitions / 10     ## initialised as real/integer
+                                   ## NextRandom and N defined as integers
+   frequency =[0,0,0,0,0,0,0,0,0,0,0]  ## defined as an array and
+initialised to zero
+   for n in range (0,repetitions):
+      nextNumber = randint(1, 10)
+      frequency[nextNumber] += 1
+   print ('The expected frequency is ', expected)
+   print ('Number  Frequency  Difference')
+   for n in range (1, 11):
+      print (n,'       ',frequency[n],'          ',frequency[n] - expected)
+
+=== 9608_w17_ms_22_p12_b22 | 9608_w17_ms_22.pdf p12 | python (keywords) | context: October/November / Alternative:
+for n in range (0,11): ##alternate way to initialise array to zero
+    frequency.append(0)
+
+=== 9608_s18_ms_21_p12_b9 | 9608_s18_ms_21.pdf p12 | python (label) | context: Python
+def AddNewScores():
+  #ScoreDate as string
+  #MembershipNumber as string
+  #Score as integer
+  #FileHandle as text file
+  FileHandle = open("ScoreDetails.txt", "a")
+  ScoreDate = str(input("Input the date for the scores"))
+  MembershipNumber = str(input("Input the Membership number"))
+  while MembershipNumber != "":
+     Score = int(input("Input the score"))
+     while Score < 50 or Score > 99:
+        Score = int(input("Input a valid score from 50 to 99"))
+        FileData = MembershipNumber + ScoreDate + str(Score)
+        FileHandle.write(FileData)
+        MembershipNumber = str(input("Input the Membership number"))
+  FileHandle.close
+
+=== 9608_s18_ms_21_p13_b12 | 9608_s18_ms_21.pdf p13 | python (label) | context: Python
+def ProcessMarks (mark):
+  #highest, i, position, total as integer
+  #average as real
+  highest = mark[0]
+  total = 0
+  position = 0
+  for i in range(0,20):
+     total = total + mark[i]
+     if mark[i] > highest:
+        highest = mark[i]
+        position = i
+  average = total/20
+  print('The average mark is ' + str(average) + \ ' and the highest mark is ' + str(highest))
+  return position
+
+=== 9608_s18_ms_22_p13_b35 | 9608_s18_ms_22.pdf p13 | python (label) | context: Q5 (c): Python
+def GetNumber() :
+    # Valid : boolean
+    # MemberNumber : integer
+    Valid = False
+    while not Valid :
+        Valid = True
+        MemberNumber = int(input("Please enter a valid member number: "))
+        if MemberNumber > 9999 or MemberNumber < 1111 :
+            Valid = False
+    return str(MemberNumber)
+
+=== 9608_s18_ms_22_p16_b38 | 9608_s18_ms_22.pdf p16 | python (label) | context: Q5 (d): Python
+def OutputLowestScore() :
+    # FileData : string
+    # FileMembershipNumber : string
+    # FileScore : integer
+    # LowestScore : integer
+    # LowestScoreDate : string
+    # MembershipNumber : string
+    # File : file handle
+    MembershipNumber = GetNumber()
+    File = open("ScoreDetails.txt", "r")
+    LowestScore = 100
+    FileData = File.readline()
+    while FileData != "":
+        FileMembershipNumber = FileData[:4]
+        if FileMembershipNumber == MembershipNumber :
+            FileScore = int(FileData[10:12])
+            if FileScore < LowestScore :
+                LowestScore = FileScore
+                LowestScoreDate = FileData[4:10
+        FileData = File.readline()
+    print("The lowest score was ", LowestScore, " on ", LowestScoreDate)
+    File.close()
+
+=== 9608_s18_ms_23_p12_b22 | 9608_s18_ms_23.pdf p12 | python (label) | context: Q5(c): Python
+# FileData AS STRING
+# FileMembershipNumber AS STRING
+# NumberOfScores AS INTEGER
+# TotalScore AS INTEGER
+# AverageScore AS INTEGER
+
+=== 9608_s18_ms_23_p12_b23 | 9608_s18_ms_23.pdf p12 | python (label) | context: Q5(c): Python
+def GetAverageScore(MembershipNumber):
+    FileHandle = open("ScoreDetails.txt", "r")
+    NumberOfScores = 0
+    TotalScore = 0
+    FileData  = FileHandle.readline()
+    while len(FileData) > 0:
+        FileMembershipNumber = FileData[0:4]
+        if FileMembershipNumber == MembershipNumber:
+            NumberOfScores = NumberOfScores + 1
+            TotalScore = TotalScore + int(FileData[-2])
+            FileData  = FileHandle.readline()
+    AverageScore = int(TotalScore / NumberOfScores)
+    Return (AverageScore)
+    FileHandle.close()
+
+=== 9608_s18_ms_23_p13_b27 | 9608_s18_ms_23.pdf p13 | python (label) | context: Q7: Python
+def IsFactor (Num1, Num2):
+    if Num2 != 0:
+        if Num1 % Num2 == 0:
+            Return True
+    Return False
+
+=== 9608_w18_ms_21_p11_b22 | 9608_w18_ms_21.pdf p11 | python (label) | context: October/November / Q4 (b): Python
+def ScanArray(SearchString):
+   # ArrayIndex : integer
+   # ArrayString : string
+   # NumberFound : integer
+   NumberFound = 0
+   for ArrayIndex in range(NumElements): # 0 to NumElements-1
+      ArrayString = ResultArray[ArrayIndex][0]
+      if ArrayString.upper == SearchString.upper:
+          SaveToFile(ArrayString) # Keyword "Call" not valid
+          NumberFound = NumberFound + 1
+   return NumberFound # ScanArray := NumberFound
+
+=== 9608_w18_ms_21_p12_b25 | 9608_w18_ms_21.pdf p12 | python (label) | context: Q4 (d): Python
+# ResultArray[1..100, 1..2] : String
+    ResultArray = [[0] * 2 for i in range(100)]
+    for i in range(100):
+       for j in range(2):
+           ResultArray[i][j] = '*'
+
+=== 9608_w18_ms_21_p12_b26 | 9608_w18_ms_21.pdf p12 | python (label) | context: Q4 (d): Python – alternative 1 of n
+# ResultArray[1..100, 1..2] : String
+    ResultArray = [['*'] * 2 for i in range(100)]
+
+=== 9608_w18_ms_21_p12_b27 | 9608_w18_ms_21.pdf p12 | python (label) | context: Q4 (d): Python – alternative 1 of n / Q4 (d): Python – alternative 2 of n
+# ResultArray[1..100, 1..2] : String
+    ResultArray = [['*'] * 2] * 100
+
+=== 9608_w18_ms_22_p12_b18 | 9608_w18_ms_22.pdf p12 | python (label) | context: Q4 (b): Python
+def scanfile(searchstring):
+   # filedata : string
+   # fileline : integer
+   # newdata : string
+   nextarrayelement = 1
+   fileline = 1
+   filedata = readfileline("datafile.txt", fileline)
+   while filedata != "" :
+      if filedata[:7] == searchstring:
+          newdata = filedata[7:]
+          resultarray[nextarrayelement] = newdata
+          nextarrayelement = nextarrayelement + 1
+      fileline = fileline + 1
+      filedata = readfileline("datafile.txt", fileline)
+   scancompleted() # keyword "call" not valid ???
+   return fileline
+
+=== 9608_w18_ms_22_p13_b21 | 9608_w18_ms_22.pdf p13 | python (label) | context: Q4 (d): Python – alternative 1 of n
+#ResultArray[] as STRING
+Resultarray = ["NO DATA" for index in range(100)]
+
+=== 9608_w18_ms_22_p13_b22 | 9608_w18_ms_22.pdf p13 | python (label) | context: Q4 (d): Python – alternative 1 of n / Q4 (d): Python – alternative 2 of n
+#ResultArray[] as STRING
+ResultArray = []
+For Index in range(100):
+   ResultArray.append("NO DATA")
+
+=== 9608_w18_ms_22_p13_b23 | 9608_w18_ms_22.pdf p13 | python (label) | context: Q4 (d): Python – alternative 3 of n
+# ResultArray[99] As String
+ResultArray = ["NO DATA"]*100
+
+=== 9608_w18_ms_23_p12_b20 | 9608_w18_ms_23.pdf p12 | python (label) | context: Q4(b): Python
+def Update(NewData):
+   # ArrayIndex AS INTEGER
+   # Found AS BOOLEAN
+   # Validate AS BOOLEAN
+      ArrayIndex = 1
+      Found = FALSE
+      LastElement = 20
+      while ArrayIndex <= LastElement AND Found == FALSE:
+          if ThisArray[ArrayIndex][1] > NewData:
+           Found = TRUE
+          else:
+           ArrayIndex = ArrayIndex + 1
+          if Found == TRUE:
+           Validate  = Insert(ArrayIndex, NewData)
+           if Validate == FALSE:
+                ArrayIndex = -1
+           else:
+                ArrayIndex = 0
+      return ArrayIndex
+
+=== 9608_w18_ms_23_p13_b23 | 9608_w18_ms_23.pdf p13 | python (label) | context: Q4(d)(i): Python
+#i as string
+for i in CharArray:
+   if CharArray.isdigit:
+      i = '*'
+
+=== 9608_w18_ms_23_p13_b24 | 9608_w18_ms_23.pdf p13 | python (label) | context: Q4(d)(i): Python / ** Alternative
+# i as integer
+for i in range(200):
+   if CharArray[i] >= '0' and CharArray[i] <= '9':
+      CharArray[i] = '*'
+
+=== 9608_s19_ms_21_p10_b16 | 9608_s19_ms_21.pdf p10 | python (label) | context: Q6 (b) (i): Python
+def FindCD(SearchCDArtist, SearchCDTitle):
+   # CDTitle, CDArtist, CDLocation, Location : string
+   Location = ""
+   myFile = open("MyCDs.txt", 'r')
+   while True:     # or Location == "":
+      CDArtist = myFile.readline()
+          if CDArtist == "":
+             break
+          else:
+             CDTitle = myFile.readline()
+             CDLocation = myFile.readline()
+             if SearchCDArtist == CDArtist.strip()and SearchCDTitle ==
+             CDTitle.strip():
+                Location = CDLocation
+   myFile.close
+   return (Location)
+
+=== 9608_s19_ms_22_p13_b19 | 9608_s19_ms_22.pdf p13 | python (label) | context: Q6 (a): Python
+def GetInfo() :
+   ID = ""
+
+=== 9608_s19_ms_22_p13_b20 | 9608_s19_ms_22.pdf p13 | python (label) | context: Q6 (a): Python
+                             # string variable
+   PreferredName = ""        # string variable
+   Valid = False             # Boolean variable
+   while not Valid :
+      ID = input("Please enter a valid ID : ")
+      if len(ID) == 5 and ID[0] >= "A" and ID[0] <= "Z" and
+ID[1:].isnumeric() : Valid = True
+   PreferredName = input("Please enter preferred name : ")
+   return ID + "*" + PreferredName
+
+=== 9608_s19_ms_22_p15_b23 | 9608_s19_ms_22.pdf p15 | python (label) | context: Q6 (b): Python
+def TopLevel() :
+   Response = "Y"
+
+=== 9608_s19_ms_22_p15_b25 | 9608_s19_ms_22.pdf p15 | python (label) | context: Q6 (b): Python
+InputData = ""
+
+=== 9608_s19_ms_22_p15_b27 | 9608_s19_ms_22.pdf p15 | python (label) | context: Q6 (b): Python
+Success = True
+
+=== 9608_s19_ms_22_p15_b28 | 9608_s19_ms_22.pdf p15 | python (label) | context: Q6 (b): Python
+                          # Boolean variable
+while Response == "Y" :
+   InputData = GetInfo()
+   if InputData[0] < "N" :
+      Success = WriteInfo(InputData, "File1.txt")
+   else :
+      Success = WriteInfo(InputData, "File2.txt")
+   if not Success :
+      Response = "Y"
+   else :
+      Response = input("Enter details for another student? (Y/N) ")
+
+=== 9608_s19_ms_23_p12_b14 | 9608_s19_ms_23.pdf p12 | python (label) | context: Q6 (a): Python
+def searchFile(searchString):
+   ##Declare filedata : string, found : boolean, searchLength : integer
+   ##returns a string value
+   found = False
+   searchLength = len(searchString)
+   myFile = open("StudentContact.txt", 'r')
+   fileData = myFile.readline()
+   while found == False:
+      fileData = myFile.readline()
+      if not fileData.strip(): #check if no data/end of file
+          break
+      else:
+          if searchString == fileData[0:searchLength]:
+             found = True
+             print(searchString)
+   myFile.close
+   if found == False:
+      return("")
+   else:
+      return(fileData)
+
+=== 9608_s19_ms_23_p13_b18 | 9608_s19_ms_23.pdf p13 | python (label) | context: CList is user-defined type – could be any name that’s not a keyword / Q6 (c): Python
+def ProcessArray (ClassList, ClassContact) :
+
+=== 9608_w19_ms_21_p15_b63 | 9608_w19_ms_21.pdf p15 | python (label) | context: October/November / Question 6(b): Python
+def SearchFileNtoZ(SearchString):
+   ## FileData : String
+   ## Found : Boolean
+   ## MyFile : Text
+     Found = False
+     MyFile = open("UserListNtoZ.txt", 'r')
+     FileData = MyFile.readline()
+     while Filedata !=  "" and not Found :
+        if SearchString + '*' == FileData[0: len(SearchString)+1]:
+           Found = True
+        FileData = MyFile.readline()
+     MyFile.close
+    return(Found)
+
+=== 9608_w19_ms_21_p15_b66 | 9608_w19_ms_21.pdf p15 | python (label) | context: Question 6(d)(ii): Pascal / Question 6(d)(ii): Python
+ClearArray(Duplicates, 100, "Empty")
+
+=== 9608_w19_ms_22_p12_b37 | 9608_w19_ms_22.pdf p12 | python (label) | context: Q6 (a): Python
+def SearchLeavers(Reference):
+   ## Index : Integer
+   ## Found : Boolean
+   Found = False
+   Index = 0
+   while Index < 500 and not Found:
+      if Reference == Leavers[Index]:
+         Found = True
+      Index = Index + 1
+   return Found
+
+=== 9608_w19_ms_23_p13_b15 | 9608_w19_ms_23.pdf p13 | python (label) | context: Q6 (a) (ii): Python
+def FindBooksBy(SearchAuthor):
+  ## Title : STRING
+  ## Author : STRING
+  ## Isbn : STRING
+  ## Location : STRING
+  ## Count : INTEGER
+    Count = 0
+    MyFile = open("Library.txt", 'r')
+    Title = MyFile.readline()
+    while Title != "":
+        ThisAuthor = MyFile.readline()
+        Isbn= MyFile.readline()
+        Location = MyFile.readline()
+        if SearchAuthor == ThisAuthor.strip():
+            Result[Count][0] = Title
+            Result[Count][1] = Location
+            Count = Count + 1
+        Title = MyFile.readline()
+    MyFile.close()
+    return(Count)
+
+=== 9608_s20_ms_21_p14_b12 | 9608_s20_ms_21.pdf p14 | python (label) | context: Q6(b)(i): Python
+def RecordHire(HBoatNumber, HDuration, HTime, HCost)
+  # FileLine : String
+  # File : File handle
+  Comma = ','
+  HireTime[HBoatNumber] = HTime
+  Duration[HBoatNumber] = HDuration
+  Cost[HBoatNumber] = HCost
+  DailyTakings = DailyTakings + HCost
+  File = Open("HireLog.txt", "a")
+  FileLine = Str(HBoatNumber) + Comma
+  FileLine = FileLine + HTime + Comma
+  FileLine = FileLine + Str(HDuration) + Comma
+  FileLine = FileLine + Str(HCost)
+  File.write(FileLine)
+  File.close
+
+=== 9608_s20_ms_22_p13_b12 | 9608_s20_ms_22.pdf p13 | python (label) | context: Q5(b)(i): Python
+def BubbleSort()
+  # Temp : String
+  # NoSwaps : Boolean
+  # Boundary, J : Integer
+  Boundary = 999
+  NoSwaps = TRUE
+  while NoSwaps == TRUE:
+     NoSwaps = TRUE
+     For J in range(Boundary + 1)
+        If Contact[J] > Contact[J+1]:
+           Temp = Contact[J]
+           Contact[J] = Contact[J+1]
+           Contact[J+1] = Temp
+           NoSwaps = FALSE
+     Boundary = Boundary - 1
+End Sub
+
+=== 9608_s20_ms_22_p15_b19 | 9608_s20_ms_22.pdf p15 | python (label) | context: Q6(c): Python
+def GetTotals()
+  # BoatNum : Integer
+  # Paid : Real
+  # File : File Handle
+  # FileData : String
+
+=== 9608_s20_ms_22_p15_b20 | 9608_s20_ms_22.pdf p15 | python (keywords) | context: 
+For BoatNum in range (1, 18)
+   Total[BoatNum] = 0
+Next
+File = open("Hirelog.txt", "r")
+FileData = File.readline()
+   while FileData != "":
+      FileLine = File.ReadLine()
+      BoatNum = int(FileLine[1, 3])
+      Paid = float(FileLine[8, len(Fileline) – 7))
+      Total[boatnumber] = Total[boatbnumber] + Paid
+      FileData = File.readline()
+File.Close()
+
+=== 9608_s20_ms_23_p15_b17 | 9608_s20_ms_23.pdf p15 | python (label) | context: Q4(a): Python
+def Extract(InString)
+  # Name : String
+  # NextChar : Char
+  # Index : Integer
+  COLON = ':'
+  Index = 1
+  Name = ""
+  NextChar = InString[1:2]
+   While NextChar <> COLON:
+      Name = Name + NextChar
+      Index = Index + 1
+      NextChar = Instring[index, Index + 1]
+  Return Name
+
+=== 9608_s20_ms_23_p16_b20 | 9608_s20_ms_23.pdf p16 | python (label) | context: Q5(c): Python
+def ServiceList(MaxHours)
+  # BoatNum, Due : Integer
+  # LastService : String
+  Due = 0
+  print("Boat Service List")
+  For BoatNum in range(1, 21):
+     LastService = GetLastService(str(BoatNum))
+     Hours = GetHours(BoatNum, LastService)
+     if Hours > MaxHours:
+        print(str(Boatnum) & ": " & str(Hours))
+        Due = Due + 1
+
+=== 9608_w20_ms_21_p18_b24 | 9608_w20_ms_21.pdf p18 | python (label) | context: Q3 (b): Python
+def OutputLines(FileName, StartLine, NumLines):
+  #Count as INTEGER
+  #File as FILEOBJECT
+  #FileData as STRING
+  Count = 1
+  File = open(FileName, "r")
+  for Count in range(1, StartLine + NumLines):
+     FileData = File.readline()
+     if Count >= StartLine:
+        print(FileData)
+  File.close()
+
+=== 9608_w20_ms_21_p21_b28 | 9608_w20_ms_21.pdf p21 | python (label) | context: Q5 (c): Python
+def GetTag(Message, StartPostion):
+#EndTag as BOOLEAN
+#Index as INTEGER
+#MyString as STRING
+#NextChar, TestChar as CHAR
+  HASH = '#'
+  SPACE = ' '
+  MyString = ""
+  EndTag = FALSE
+
+=== 9608_w20_ms_21_p21_b29 | 9608_w20_ms_21.pdf p21,22 | python (keywords) | context: 
+NumChars = len(Message)
+if message[Index] == "#":
+   MyString = HASH
+   Index = StartPos + 1
+   while Index <= NumChars And EndTag == FALSE:
+      NextChar = Message[Index]
+      TestChar = NextChar.upper()
+      if NextChar == SPACE OR NextChar == HASH
+         or not ((TestChar >= 'A' and TestChar <= 'Z') or TestChar >= '0' and TestChar <= '9')):
+         EndTag = True
+      else:
+         MyString = MyString + NextChar
+      Index = Index + 1
+if MyString = HASH:
+   MyString = ""  #When Hash is last char in message
+return HashTag
+
+=== 9608_w20_ms_22_p20_b52 | 9608_w20_ms_22.pdf p20 | python (label) | context: Q3 (a): Python
+def CheckSkid():
+  # Rot[3] As Integer
+  # Average As Real
+  # ThisRot As Integer
+  # Danger As Boolean
+  Rot = [0, 0, 0, 0]
+  for Index in range(0, 4):
+     while True:
+        ThisRot = float(input("Enter the rotation speed of the wheel: "))
+        if ThisRot >= 0 and ThisRot <= 1000:
+           break
+     Rot[Index] = ThisRot
+  Next
+  Average = (Rot[0] + Rot[1] + Rot[2] + Rot[3]) / 4
+  Danger = False
+  for Index in range(0, 4):
+     if Rot[Index] > (Average * 1.1) or Rot[Index] < (Average * 0.9):
+        Danger = True
+
+=== 9608_w20_ms_22_p20_b53 | 9608_w20_ms_22.pdf p20 | python (keywords) | context: 
+If Danger == True:
+   print("Skid Danger")
+else:
+   print("No Skid Danger")
+return Danger
+
+=== 9608_w20_ms_22_p24_b57 | 9608_w20_ms_22.pdf p24 | python (label) | context: Q5 (c): Python
+def LoadArrays ():
+  # ArrayIndex, Index, CountLen, Count As Integer
+  # FileString, HashTag As String
+  # File As StreamReader("Backup.txt")
+  COMMA = ','
+  File = open("Backup.txt", "r")
+  ArrayIndex = 0 #First element
+  for FileString in File:
+     Index = 0
+     HashTag = ""
+     while FileString[Index] != COMMA:             # the hashtag
+        HashTag = HashTag + FileString[Index]
+        Index = Index + 1
+     TagString[ArrayIndex] = HashTag
+     Count = int(FileString[Index+1:])            # the count
+     TagCount[ArrayIndex] = Count
+     ArrayIndex = ArrayIndex + 1
+
+=== 9608_w20_ms_23_p19_b24 | 9608_w20_ms_23.pdf p19 | python (label) | context: Q2 (c): Python
+Index = 0
+Status = FALSE
+while Status <> TRUE:
+   Status = TopUp()
+   Index = Index + 1
+if Index > 100:
+   SetLevel("Super")
+
+=== 9608_w20_ms_23_p21_b27 | 9608_w20_ms_23.pdf p21 | python (label) | context: Q3: Python
+def BubbleSort():
+  # Temp As Integer
+  # NoSwaps As Boolean
+  # Boundary, J As Integer
+   NoSwaps = False
+   Boundary = 4999
+  while not NoSwaps:
+     NoSwaps = True
+     for J in range(Boundary):
+        if ProdNum[J]> ProdNum[J+1]:
+           Temp = ProdNum[J]
+           ProdNum[J] = ProdNum[J+1]
+           ProdNum[J+1] = Temp
+           NoSwaps = FALSE
+     Boundary = Boundary – 1
+
+=== 9608_w20_ms_23_p24_b30 | 9608_w20_ms_23.pdf p24 | python (label) | context: Q5 (b): Python
+def CountHashtag (Message)
+  # TagNum, StartPos As INTEGER
+  # Found As BOOLEAN
+  TagNum = 0
+  Found = TRUE
+  while Found:
+     StartPos = GetStart(Message, TagNum + 1)
+     if StartPos == -1:
+        Found = FALSE
+     else:
+        TagNum = TagNum + 1
+
+=== 9608_w20_ms_23_p27_b34 | 9608_w20_ms_23.pdf p27 | python (label) | context: Q 5 (c): Python
+def IncrementHashtag (HashTag):
+  # Index As Integer
+  # Found As Boolean
+  Found = FALSE
+  Index = 0 #First element
+  while not Found and Index < 10000:
+     if TagString[Index] == HashTag:
+        TagCount[Index] = TagCount[Index] + 1
+        Found = TRUE
+     else:
+        Index = Index + 1
+  Return Found
+
+=== 9608_s21_ms_21_p13_b19 | 9608_s21_ms_21.pdf p13 | python (label) | context: Q4(a): Python
+def ScanArray(SearchString):
+  ## Index, Total As Integer
+  ## Error As Boolean
+  Index = 1
+  Total = 0
+  Error = FALSE
+  while Index  <= 1000 and Error <> TRUE:
+     if len(ThisArray[Index]) > 5:
+        ThisElement = ThisArray[Index]
+        if ThisElement[:4] == SearchString:
+           Total = Total + len(ThisArray[Index]) - 5
+        Index = Index + 1
+     else:
+        Error = TRUE
+
+=== 9608_s21_ms_21_p13_b20 | 9608_s21_ms_21.pdf p13 | python (keywords) | context: 
+if Index > 1:
+   ArrayResult = int(Total / (Index - 1))
+
+=== 9608_s21_ms_21_p14_b23 | 9608_s21_ms_21.pdf p14 | python (label) | context: Q6(a): Python
+def Check(Index):
+  if len(StockID[Index]) <> 8 or \
+     Description[Index]) == "" or \
+     Quantity[Index] < 0:
+        return FALSE
+   else:
+        return TRUE
+
+=== 9608_s21_ms_21_p16_b26 | 9608_s21_ms_21.pdf p16,17 | python (label) | context: Q6(c): Python
+def Unpack(Index, FileLine):
+  ## Pointer As Integer
+  ## NextChar As Char
+  ## TempString As String
+  ASTERISK = '*'
+  StockID[Index] = FileLine[:8] #characters 0 to 7
+  Pointer = 9       #point to start of Description (skip the '*')
+  NextChar =  FileLine[Pointer]
+  TempString = ""
+  while NextChar <> ASTERISK:
+     TempString = TempString + NextChar
+     Pointer = Pointer + 1
+     NextChar =  FileLine[Pointer]
+  Description[Index] = TempString
+  Pointer = Pointer + 1
+  NextChar =  FileLine[Pointer]
+  TempString = ""
+  while NextChar <> ASTERISK:
+     TempString = TempString + NextChar
+     Pointer = Pointer + 1
+     NextChar =  FileLine[Pointer]
+  Quantity[Index] = int(TempString)
+  TempString = FileLine[Len(FileLine) – Pointer - 1:)
+Cost[Index] = float(TempString)
+
+=== 9608_s21_ms_21_p17_b27 | 9608_s21_ms_21.pdf p17 | python (keywords) | context: Alternative
+def Unpack(Index, FileLine):
+   ## TempString As String
+   StockID[Index] = FileLine[:8]
+   TempString = FileLine[8:]   // remove first 8 characters
+   Description[Index], Quantity[Index], Cost[Index] =
+(TempString.split(‘*’))
+
+=== 9608_s21_ms_22_p15_b14 | 9608_s21_ms_22.pdf p15 | python (label) | context: Question 4(b): Python
+def Search(Par1, Par2):
+  ## Index, RetVal As INTEGER
+  Index = 1
+  RetVal = -1
+  while Index <= 100 and RetVal = -1:
+     if XRef[Index][1] == Par1 \
+         and XRef[Index][2] == Par2 or XRef[Index][3] == Par2:
+         RetVal = Index
+     Index = Index + 1
+  return RetVal
+
+=== 9608_s21_ms_22_p16_b17 | 9608_s21_ms_22.pdf p16 | python (label) | context: Question 5(b)(ii): Python
+def Verify(UserID):
+  ## Count As INTEGER
+  ## Response As BOOLEAN
+  ## Password As STRING
+  Count = 1
+  if UserID == "Guest": return TRUE
+  while Response == FALSE and Count < 4:
+     Password = input("Please input your password: ")
+     Response = Validate(UserID, Password) and TODAY()
+     if Response == FALSE: Count = Count + 1
+           if Count < 4:
+              print("Incorrect password – please try again")
+  return Response
+
+=== 9608_s21_ms_22_p18_b21 | 9608_s21_ms_22.pdf p18 | python (label) | context: Question 6(a): Python
+def StockSummary():
+  ## Index, Count : Integer
+  ## Total : Real
+  Count = 0
+  Total = 0.0
+   for Index in range(1, 10001):
+      if StockID[Index] <> "":
+         Count = Count + 1
+         Total = Total + (Quantity[Index]) * Cost[Index])
+    print("Total Value is ", Total)
+    print("Number of Stock Entries is ", Count)
+
+=== 9608_s21_ms_22_p19_b24 | 9608_s21_ms_22.pdf p19,20 | python (label) | context: Question 6(c): Python
+def GetValidFilename():
+  ## Filename As String
+  ## Valid As Boolean
+  ## Index As Integer
+  ## NextChar As Char
+  Valid = FALSE
+  while not Valid:
+     Valid = TRUE
+     Filename = input("Please input the name for the backup file ")
+     if Len(Filename) < 4 or Len(Filename) > 10:
+        Valid = FALSE
+     else:
+        Index = 0
+        while Index <= Len(Filename) and Valid = TRUE:
+           NextChar = FileName[Index]
+           if not ((NextChar >= '0' and NextChar <= '9'
+              or (NextChar >= 'a' and NextChar <= 'z')
+              or (NextChar >= 'A' and NextChar <= 'Z'):
+         Valid = FALSE
+      Index = Index + 1
+if Valid == FALSE:
+   print("Invalid filename – please try again")
+
+=== 9608_s21_ms_23_p15_b19 | 9608_s21_ms_23.pdf p15 | python (label) | context: Question 6(b): Python
+def GroupReport(Group):
+  ## Total As Real
+  ## Count, Index As Integer
+  ## ThisID As String
+  Total = 0
+  Count = 0
+  for Index in range(1, 10001):
+     ThisID = StockID[Index]
+     if ThisID[:4] == Group:
+        Count = Count + 1
+        Total = Total + (Quantity[Index] * Cost[Index])
+  if Count == 0:
+     print("There are no items in Group: ", Group)
+  else:
+     print("Group: ", Group)
+     print("Number of items in Group: ",  Count)
+     print("Total value of items in Group: ", Total)
+
+=== 9608_s21_ms_23_p16_b22 | 9608_s21_ms_23.pdf p16 | python (label) | context: Question 6(c): Python
+def GroupSummary():
+  ## Index, GroupIndex, Total As Integer
+  ## ThisGroup, ThisID As String
+  Total = 0
+  for Index in range(1, 10001):
+     ThisID = StockID[Index]
+     if ThisID != "":
+        ThisGroup = ThisId[:4]
+        GroupIndex = Lookup(ThisGroup)
+        if GroupIndex == -1:                     #ThisGroup not found
+           Summary[Total + 1] = ThisGroup        #Add new Group
+           Total = Total + 1
+  return Total
+
+=== 9608_w21_ms_21_p14_b29 | 9608_w21_ms_21.pdf p14 | python (label) | context: Q4 (b): Python
+def CheckTree(TreeRef):
+    #DECLARE Index : INTEGER
+    #DECLARE PreviousAngle, Angle : INTEGER
+    #DECLARE PreviousStatus, NewStatus: STRING
+    #DECLARE Found : BOOLEAN
+    TREECOUNT = 20
+    SAFELIMIT = 36
+    Found = False
+    for Index in range(1, TREECOUNT):
+        if TreeAngle[Index][0] == TreeRef:
+            Found = True
+            PreviousAngle = TreeAngle[Index][1]
+            Angle = int(input("Tree angle:"))
+            TreeAngle[Index][1] = Angle
+            if PreviousAngle <= SAFELIMIT:
+                PreviousStatus = "SAFE"
+            else:
+                PreviousStatus = "UNSAFE"
+            if Angle <= SAFELIMIT:
+                NewStatus = "SAFE"
+            else:
+                NewStatus = "UNSAFE"
+            #check if safety status has changed
+            if PreviousStatus != NewStatus:
+                print("Safety status has changed")
+    #output "No match" if not found
+    if Found == False:
+        print(str(TreeRef) + " No match")
+
+=== 9608_w21_ms_21_p16_b32 | 9608_w21_ms_21.pdf p16 | python (label) | context: Q6 (c): Python
+def RetrieveCode(EmailMsg, StartPos):
+    #DECLARE Index : INTEGER
+    #DECLARE GeoCode : STRING
+    #DECLARE NextChar : CHAR
+    #DECLARE EndOfGeoCode : BOOLEAN
+    Index = StartPos
+    GeoCode = ""
+    EndOfGeoCode = False
+    while Index <= len(EmailMsg) and EndOfGeoCode == False:
+        NextChar = EmailMsg[Index:Index+1]
+        if NextChar == " " or NextChar == ".":
+            EndOfGeoCode = True
+        else:
+            GeoCode = GeoCode + NextChar
+        Index += 1
+    return GeoCode
+
+=== 9608_w21_ms_22_p16_b27 | 9608_w21_ms_22.pdf p16 | python (label) | context: October/November / Q4 (b): Python
+from random import seed
+from random import randint
+def RandomPath():
+    # alternative solution
+    #DECLARE Index : INTEGER
+    #DECLARE Current : INTEGER
+    #DECLARE Next : INTEGER
+    #DECLARE AllFlowersVisited : BOOLEAN
+    Current = 10 #start at flower 10 in the field
+    AllFlowersVisited = False
+    while AllFlowersVisited == False:
+        #loop until all flowers visited
+        Next = randint(20)
+        if Flower[Next] == 0:
+            if Flower[Current] == 0: #do not revisit a flower
+                Flower[Current] = Next
+            Current = Next
+        AllFlowersVisited = True #assume all visited unless...
+        for Index in range(1, 20):
+            if Flower[Index] == 0:
+                AllFlowersVisited = False #... proved otherwise
+
+=== 9608_w21_ms_22_p19_b31 | 9608_w21_ms_22.pdf p19 | python (label) | context: 2021 / Q6 (b): Python
+def ExtractArrays():
+    #DECLARE DataIndex : INTEGER
+    #DECLARE ShortCode, CountAndDate, LocationLine, CountHashDate : STRING
+    HASH = "#"
+    FILENAME = "Locations"
+    DataIndex = 1
+    ShortCode = ""
+    filehandle = open(FILENAME, 'w')
+    while dataIndex <= 20000 and ShortCode <> "AAAA+0A":
+        ShortCode = GeoCodedata[DataIndex][:7]
+       CountHashDate = ""
+        if ShortCode <> "AAAA+0A":
+            CountAndDate = SearchLog(ShortCode)
+           for Index in range(0, Len(CountAndDate):
+             if (CountAndDate[Index] == " "):
+                 CountHashDate += "#"
+             else:
+                CountHashDate += CountAndDate[Index]
+            LocationLine = GeoCodeData[DataIndex] + HASH + CountHashDate
+            filehandle.write(LocationLine)
+        DataIndex += 1
+    filehandle.close()
+
+=== 9608_w21_ms_23_p16_b39 | 9608_w21_ms_23.pdf p16 | python (label) | context: Q4(c): Python
+def Encrypt():
+    #DECLARE UnFileData : STRING
+    #DECLARE EnFileData : STRING
+    #DECLARE Key, Counter : INTEGER
+    #DECLARE EnChar : CHAR
+    UnFilehandle = open("DATA.txt", "r")
+    EnFilehandle = open("DATA-EN.txt", "a")
+    UnFileData = UnFileHandle.readline()
+    while UnFileData != "":
+        Key = UnFiledata[9:11]
+        EnFileData = ""
+        for Counter in range(1, len(UnFileData)):
+            EnChar = chr(Key + ord(UnFileData[Counter:1]))
+            EnFileData = EnFileData + EnChar
+        EnFilehandle.writeline(EnFileData)
+        UnFileData = UnFileHandle.readline()
+    UnFileHandle.close()
+    EnFileHandle.close()
+
+=== 9608_w21_ms_23_p17_b42 | 9608_w21_ms_23.pdf p17 | python (label) | context: Q5(b): Python
+def AddReview(UserID):
+    #DECLARE Index : INTEGER
+    #DECLARE ReviewEntry : STRING
+    #DECLARE Result : BOOLEAN
+    Index = 1
+    Result = False
+    #get the result of CheckReview()
+    ReviewEntry = CheckReview(UserID)
+    if ReviewEntry != "NO REVIEW" and ReviewEntry != "LOCATION NOT FOUND":
+        #get the next free index of Accepted array
+        while Index <= 20000 and Result == False:
+            if Accepted[Index] == "":
+                Accepted[Index] = ReviewEntry
+                Result = True
+            Index += 1
+    return Result
+

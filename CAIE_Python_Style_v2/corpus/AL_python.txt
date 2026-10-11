@@ -1,0 +1,4551 @@
+# CAIE mark-scheme code corpus: AL / python
+# Source: Cambridge International mark schemes (MS) 2016-2025, re-extracted from the PDFs
+#         listed in tools/ms_manifest.csv (SHA-256 verified). Cambridge retains copyright;
+#         this file is for private study.
+# Levels: IG = IGCSE 0478 Papers 1-2; AS = 9608/9618 Papers 1-2; AL = 9608/9618 Papers 3-4.
+# Each block header: block id | source PDF and physical page(s) | language (basis) | MS prose
+#         just above the block (truncated). Identical blocks repeated in other variants are
+#         listed once; corpus/blocks.jsonl records every block and its duplicate_of link.
+# Extraction is automatic (monospace-font detection, indentation rebuilt from x positions).
+# Typos in the code are Cambridge's own and are kept; wrapped lines may be re-joined.
+# The PDF page is authoritative.
+
+=== 9608_s16_ms_41_p12_b44 | 9608_s16_ms_41.pdf p12 | python (keywords) | context: PYTHON
+Board = [["" for j in range(9)] for i in range(9)]
+for Row in range(1, 3) :
+   for Column in range(1, 9) :
+      Board[Row][Column] = "B"
+for Row in range(3, 7) :
+   for Column in range(1, 9) :
+      Board[Row][Column] = "E"
+for Row in range(7, 9) :
+   for Column in range(1, 9) :
+      Board[Row][Column] = "W"
+
+=== 9608_s16_ms_41_p12_b45 | 9608_s16_ms_41.pdf p12 | python (keywords) | context: Alternative declarations of Board array :
+Board = [[""] * 9 for i in range(9)]
+Board = [[]]
+for i in range(9) :
+   for j in range(9) :
+      Board.append("")
+
+=== 9608_s16_ms_41_p12_b46 | 9608_s16_ms_41.pdf p12 | python (keywords) | context: loops later. / For example:
+Board = [["E"] * 9 for i in range(9)] // Board =[["E"]*9]*9
+for Row in range(1, 3) :
+   for Column in range(1, 9) :
+      Board[Row][Column] = "B"
+for Row in range(7, 9) :
+   for Column in range(1, 9) :
+      Board[Row][Column] = "W"
+Board =[]
+for i in range(9):
+   Board.append(["E"]*9)
+
+=== 9608_s16_ms_41_p15_b49 | 9608_s16_ms_41.pdf p15 | python (keywords) | context: 9608 / PYTHON
+def ValidMoves(PieceColour, xCurrent, yCurrent) :
+   if PieceColour == "B" :
+      StopperColour = "W"
+   else :
+      StopperColour = "B"
+   print("Possible moves are : ")
+   if xCurrent != 1 :
+      print("Moving LEFT . . .")
+      i = xCurrent – 1
+      NoFurther = False
+      while i > 0 and NoFurther == False :
+          if Board[i][yCurrent] == "E" :
+             print(str(i) + " " + str(yCurrent))
+          if Board[i][yCurrent] == StopperColour :
+             print(str(i) + " " + str(yCurrent) + " REMOVE PIECE")
+             NoFurther = True
+          i = i – 1
+   if xCurrent != 8 :
+      print("Moving RIGHT . . .")
+      i = xCurrent + 1
+      NoFurther = False
+      while i < 9 and NoFurther == False :
+          if Board[i][yCurrent] == "E" :
+             print(str(i) + " " + str(yCurrent))
+          if Board[i][yCurrent] == StopperColour :
+             print(str(i) + " " + str(yCurrent) + " REMOVE PIECE")
+             NoFurther = True
+          i = i + 1
+
+=== 9608_w16_ms_41_p2_b1 | 9608_w16_ms_41.pdf p2 | python (keywords) | context: e.g. / PYTHON:
+def __init__(self):
+   self.__code = ""
+   self.__state = "Open-NoCode"
+
+=== 9608_w16_ms_41_p3_b4 | 9608_w16_ms_41.pdf p3 | python (keywords) | context: e.g. / PYTHON:
+def reset(self):
+   self.__code = ""
+
+=== 9608_w16_ms_41_p3_b7 | 9608_w16_ms_41.pdf p3 | python (keywords) | context: e.g. / PYTHON:
+def SetState(self,NewState):
+   self.__state = NewState
+   print(self.__state)
+
+=== 9608_w16_ms_41_p4_b15 | 9608_w16_ms_41.pdf p4 | python (keywords) | context: e.g. / PYTHON:
+def SetNewCode(self, NewCode):
+   self.__code = NewCode
+   print("New code set: ", self.__code)
+
+=== 9608_w16_ms_41_p5_b18 | 9608_w16_ms_41.pdf p5 | python (keywords) | context: e.g / PYTHON:
+def __valid(self, s):
+   digits = ['0','1','2','3','4','5','6','7','8','9']
+   isValid = False
+   if (len(s) == 4):
+      if (s[0] in digits) & (s[1] in digits) & (s[2] in digits) &
+      (s[3] in digits):
+          isValid = True
+   return(isValid)
+
+=== 9608_w16_ms_41_p6_b21 | 9608_w16_ms_41.pdf p6 | python (keywords) | context: e.g. / PYTHON:
+def StateChange(self):
+   Chars = input("Enter code: ")
+   if Chars == "R":
+      if self.__state == "Open-CodeSet":
+          self.reset()
+          self.SetState("Open-NoCode")
+   elif Chars == self.__code:
+      if self.__state == "Locked":
+          self.SetState("Open-CodeSet")
+      elif self.__state == "Closed":
+          self.SetState("Locked")
+   elif (Chars == "") & (self.__state == "Open-CodeSet"):
+      self.SetState("Closed")
+   elif self.__valid(Chars):
+      if self.__state == "Open-NoCode":
+          self.SetNewCode(Chars)
+          self.SetState("Open-CodeSet")
+      else:
+          print("Error - does not match set code")
+   else:
+      print("Error - Code format incorrect")
+
+=== 9608_w16_ms_41_p8_b24 | 9608_w16_ms_41.pdf p8 | python (keywords) | context: e.g. / PYTHON:
+def main():
+   ThisSafe = SafetyDepositBox()
+   while True:
+      ThisSafe.StateChange()
+
+=== 9608_w16_ms_42_p3_b2 | 9608_w16_ms_42.pdf p3 | python (keywords) | context: • initialising state to “Idle” / PYTHON:
+def __init__(self):
+   self.__amount = 0
+   self.__state = "Idle"
+
+=== 9608_w16_ms_42_p3_b12 | 9608_w16_ms_42.pdf p3 | python (keywords) | context: e.g. / PYTHON:
+def SetState(self, NewState):
+   self.__State = NewState
+   print(self.__State)
+
+=== 9608_w16_ms_42_p4_b16 | 9608_w16_ms_42.pdf p4 | python (keywords) | context: • set amount to zero / PYTHON:
+def ReturnCoins(self):
+   print(self.__Amount)
+   self.__Amount = 0
+
+=== 9608_w16_ms_42_p5_b19 | 9608_w16_ms_42.pdf p5 | python (keywords) | context: e.g. / PYTHON:
+def __validCoin(self, s):
+   coins = ['10','20','50','100']
+   if s in coins:
+      isValid = True
+   else:
+      isValid = False
+   return(isValid)
+
+=== 9608_w16_ms_42_p6_b22 | 9608_w16_ms_42.pdf p6 | python (keywords) | context: e.g. / PYTHON:
+def coinInserted(self, s):
+   coinValue = int(s)
+   self.__amount = self.__amount + coinValue
+
+=== 9608_w16_ms_42_p7_b25 | 9608_w16_ms_42.pdf p7 | python (keywords) | context: e.g. / PYTHON:
+def stateChange(self):
+   newInput = input("Insert coin: ")
+   if newInput == "C":
+      if self.__state == "Counting":
+          self.setState("Cancelled")
+          self.returnCoins()
+      self.setState("Idle")
+   elif newInput == "A":
+      if self.__amount == 0:
+          print("no coins inserted")
+      else:
+          self.setState("Accepted")
+          self.__PrintTicket()
+      self.setState("Idle")
+   elif self.__validCoin(newInput):
+      self.coinInserted(newInput)
+      self.setState("Counting")
+   else:
+      print("Error - not a valid coin")
+
+=== 9608_w16_ms_42_p9_b28 | 9608_w16_ms_42.pdf p9 | python (keywords) | context: e.g. / PYTHON:
+def main():
+   ParkingMeter = TicketMachine()
+   while True:
+      ParkingMeter.stateChange()
+
+=== 9608_s17_ms_41_p6_b6 | 9608_s17_ms_41.pdf p6 | python (label) | context: •  Assignment of parameters to Pointer and Data / Python Example
+class Node:
+   def __init__(self, D, P):
+      self.__Data = D
+      self.__Pointer = P
+      return
+
+=== 9608_s17_ms_41_p7_b9 | 9608_s17_ms_41.pdf p7 | python (label) | context: •  Set last node pointer to null pointer / Python Example
+class LinkedList:
+   def __init__(self):
+      self.__HeadPointer = - 1
+      self.__FreeListPointer = 0
+      self.__NodeArray = []
+      for i in range(8):
+         ThisNode = Node("", (i + 1))
+         self.__NodeArray.append(ThisNode)
+     self.__NodeArray[7].SetPointer(- 1)
+
+=== 9608_s17_ms_41_p8_b12 | 9608_s17_ms_41.pdf p8 | python (label) | context: 4(c)(iv) •  Creating instance of LinkedList assigned to contacts / Python Example
+contacts = LinkedList()
+
+=== 9608_s17_ms_41_p9_b14 | 9608_s17_ms_41.pdf p9 | python (label) | context: •  Use of getter (ie GetData/GetPointer) / Python Example
+def OutputListToConsole(self) :
+   Pointer = self.__HeadPointer
+   while Pointer != -1 :
+      print(self.__NodeArray[Pointer].GetData())
+      Pointer = self.__NodeArray[Pointer].GetPointer()
+   print()
+   return
+
+=== 9608_s17_ms_41_p10_b17 | 9608_s17_ms_41.pdf p10 | python (label) | context: •  Link new node between Previous node and next node / Python Example
+def AddToList(self, NewData):
+  NewNodePointer = self.__FreeListPointer
+  self.__NodeArray[NewNodePointer].SetData(NewData)
+  self.__FreeListPointer =
+self.__NodeArray[self.__FreeListPointer].GetPointer()
+  if self.__HeadPointer == -1:
+     self.__HeadPointer = NewNodePointer
+     self.__NodeArray[NewNodePointer ].SetPointer(-1)
+  else:
+     PreviousPointer, NextPointer = self.FindInsertionPoint(NewData)
+     if PreviousPointer == -1 :
+        self.__NodeArray[NewNodePointer ].SetPointer
+(self.__HeadPointer)
+        self.__HeadPointer = NewNodePointer
+     else:
+        self.__NodeArray[NewNodePointer ].SetPointer(NextPointer)
+        self.__NodeArray[PreviousPointer].SetPointer(NewNodePointer)
+
+=== 9608_s17_ms_42_p7_b10 | 9608_s17_ms_42.pdf p7 | python (label) | context: •  Call procedures StartDig and DisplayGrid / Example Python
+Island = IslandClass()
+DisplayGrid()
+for Treasure in range(3):
+   Island.HideTreasure()
+StartDig()
+DisplayGrid()
+
+=== 9608_s17_ms_42_p9_b13 | 9608_s17_ms_42.pdf p9 | python (label) | context: •  Assigning Sand // ’.’ to each array element / Example Python
+class IslandClass:
+   def __init__(self):
+      Sand = '.'
+      self.__Grid = [[Sand for j in range(30)]
+                               for i in range(10)]
+
+=== 9608_s17_ms_42_p10_b16 | 9608_s17_ms_42.pdf p10 | python (label) | context: •  Method returns Grid value / Example Python
+def GetSquare(self, Row, Column) :
+   return self.__Grid[Row][Column]
+
+=== 9608_s17_ms_42_p11_b19 | 9608_s17_ms_42.pdf p11 | python (label) | context: •  Output a new line at the end of a row / Example Python
+def DisplayGrid() :
+   for i in range (10) :
+      for j in range (30) :
+         print(island.GetSquare(i, j), end='')
+      print()
+
+=== 9608_s17_ms_42_p12_b22 | 9608_s17_ms_42.pdf p12 | python (label) | context: •  Assign Treasure to location / Example Python
+def HideTreasure(self):
+   Treasure = 'T'
+   x = randint(0,9)
+   y = randint(0,29)
+   while self.__Grid[y][x] == Treasure:
+      x = randint(0,9)
+      y = randint(0,29)
+   self.__Grid[y][x] = Treasure
+
+=== 9608_s17_ms_42_p14_b25 | 9608_s17_ms_42.pdf p14 | python (label) | context: •  Set to FoundTreasure (X) and Set to Hole (O) / Example Python
+def DigHole(self, x, y) :
+   Treasure = 'T'
+   Hole = 'O'
+   Foundtreasure = 'X'
+   if self.__Grid[x][y] == Treasure:
+      self.__Grid[x][y] = Foundtreasure
+   else :
+      self.__Grid[x][y] = Hole
+   return
+
+=== 9608_s17_ms_42_p16_b28 | 9608_s17_ms_42.pdf p16 | python (label) | context: •  Call Island.DigHole method with the coordinates / Example Python
+def StartDig() :
+   Valid = False
+   while not Valid :      # validate down position
+      try:
+         x = int(input("position down <0 to 9> ? "))
+         if x >= 0 and x <= 9 :
+            Valid = True
+      except:
+         Valid = False
+   Valid = False
+   while not Valid :      # validate across position
+      try :
+         y = int(input("position across <0 to 29> ? "))
+         if y >= 0 and y <= 29 :
+            Valid = True
+      except :
+         Valid = False
+   island.DigHole(x, y)
+   return
+
+=== 9608_w17_ms_41_p11_b28 | 9608_w17_ms_41.pdf p11 | python (label) | context: • Call generate food and initialise StepCounter to 0 / Example Python
+def __init__ (self) :
+   self.grid = [[' ' for i in range(40)] for j in range(40)]
+   self.AnimalList = []
+   self.StepCounter = 0
+   for i in range(5) :
+      newAnimal = Animal ()
+   self.AnimalList.append(newAnimal)
+   self.GenerateFood()
+
+=== 9608_w17_ms_41_p13_b32 | 9608_w17_ms_41.pdf p13 | python (label) | context: Example Python
+def GenerateDirection(Coord) :
+   lowerBound = -1
+   upperBound = 1
+   if Coord == 0 :
+      lowerBound = 0
+   elif Coord == 39 :
+      upperBound = 0
+    return random.randint(lowerBound, upperBound)
+
+=== 9608_w17_ms_41_p14_b34 | 9608_w17_ms_41.pdf p14 | python (keywords) | context: • ..if true, Call EatFood / Example python
+def Move(self) :
+   self.Across +=  GenerateChangeInCoordinate(self.Across)
+   self.Down +=  GenerateChangeInCoordinate(self.Down)
+   if grid[self.Across][self.Down] == 'F' :
+      self.EatFood()
+      return
+
+=== 9608_w17_ms_42_p12_b55 | 9608_w17_ms_42.pdf p12 | python (label) | context: Example Python
+class Account:
+    def__init__(self, accountNumber, balance): self.__accountNumber = accountNumber
+          self.__balance = balance
+    def getAccountNumber(self): return self.__accountNumber:
+    def setAccountNumber(self, AccountNumber):
+        self.___AccountNumber = AcountNumber
+    def getBalance(self):
+         return self._balance:
+    def setBalance(self, Balance):
+         self.___Balance = Balance
+
+=== 9608_w17_ms_42_p15_b60 | 9608_w17_ms_42.pdf p15 | python (label) | context: etc. / Example Python
+class SavingsAccount(Account):
+    def_init_(self, AccountNumber, Balance, PayInt, AmountP):
+        super().__init__(AccountNumber, Balance)
+        self.__PaymentInterval = PayInt
+        self.__Amount = AmountP
+
+=== 9608_s18_ms_41_p11_b6 | 9608_s18_ms_41.pdf p11 | python (label) | context: • return of all 5 values in one string / Python example code:
+class GameElement:
+  def __init__(self, PositionX, PositionY, Width, Height, ImageFilename):
+    self.__PositionX = PositionX
+    self. __PositionY = PositionY
+    self. __Width = Width
+    self. __Height = Height
+    self. __ImageFilename = String
+  def GetDetails(self):
+    Message = "Position_x:", self. __PositionX, "Position_y:", self. __PositionY,
+"width:", self. __Width, "height:", self. __Height, "ImageFilename", self.
+__ImageFilename)
+    return Message
+
+=== 9608_s18_ms_41_p14_b9 | 9608_s18_ms_41.pdf p14 | python (label) | context: • «else returning appropriate value e.g. -1/null/blank / Python example code:
+class Scenery(GameElement):
+  def __init__(self, PositionX, PositionY, Width, Height, ImageFilename, CauseDamage, DamagePoints):
+    Object.__init__(self, PositionX, PositionY, Width, Height, ImageFilename)
+    self.__CauseDamage = CauseDamage
+    self.__DamagePoints = DamagePoints
+  def GiveDamagePoints(self):
+    if(self.__CauseDamage):
+      return self.__DamagePoints
+    else:
+      return 0
+
+=== 9608_s18_ms_41_p17_b12 | 9608_s18_ms_41.pdf p17 | python (label) | context: • With all 7 parameters assigned correctly / Python example code:
+GiftBox = Scenery(150, 150, 50, 75, "box.png", True, 50)
+
+=== 9608_s18_ms_41_p18_b15 | 9608_s18_ms_41.pdf p18 | python (keywords) | context: • Use inherited GetDetails method to get string / • Return all values
+def GetScenery(self):
+  Message = Object.GetDetails(self)
+  Message = Message + " Causes Damage:", self.CauseDamage, "Damage
+            Points:", self.DamagePoints
+  return Message
+
+=== 9608_s18_ms_42_p10_b30 | 9608_s18_ms_42.pdf p10 | python (label) | context: • « outputs message with FirstName, LastName and DateOfBirth / Python example code:
+class Member:
+  def __init__(self, Fname, Lname, DOB, GenderVal):
+  self.__FirstName = Fname
+  self.__LastName = Lname
+  self.__DateOfBirth = DOB
+  self.__Gender = GenderVal
+  def Introduction(self):
+    return "Hello, I am ", self.__FirstName, " ", self.LastName
+  def DisplayFullnameAndDateofbirth(self):
+    print self.__FirstName, self.__LastName, self.__DateOfBirth
+
+=== 9608_s18_ms_42_p13_b33 | 9608_s18_ms_42.pdf p13 | python (label) | context: • «returning/outputting message with FirstName, LastName and Sport variables / Python example code:
+class Competitor(Member):
+  def __init__(self, Fname, Lname, DOB, GenderVal, MySport):
+    Member.__init__(self, Fname, Lname, DOB, GenderVal)
+    self.__Sport = MySport
+  def Introduction(self):
+    print "Hello, I am %s %s and my sport is %s" % (self.FirstName, self.LastName, self.__Sport)
+
+=== 9608_s18_ms_42_p16_b36 | 9608_s18_ms_42.pdf p16 | python (label) | context: • with all 6 parameters assigned correctly / Python example code:
+BMXJudge = Official("Omar", "Ellaboudy", "17/03/1993", "Male", true, "Judge")
+
+=== 9608_s18_ms_42_p20_b42 | 9608_s18_ms_42.pdf p20 | python (label) | context: • « with right pointer value as parameter / Python example code:
+def FindLeaves(CurrentNode):
+  global BinaryTree
+  if(BinaryTree[CurrentNode].LeftPointer != -1):
+    FindLeaves(BinaryTree[CurrentNode].LeftPointer)
+  if(BinaryTree[CurrentNode].RightPointer != -1):
+    FindLeaves(BinaryTree[CurrentNode].RightPointer)
+  if((BinaryTree[CurrentNode].RightPointer == -1) and (BinaryTree[CurrentNode].LeftPointer == -1)):
+    print BinaryTree[CurrentNode].DataValue
+  return
+
+=== 9608_w18_ms_41_p6_b2 | 9608_w18_ms_41.pdf p6 | python (label) | context: Examples: / Python:
+def Hash(ISBN):
+    ISBNint = int(ISBN)
+    Hash = (ISBNint % 2000) + 1
+
+=== 9608_w18_ms_41_p14_b11 | 9608_w18_ms_41.pdf p14 | python (label) | context: Examples: / Python
+def __init__(self, Num, theShape):
+   if (Num >= 0 and Num <= 9) and (theShape = "square" or theShape = "triangle" or
+theShape = "circle")  : self. __Number = Num
+      self.__Shape = TheShape
+   else
+      print("Error")
+   endif
+
+=== 9608_w18_ms_41_p15_b14 | 9608_w18_ms_41.pdf p15 | python (label) | context: Examples: / Python
+def GetNumber():
+     return(self.__Number)
+
+=== 9608_w18_ms_41_p16_b17 | 9608_w18_ms_41.pdf p16 | python (label) | context: Examples: / Python
+OneS = Cards(1, "square")
+
+=== 9608_w18_ms_41_p17_b22 | 9608_w18_ms_41.pdf p17 | python (label) | context: Examples: / Python
+def Compare(P1Card, P2Card):
+   if P1Card.GetNumber() = P2Card.GetNumber() AND P1Card.GetShape() = P2Card.GetShape():
+      Print("SNAP")
+           return -1
+   elif P2Card.GetNumber() > P1Card.GetNumber():
+      return P2Card.GetNumber()
+   else:
+      return P1Card.GetNumber()
+
+=== 9608_w18_ms_42_p9_b23 | 9608_w18_ms_42.pdf p9 | python (label) | context: • …EditStageName replaces StageName with parameter / Example Python:
+class Performer(object):
+    def __init__(self, Firstname, Lastname, Stagename, SecondaryRole, Type):
+        self.__FirstName = Firstname
+        self.__LastName = Lastname
+        self.__StageName = Stagename
+        self.__SecondaryRole = SecondaryRole
+        self.__PerfType = Type
+    def EditSecondaryRole(self, NewRole):
+        self.SecondaryRole = NewRole
+    def EditStageName(self, NewStageName):
+        self.StageName = NewStageName
+
+=== 9608_w18_ms_42_p12_b28 | 9608_w18_ms_42.pdf p12 | python (label) | context: • « "Fire is part of " & StageName & "’s act." ONLY printed when Fire is TRUE / Example Python:
+class Acrobat(Performer):
+    def __init__(self,Firstname, Lastname, Stagename, SecondaryRole, Fire):
+        Performer.__init__(self, Firstname, Lastname, Stagename, SecondaryRole, "Acrobat")
+      self.__UseFire = Fire
+    def PerformerInfo(self):
+        ReturnString = "%s (real name %s %s) is %s. " % (self. Stagename, self.Firstname,
+self. Lastname, Acrobat.PerfType)
+        if(self.__UseFire):
+            ReturnString = ReturnString + "Fire is part of %s's act. " % (self.Stagename)
+        else:
+            ReturnString = ReturnString + "Fire is not part of %s's act. " %
+(self.Stagename)
+        ReturnString = ReturnString + "When not performing, %s is a %s" % (self.Stagename,
+self.SecondaryRole)
+        return ReturnString
+
+=== 9608_w18_ms_42_p15_b31 | 9608_w18_ms_42.pdf p15 | python (label) | context: • Correct five parameter values / Example Python:
+Acrobat_1 = Acrobat("Alex","Tan","Amazing Alex","Popcorn Seller", True)
+
+=== 9608_s19_ms_41_p6_b2 | 9608_s19_ms_41.pdf p6 | python (keywords) | context: • Initialise PlayerID to parameter / PYTHON
+def__init__(self, InputPlayerID):
+   self.__Score = 0
+   self.__Category = "Not Qualified"
+   self.__PlayerID = InputPlayerID
+
+=== 9608_s19_ms_41_p7_b5 | 9608_s19_ms_41.pdf p7 | python (keywords) | context: • A third working Get / PYTHON
+def GetScore():
+   return (Score)
+def GetCategory():
+   return (Category)
+def GetPlayerID():
+   return (PlayerID)
+
+=== 9608_s19_ms_41_p8_b8 | 9608_s19_ms_41.pdf p8 | python (keywords) | context: • « storing valid input value in PlayerID / PYTHON
+def SetPlayerID(self)
+   PlayerID = input("Enter your player ID")
+   while len(PlayerID) > 15 and len(PlayerId) < 4
+      PlayerID = input("Must be <=15 AND >=4 characters long.
+      Enter your player ID")
+
+=== 9608_s19_ms_41_p9_b11 | 9608_s19_ms_41.pdf p9 | python (keywords) | context: • Returns TRUE if valid and returns FALSE if not valid / PYTHON
+def __SetScore(ScoreInput):
+   if ScoreInput >=0 and ScoreInput <=150:
+      IsValid = True
+      self__Score = ScoreInput
+   else:
+      print("Error")
+      IsValid = False
+Return(IsValid)
+
+=== 9608_s19_ms_41_p10_b14 | 9608_s19_ms_41.pdf p10 | python (keywords) | context: • « storing in Category attribute / PYTHON
+def SetCategory()
+   if self.__Score >120:
+      self.__Category = "Advanced"
+   elif self.__Score >80:
+      self.__Category = "Intermediate"
+   elif self.__Score>=50:
+      self.__Category = "Beginner"
+   else:
+      self.__Category = "Not Qualified"
+
+=== 9608_s19_ms_41_p11_b18 | 9608_s19_ms_41.pdf p11 | python (keywords) | context: • « using GetCategory for object Joanne / PYTHON
+def CreatePlayer():
+   InputPlayerID = input("Enter your chosen ID")
+   Score = int(input("Please enter the score"))
+   JoannePlayer = Player(InputPlayerID)
+   if JoannePlayer.SetScore(Score) == false:
+      print("Invalid score")
+   else:
+      JoannePlayer.SetCategory()
+      print(JoannePlayer.GetCategory)
+
+=== 9608_s19_ms_42_p6_b2 | 9608_s19_ms_42.pdf p6 | python (keywords) | context: • Initialise Grade to "Fail" / PYTHON
+def__init__(self, CentreNumber,CandidateNumber):
+     self.__FinalMark = 0
+     self.__Grade = "Fail"
+     self.__PaperID = CentreNumber + CandidateNumber
+
+=== 9608_s19_ms_42_p8_b5 | 9608_s19_ms_42.pdf p8 | python (keywords) | context: • A third working Get / PYTHON
+def GetFinalMark():
+     return (FinalMark)
+def GetGrade():
+     return (Grade)
+def GetPaperID():
+     return (PaperID)
+
+=== 9608_s19_ms_42_p10_b8 | 9608_s19_ms_42.pdf p10 | python (keywords) | context: • If not valid, return FALSE and do not set FinalMark / PYTHON
+def SetFinalMark (Mark):
+     if Mark >=0 and Mark <=90:
+          IsValid = True
+          FinalMark = Mark
+     else:
+          IsValid = False
+     return(IsValid)
+
+=== 9608_s19_ms_42_p12_b12 | 9608_s19_ms_42.pdf p12 | python (keywords) | context: • Otherwise Grade set to Fail / PYTHON
+def SetGrade(DistMark, MeritMark, PassMark):
+     if FinalMark >= DistMark:
+          Grade = "Distinction"
+     elif FinalMark >= MeritMark:
+          Grade = "Merit"
+     elif FinalMark >= PassMark:
+          Grade = "Pass"
+     else:
+          Grade = "Fail"
+
+=== 9608_s19_ms_42_p14_b15 | 9608_s19_ms_42.pdf p14 | python (keywords) | context: • «using .GetGrade / PYTHON
+def main():
+     candidateNumber = input("Please enter the candidate number")
+     centreNumber = input("Please enter the centre number")
+     mark = input("Please enter the mark")
+     ThisPaper = ExaminationPaper(centreNumber, candidateNumber)
+     if ThisPaper.SetFinalMark(mark) == FALSE:
+       print("Invalid mark")
+     else:
+       ThisPaper.SetGrade(80, 70, 55)
+       print(ThisPaper.GetGrade())
+
+=== 9608_w19_ms_41_p10_b3 | 9608_w19_ms_41.pdf p10 | python (keywords) | context: • Initialised Credits to 50 / PYTHON
+def__init__(self, NewFN, NewLN, NewPrintID):
+  self.__PrintID = NewPrintID
+  self.__FirstName = NewFN
+  self.__LastName = NewLN
+  self.__Credits = 50
+
+=== 9608_w19_ms_41_p11_b6 | 9608_w19_ms_41.pdf p11 | python (keywords) | context: • FirstName is set to parameter / PYTHON
+def __SetFirstName(self, NewFirstName):
+  self.__FirstName = NewFirstName
+
+=== 9608_w19_ms_41_p12_b9 | 9608_w19_ms_41.pdf p12 | python (keywords) | context: • « function/method header without parameter and returns (generated) value / PYTHON
+def __GetName(self):
+  return(self.__FirstName + " " + self.__LastName)
+
+=== 9608_w19_ms_41_p13_b13 | 9608_w19_ms_41.pdf p13 | python (keywords) | context: • Efficient IF (i.e. elseif) / PYTHON
+def __AddCredits(self, MoneyInput):
+  CreditPerDollar = 25
+  FreeCredit10 = 25
+  FreeCredit20 = 50
+  Twenty = 20
+  Ten = 10
+  if MoneyInput >= Twenty:
+    Credits = Credits + (MoneyInput * CreditPerDollar) + FreeCredit20
+  elif MoneyInput >= Ten:
+    Credits = Credits + (MoneyInput * CreditPerDollar) + FreeCredit10
+  else:
+    Credits = Credits + (MoneyInput * CreditPerDollar)
+
+=== 9608_w19_ms_41_p17_b19 | 9608_w19_ms_41.pdf p17 | python (label) | context: 1(e)(vi) Python
+def CreateID(firstname, lastname):
+  count = 0
+  PrintID = firstname[0:3].lower() + lastname[-3].lower() + "1"
+  StudentAdd = 0
+  if numberStudents != 0:
+    for x in range(0, numberStudents):
+      if studentAccounts[x].getPrintID() == username:
+        PrintID = PrintID + 1
+        username = firstname[0:3].lower() + lastname[0:3].lower + str(PrintID)
+     studentAdd = numberStudents
+  studentAccounts[studentAdd] = printAccount(firstname, lastname, username)
+  numberStudents = numberStudents + 1
+
+=== 9608_w19_ms_42_p7_b7 | 9608_w19_ms_42.pdf p7 | python (label) | context: Python
+def __init__(self, ID, NewName, NewAddress, NewDateOfBirth):
+  self.__EmployeeID = ID
+  self.__Name = NewName
+  self.__Address = NewAddress
+  self.__DateOfBirth = NewDateOfBirth
+
+=== 9608_w19_ms_42_p8_b10 | 9608_w19_ms_42.pdf p8 | python (label) | context: Pascal / Python
+def GetEmployeeID(self):
+  return self.__EmployeeID
+
+=== 9608_w19_ms_42_p9_b13 | 9608_w19_ms_42.pdf p9 | python (label) | context: Pascal / Python
+def SetEmployeeID(self, NewID):
+  self.__EmployeeID = NewID
+
+=== 9608_w19_ms_42_p10_b16 | 9608_w19_ms_42.pdf p10 | python (label) | context: Python
+def SetPension(self, NewPension):
+  if NewPension == True Or NewPension == False:
+    self.__Pension = NewPension
+    return True
+  else:
+    return False
+
+=== 9608_w19_ms_42_p12_b20 | 9608_w19_ms_42.pdf p12,13 | python (label) | context: Python
+def CalculateMonthlySalary(TheEmployee):
+  BonusPayment = 0
+  PensionPayment = 0
+  HoursBonus = 0.05
+  HoursMonthBonus = 160
+  PensionCost = 0.04
+  PublicHolidayBonus = 0.03
+  BasicSalary = TheEmployee.GetMonthlyPayment()
+  if TheEmployee.GetHoursThisMonth() >= HoursMonthBonus:
+    BonusPayment = BasicSalary * HoursBonus
+if TheEmployee.GetPension() == true:
+  PensionPayment = BasicSalary * PensionCost
+if TheEmployee.GetPublicHoliday() == true:
+  BonusPayment = BonusPayment + BasicSalary * PublicHolidayBonus
+print("The pension payment is ",  str(PensionPayment))
+print("The bonus payment is ", str(BonusPayment))
+MonthlySalary = BasicSalary + BonusPayment - PensionPayment
+return MonthlySalary
+
+=== 9608_s20_ms_41_p8_b5 | 9608_s20_ms_41.pdf p8 | python (keywords) | context: • Initialised LessonType and Instructor to parameter values / PYTHON
+def __init__(self, LType, LInstructor) :
+    self.__ LessonType = LType
+    self.__Instructor = LInstructor
+
+=== 9608_s20_ms_41_p9_b8 | 9608_s20_ms_41.pdf p9 | python (keywords) | context: • returns Fee / PYTHON
+def GetLessonType(self) :
+    return self.__LessonType
+
+=== 9608_s20_ms_41_p10_b10 | 9608_s20_ms_41.pdf p10 | python (keywords) | context: • Returns -1 if value not valid / PYTHON
+def GetFee(self, Level) :
+    if Level == 'B' :
+        return 45
+    elif Level == 'I' :
+         return 50
+    elif Level == 'A' :
+         return 55
+    else :
+         return -1
+
+=== 9608_s20_ms_42_p4_b1 | 9608_s20_ms_42.pdf p4 | python (label) | context: • Reporting appropriate exception / Python
+try:
+   file = open('MyData.txt')
+except:
+   print "No file found"
+
+=== 9608_s20_ms_42_p11_b11 | 9608_s20_ms_42.pdf p11 | python (label) | context: • … between 1 and 25 / Python
+def __init__(self, CharacterName) :
+    self.__Name = CharacterName
+    self.__Skill = 0
+    self.__Health = 50
+    self.__Shield = random.randint(1, 25)
+
+=== 9608_s20_ms_42_p12_b14 | 9608_s20_ms_42.pdf p12 | python (label) | context: e.g. / Python
+def GetSkill(self) :
+    return self.__Skill
+
+=== 9608_s20_ms_42_p12_b16 | 9608_s20_ms_42.pdf p12 | python (label) | context: e.g. / Python
+def SetSkill(self, Value) :
+    if Value < 10 or Value > 25 :
+        return -1
+    else :
+        if self.__Skill + Value >= 200:
+            Skill = 200
+            return 0
+        else :
+            self.__Skill = self.__Skill + Value
+            return 1
+
+=== 9608_w20_ms_41_p6_b1 | 9608_w20_ms_41.pdf p6 | python (keywords) | context: • …Correct values assigned to correct identifiers / PYTHON
+def __init__(self):
+   self.__PlayerID = "PL12a3"
+   self.__Name = ""
+   self.__Score = 0
+
+=== 9608_w20_ms_41_p7_b4 | 9608_w20_ms_41.pdf p7 | python (keywords) | context: • Returns correct value PlayerID / PYTHON
+def GetPlayerID(self):
+  return(self.__PlayerID)
+
+=== 9608_w20_ms_42_p7_b3 | 9608_w20_ms_42.pdf p7 | python (keywords) | context: • Correct values assigned to Name ("") and Calories  (0) / PYTHON
+def __init__(self, NewFoodID):
+   self.__FoodID = NewFoodID
+   self.__Name = ""
+   self.__Calories = 0
+
+=== 9608_w20_ms_42_p8_b6 | 9608_w20_ms_42.pdf p8 | python (keywords) | context: • Returns Calories without other input/assignment (using return command, or assigning to GetCalories) / PYTHON
+def GetCalories(self):
+   return(self.__Calories)
+
+=== 9608_s21_ms_41_p5_b2 | 9608_s21_ms_41.pdf p5 | python (label) | context: Python
+class vendingMachine:
+  #private items(4) of type foodItem
+  #private moneyIn of type Real
+  def __init__(self, item1, item2, item3, item4):
+    self.__items = []
+    self.__items.append(item1)
+    self.__items.append(item2)
+    self.__items.append(item3)
+    self.__items.append(item4)
+    self.__moneyIn = 0
+
+=== 9608_s21_ms_41_p7_b5 | 9608_s21_ms_41.pdf p7 | python (label) | context: Python
+def checkValidCode(code):
+  for x in range (0,4):
+    if items[x].getCode == code:
+      if items[x].getCost <= moneyIn:
+         return x
+      else:
+         return -2
+  return -1
+
+=== 9608_s21_ms_41_p8_b8 | 9608_s21_ms_41.pdf p8 | python (label) | context: VB.NET / Python
+machineOne = vendingMachine(chocolate, sweets, sandwich, apple)
+
+=== 9608_s21_ms_41_p18_b68 | 9608_s21_ms_41.pdf p18 | python (label) | context: 5(b) / Python
+def recursiveBinarySearch(lowerbound, upperbound, searchValue):
+  mid = lowerbound + int((upperbound - lowerbound)/2)
+  if upperbound < lowerbound:
+    return -1
+  else:
+    if dataArray[mid] < searchValue:
+      return recursiveBinarySearch(mid + 1, upperbound, searchValue)
+    elif dataArray[mid] > searchValue:
+        return recursiveBinarySearch(lowerbound, mid - 1, searchValue)
+    else:
+         return mid
+
+=== 9608_s21_ms_42_p5_b3 | 9608_s21_ms_42.pdf p5 | python (label) | context: VB.NET / Python
+def Hash(BookingID):
+  HashV = BookingID % 100000 + 3
+     return HashV
+
+=== 9608_s21_ms_42_p9_b7 | 9608_s21_ms_42.pdf p9 | python (label) | context: Python
+class QuizClass():
+  #Private Questions[20] self.__QuestionClass
+  #Private self.__NumberOfQuestions Integer
+  def __init__(self):
+    self.__NumberOfQuestions = 0
+
+=== 9608_s21_ms_42_p11_b10 | 9608_s21_ms_42.pdf p11 | python (label) | context: Python
+def AddQuestion(self, QuestionObject):
+  if self.__NumberOfQuestions < 20:
+    self.__Questions[self.__NumberOfQuestions] = QuestionObject
+    self.__NumberOfQuestions = self.__NumberOfQuestions + 1
+    return True
+  else:
+    return False
+
+=== 9608_s21_ms_42_p12_b13 | 9608_s21_ms_42.pdf p12 | python (label) | context: VB.NET (Does not require New keyword) / Python
+FirstQuiz = QuizClass()
+Question1 = QuestionClass("What is 100/5?", "20", 1)
+FirstQuiz.AddQuestion(Question1)
+
+=== 9618_s21_ms_41_p4_b2 | 9618_s21_ms_41.pdf p4 | python (label) | context: Visual Basic / Python
+class node:
+    def __init__(self, theData, nextNodeNumber):
+        self. Data = theData
+        self.nextNode = nextNodeNumber
+
+=== 9618_s21_ms_41_p6_b5 | 9618_s21_ms_41.pdf p6 | python (label) | context: 1(b) / Python
+linkedList = [node(1,1),node(5,4),node(6,7),node(7,-1),node(2,2),node(0,6), node(0,8),node(56,3),node(0,9),node(0,-1)]
+startPointer = 0
+emptyList = 5
+
+=== 9618_s21_ms_41_p7_b8 | 9618_s21_ms_41.pdf p7 | python (label) | context: Visual Basic / Python
+def outputNodes(linkedList, currentPointer):
+    while(currentPointer != -1):
+        print(str(linkedList[currentPointer].data))
+        currentPointer = linkedList[currentPointer].nextNode
+
+=== 9618_s21_ms_41_p9_b11 | 9618_s21_ms_41.pdf p9 | python (label) | context: Python
+def addNode(linkedList, currentPointer, emptyList):
+    dataToAdd = input("Enter the data to add")
+    if emptyList <0 or emptyList > 9:
+        return False
+    else:
+        newNode = node(int(dataToAdd), -1)
+        linkedList[emptyList] = (newNode)
+        previousPointer = 0
+        while(currentPointer != -1):
+            previousPointer = currentPointer
+            currentPointer = linkedList[currentPointer].nextNode
+        linkedList[previousPointer].nextNode = emptyList
+        emptyList = linkedList[emptyList].nextNode
+        return True
+
+=== 9618_s21_ms_41_p12_b14 | 9618_s21_ms_41.pdf p12 | python (label) | context: Python
+linkedList = [node(1,1),node(5,4),node(6,7),node(7,-1),node(2,2),node(-1,6), node(-1,7),node(56,3),node(-1,9),node(-1,-1)]
+startPointer = 0
+emptyList = 5
+outputNodes(linkedList, startPointer)
+returnValue = addNode(linkedList, startPointer, emptyList)
+if returnValue == True:
+    print("Item successfully added")
+else:
+    print("Item not added, list full")
+outputNodes(linkedList, startPointer)
+
+=== 9618_s21_ms_41_p14_b17 | 9618_s21_ms_41.pdf p14 | python (label) | context: Python
+arrayData = [10, 5, 6, 7, 1, 12, 13, 15, 21, 8]
+
+=== 9618_s21_ms_41_p16_b20 | 9618_s21_ms_41.pdf p16 | python (label) | context: 2(b)(i) / Python
+def linearSearch(searchValue):
+    for x in range(0, 10):
+        if arrayData[x] == searchValue:
+            return True
+    return False
+
+=== 9618_s21_ms_41_p18_b23 | 9618_s21_ms_41.pdf p18 | python (label) | context: 2(b)(ii) / Python
+arrayData = [10, 5, 6, 7, 1, 12, 13, 15, 21, 8]
+searchValue = int(input("Enter the number to search for"))
+returnValue = linearSearch(searchValue)
+if returnValue == True:
+    print("It was found")
+else:
+    print("It was not found")
+
+=== 9618_s21_ms_41_p20_b27 | 9618_s21_ms_41.pdf p20 | python (label) | context: 2(c) / Python
+def bubbleSort():
+    for x in range (0, 10):
+        for y in range(0, 9):
+            if theArray[y] < theArray[y + 1]:
+                temp = theArray[y]
+                theArray[y] = theArray[y + 1]
+                theArray[y + 1] = temp
+
+=== 9618_s21_ms_41_p21_b30 | 9618_s21_ms_41.pdf p21 | python (label) | context: Python
+class treasureChest:
+    #Private question : String
+    #Private answer : Integer
+    #Private points : Integer
+    def __init__(self, questionP, answerP, pointsP):
+        self.__question = questionP
+        self.__answer = answerP
+        self.__points = points
+
+=== 9618_s21_ms_41_p23_b33 | 9618_s21_ms_41.pdf p23,24 | python (label) | context: Python
+# arrayTreasure(5) as treasureChest
+def readData():
+    filename = "treasureChestData.txt"
+    try:
+        file= open(filename,"r")
+        dataFetched = (file.readline()).strip()
+        while(dataFetched != "" ):
+            question = dataFetched
+            answer = (file.readline()).strip()
+        points = (file.readline()).strip()
+        arrayTreasure.append(treasureChest(question, answer, points))
+        dataFetched = (file.readline()).strip()
+    file.close()
+except IOError:
+    print("Could not find file")
+
+=== 9618_s21_ms_41_p25_b36 | 9618_s21_ms_41.pdf p25 | python (label) | context: Visual Basic / Python
+def getQuestion(self): return self.__question
+
+=== 9618_s21_ms_41_p26_b39 | 9618_s21_ms_41.pdf p26 | python (label) | context: Python
+def checkAnswer(self, answerP):
+  if int(self.__answer) == answerP:
+    return True
+  else:
+    return False
+
+=== 9618_s21_ms_41_p27_b42 | 9618_s21_ms_41.pdf p27 | python (label) | context: Python
+def getPoints(self, attempts): if attempts == 1: return int(self.__points)
+        elif attempts == 2:
+            return int(self.__points) // 2
+        elif attempts == 3 or attempts == 4:
+            return int(self.__points) // 4
+        else:
+            return 0
+
+=== 9618_s21_ms_41_p29_b45 | 9618_s21_ms_41.pdf p29 | python (label) | context: Python
+readData()
+choice = int(input("Pick a treasure chest to open"))
+if choice > 0 and choice < 6:
+    result = False
+    attempts = 0
+    while result == False:
+      answer = int(input(arrayTreasure[choice-1].getQuestion()))
+       result = arrayTreasure[choice-1].checkAnswer(answer)
+       attempts = attempts + 1
+     print(int(arrayTreasure[choice-1].getPoints(attempts)))
+
+=== 9608_w21_ms_41_p5_b4 | 9608_w21_ms_41.pdf p5 | python (label) | context: Python
+def Pop():
+  if TopPointer < 0 :
+    return -1
+  else:
+    Value = DataStack(TopPointer)
+    TopPointer= TopPointer – 1
+    return Value
+
+=== 9608_w21_ms_41_p14_b18 | 9608_w21_ms_41.pdf p14 | python (label) | context: Python
+try:
+    Value = int(input("Enter a number"))
+except:
+    print("Invalid number")
+
+=== 9608_w21_ms_41_p18_b24 | 9608_w21_ms_41.pdf p18 | python (label) | context: Python
+def AddItem(DataToAdd):
+    Location = (DataToAdd % 1000) + 6
+    if StoredData[Location] <> -1:
+        Found = False
+        Counter = 0
+        while Found == False and Counter < 9999:
+            Location = Location + 1
+            if Location > 9999:
+               Location = 0
+            if StoredData[Location] == -1:
+                Found = True
+                Counter = Counter + 1
+            if Found == True:
+                StoredData[Location] = DataToAdd
+                return True
+            else:
+                return False
+    else:
+        StoredData[Location] = DataToAdd
+        return True
+
+=== 9608_w21_ms_42_p15_b11 | 9608_w21_ms_42.pdf p15 | python (label) | context: Python
+class Box:
+     def __init__(self, Sizep, FirstContent, LockNumber):
+     self.__Size = Sizep #string
+     self.__Lock = LockNumber #string
+     self.__Strength = 100 #integer
+     self.__Contents[0] = FirstContent #array 10 elements of FieldObject
+
+=== 9608_w21_ms_42_p17_b14 | 9608_w21_ms_42.pdf p17 | python (label) | context: Python
+def Unlock(self, Key):
+    if self.__Lock == Key:
+        return True
+    else:
+        self.__Strength = self.__Strength - 1
+        if self.__Strength <= 0:
+            return True
+        else:
+            return False
+
+=== 9608_w21_ms_42_p20_b17 | 9608_w21_ms_42.pdf p20 | python (label) | context: 7(c) / Python
+def LoadGame():
+    Filename = "progress.txt"
+    try:
+        F = open(Filename, "r")
+        GameData = F.read()
+        F.close()
+    except:
+        print("File not found")
+
+=== 9618_w21_ms_41_p3_b1 | 9618_w21_ms_41.pdf p3 | python (label) | context: Example program code: / Python
+def Unknown(X, Y):
+    if X < Y:
+        print(str(X + Y))
+        return Unknown(X + 1, Y) * 2
+    elif X == Y:
+        return 1
+    else:
+        print(str(X + Y))
+        return int(Unknown(X - 1, Y) / 2)
+
+=== 9618_w21_ms_41_p4_b4 | 9618_w21_ms_41.pdf p4 | python (label) | context: Example program code: / Python
+print("10 and 15")
+print(str(Unknown(10, 15)))
+print("10 and 10")
+print(str(Unknown(10, 10)))
+print("15 and 10")
+print(str(Unknown(15, 10)))
+
+=== 9618_w21_ms_41_p6_b7 | 9618_w21_ms_41.pdf p6 | python (label) | context: Example program code: / Python
+def IterativeUnknown(X,Y):
+    Total = 1
+    while X != Y:
+        print(str(X + Y))
+        if X < Y:
+            X = X + 1
+            Total = Total * 2
+        else:
+            X = X - 1
+            Total = int(Total / 2)
+    return Total
+
+=== 9618_w21_ms_41_p7_b10 | 9618_w21_ms_41.pdf p7 | python (label) | context: Example program code: / Python
+print("10 and 15")
+print(str(IterativeUnknown(10, 15)))
+print("10 and 10")
+print(str(IterativeUnknown(10, 10)))
+print("15 and 10")
+print(str(IterativeUnknown(15, 10)))
+
+=== 9618_w21_ms_41_p8_b13 | 9618_w21_ms_41.pdf p8 | python (label) | context: Example program code: / Python
+class Picture:
+    def __init__(self, DescriptionP, WidthSizeP,
+HeightSizeP, FrameColourP): self.__Description = DescriptionP # string
+        self.__Width = int(WidthSizeP) #integer
+        self.__Height = int(HeightSizeP) #integer
+        self.__FrameColour = FrameColourP #string
+
+=== 9618_w21_ms_41_p10_b16 | 9618_w21_ms_41.pdf p10 | python (label) | context: Example program code: / Python
+def GetDescription(self):
+    return self.__Description
+def GetWidth(self):
+    return self.__Width
+def GetHeight(self):
+    return self.__Height
+def GetColour(self):
+    return self.__FrameColour
+
+=== 9618_w21_ms_41_p11_b19 | 9618_w21_ms_41.pdf p11 | python (label) | context: Example program code: / Python
+def SetDescription(self, DescriptionP):
+    self.__Description = DescriptionP
+
+=== 9618_w21_ms_41_p11_b22 | 9618_w21_ms_41.pdf p11 | python (label) | context: Example program code: / Python
+PictureArray = []
+for i in range(100):
+    PictureArray.append(Picture("",0,0,""))
+
+=== 9618_w21_ms_41_p12_b25 | 9618_w21_ms_41.pdf p12 | python (label) | context: Example program code: / Python
+def ReadData(PictureArray):
+    Filename = "Pictures.txt"
+    Counter = 0
+    try:
+        File = open(Filename,"r")
+        Description = (File.readline()).strip().lower()
+        while(Description != ""):
+            Width = int((File.readline()).strip())
+            Height = int((File.readline()).strip())
+            Frame = ((File.readline()).strip()).lower()
+            PictureArray[Counter] = Picture(Description, Width, Height, Frame)
+            Description =((File.readline()).strip()).lower()
+            Counter = Counter + 1
+        File.close()
+    except IOError:
+        print("Could not find File")
+    return Counter, PictureArray
+
+=== 9618_w21_ms_41_p14_b28 | 9618_w21_ms_41.pdf p14 | python (label) | context: Example program code: / Python
+NumberPicturesInArray, PictureArray = ReadData(PictureArray)
+
+=== 9618_w21_ms_41_p15_b31 | 9618_w21_ms_41.pdf p15 | python (label) | context: Example program code: / Python
+FrameColour = input("Input the Frame colour ").lower()
+MaxWidth = int(input("Input the Maximum Width "))
+MaxHeight = int(input("Input the Maximum Height "))
+print("Matches Frames shown")
+for Z in range(0, NumberPicturesInArray):
+    if PictureArray[Z].GetColour() == FrameColour:
+        if(PictureArray[Z].GetWidth() <= MaxWidth):
+            if (PictureArray[Z].GetHeight() <= MaxHeight):
+             print(PictureArray[Z].GetDescription(), " " ,
+str(PictureArray[Z].GetWidth()), " ",
+str(PictureArray[Z].GetHeight()))
+
+=== 9618_w21_ms_41_p17_b36 | 9618_w21_ms_41.pdf p17 | python (label) | context: Example program code: / Python
+ArrayNodes=[[0 for X in range(3)] for Y in range(20)]
+RootPointer = -1
+FreeNode = 0
+
+=== 9618_w21_ms_41_p18_b39 | 9618_w21_ms_41.pdf p18 | python (label) | context: Example program code: / Python
+def AddNode(ArrayNodes, RootPointer, FreeNode):
+   NodeData = int(input("Enter the Data"))
+   if FreeNode <= 19:
+      ArrayNodes[FreeNode][0] = -1
+      ArrayNodes[FreeNode][1] = NodeData
+      ArrayNodes[FreeNode][2] = -1
+      if RootPointer == -1:  # Add to start
+          RootPointer = 0
+      else:
+          Placed = False
+          CurrentNode = RootPointer
+          while Placed == False:
+              if NodeData < ArrayNodes[CurrentNode][1]:
+                  if ArrayNodes[CurrentNode][0] == -1:
+                    ArrayNodes[CurrentNode][0] = FreeNode
+                    Placed = True
+                  else:
+                    CurrentNode = ArrayNodes[CurrentNode][0]
+              else:
+                  if ArrayNodes[CurrentNode][2] == -1:
+                     ArrayNodes[CurrentNode][2] = FreeNode
+                     Placed = True
+                  else:
+                    CurrentNode = ArrayNodes[CurrentNode][2]
+     FreeNode = FreeNode + 1
+  else:
+      print("Tree is full")
+  return ArrayNodes, RootPointer, FreeNode
+
+=== 9618_w21_ms_41_p21_b42 | 9618_w21_ms_41.pdf p21 | python (label) | context: Example program code: / Python
+def PrintAll(ArrayNodes):
+  for X in range(0, 20):
+    print(str(ArrayNodes[X][0]), " ", str(ArrayNodes[X][1]),
+    " ", str(ArrayNodes[X][2]))
+
+=== 9618_w21_ms_41_p21_b45 | 9618_w21_ms_41.pdf p21 | python (label) | context: Example program code: / Python
+for X in range(0,10):
+    ArrayNodes, RootPointer, FreeNode =
+    AddNode(ArrayNodes,RootPointer,FreeNode)
+PrintAll(ArrayNodes)
+
+=== 9618_w21_ms_41_p22_b48 | 9618_w21_ms_41.pdf p22 | python (label) | context: Example program code: / Python
+def InOrder(ArrayNodes, RootNode):
+    if ArrayNodes[RootNode][0] != -1:
+        InOrder(ArrayNodes, ArrayNodes[RootNode][0])
+    print(str(ArrayNodes[RootNode][1]))
+    if ArrayNodes[RootNode][2] != -1:
+        InOrder(ArrayNodes, ArrayNodes[RootNode][2])
+
+=== 9618_s22_ms_41_p4_b3 | 9618_s22_ms_41.pdf p4 | python (label) | context: VB.NET / Python
+FileData = [[""] *2 for i in range(11)] #string
+
+=== 9618_s22_ms_41_p6_b5 | 9618_s22_ms_41.pdf p6 | python (label) | context: 1(b) / Python
+def ReadHighScores():
+  Filename = "HighScore.txt"
+  File = open(Filename, 'r')
+  for x in range(0, 10):
+      FileData[x][0] = File.readline()[:3]
+      FileData[x][1] = File.readline()
+ File.close
+
+=== 9618_s22_ms_41_p7_b8 | 9618_s22_ms_41.pdf p7 | python (label) | context: Java / Python
+def OutputHighScores ():
+   for x in range(0, 11):
+       Output = FileData[x][0] + " " + FileData[x][1]
+       print(Output)
+
+=== 9618_s22_ms_41_p8_b12 | 9618_s22_ms_41.pdf p8 | python (label) | context: Java / Python
+ReadHighScores()
+OutputHighScore()
+
+=== 9618_s22_ms_41_p10_b15 | 9618_s22_ms_41.pdf p10 | python (label) | context: Python
+Username = "ABCD"
+while len(Username) != 3:
+    Username = input("Enter your Username")
+score = -1
+while Score < 1 or Score > 100000:
+    Score = int(input("Enter score"))
+
+=== 9618_s22_ms_41_p13_b18 | 9618_s22_ms_41.pdf p13 | python (label) | context: 1(e)(ii) Python
+def Arrange(Username, Score):
+    for x in range(0, 10):
+        if Score > FileData[x][1]:
+            Temp1 = FileData[x][0]
+            Temp2 = FileData[x][1]
+            FileData[x][0] = Username
+            FileData[x][1] = Score
+            Count = x+1
+            while(Count < 10):
+                Second1 = FileData[Count][0]
+                Second2 = FileData[Count][1]
+                FileData[Count][0] = Temp1
+                FileData[Count][1] = Temp2
+                Temp1 = Second1
+                Temp2 = Second2
+                Count = Count + 1
+                break;
+
+=== 9618_s22_ms_41_p15_b21 | 9618_s22_ms_41.pdf p15 | python (label) | context: Python
+ReadHighScores()
+OutputHighScore()
+Username = input("Enter your Username")
+Score = -1
+while Score < 0 or Score > 100000:
+    Score = int(input("Enter score"))
+Arrange(Username, Score)
+OutputHighScore()
+
+=== 9618_s22_ms_41_p17_b24 | 9618_s22_ms_41.pdf p17 | python (label) | context: Python
+def WriteTopTen():
+    Filename = " NewHighScore.txt"
+    Filename = open(Filename, 'w')
+    for x in range(0, 10):
+        Filename.write(str(FileData[x][0]) + '\n')
+        Filename.write(str(FileData[x][1]) + '\n')
+        Filename.close
+
+=== 9618_s22_ms_41_p19_b27 | 9618_s22_ms_41.pdf p19 | python (label) | context: } / Python
+class Balloon:
+#Health as integer
+#Colour as string
+#DefenceItem as string
+def __init__(self, PDefenceItem, PColour):
+    self.__Health = 100
+    self.__Colour = PColour
+    self.__DefenceItem = PDefenceItem
+
+=== 9618_s22_ms_41_p20_b30 | 9618_s22_ms_41.pdf p20 | python (label) | context: Java / Python
+def GetDefenceItem(self):
+    return self.__DefenceItem
+
+=== 9618_s22_ms_41_p21_b33 | 9618_s22_ms_41.pdf p21 | python (label) | context: Java / Python
+def ChangeHealth(self, Change):
+    self.__Health = self.__Health + Change
+
+=== 9618_s22_ms_41_p22_b36 | 9618_s22_ms_41.pdf p22 | python (label) | context: Python
+def CheckHealth(self):
+    if self.__Health <= 0:
+       return True
+    else:
+       return False
+
+=== 9618_s22_ms_41_p23_b39 | 9618_s22_ms_41.pdf p23 | python (label) | context: Python
+Method = input("Enter balloon defence method ")
+Colour = input("Enter the balloon colour ")
+Balloon1 = Balloon(Method, Colour)
+
+=== 9618_s22_ms_41_p25_b43 | 9618_s22_ms_41.pdf p25 | python (label) | context: 2(f) / Python
+def Defend(MyBalloon):
+    Strength = int(input("Enter the strength of opponent"))
+    MyBalloon.VhangeHealth(-Strength)
+    print("You defended with ", str(MyBalloon.GetDefenceItem()))
+    if(MyBalloon.CheckHealth() == True):
+        print("Defence failed")
+    else:
+        print("Defence succeeded")
+    return MyBalloon
+
+=== 9618_s22_ms_41_p26_b46 | 9618_s22_ms_41.pdf p26 | python (label) | context: Java / Python
+Balloon1 = Defend(Balloon1)
+
+=== 9618_s22_ms_41_p27_b49 | 9618_s22_ms_41.pdf p27 | python (label) | context: Java / Python
+QueueArray = ['','','','','','','','','',''] #string
+QueueHeadPointer = 0 #integer
+QueueTailPointer = 0 #integer
+NumberOfItems = 0 #integer
+
+=== 9618_s22_ms_41_p29_b53 | 9618_s22_ms_41.pdf p29 | python (label) | context: 3(b) / Python
+def Enqueue(Queue, Head, Tail, NumItems, InputData):
+    if NumItems >= 10:
+        return (False, Queue, Head, Tail, NumItems)
+    Queue[Tail] = InputData
+    if Tail >= 9:
+        Tail = 0
+    else:
+        Tail = Tail + 1
+    NumItems = NumItems + 1
+    return (True, Queue, Head, Tail, NumItems)
+
+=== 9618_s22_ms_41_p30_b56 | 9618_s22_ms_41.pdf p30 | python (label) | context: Python
+def Dequeue(Queue, Head, Tail, NumItems):
+    if NumItems == 0:
+        return (false, Queue, Head, Tail, NumItems)
+    else:
+        ReturnValue = Queue(Head)
+        Head = Head + 1
+        if Head >= 9:
+            Head = 0
+        NumItems = NumItems - 1
+        return(ReturnValue, Queue, Head, Tail, NumItems)
+
+=== 9618_s22_ms_41_p33_b59 | 9618_s22_ms_41.pdf p33 | python (label) | context: 3(d)(i) Python
+for x in range(0, 11):
+    InputString = input("Enter a string")
+    ReturnValue, QueueArray, QueueHeadPointer, QueueTailPointer, NumberOfItems =
+     Enqueue(QueueArray, QueueHeadPointer, QueueTailPointer, NumberOfItems, InputString)
+    if ReturnValue == True:
+        print("Successful")
+    else:
+        print("Unsuccessful")
+ReturnValue, QueueArray, QueueHeadPointer, QueueTailPointer, NumberOfItems =
+  Dequeue(QueueArray, QueueHeadPointer, QueueTailPointer, NumberOfItems)
+print(ReturnValue)
+ReturnValue, QueueArray, QueueHeadPointer, QueueTailPointer, NumberOfItems =
+  Dequeue(QueueArray, QueueHeadPointer, QueueTailPointer, NumberOfItems)
+print(ReturnValue)
+
+=== 9618_s22_ms_42_p4_b2 | 9618_s22_ms_42.pdf p4 | python (label) | context: VB.NET / Python
+global StackData #integer
+global StackPointer
+StackData = [0,0,0,0,0,0,0,0,0,0] #integer
+StackPointer = 0
+
+=== 9618_s22_ms_42_p5_b5 | 9618_s22_ms_42.pdf p5 | python (label) | context: VB.NET / Python
+def PrintArray():
+    global StackData
+    global StackPointer
+    print(StackPointer)
+    for x in range (0, 10):
+        print(StackData[x])
+
+=== 9618_s22_ms_42_p6_b8 | 9618_s22_ms_42.pdf p6 | python (label) | context: Python
+def Push(DataToPush):
+    global StackData
+    global StackPointer
+    if StackPointer == 10:
+        return False
+    else:
+        StackData[StackPointer] = DataToPush
+        StackPointer = StackPointer + 1
+        return True
+
+=== 9618_s22_ms_42_p9_b11 | 9618_s22_ms_42.pdf p9 | python (label) | context: 1(d)(i) / Python
+#main
+StackPointer = 0
+StackData = [0,0,0,0,0,0,0,0,0,0]
+for x in range(0, 11):
+    TempNumber = int(input("Enter a number"))
+    if Push(TempNumber) == True:
+        print("Stored")
+    else:
+        print("Stack full")
+PrintArray()
+
+=== 9618_s22_ms_42_p11_b14 | 9618_s22_ms_42.pdf p11 | python (label) | context: Python
+def Pop():
+    global StackData
+    global StackPointer
+    if StackPointer == 0:
+        return -1
+    else:
+        ReturnData = StackData[StackPointer - 1]
+        StackPointer = StackPointer - 1
+        return ReturnData
+
+=== 9618_s22_ms_42_p13_b17 | 9618_s22_ms_42.pdf p13 | python (label) | context: Python
+import random
+#main
+ArrayData= [[0]*10 for i in range(10)] #integer
+for x in range(0, 10):
+    for y in range(0,10):
+        ArrayData[x][y] = random.randint(1, 100)
+
+=== 9618_s22_ms_42_p15_b20 | 9618_s22_ms_42.pdf p15 | python (label) | context: Python
+ArrayLength = 10
+for X in range(0, ArrayLength):
+    for Y in range(0, ArrayLength-1):
+        for Z in range(0, ArrayLength - Y - 1):
+            if(ArrayData[X][Z] > ArrayData[X][Z+1]):
+                TempNumber = ArrayData[X][Z]
+                ArrayData[X][Z] = ArrayData[X][Z+1]
+                ArrayData[X][Z+1] = TempNumber
+
+=== 9618_s22_ms_42_p18_b24 | 9618_s22_ms_42.pdf p18 | python (label) | context: Python
+import random
+def Printarray(ArrayData):
+    for x in range(0, 10):
+        for y in range(0, 10):
+            print(ArrayData[x][y], " ", end='')
+        print("")
+#main
+ArrayData= [[0]*10 for i in range(10)] #integer
+for x in range(0, 10):
+    for y in range(0,10):
+        ArrayData[x][y] = random.randint(1, 100)
+print("Before")
+printarray(ArrayData)
+ArrayLength = 10
+for X in range(0, ArrayLength):
+    for Y in range(0, ArrayLength):
+        for Z in range(0, ArrayLength - Y - 1):
+            if(ArrayData[X][Z] > ArrayData[X][Z+1]):
+                TempNumber = ArrayData[X][Z]
+                ArrayData[X][Z] = ArrayData[X][Z+1]
+                ArrayData[X][Z+1] = TempNumber
+print("After")
+Printarray(ArrayData)
+
+=== 9618_s22_ms_42_p22_b27 | 9618_s22_ms_42.pdf p22 | python (label) | context: Python
+def BinarySearch(SearchArray, Lower, Upper, SearchValue):
+    if Upper >= 0:
+        Mid = int((Lower + (Upper - 1)) / 2)
+        If SearchArray[0][Mid] == SearchValue:
+            return Mid
+        elif SearchArray[0][Mid] > SearchValue:
+            return BinarySearch(SearchArray, Lower, Mid-1, SearchValue)
+        else:
+            return BinarySearch(SearchArray, Mid+1, Upper, SearchValue)
+    return -1
+
+=== 9618_s22_ms_42_p25_b30 | 9618_s22_ms_42.pdf p25 | python (label) | context: Python
+class Card:
+    #Number as Integer
+    #Colour as string
+    def __init__(self, Numberp, Colourp):
+        self.__Number = Numberp
+        self.__Colour = Colourp
+
+=== 9618_s22_ms_42_p27_b33 | 9618_s22_ms_42.pdf p27 | python (label) | context: VB.NET / Python
+def GetNumber(self):
+    return self.__Number
+def GetColour(self):
+    return self.__Colour
+
+=== 9618_s22_ms_42_p29_b36 | 9618_s22_ms_42.pdf p29 | python (label) | context: 3(c) / Python
+CardArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] #integer
+try:
+Filename = "CardValues.txt"
+File = open(Filename,'r')
+for x in range(0,30):
+NumberRead = int(File.readline())
+ColourRead = File.readline()
+CardArray[x] = Card(NumberRead, ColourRead)
+File.close
+except IOError:
+print("Could not find file")
+
+=== 9618_s22_ms_42_p32_b39 | 9618_s22_ms_42.pdf p32 | python (label) | context: Python
+global NumbersChosen
+…
+def chooseCard ():
+    global NumbersChosen
+    flagContinue = True
+    while flagContinue == true:
+        CardSelected = int(input("Select a Card from 1 to 30"))
+        if CardSelected < 1 or CardSelected > 30:
+            print("Number must be between 1 and 30")
+        elif NumbersChosen(CardSelected - 1) == True:
+            print("Already taken")
+        else:
+            print("Valid")
+            flagContinue = False
+    NumbersChosen[CardSelected-1] = True
+    return CardSelected-1
+…
+#main
+…
+NumbersChosen = [False for i in range(30)]
+
+=== 9618_s22_ms_42_p34_b42 | 9618_s22_ms_42.pdf p34 | python (label) | context: Python
+Player1 = [] #of type Card
+for x in range(0, 4):
+    ReturnNumber = ChooseCard ()
+    Player1.append(CardArray[ReturnNumber])
+for x in range(0, 4):
+    print(Player1[x].GetColour())
+    print(Player1[x].GetNumber())
+
+=== 9618_w22_ms_41_p3_b1 | 9618_w22_ms_41.pdf p3 | python (label) | context: Example program code: / Python
+DataArray = [0 for I in range (100)]
+
+=== 9618_w22_ms_41_p3_b4 | 9618_w22_ms_41.pdf p3 | python (label) | context: Example program code: / Python
+def ReadFile():
+  global DataArray
+  try:
+    TextFile = "IntegerData.txt"
+    File = open(TextFile, 'r')
+    for X in range(0, 100):
+        DataArray[X] = File.readline()
+        DataArray[X].rstrip('\n')
+        DataArray[X] = int(DataArray[X])
+    File.close()
+  except IOError:
+    print("Count not find file")
+
+=== 9618_w22_ms_41_p5_b7 | 9618_w22_ms_41.pdf p5 | python (label) | context: Example program code: / Python
+def FindValues():
+  global DataArray
+    DataToFind = -1
+    while(DataToFind < 1 or DataToFind > 100):
+        DataToFind = int(input("Enter a number between 1
+and 100"))
+    Total = 0
+    for X in range(0, 99):
+        if DataArray[X] == DataToFind:
+            Total = Total + 1
+    return Total
+
+=== 9618_w22_ms_41_p6_b10 | 9618_w22_ms_41.pdf p6 | python (label) | context: Example program code: / Python
+ReadFile()
+print("The number appears " + str(FindValues()) + "
+times")
+
+=== 9618_w22_ms_41_p7_b13 | 9618_w22_ms_41.pdf p7 | python (label) | context: Example program code: / Python
+def BubbleSort():
+  global DataArray
+    N = 100
+    for I in range(N-1):
+        for J in range(0, N-I-1):
+            if DataArray[J] > DataArray[J+1]:
+                DataArray[J], DataArray[J+1] =
+DataArray[J+1], DataArray[J]
+#main
+ReadFile()
+print("The number appears " + str(FindValues()) + "
+times")
+BubbleSort()
+print(DataArray)
+
+=== 9618_w22_ms_41_p8_b16 | 9618_w22_ms_41.pdf p8 | python (label) | context: Example program code: / Python
+class Card:
+    #Number as integer
+    #Colour as string
+    def __init__(self, Number1, Colour1):
+        self.__Number = Number1;
+        self.__Colour = Colour1;
+
+=== 9618_w22_ms_41_p10_b22 | 9618_w22_ms_41.pdf p10 | python (label) | context: Example program code: / Python
+OneRed = Card(1, "red")
+TwoRed = Card(2, "red")
+ThreeRed = Card(3, "red")
+FourRed = Card(4, "red")
+FiveRed = Card(5, "red")
+OneBlue = Card(1, "blue")
+TwoBlue = Card(2, "blue")
+ThreeBlue = Card(3, "blue")
+FourBlue = Card(4, "blue")
+FiveBlue = Card(5, "blue")
+OneYellow = Card(1, "yellow")
+TwoYellow = Card(2, "yellow")
+ThreeYellow = Card(3, "yellow")
+FourYellow = Card(4, "yellow")
+FiveYellow = Card(5, "yellow")
+
+=== 9618_w22_ms_41_p11_b25 | 9618_w22_ms_41.pdf p11 | python (label) | context: Example program code: / Python
+class Hand:
+    #Cards[10] as Card
+    #FirstCard as integer
+    #NumberCards as integer
+    def __init__(self, Card1, Card2, Card3, Card4,
+Card5): self.__Cards = []
+        self.__Cards.append(Card1)
+        self.__Cards.append(Card2)
+        self.__Cards.append(Card3)
+        self.__Cards.append(Card4)
+        self.__Cards.append(Card5)
+        self.__FirstCard = 0
+        self.__NumberCards = 5
+
+=== 9618_w22_ms_41_p12_b28 | 9618_w22_ms_41.pdf p12 | python (label) | context: Example program code: / Python
+def GetCard(self, Position):
+    return self.__Cards[Position]
+
+=== 9618_w22_ms_41_p13_b31 | 9618_w22_ms_41.pdf p13 | python (label) | context: Example program code: / Python
+Player1 = Hand(OneRed, TwoRed, ThreeRed, FourRed,
+OneYellow)
+Player2 = Hand(TwoYellow, ThreeYellow, FourYellow,
+FiveYellow, OneBlue)
+
+=== 9618_w22_ms_41_p13_b35 | 9618_w22_ms_41.pdf p13 | python (label) | context: Example program code: / Python
+def CalculateValue(Player):
+    Score = 0
+    for Count in range(0, 4):
+        CardGot = Player.GetCard(Count)
+        Score = Score + CardGot.GetNumber()
+        Colour = CardGot.GetColour()
+        if Colour == "red":
+            Score = Score + 5
+        elif Colour == "blue":
+            Score = Score + 10
+        else:
+            Score = Score + 15
+    return Score
+
+=== 9618_w22_ms_41_p15_b38 | 9618_w22_ms_41.pdf p15 | python (label) | context: Example program code: / Python
+Player1score = CalculateValue(Player1)
+Player2score = CalculateValue(Player2)
+if Player1score > Player2score:
+    print("Player 1 wins")
+elif Player1score < Player2score:
+    print("Player 2 wins")
+else:
+    print("It's a draw")
+
+=== 9618_w22_ms_41_p16_b42 | 9618_w22_ms_41.pdf p16 | python (label) | context: Python
+ArrayNodes = []
+for x in range(0, 20):
+    ArrayNodes.append([-1, -1, -1])
+
+=== 9618_w22_ms_41_p17_b44 | 9618_w22_ms_41.pdf p17 | python (label) | context: Example program code: / Python
+ArrayNodes = [[1,20,5],[2,15,-1],[-1,3,3],[-1,9,4],[-
+1,10,-1],[-1,58,-1]]
+FreeNodes = 6
+RootPointer = 0
+
+=== 9618_w22_ms_41_p19_b48 | 9618_w22_ms_41.pdf p19 | python (label) | context: Example program code: / Python
+def SearchValue(Root, ValueToFind):
+  global ArrayNodes
+  if Root == -1:
+   return -1
+  elif ArrayNodes[Root][1] == ValueToFind:
+    return Root
+  elif ArrayNodes[Root][1] == -1:
+    return -1
+  if(ArrayNodes[Root][1] > ValueToFind):
+    return SearchValue(ArrayNodes[Root][0], ValueToFind)
+  if(ArrayNodes[Root][1] < ValueToFind):
+    return SearchValue(ArrayNodes[Root][2], ValueToFind)
+
+=== 9618_w22_ms_41_p21_b51 | 9618_w22_ms_41.pdf p21 | python (label) | context: Example program code: / Python
+def PostOrder(RootNode):
+    if RootNode[0] != -1:
+        PostOrder(ArrayNodes[RootNode[0]])
+    if RootNode[2] != -1:
+        PostOrder(ArrayNodes[RootNode[2]])
+    print(str(RootNode[1]))
+
+=== 9618_w22_ms_41_p22_b55 | 9618_w22_ms_41.pdf p22 | python (label) | context: Example program code: / Python
+ReturnValue = SearchValue(RootPointer, 15)
+if ReturnValue == -1:
+    print("Not found")
+else:
+    print("Found at " + str(ReturnValue))
+PostOrder(ArrayNodes[RootPointer])
+
+=== 9618_w22_ms_42_p3_b2 | 9618_w22_ms_42.pdf p3 | python (label) | context: Java / Python
+Jobs # global integer, 100 by 2 elements
+NumberOfJobs # global integer
+
+=== 9618_w22_ms_42_p4_b6 | 9618_w22_ms_42.pdf p4 | python (label) | context: Python
+def Initialise():
+    global Jobs
+    global NumberOfJobs
+    for x in range(0, 100):
+        Jobs.append([-1,-1])
+    NumberOfJobs = 0
+
+=== 9618_w22_ms_42_p5_b9 | 9618_w22_ms_42.pdf p5 | python (label) | context: Python
+def AddJob(JobNumber, Priority):
+  global NumberOfJobs
+  global Jobs
+  if NumberOfJobs == 100:
+    print("Not added")
+  else:
+    Jobs[NumberOfJobs] = [JobNumber, Priority]
+    print("Added")
+    NumberOfJobs = NumberOfJobs + 1
+
+=== 9618_w22_ms_42_p6_b12 | 9618_w22_ms_42.pdf p6 | python (label) | context: Python
+Initialise()
+AddJob(12,10)
+AddJob(526,9)
+AddJob(33,8)
+AddJob(12,9)
+AddJob(78,1)
+
+=== 9618_w22_ms_42_p7_b14 | 9618_w22_ms_42.pdf p7 | python (label) | context: Example program code: / Python
+def InsertionSort():
+    global Jobs
+    global NumberOfJobs
+    for I in range(1, NumberOfJobs):
+        Current1 = Jobs[I][0]
+        Current2 = Jobs[I][1]
+        while I > 0 and Jobs[I-1][1] > Current2:
+            Jobs[I][0] = Jobs[I-1][0]
+            Jobs[I][1] = Jobs[I-1][1]
+            I = I - 1
+        Jobs[I][0] = Current1
+        Jobs[I][1] = Current2
+
+=== 9618_w22_ms_42_p9_b18 | 9618_w22_ms_42.pdf p9 | python (label) | context: Java / Python
+def PrintArray():
+  global Jobs
+  global NumberOfJobs
+  for X in range(0, NumberOfJobs):
+    print(str(Jobs[X][0]), " priority ", str(Jobs[X][1]))
+
+=== 9618_w22_ms_42_p9_b21 | 9618_w22_ms_42.pdf p9 | python (label) | context: Java / Python
+InsertionSort()
+PrintArray()
+
+=== 9618_w22_ms_42_p11_b24 | 9618_w22_ms_42.pdf p11 | python (label) | context: Python
+class Character:
+    #private Name as string
+    #private XCoordinate as integer
+    #private YCoordinate as integer
+    def __init__(self, Namep, Xcoord, Ycoord):
+        self.__Name = Namep
+        self.__XCoordiante = Xcoord
+        self.__YCoordinate = Ycoord
+
+=== 9618_w22_ms_42_p12_b27 | 9618_w22_ms_42.pdf p12 | python (label) | context: Java / Python
+def GetName(self): return self.__Name
+  def GetX(self):
+      return self.__XCoordinate
+  def GetY(self):
+      return self.__YCoordinate
+
+=== 9618_w22_ms_42_p13_b30 | 9618_w22_ms_42.pdf p13 | python (label) | context: Java / Python
+def ChangePosition(self, XChange, YChange):
+  self.__XCoordinate = self.__XCoordinate + XChange
+  self.__YCoordinate = self.__YCoordinate + YChange
+
+=== 9618_w22_ms_42_p14_b33 | 9618_w22_ms_42.pdf p14 | python (label) | context: Python
+Characters = []
+TextFile = "Characters.txt"
+try:
+  File = open(TextFile, 'r')
+  for X in range(0, 10):
+      Name = File.readline().strip()
+      XCoord = File.readline().strip()
+      YCoord = File.readline().strip()
+      TempC = Character(Name, int(XCoord), int(YCoord))
+      Characters.append(TempC)
+  File.close()
+except:
+  print("File not found")
+
+=== 9618_w22_ms_42_p16_b35 | 9618_w22_ms_42.pdf p16 | python (label) | context: Example program code: / Python
+Position = -1
+CharacterName = ""
+while(Position == -1):
+  CharacterInput = input("Enter the Character to
+move").rstrip('\n').lower()
+  for Count in range(0, 10):
+    Temp = str(Characters[Count].GetName().strip())
+    if(Temp == CharacterInput):
+      Position = Count
+
+=== 9618_w22_ms_42_p18_b39 | 9618_w22_ms_42.pdf p18 | python (label) | context: Python
+IsValid = False
+while(IsValid != True):
+    Move = input("Enter A for left, W for up, S for down,
+or D for right")
+    if(Move.upper() == "A"):
+        Characters[Position].ChangePosition(-1,0)
+        IsValid = True
+    elif (Move.upper() == "W"):
+        Characters[Position].ChangePosition(0,1)
+        IsValid = True
+    elif (Move.upper() == "S"):
+        Characters[Position].ChangePosition(0,-1)
+        IsValid = True
+    elif(Move.upper() == "D"):
+        Characters[Position].ChangePosition(1,0)
+        IsValid = True
+
+=== 9618_w22_ms_42_p19_b42 | 9618_w22_ms_42.pdf p19 | python (label) | context: Java / Python
+print(CharacterName, " has changed coordinate to X = ",
+str(Characters[Position].GetX()), " Y = ",
+str(Characters[Position].GetY()))
+
+=== 9618_w22_ms_42_p20_b45 | 9618_w22_ms_42.pdf p20 | python (label) | context: Java / Python
+Queue = [-1 for I in range(100)] #Integer
+HeadPointer = -1
+TailPointer = 0
+
+=== 9618_w22_ms_42_p21_b48 | 9618_w22_ms_42.pdf p21 | python (label) | context: Python
+def Enqueue(Data):
+    global Queue
+    global TailPointer
+    if(TailPointer < 100):
+      if HeadPointer == -1:
+        HeadPointer = 0
+      Queue[TailPointer] = Data
+      TailPointer = TailPointer + 1
+      return True
+    return False
+
+=== 9618_w22_ms_42_p22_b51 | 9618_w22_ms_42.pdf p22 | python (label) | context: Python
+Success = False
+for Count in range(1, 21):
+    Success = Enqueue(Count)
+if(Success == False):
+  print("Unsuccessful")
+else:
+  print("Successful")
+
+=== 9618_w22_ms_42_p23_b54 | 9618_w22_ms_42.pdf p23 | python (label) | context: Java / Python
+def RecursiveOutput(Start):
+    if(Start == 0):
+        return Queue[Start]
+    else:
+        return Queue[Start] + RecursiveOutput(Start - 1)
+
+=== 9618_w22_ms_42_p23_b57 | 9618_w22_ms_42.pdf p23 | python (label) | context: Java / Python
+print(str(RecursiveOutput(TailPointer - 1)))
+
+=== 9618_s23_ms_41_p4_b3 | 9618_s23_ms_41.pdf p4 | python (label) | context: VB.NET / Python
+DataArray = [] #25 elements Integer
+
+=== 9618_s23_ms_41_p6_b6 | 9618_s23_ms_41.pdf p6 | python (label) | context: 1(a)(ii) / Python
+try:
+  DataFile = open("Data.txt",'r')
+  for Line in DataFile:
+     DataArray.append(int(Line))
+  DataFile.close()
+except IOError:
+  print("Could not find file")
+
+=== 9618_s23_ms_41_p7_b9 | 9618_s23_ms_41.pdf p7 | python (label) | context: Python
+def PrintArray(DataArray):
+    output = ""
+    for X in range(0, len(DataArray)):
+        output = output + str((DataArray[X])) + " "
+    print(output)
+
+=== 9618_s23_ms_41_p9_b15 | 9618_s23_ms_41.pdf p9 | python (label) | context: Python
+def LinearSearch(DataArray, DataToFind):
+    Count = 0
+    for X in range(0, len(DataArray)):
+        if(DataArray[X] == DataToFind):
+            Count +=1
+    return Count
+
+=== 9618_s23_ms_41_p10_b18 | 9618_s23_ms_41.pdf p10 | python (label) | context: Python
+DataToFind = int(input("Enter a number to find "))
+while DataToFind < 0 or DataToFind > 100:
+    DataToFind = int(input("Enter a number to find "))
+NumberTimes = LinearSearch(DataArray, DataToFind)
+print("The number", DataToFind, "is found", NumberTimes, "times")
+
+=== 9618_s23_ms_41_p13_b22 | 9618_s23_ms_41.pdf p13 | python (label) | context: 2(a)(i) / Python
+class Vehicle:
+    #self.__ID string
+    #self.__MaxSpeed integer
+    #self.__CurrentSpeed integer
+    #self.__IncreaseAmount integer
+    #self.__HorizontalPosition
+    def __init__(self, IDP, MaxSpeedP, IncreaseAmountP):
+        self.__ID = IDP
+        self.__MaxSpeed = MaxSpeedP
+        self.__IncreaseAmount = IncreaseAmountP
+        self.__CurrentSpeed = 0
+        self.__HorizontalPosition = 0
+
+=== 9618_s23_ms_41_p15_b25 | 9618_s23_ms_41.pdf p15 | python (label) | context: 2(a)(ii) / Python
+def GetCurrentSpeed(self):
+    return self.__CurrentSpeed
+def GetIncreaseAmount(self):
+    return self.__IncreaseAmount
+def GetHorizontalPosition(self):
+    return self.__HorizontalPosition
+def GetMaxSpeed(self):
+    return self.__MaxSpeed
+
+=== 9618_s23_ms_41_p16_b28 | 9618_s23_ms_41.pdf p16 | python (label) | context: Java / Python
+def SetCurrentSpeed(self, CSP):
+    self.__CurrentSpeed = CSP
+def SetHorizontalPosition(self, HPP):
+    self.__HorizontalPosition = HPP
+
+=== 9618_s23_ms_41_p17_b31 | 9618_s23_ms_41.pdf p17 | python (label) | context: Python
+def IncreaseSpeed(self):
+    self.__CurrentSpeed = self.__CurrentSpeed + self.__IncreaseAmount
+    if(self.__CurrentSpeed > self.__MaxSpeed):
+         self.__CurrentSpeed = self.__MaxSpeed
+    self.__HorizontalPosition = self.__HorizontalPosition + self.__CurrentSpeed
+
+=== 9618_s23_ms_41_p19_b35 | 9618_s23_ms_41.pdf p19 | python (label) | context: 2(b)(i) / Python
+class Helicopter(Vehicle):
+    #VerticalPosition Integer
+    #VerticalChange Integer
+    #MaxHeight Integer
+    def __init__(self, IDP, MaxSpeedP, IncreaseAmountP, VertChangeP, MaxHeightP):
+         Vehicle.__init__(self,IDP, MaxSpeedP, IncreaseAmountP)
+         self.__VerticalPosition = 0
+         self.__VerticalChange = VertChangeP
+         self.__MaxHeight = MaxHeightP
+
+=== 9618_s23_ms_41_p21_b38 | 9618_s23_ms_41.pdf p21 | python (label) | context: 2(b)(ii) / Python
+def IncreaseSpeed(self):
+    self.__VerticalPosition = self.__VerticalPosition + self.__VerticalChange
+    if(self.__VerticalPosition > self.__MaxHeight):
+        self.__VerticalPosition = MaxHeight
+    Vehicle.SetCurrentSpeed(self, Vehicle.GetCurrentSpeed(self) +
+Vehicle.GetIncreaseAmount(self))
+    if(Vehicle.GetCurrentSpeed(self) > Vehicle.GetMaxSpeed(self)):
+        Vehicle.SetCurrentSpeed(self, Vehicle.GetMaxSpeed(self));
+    Vehicle.SetHorizontalPosition(self, Vehicle.GetHorizontalPosition(self) +
+Vehicle.GetCurrentSpeed(self))
+
+=== 9618_s23_ms_41_p22_b41 | 9618_s23_ms_41.pdf p22,23 | python (label) | context: Python
+def OutputCurrentPosition(self):
+    print("Current position = ", self.__HorizontalPosition)
+    print("Current speed = ", self.__CurrentSpeed)
+def OutputCurrentPosition(self):
+    print("Current position = ", Vehicle.GetHorizontalPosition(self))
+    print("Current speed = ", Vehicle.GetCurrentSpeed(self))
+    print("Current verticalposition = ", self.__VerticalPosition)
+
+=== 9618_s23_ms_41_p25_b44 | 9618_s23_ms_41.pdf p25 | python (label) | context: 2(d)(i) / Python
+#main
+Car = Vehicle("Tiger", 100, 20)
+Heli1 = Helicopter("Lion", 350, 40, 3, 100)
+Car.IncreaseSpeed()
+Car.IncreaseSpeed()
+Car.OutputCurrentPosition()
+print("")
+Heli1.IncreaseSpeed()
+Heli1.IncreaseSpeed()
+Heli1.OutputCurrentPosition()
+
+=== 9618_s23_ms_41_p26_b47 | 9618_s23_ms_41.pdf p26 | python (label) | context: VB.NET / Python
+Animal = [] #20 elements
+Colour = [] #10 elements
+global AnimalTopPointer
+global ColourTopPointer
+AnimalTopPointer = 0
+ColourTopPointer = 0
+
+=== 9618_s23_ms_41_p27_b50 | 9618_s23_ms_41.pdf p27,28 | python (label) | context: Python
+def PushAnimal(DataToPush):
+    global AnimalTopPointer
+    global ColourTopPointer
+    if AnimalTopPointer == 20:
+        return False
+else:
+    Animal.append(DataToPush)
+    AnimalTopPointer +=1
+    return True
+
+=== 9618_s23_ms_41_p29_b53 | 9618_s23_ms_41.pdf p29 | python (label) | context: 3(b)(ii) / Python
+def PopAnimal():
+    global AnimalTopPointer
+    global ColourTopPointer
+    if AnimalTopPointer == 0:
+        return ""
+    else:
+        ReturnData = Animal[AnimalTopPointer - 1]
+        AnimalTopPointer -=1
+        return ReturnData
+
+=== 9618_s23_ms_41_p31_b56 | 9618_s23_ms_41.pdf p31 | python (label) | context: 3(b)(iii) Python
+def ReadData():
+  try:
+    global AnimalTopPointer
+    global ColourTopPointer
+    AnimalFile = open("AnimalData.txt", 'r')
+    for Line in AnimalFile:
+        PushAnimal(Line)
+    AnimalFile.close()
+  except IOError:
+    print("Could not find file")
+
+=== 9618_s23_ms_41_p33_b60 | 9618_s23_ms_41.pdf p33 | python (label) | context: Python
+def PushColour(DataToPush):
+    global AnimalTopPointer
+    global ColourTopPointer
+    if ColourTopPointer == 10:
+        return False
+    else:
+        Colour.append(DataToPush)
+        ColourTopPointer +=1
+        return True
+def PopColour():
+    global AnimalTopPointer
+    global ColourTopPointer
+    if ColourTopPointer == 0:
+        return ""
+    else:
+        ReturnData = Colour[ColourTopPointer - 1]
+        ColourTopPointer -=1
+        return ReturnData
+
+=== 9618_s23_ms_41_p35_b63 | 9618_s23_ms_41.pdf p35 | python (label) | context: Python
+def ReadData():
+  try:
+    global AnimalTopPointer
+    global ColourTopPointer
+    AnimalFile = open("AnimalData.txt", 'r')
+    for Line in AnimalFile:
+        PushAnimal(Line)
+    AnimalFile.close()
+    ColourFile = open("ColourData.txt", 'r')
+    for Line in ColourFile:
+        PushColour(Line)
+    ColourFile.close()
+  except IOError:
+    print("Could not find file")
+
+=== 9618_s23_ms_41_p37_b66 | 9618_s23_ms_41.pdf p37 | python (label) | context: Python
+def OutputItem():
+    global AnimalTopPointer
+    global ColourTopPointer
+    ColourReturned = PopColour()
+    AnimalReturned = PopAnimal()
+    if ColourReturned == "":
+        print("No colour")
+        PushAnimal(AnimalReturned)
+    else:
+        if AnimalReturned == "":
+            print("No animal")
+            PushColour(ColourReturned)
+        else:
+            print(ColourReturned, AnimalReturned)
+
+=== 9618_s23_ms_41_p38_b69 | 9618_s23_ms_41.pdf p38 | python (label) | context: Python
+ReadData()
+OutputItem()
+OutputItem()
+OutputItem()
+OutputItem()
+
+=== 9618_s23_ms_42_p4_b3 | 9618_s23_ms_42.pdf p4 | python (label) | context: VB.NET / Python
+global Animals #array 10 elements string
+
+=== 9618_s23_ms_42_p6_b6 | 9618_s23_ms_42.pdf p6 | python (label) | context: 1(b) / Python
+#main
+Animals = []
+Animals.append("horse")
+Animals.append("lion")
+Animals.append("rabbit")
+Animals.append("mouse")
+Animals.append("bird")
+Animals.append("deer")
+Animals.append("whale")
+Animals.append("elephant")
+Animals.append("kangaroo")
+Animals.append("tiger")
+
+=== 9618_s23_ms_42_p8_b10 | 9618_s23_ms_42.pdf p8 | python (label) | context: Python
+def SortDescending():
+    ArrayLength = 10
+    for X in range(0, ArrayLength-1):
+        for Y in range(0, ArrayLength-X-1):
+            if(Animals[Y][0] < Animals[Y+1][0]):
+              Temp = Animals[Y]
+              Animals[Y] = Animals[Y + 1]
+              Animals[Y + 1] = Temp
+
+=== 9618_s23_ms_42_p9_b13 | 9618_s23_ms_42.pdf p9 | python (label) | context: VB.NET / Python
+SortDescending()
+for X in range(0, 10):
+  print(Animals[X])
+
+=== 9618_s23_ms_42_p11_b16 | 9618_s23_ms_42.pdf p11 | python (label) | context: VB.NET / Python
+class SaleData:
+    def __init__(self, SaleIDp, Quantityp):
+        self.SaleID = SaleIDp #string
+        self.Quantity = Quantityp #integer
+
+=== 9618_s23_ms_42_p13_b19 | 9618_s23_ms_42.pdf p13 | python (label) | context: 2(b) / Python
+CircularQueue = [] #SaleData, 5 items
+global NumberOfItems #int
+global Head #int
+global Tail #int
+#main
+NumberOfItems = 0
+Head = 0
+Tail = 0
+for x in range(0, 5):
+    CircularQueue.append((SaleData("",-1)))
+
+=== 9618_s23_ms_42_p15_b22 | 9618_s23_ms_42.pdf p15 | python (label) | context: 2(c) / Python
+def Enqueue(RecordToAdd):
+    global NumberOfItems #int
+    global Head #int
+    global Tail #int
+    if(NumberOfItems == 5):
+        return -1
+    else:
+        CircularQueue[Tail] = RecordToAdd
+        if(Tail == 4):
+            Tail = 0
+        else:
+            Tail +=1
+        NumberOfItems +=1
+        return 1
+
+=== 9618_s23_ms_42_p17_b25 | 9618_s23_ms_42.pdf p17 | python (label) | context: 2(d) / Python
+def Dequeue():
+    global NumberOfItems #int
+    global Head #int
+    global Tail #int
+    RecordRemoved = SaleData("", -1)
+    if not(NumberOfItems == 0):
+        RecordRemoved = CircularQueue[Head]
+        NumberOfItems -=1
+        if Head == 4:
+            Head = 0
+        else:
+            Head +=1
+    return RecordRemoved
+
+=== 9618_s23_ms_42_p19_b28 | 9618_s23_ms_42.pdf p19 | python (label) | context: 2(e) / Python
+def EnterRecord():
+    ID = input("Enter ID")
+    QuantityP = input("Enter quantity")
+    Record = SaleData(ID, QuantityP)
+    if Enqueue(Record) == -1:
+        print("Full")
+    else:
+        print("Stored")
+
+=== 9618_s23_ms_42_p21_b31 | 9618_s23_ms_42.pdf p21 | python (label) | context: Python
+EnterRecord()
+EnterRecord()
+EnterRecord()
+EnterRecord()
+EnterRecord()
+EnterRecord()
+ReturnValue = Dequeue()
+if ReturnValue.SaleID == "":
+    print("No items")
+else:
+    print(ReturnValue.SaleID, " ", ReturnValue.Quantity)
+EnterRecord()
+for x in range(0, 5):
+    print(CircularQueue[x].SaleID, " ", CircularQueue[x].Quantity)
+
+=== 9618_s23_ms_42_p24_b34 | 9618_s23_ms_42.pdf p24 | python (label) | context: 3(a)(i) / Python
+class Employee:
+    #self.__HourlyPay single
+    #self.__EmployeeNumber string
+    #self.__JobTitle string
+
+=== 9618_s23_ms_42_p24_b35 | 9618_s23_ms_42.pdf p24 | python (label) | context: Python
+def __init__(self, EmpNumP, PayP, JobP):
+    self.__HourlyPay = PayP
+    self.__EmployeeNumber = EmpNumP
+    self.__JobTitle = JobP
+    self.__PayYear2022 = []#array 52 elements single
+    for x in range(0, 52):
+        self.__PayYear2022.append(0.00)
+
+=== 9618_s23_ms_42_p25_b38 | 9618_s23_ms_42.pdf p25 | python (label) | context: VB.NET / Python
+def GetEmployeeNumber(self):
+    return self.__EmployeeNumber
+
+=== 9618_s23_ms_42_p26_b41 | 9618_s23_ms_42.pdf p26 | python (label) | context: VB.NET / Python
+def SetPay(self, WeekNumber, Hours):
+    self.__PayYear2022[WeekNumber-1] = Hours * self.__HourlyPay
+
+=== 9618_s23_ms_42_p27_b44 | 9618_s23_ms_42.pdf p27 | python (label) | context: Python
+def GetTotalPay(self):
+    TotalPay = 0
+    for X in range (0, 52):
+        TotalPay = TotalPay + self.__PayYear2022[X]
+    return TotalPay
+
+=== 9618_s23_ms_42_p29_b47 | 9618_s23_ms_42.pdf p29 | python (label) | context: 3(b)(i) / Python
+class Manager(Employee):
+    #BonusValue single
+    def __init__(self, EmpNumP, PayP, JobP, BonusP):
+        super().__init__(EmpNumP, PayP, JobP)
+        self.__BonusValue = BonusP
+
+=== 9618_s23_ms_42_p29_b51 | 9618_s23_ms_42.pdf p29 | python (label) | context: Alternative VB.NET: / Python
+def SetPay(self, WeekNumber, Hours):
+    Hours = Hours * (1 + self.__BonusValue / 100)
+    super().SetPay(WeekNumber, Hours)
+
+=== 9618_s23_ms_42_p32_b54 | 9618_s23_ms_42.pdf p32,33 | python (label) | context: Python
+#main
+Pay = 0.00
+ID = ""
+Bonus = 0.00
+Title = ""
+Temp = ""
+try:
+  TextFile = "Employees.txt"
+  File = open(TextFile, 'r')
+  for x in range(0, 8):
+     Pay = float(File.readline())
+     ID = File.readline()
+     Temp = File.readline()
+      try:
+          Bonus = float(Temp)
+          Title = File.readline()
+          EmployeeArray.append(Manager(ID, Pay, Title, Bonus))
+      except:
+          Title = Temp
+          EmployeeArray.append(Employee(ID, Pay, Title))
+  File.close()
+except IOError:
+  print("Could not find file")
+
+=== 9618_s23_ms_42_p35_b58 | 9618_s23_ms_42.pdf p35 | python (label) | context: Python
+def EnterHours():
+  try:
+    TextFile = "HoursWeek1.txt"
+    File = open(TextFile, 'r')
+    EmpID = ""
+    for X in range(0, 8):
+        EmpID = File.readline()
+        for Y in range(0, 8):
+            if Employees[Y].GetEmployeeNumber() == EmpID:
+                Employees[Y].SetPay(1, float(File.readline()))
+ except IOError:
+  print("Could not find file")
+
+=== 9618_s23_ms_42_p36_b61 | 9618_s23_ms_42.pdf p36 | python (label) | context: VB.NET / Python
+EnterHours()
+for(Y in range(0, 8):
+ print(Employees[Y].GetEmployeeNumber(), " ", Employees[Y].GetTotalPay())
+
+=== 9618_w23_ms_41_p6_b3 | 9618_w23_ms_41.pdf p6 | python (label) | context: Python
+def IterativeVowels(Value):
+   Total = 0
+   for X in range(0, len(Value)):
+      FirstCharacter = Value[0]
+      if FirstCharacter == 'a' or FirstCharacter == 'e' or FirstCharacter == 'i' or FirstCharacter == 'o'
+or FirstCharacter == 'u': Total = Total + 1
+
+=== 9618_w23_ms_41_p6_b7 | 9618_w23_ms_41.pdf p6 | python (label) | context: VB.NET / Python
+print(IterativeVowels("house"))
+
+=== 9618_w23_ms_41_p8_b11 | 9618_w23_ms_41.pdf p8 | python (label) | context: Python
+def RecursiveVowels(Value):
+   if len(Value) == 0:
+      return 0
+   else:
+      FirstCharacter = Value[0]
+   if FirstCharacter == 'a' or FirstCharacter == 'e' or FirstCharacter == 'i' or FirstCharacter == 'o' or
+FirstCharacter == 'u': return 1 + RecursiveVowels(Value[1:len(Value)])
+   else:
+      return RecursiveVowels(Value[1:len(Value)])
+
+=== 9618_w23_ms_41_p8_b14 | 9618_w23_ms_41.pdf p8 | python (label) | context: VB.NET / Python
+print(RecursiveVowels("imagine"))
+
+=== 9618_w23_ms_41_p9_b17 | 9618_w23_ms_41.pdf p9 | python (label) | context: Python
+global Queue #string 50 elements
+global HeadPointer
+global TailPointer
+#main
+Queue = []
+HeadPointer = -1
+TailPointer = 0
+
+=== 9618_w23_ms_41_p11_b20 | 9618_w23_ms_41.pdf p11 | python (label) | context: 2(a)(ii) Python
+def Enqueue(Data):
+   global TailPointer
+   global HeadPointer
+   global Queue
+   if TailPointer == 50:
+      print("Queue full")
+   else:
+      Queue.append(Data)
+      TailPointer +=1
+      if HeadPointer == -1:
+          HeadPointer = 0
+
+=== 9618_w23_ms_41_p13_b23 | 9618_w23_ms_41.pdf p13 | python (label) | context: 2(a)(iii) Python
+def Dequeue():
+   global Queue
+   global HeadPointer
+   if HeadPointer == -1 or HeadPointer == TailPointer:
+      print("Queue empty")
+      return "Empty"
+   else:
+      HeadPointer +=1
+      return Queue[HeadPointer - 1]
+
+=== 9618_w23_ms_41_p15_b26 | 9618_w23_ms_41.pdf p15 | python (label) | context: 2(b) / Python
+def ReadData():
+   try:
+      DataFile = open("QueueData.txt")
+      for Line in DataFile:
+          Enqueue(Line.strip())
+      DataFile.close()
+   except IOError:
+      print("No file")
+
+=== 9618_w23_ms_41_p16_b29 | 9618_w23_ms_41.pdf p16,17 | python (label) | context: VB.NET / Python
+class RecordData:
+   #self._ID string
+   #self._Total integer
+   def _init_(self, IDP, TotalP):
+      self._ID = IDP
+      self._Total = TotalP
+def SetID(self, Value):
+   self._ID = Value
+def GetID(self):
+   return self._ID
+def SetTotal(self, Value):
+   self._Total = Value
+def GetTotal(self): return self._Total
+
+=== 9618_w23_ms_41_p17_b32 | 9618_w23_ms_41.pdf p17 | python (label) | context: Python
+#main
+Records = [] #50 elements of type RecordData NumberRecords = 0
+
+=== 9618_w23_ms_41_p20_b39 | 9618_w23_ms_41.pdf p20 | python (label) | context: Python
+def TotalData():
+   global NumberRecords
+   global Records
+   Flag = False
+   DataAccessed = Dequeue()
+
+=== 9618_w23_ms_41_p20_b40 | 9618_w23_ms_41.pdf p20,21 | python (label) | context: Python
+if NumberRecords == 0:
+   Records.append(RecordData(DataAccessed, 1))
+2(c)(iii)   NumberRecords += 1
+              Flag = True
+           else:
+              for X in range(0, NumberRecords):
+                  if(Records[X].GetID() == DataAccessed):
+                     Records[X].SetTotal(Records[X].GetTotal() + 1)
+                     Flag = True
+              if Flag == False:
+                  Records.append(RecordData(DataAccessed, 1))
+                     NumberRecords += 1
+
+=== 9618_w23_ms_41_p22_b43 | 9618_w23_ms_41.pdf p22 | python (label) | context: Python
+def OutputRecords():
+   for X in range(0, NumberRecords):
+      print("ID", Records[X].GetID(), " Total ", Records[X].GetTotal())
+
+=== 9618_w23_ms_41_p24_b46 | 9618_w23_ms_41.pdf p24 | python (label) | context: 2(e)(i) Python
+#main Queue = []
+Records = []
+HeadPointer = 0
+TailPointer = 0
+ReadData()
+NumberRecords = 0
+
+=== 9618_w23_ms_41_p26_b50 | 9618_w23_ms_41.pdf p26 | python (label) | context: 3(a)(i) Python
+class Character:
+   #self.XPosition integer
+   #self.YPosition integer
+   #self.Name string
+   def _init_(self, XPositionP, YPositionP, NameP):
+      self.XPosition = XPositionP
+      self.YPosition = YPositionP
+      self.Name = NameP
+
+=== 9618_w23_ms_41_p27_b53 | 9618_w23_ms_41.pdf p27 | python (label) | context: Python
+def GetXPosition(self):
+   return self._XPosition
+def GetYPosition(self):
+   return self._YPosition
+
+=== 9618_w23_ms_41_p29_b56 | 9618_w23_ms_41.pdf p29 | python (label) | context: Python
+def SetXPosition(self, Value):
+   self._XPosition = self._XPosition + Value
+   if(self.XPosition > 10000):
+      self.XPosition = 10000
+   elif self.XPosition < 0:
+      self.XPosition = 0
+def SetYPosition(self, Value):
+   self.YPosition = self.YPosition + Value
+   if(self.YPosition > 10000):
+      self.YPosition = 10000
+   elif self.YPosition < 0:
+      self.YPosition = 0
+
+=== 9618_w23_ms_41_p31_b59 | 9618_w23_ms_41.pdf p31 | python (label) | context: 3(a)(iv) Python
+def Move(self, Direction):
+   if(Direction == "up"):
+      self.SetYPosition(10)
+   elif(Direction == "down"):
+      self.SetYPosition(-10)
+   elif(Direction == "right"):
+      self.SetXPosition(10)
+   else:
+      self.SetXPosition(-10)
+
+=== 9618_w23_ms_41_p31_b62 | 9618_w23_ms_41.pdf p31 | python (label) | context: VB.NET / Python
+Jack = Character(50, 50, "Jack")
+
+=== 9618_w23_ms_41_p32_b65 | 9618_w23_ms_41.pdf p32 | python (label) | context: Python
+class BikeCharacter(Character):
+   def _init_(self, XPositionP, YPositionP, NameP):
+      super()._init_(XPositionP, YPositionP, NameP)
+
+=== 9618_w23_ms_41_p34_b68 | 9618_w23_ms_41.pdf p34 | python (label) | context: 3(c)(ii) Python
+def Move(self, Direction):
+   if(Direction == "up"):
+      super().SetYPosition(20)
+   elif(Direction == "down"):
+      super().SetYPosition(-20)
+   elif(Direction == "right"):
+      super().SetXPosition(2)
+   else:
+      super().SetXPosition(-20)
+
+=== 9618_w23_ms_41_p34_b71 | 9618_w23_ms_41.pdf p34 | python (label) | context: VB.NET / Python
+Karla = BikeCharacter(100, 50, "Karla")
+
+=== 9618_w23_ms_41_p37_b74 | 9618_w23_ms_41.pdf p37 | python (label) | context: 3(e)(i) Python
+CharacterToMove = input("Would you like to move Jack or Karla?").lower()
+while CharacterToMove != "jack" and CharacterToMove != "karla":
+   CharacterToMove = input("Invalid try again")
+Direction = input("Which direction? Up, down, left or right?")
+while Direction != "up" and Direction != "down" and Direction != "left" and Direction !=
+"right":
+   Direction = input("Invalid try again")
+   if CharacterToMove == "jack":
+      Jack.Move(Direction)
+      print("Jack's new position is X =", Jack.GetXPosition(), "Y =", Jack.GetYPosition())
+else:
+   Karla.Move(Direction)
+print("Karla's new position is X =", Karla.GetXPosition(), "Y =", Karla.GetYPosition())
+
+=== 9618_w23_ms_42_p4_b3 | 9618_w23_ms_42.pdf p4 | python (label) | context: VB.NET / Python
+StackVowel = [] #string 100
+StackConsonant = [] #string 100
+
+=== 9618_w23_ms_42_p5_b6 | 9618_w23_ms_42.pdf p5 | python (label) | context: VB.NET / Python
+global VowelTop #integer
+global ConsonantTop #integer
+#main
+VowelTop = 0
+ConsonantTop = 0
+
+=== 9618_w23_ms_42_p7_b9 | 9618_w23_ms_42.pdf p7 | python (label) | context: Python
+def PushData(Letter):
+   global VowelTop
+   global ConsonantTop
+   if Letter == "a" or Letter == "e" or Letter == "i" or Letter == "o" or Letter == "u":
+      if VowelTop == 100:
+          print("Vowel stack full")
+      else:
+          StackVowel.append(Letter)
+          VowelTop = VowelTop + 1
+   else:
+      if ConsonantTop == 100:
+          print("Consonant stack full")
+      else:
+          StackConsonant.append(Letter)
+          ConsonantTop = ConsonantTop + 1
+
+=== 9618_w23_ms_42_p9_b12 | 9618_w23_ms_42.pdf p9 | python (label) | context: Python
+def ReadData():
+   try:
+      DataFile = open("StackData.txt")
+      for Line in DataFile:
+          PushData(Line.strip())
+      DataFile.close()
+   except:
+      print("File not found")
+
+=== 9618_w23_ms_42_p11_b15 | 9618_w23_ms_42.pdf p11,12 | python (label) | context: Python
+def PopVowel():
+   global VowelTop
+   global ConsonantTop
+   if VowelTop - 1 >= 0:
+      VowelTop = VowelTop - 1
+      DataToReturn = StackVowel[VowelTop]
+      del StackVowel[-1]
+      return DataToReturn
+   else:
+      return "No data"
+def PopConsonant():
+   global VowelTop
+   global ConsonantTop
+   if ConsonantTop - 1 >= 0:
+      ConsonantTop = ConsonantTop - 1
+      DataToReturn = StackConsonant[ConsonantTop]
+      del StackConsonant[-1]
+      return DataToReturn
+   else:
+      return "No data"
+
+=== 9618_w23_ms_42_p15_b19 | 9618_w23_ms_42.pdf p15,16 | python (label) | context: Python
+#main
+VowelTop = 0
+ConsonantTop = 0
+ReadData()
+Letters = ""
+Flag = False
+for x in range(0, 5):
+   Flag = False
+   while Flag == False:
+      Choice = input("Vowel or Consonant").lower()
+      if Choice == "vowel":
+          DataAccessed = PopVowel()
+          if DataAccessed != "No data":
+             Letters = Letters + DataAccessed
+             Flag = True
+          else:
+             print("No vowels left")
+1(d)(i)   elif Choice == "consonant": DataAccessed = PopConsonant()
+                 if DataAccessed != "No data":
+                    Letters = Letters + DataAccessed
+                    Flag = True
+              else: print("No consonants left")
+        print(Letters)
+
+=== 9618_w23_ms_42_p18_b22 | 9618_w23_ms_42.pdf p18 | python (label) | context: 2(a)(i) Python
+def IterativeCalculate(Number):
+   Total = 0
+   ToFind = Number
+   while Number != 0:
+      if ToFind % Number == 0:
+          Total = Total + Number
+      Number = Number - 1
+   return Total
+
+=== 9618_w23_ms_42_p18_b26 | 9618_w23_ms_42.pdf p18 | python (label) | context: VB.NET / Python
+print(IterativeCalculate(10))
+
+=== 9618_w23_ms_42_p20_b30 | 9618_w23_ms_42.pdf p20 | python (label) | context: Python
+def RecursiveValue(Number, ToFind):
+   if Number == 0:
+      return 0
+   else:
+      if ToFind % Number == 0:
+          return Number + RecursiveValue(Number - 1, ToFind)
+      else:
+          return RecursiveValue(Number - 1, ToFind)
+
+=== 9618_w23_ms_42_p21_b33 | 9618_w23_ms_42.pdf p21 | python (label) | context: VB.NET / Python
+print(RecursiveValue(50,50))
+
+=== 9618_w23_ms_42_p23_b36 | 9618_w23_ms_42.pdf p23 | python (label) | context: Python
+class Character:
+   #self.__CharacterName string
+   #self.__DateOfBirth date
+   #self.__Intelligence real
+   #self.__Speed integer
+   def __init__(self, CName, DBirth, Intell, SpeedP):
+      self.__CharacterName = CName
+      self.__DateOfBirth = DBirth
+      self.__Intelligence = Intell
+      self.__Speed = SpeedP
+
+=== 9618_w23_ms_42_p24_b39 | 9618_w23_ms_42.pdf p24 | python (label) | context: Python
+def GetIntelligence(self):
+   return self.__Intelligence
+def GetName(self):
+   return self.__CharacterName
+
+=== 9618_w23_ms_42_p25_b42 | 9618_w23_ms_42.pdf p25 | python (label) | context: VB.NET / Python
+def SetIntelligence(self, NewValue):
+   self.__Intelligence = NewValue
+
+=== 9618_w23_ms_42_p26_b45 | 9618_w23_ms_42.pdf p26 | python (label) | context: VB.NET / Python
+def Learn(self):
+   self.__Intelligence = self.__Intelligence * 1.1
+
+=== 9618_w23_ms_42_p27_b48 | 9618_w23_ms_42.pdf p27 | python (label) | context: VB.NET / Python
+def ReturnAge(self):
+   return 2023 - self.__DateOfBirth.year
+
+=== 9618_w23_ms_42_p28_b51 | 9618_w23_ms_42.pdf p28 | python (label) | context: VB.NET / Python
+FirstCharacter = Character("Royal", datetime.datetime(2019, 1, 1), 70, 30)
+
+=== 9618_w23_ms_42_p29_b55 | 9618_w23_ms_42.pdf p29 | python (label) | context: VB.NET / Python
+FirstCharacter.Learn()
+print(FirstCharacter.GetName(), "is", FirstCharacter.ReturnAge(), "years old and has
+intelligence" , FirstCharacter.GetIntelligence())
+
+=== 9618_w23_ms_42_p31_b58 | 9618_w23_ms_42.pdf p31 | python (label) | context: 3(c)(i) / Python
+class MagicCharacter(Character):
+   #self.__Element String
+   def __init__(self, ElementP, CName, DBirth, Intell, SpeedP):
+      super().__init__(CName, DBirth, Intell, SpeedP)
+      self.__Element = ElementP
+
+=== 9618_w23_ms_42_p33_b61 | 9618_w23_ms_42.pdf p33 | python (label) | context: 3(c)(ii) Python
+def Learn(self):
+   if(self.__Element == "fire" or self.__Element == "water"):
+      super().SetIntelligence(super().GetIntelligence() * 1.2)
+   elif self.__Element == "earth":
+      super().SetIntelligence(super().GetIntelligence() * 1.3)
+   else:
+      super().SetIntelligence(super().GetIntelligence() * 1.1)
+
+=== 9618_w23_ms_42_p33_b64 | 9618_w23_ms_42.pdf p33 | python (label) | context: VB.NET / Python
+FirstMagic = MagicCharacter("fire", "Light", datetime.datetime(2018, 3, 3), 75, 22)
+
+=== 9618_w23_ms_42_p34_b67 | 9618_w23_ms_42.pdf p34 | python (label) | context: VB.NET / Python
+FirstMagic.Learn()
+print(FirstMagic.GetName(), "is", FirstMagic.ReturnAge(), "years old and has intelligence",
+FirstMagic.GetIntelligence())
+
+=== 9618_s24_ms_41_p4_b3 | 9618_s24_ms_41.pdf p4 | python (label) | context: VB.NET / Python
+global DataStored #integer
+global NumberItems #Integer 20 items
+
+=== 9618_s24_ms_41_p6_b6 | 9618_s24_ms_41.pdf p6 | python (label) | context: 1(b) / Python
+def Initialise():
+    global DataStored
+    global NumberItems
+    Valid = False
+    while(Valid == False):
+        NumberItems = int(input("How many numbers will you enter?")) #loop until < 20
+        if NumberItems > 0 and NumberItems< 21:
+           Valid = True
+    for Count in range(0, NumberItems):
+        DataStored.append(int(input("Enter number")))
+
+=== 9618_s24_ms_41_p6_b9 | 9618_s24_ms_41.pdf p6 | python (label) | context: VB.NET / Python
+NumberItems = 0
+Initialise()
+print(DataStored)
+
+=== 9618_s24_ms_41_p9_b12 | 9618_s24_ms_41.pdf p9 | python (label) | context: 1(d)(i) Python
+def BubbleSort():
+    global DataStored
+    global NumberItems
+    for Count in range(0, NumberItems):
+        for Count2 in range(0, NumberItems-1):
+            if DataStored[Count2] > DataStored[Count]:
+                DataStored[Count2], DataStored[Count] = DataStored[Count],
+DataStored[Count2]
+
+=== 9618_s24_ms_41_p9_b15 | 9618_s24_ms_41.pdf p9 | python (label) | context: e.g. Java / e.g. Python
+BubbleSort()
+print(DataStored)
+
+=== 9618_s24_ms_41_p11_b18 | 9618_s24_ms_41.pdf p11 | python (label) | context: Python
+def BinarySearch(DataToFind):
+    global DataStored
+    global NumberItems
+    First = 0
+    Last= NumberItems
+    while(First <= Last):
+        MidValue = int((First + Last) / 2)
+        if DataToFind == DataStored[MidValue]:
+            return MidValue
+        if DataToFind < DataStored[MidValue]:
+            Last = MidValue - 1
+        else:
+            First = MidValue + 1
+    return -1
+
+=== 9618_s24_ms_41_p12_b21 | 9618_s24_ms_41.pdf p12 | python (label) | context: VB.NET / Python
+Search = int(input("Enter a number to find"))
+print(BinarySearch(Search))
+
+=== 9618_s24_ms_41_p15_b24 | 9618_s24_ms_41.pdf p15 | python (label) | context: Python
+class Tree:
+    def __init__(self, Name, HGrowth, MaxH, MaxW, PEvergreen):
+        self.__TreeName = Name
+        self.__HeightGrowth = HGrowth
+        self.__MaxHeight = MaxH
+        self.__MaxWidth = MaxW
+        self.__Evergreen = PEvergreen
+
+=== 9618_s24_ms_41_p17_b27 | 9618_s24_ms_41.pdf p17 | python (label) | context: Python
+def GetTreeName(self):
+    return self.__TreeName
+def GetMaxHeight(self):
+    return self.__MaxHeight
+def GetMaxWidth(self):
+    return self.__MaxWidth
+def GetGrowth(self):
+    return self.__HeightGrowth
+def GetEvergreen(self):
+    return self.__Evergreen
+
+=== 9618_s24_ms_41_p20_b30 | 9618_s24_ms_41.pdf p20 | python (label) | context: 2(b) / Python
+def ReadData():
+    TreeObjects=[]
+    try:
+        File = open("Trees.txt")
+        TreeData = []
+        TreeData = File.read().split("\n")
+        SplitTrees = []
+        for Item in TreeData:
+            SplitTrees.append(Item.split(","))
+        File.close()
+        for Item in SplitTrees:
+TreeObjects.append(Tree(Item[0],int(Item[1]),int(Item[2]),int(Item[3]),Item[4]))
+    except IOError:
+        print ("invalid file")
+    return TreeObjects
+
+=== 9618_s24_ms_41_p22_b33 | 9618_s24_ms_41.pdf p22 | python (label) | context: 2(c) / Python
+def PrintTrees(Item):
+    Final = "does not lose its leaves"
+    if Item.GetEvergreen() == "No":
+        Final = "loses its leaves each year"
+    print(Item.GetTreeName(), "has a maximum height", Item.GetMaxHeight(),"a maximum
+width",Item.GetMaxWidth(),"and grows", Item.GetGrowth(),"cm a year. It",Final)
+
+=== 9618_s24_ms_41_p22_b36 | 9618_s24_ms_41.pdf p22 | python (label) | context: VB.NET / Python
+TreeObjects = ReadData()
+PrintTrees(TreeObjects[0])
+
+=== 9618_s24_ms_41_p25_b40 | 9618_s24_ms_41.pdf p25 | python (label) | context: Python
+def ChooseTree(Trees):
+    Evergreen = input("Do you want a tree that loses its leaves (enter lose), or keeps its
+leaves (enter keep)")
+    MaxHeight = int(input("What is the maximum tree height in cm"))
+    MaxWidth = int(input("What is the maximum tree width in cm"))
+    Options = []
+    if Evergreen.lower() == "keep" or Evergreen.lower() == "keep leaves" or
+Evergreen.lower() == "keeps its leaves": keep = "Yes"
+    else:
+        keep = "No"
+    for Item in Trees:
+        if Item.GetMaxHeight() <= MaxHeight and Item.GetMaxWidth() <= MaxWidth and keep ==
+Item.GetEvergreen(): Options.append(Item)
+            PrintTrees(Item)
+    if len(Options) == 0:
+        print("No suitable trees")
+
+=== 9618_s24_ms_41_p27_b43 | 9618_s24_ms_41.pdf p27 | python (label) | context: Python:
+Valid = False
+while Valid == False:
+   Choice = input("Enter the name of the tree you want")
+   for Item in Options:
+      if Item.GetTreeName() == Choice:
+         Valid = True
+         Selected = Item
+         Start = int(input("Enter the height of the tree you would like to start with in
+cm"))
+         Years =  (Selected.GetMaxHeight() - Start)/Selected.GetGrowth()
+         print("Your tree should be full height in approximately", Years,"years")
+
+=== 9618_s24_ms_41_p29_b46 | 9618_s24_ms_41.pdf p29 | python (label) | context: Python
+global QueueData
+global QueueHead
+global QueueTail
+QueueData = []
+for x in range(0, 20):
+    QueueData.append("")
+QueueHead = -1
+QueueTail = -1
+
+=== 9618_s24_ms_41_p31_b49 | 9618_s24_ms_41.pdf p31 | python (label) | context: 3(b) / Python
+def Enqueue(DataToInsert):
+    global QueueData
+    global QueueHead
+    global QueueTail
+    if QueueTail == 19:
+        return False
+    elif QueueHead == -1:
+        QueueHead = 0
+    QueueTail = QueueTail + 1
+    QueueData.append(DataToInsert)
+    return True
+
+=== 9618_s24_ms_41_p33_b52 | 9618_s24_ms_41.pdf p33 | python (label) | context: 3(c) / Python
+def Dequeue():
+    global QueueData
+    global QueueHead
+    global QueueTail
+    if QueueHead < 0 or QueueHead > 20 or QueueHead > QueueTail:
+        return False
+    else:
+        QueueHead = QueueHead + 1
+        return QueueData[QueueHead-1]
+
+=== 9618_s24_ms_41_p36_b55 | 9618_s24_ms_41.pdf p36 | python (label) | context: 3(d)(i) Python
+def StoreItems():
+    global QueueData
+    global QueueHead
+    global QueueTail
+    Count = 0
+    for X in range(0, 10):
+        Data = input("Enter data")
+        Total= int(Data[0]) + int(Data[1]) * 3 + int(Data[2]) + int(Data[3]) * 3 +
+int(Data[4]) + int(Data[5]) * 3
+        Total = int(Total / 10)
+        if((Total == 10 and Data[6] == "X") or (Total == int(Data[6]))):
+            Result = Enqueue(Data[0:6])
+            if(Result == True):
+                print("Inserted item")
+            else:
+                print("Queue full")
+        else:
+            Count = Count + 1
+    print("There were", Count,"Invalid items")
+
+=== 9618_s24_ms_41_p38_b58 | 9618_s24_ms_41.pdf p38 | python (label) | context: 3(d)(ii) Python
+QueueData = []
+for x in range(0, 20):
+    QueueData.append("")
+QueueHead = -1
+QueueTail = -1
+StoreItems()
+Value = Dequeue()
+if Value == False:
+    print("No data items")
+else:
+    print("Item code", Value)
+
+=== 9618_s24_ms_42_p5_b4 | 9618_s24_ms_42.pdf p5 | python (label) | context: Python
+def ReadWords(FileName):
+   global WordArray
+   global NumberWords
+   File = open(FileName, 'r')
+   DataRead = File.read().strip()
+   File.close()
+   WordArray = DataRead.split()
+   NumberWords = len(WordArray)
+
+=== 9618_s24_ms_42_p7_b7 | 9618_s24_ms_42.pdf p7 | python (label) | context: 1(b) / Python
+WordArray = []
+NumberWords = 0
+Choice = input("Easy, medium or hard? ").lower()
+if Choice == "easy":
+   File = "Easy.txt"
+elif Choice == "medium":
+   File = "Medium.txt"
+else:
+   File = "Hard.txt"
+ReadWords(File)
+
+=== 9618_s24_ms_42_p10_b11 | 9618_s24_ms_42.pdf p10,11 | python (label) | context: Python
+def Play():
+   global WordArray
+   global NumberWords
+   Word = WordArray[0]
+   print("The word is: ", Word)
+   print("There are", NumberWords-1,"words that can be made with 3 or more letters")
+   WordArray[0] = ""
+   Answer = "yes"
+   QuantityFound = 0
+   while Answer != "no":
+      Answer = input("Enter your word or no to stop ").lower()
+      Found = False
+if Answer != "no":
+   for x in range(0, NumberWords):
+      if Answer == WordArray[x]:
+          WordArray[x] = ""
+          QuantityFound = QuantityFound + 1
+          print("Correct, you have found", QuantityFound, "words")
+          Found = True
+      if Found == False:
+          print("Sorry that was incorrect")
+
+=== 9618_s24_ms_42_p15_b16 | 9618_s24_ms_42.pdf p15,16 | python (label) | context: Python
+def Play():
+   global WordArray
+   global NumberWords
+   Word = WordArray[0]
+   print("The word is: ", Word)
+   print("There are", NumberWords-1,"words that can be made with 3 or more letters")
+   WordArray[0] = ""
+   Answer = "yes"
+   QuantityFound = 0
+   while Answer != "no":
+      Answer = input("Enter your word or no to stop ").lower()
+      Found = False
+      if Answer != "no":
+          for x in range(0, NumberWords):
+             if Answer == WordArray[x]:
+                WordArray[x] = ""
+                QuantityFound = QuantityFound + 1
+                print("Correct, you have found", QuantityFound, "words")
+                Found = True
+             if Found == False:
+                print("Sorry that was incorrect")
+   Correct = (QuantityFound / (NumberWords-1)) * 100
+   print("You found", Correct,"%")
+1(c)(ii)  if Correct < 100: print("The words you missed are")
+              for x in range(0, NumberWords-1):
+                 if WordArray[x] != "":
+                     print(WordArray[x])
+
+=== 9618_s24_ms_42_p18_b19 | 9618_s24_ms_42.pdf p18 | python (label) | context: Python
+def ReadWords(FileName):
+   global WordArray
+   global NumberWords
+   File = open(FileName, 'r')
+   DataRead = File.read().strip()
+   File.close()
+   WordArray = DataRead.split()
+   NumberWords = len(WordArray)
+   Play()
+
+=== 9618_s24_ms_42_p22_b23 | 9618_s24_ms_42.pdf p22 | python (label) | context: 2(a)(i) Python
+class Node():
+   def __init__(self, PData):
+      self._LeftPointer = -1 #int
+      self._Data = PData #int
+      self.__RightPointer = -1 #int
+
+=== 9618_s24_ms_42_p23_b26 | 9618_s24_ms_42.pdf p23,24 | python (label) | context: Python
+def GetLeft(self):
+   return self._LeftPointer
+2(a)(ii) def GetRight(self): return self._RightPointer
+        def GetData(self):
+           return self.__Data
+
+=== 9618_s24_ms_42_p25_b29 | 9618_s24_ms_42.pdf p25,26 | python (label) | context: Python
+def SetLeft(self, NewLeft):
+   self._LeftPointer = NewLeft
+def SetRight(self, NewRight):
+2(a)(iii)  self._RightPointer = NewRight
+        def SetData(self, NewData):
+           self.__Data = NewData
+
+=== 9618_s24_ms_42_p28_b33 | 9618_s24_ms_42.pdf p28 | python (label) | context: 2(b)(i)   For x = 0 To 19 / Python
+class TreeClass():
+   def __init__(self):
+      self.__Tree = [] #type node 20 spaces
+      self._FirstNode = -1 #int
+      self._NumberNodes = 0 #int
+      for x in range(20):
+          self.__Tree.append(Node(-1))
+
+=== 9618_s24_ms_42_p31_b37 | 9618_s24_ms_42.pdf p31,32 | python (label) | context: Python
+def InsertNode(self, NewNode):
+   if(self.__NumberNodes == 0):
+      self._Tree[0] = NewNode self._FirstNode = 0
+      self._NumberNodes = self._NumberNodes + 1
+   else:
+      self.__Tree[self.__NumberNodes] = NewNode
+      NodeAccess = self._FirstNode
+      Direction = ""
+      while(NodeAccess != -1):
+          Previous = NodeAccess
+          if NewNode.GetData() < self.__Tree[NodeAccess].GetData():
+2(b)(ii)     NodeAccess = self._Tree[NodeAccess].GetLeft()
+                     Direction = "left"
+                 elif NewNode.GetData() > self.__Tree[NodeAccess].GetData():
+                     NodeAccess = self._Tree[NodeAccess].GetRight()
+                     Direction = "right"
+              if(Direction == "left"):
+                 self._Tree[Previous].SetLeft(self._NumberNodes)
+              else:
+                 self._Tree[Previous].SetRight(self._NumberNodes)
+                 self._NumberNodes = self._NumberNodes + 1
+
+=== 9618_s24_ms_42_p34_b40 | 9618_s24_ms_42.pdf p34 | python (label) | context: 2(b)(iii) Python
+def OutputTree(self):
+   if self._NumberNodes == 0:
+      print("No nodes")
+   else:
+      for x in range(0, self.__NumberNodes):
+          print(self.__Tree[x].GetLeft(), " ", self.__Tree[x].GetData(), " ",self.
+Tree[x].GetRight())
+
+=== 9618_s24_ms_42_p34_b43 | 9618_s24_ms_42.pdf p34 | python (label) | context: VB.NET / Python
+TheTree = TreeClass()
+
+=== 9618_s24_ms_42_p36_b46 | 9618_s24_ms_42.pdf p36 | python (label) | context: 2(c)(ii) Python
+TheTree = TreeClass()
+TheTree.InsertNode(Node(10))
+TheTree.InsertNode(Node(11))
+TheTree.InsertNode(Node(5))
+TheTree.InsertNode(Node(1))
+TheTree.InsertNode(Node(20))
+TheTree.InsertNode(Node(7))
+TheTree.InsertNode(Node(15))
+TheTree.OutputTree()
+
+=== 9618_s24_ms_42_p37_b49 | 9618_s24_ms_42.pdf p37 | python (label) | context: Python
+NumberArray = [100, 85, 644, 22, 15, 8, 1]
+
+=== 9618_s24_ms_42_p40_b52 | 9618_s24_ms_42.pdf p40 | python (label) | context: Python
+def RecursiveInsertion(IntegerArray, NumberElements):
+   if NumberElements <= 1:
+      return IntegerArray
+   RecursiveInsertion(IntegerArray,NumberElements - 1)
+   LastItem = IntegerArray[NumberElements - 1]
+   CheckItem = NumberElements - 2
+   LoopAgain = True
+   if CheckItem < 0:
+      LoopAgain = False
+   elif IntegerArray[CheckItem] <= LastItem:
+      LoopAgain = False
+   while (LoopAgain):
+      IntegerArray[CheckItem + 1] = IntegerArray[CheckItem]
+          CheckItem = CheckItem - 1
+      if CheckItem < 0:
+          LoopAgain = False
+      elif IntegerArray[CheckItem] <= LastItem:
+          LoopAgain = False
+   IntegerArray[CheckItem + 1] = LastItem return IntegerArray
+
+=== 9618_s24_ms_42_p41_b55 | 9618_s24_ms_42.pdf p41 | python (label) | context: Python
+SortedArray = RecursiveInsertion(NumberArray, len(NumberArray))
+print("Recursive", SortedArray)
+
+=== 9618_s24_ms_42_p45_b58 | 9618_s24_ms_42.pdf p45 | python (label) | context: 3(c)(i) / Python
+def IterativeInsertion(IntegerArray, NumberElements):
+   while NumberElements > 0:
+      LastItem = IntegerArray[NumberElements - 1]
+      CheckItem = NumberElements - 2
+      LoopAgain = True
+      if CheckItem < 0:
+          LoopAgain = False
+      elif IntegerArray[CheckItem] <= LastItem:
+          LoopAgain = False
+      while(LoopAgain):
+          IntegerArray[CheckItem + 1] = IntegerArray[CheckItem]
+          CheckItem = CheckItem - 1
+          if CheckItem < 0:
+             LoopAgain = False
+          elif IntegerArray[CheckItem] <= LastItem:
+             LoopAgain = False
+          IntegerArray[CheckItem + 1] = LastItem
+          NumberElements = NumberElements - 1
+      return IntegerArray
+
+=== 9618_s24_ms_42_p46_b61 | 9618_s24_ms_42.pdf p46 | python (label) | context: Python
+Sorted2Array = IterativeInsertion(NumberArray, len(NumberArray))
+print("iterative", Sorted2Array)
+
+=== 9618_s24_ms_42_p48_b65 | 9618_s24_ms_42.pdf p48 | python (label) | context: Python
+def BinarySearch(IntegerArray, First, Last, ToFind):
+   if First > Last:
+      return -1
+   else:
+      Middle = int((Last + First) / 2)
+      if IntegerArray[Middle] == ToFind:
+          return Middle
+      elif IntegerArray[Middle] > ToFind:
+          return BinarySearch(IntegerArray, First, Middle - 1, ToFind)
+      else:
+          return BinarySearch(IntegerArray, Middle + 1, Last, ToFind)
+
+=== 9618_s24_ms_42_p49_b68 | 9618_s24_ms_42.pdf p49 | python (label) | context: Python
+Position = BinarySearch(Sorted2Array, 0, len(NumberArray)-1, 644)
+if Position == -1:
+   print("Not found")
+else:
+   print(Position)
+
+=== 9618_w24_ms_41_p4_b1 | 9618_w24_ms_41.pdf p4 | python (label) | context: e.g. / Python
+def ReadData():
+    Colours = []
+    try:
+        File = open("Data.txt")
+        Colours = File.read().split("\n")
+        File.close()
+        return Colours
+    except:
+        print("No file found")
+
+=== 9618_w24_ms_41_p6_b4 | 9618_w24_ms_41.pdf p6 | python (label) | context: • Looping through each parameter array element, concatenating with space and returning / Python
+def FormatArray(DataArray):
+    OutputText = ""
+    for x in range(0, 45):
+        OutputText = OutputText + DataArray[x] + " "
+    return OutputText
+
+=== 9618_w24_ms_41_p7_b7 | 9618_w24_ms_41.pdf p7 | python (label) | context: • Outputting return value from FormatArray() / Python
+Colours = ReadData() #string array
+print(FormatArray(Colours))
+
+=== 9618_w24_ms_41_p8_b10 | 9618_w24_ms_41.pdf p8 | python (label) | context: e.g. / Python
+def CompareStrings(First, Second):
+    Count = 0
+    while True:
+        if First[Count] < Second[Count]:
+            return 1
+        elif First[Count] > Second[Count]:
+            return 2
+        else:
+            Count = Count + 1
+
+=== 9618_w24_ms_41_p9_b13 | 9618_w24_ms_41.pdf p9 | python (label) | context: • Correct bubble sort that sorts the data correctly / Python
+def Bubble(DataArray):
+    ArrayLength = len(DataArray)
+    for x in range(ArrayLength - 1):
+        for y in range(0, ArrayLength - x - 1):
+            Result = CompareStrings(DataArray[y], DataArray[y + 1])
+            if Result == 2:
+                DataArray[y], DataArray[y+1] = DataArray[y+1], DataArray[y]
+    return DataArray
+
+=== 9618_w24_ms_41_p11_b16 | 9618_w24_ms_41.pdf p11 | python (label) | context: • Calling FormatArray() with return value from Bubble() and outputting return value / Python
+BubbleSorted = Bubble(Colours)
+print(FormatArray(BubbleSorted))
+
+=== 9618_w24_ms_41_p12_b19 | 9618_w24_ms_41.pdf p12 | python (label) | context: e.g. / Python
+class Horse:
+    def __init__(self, PName, PMaxFenceHeight, PPercentageSuccess):
+        self.__Name = PName #String
+        self.__MaxFenceHeight = PMaxFenceHeight #Integer
+        self.__PercentageSuccess = PPercentageSuccess #Integer
+
+=== 9618_w24_ms_41_p13_b22 | 9618_w24_ms_41.pdf p13 | python (label) | context: e.g. / Python
+def GetName(self):
+   return self.__Name
+def GetMaxFenceHeight(self):
+   return self.__MaxFenceHeight
+
+=== 9618_w24_ms_41_p14_b25 | 9618_w24_ms_41.pdf p14 | python (label) | context: e.g. / Python
+Horses = []
+Horses.append(Horse("Beauty", 150, 72))
+Horses.append(Horse("Jet", 160, 65))
+print(Horses[0].GetName())
+print(Horses[1].GetName())
+
+=== 9618_w24_ms_41_p15_b28 | 9618_w24_ms_41.pdf p15 | python (label) | context: e.g. / Python
+class Fence:
+    def __init__(self, PHeight, PRisk):
+        self.__Height = PHeight #integer
+        self.__Risk = PRisk #integer
+    def GetHeight(self):
+        return self.__Height
+    def GetRisk(self):
+        return self.__Risk
+
+=== 9618_w24_ms_41_p17_b31 | 9618_w24_ms_41.pdf p17 | python (label) | context: e.g. / Python
+Course = []
+for x in range(0, 4):
+    Valid = False
+    while Valid == False:
+        Height = int(input("Enter the height in cm"))
+        if(Height >= 70 and Height <= 180):
+            Valid = True
+    Valid = False
+    while Valid == False:
+        Risk = int(input("Enter the risk between 1 (easy) and 5 (hard)"))
+        if(Risk >= 1 and Risk <= 5):
+            Valid = True
+    Course.append(Fence(Height, Risk))
+
+=== 9618_w24_ms_41_p19_b34 | 9618_w24_ms_41.pdf p19 | python (label) | context: e.g. / Python
+def Success(self, Height, Risk):
+    if Height > self.__MaxFenceHeight:
+        return self.__PercentageSuccess * 0.2
+    else:
+        if Risk == 1:
+            return self.__PercentageSuccess
+        elif Risk == 2:
+            return self.__PercentageSuccess * 0.9
+        elif Risk == 3:
+            return self.__PercentageSuccess * 0.8
+        elif Risk == 4:
+            return self.__PercentageSuccess * 0.7
+        else:
+            return self.__PercentageSuccess * 0.6
+
+=== 9618_w24_ms_41_p21_b37 | 9618_w24_ms_41.pdf p21 | python (label) | context: e.g. / Python
+for y in range(0, 2):
+    for x in range(0, 4):
+        Chance = Horses[y].Success(Course[x].GetHeight(), Course[x].GetRisk())
+        print(Horses[y].GetName(), "Fence", x + 1, "chance of success is", Chance, "%")
+
+=== 9618_w24_ms_41_p22_b40 | 9618_w24_ms_41.pdf p22 | python (label) | context: e.g. / Python
+AverageSuccess = []
+for y in range(0, 2):
+    Total = 0
+    for x in range(0, 4):
+        Chance = Horses[y].Success(Course[x].GetHeight(), Course[x].GetRisk())
+        print(Horses[y].GetName(), "Fence", x + 1, "chance of success is", Chance, "%")
+        Total = Total + Chance
+    Average = Total / 4
+    AverageSuccess.append(Average)
+    print(Horses[y].GetName(), "average success rate is", Average, "%")
+Highest = AverageSuccess[0]
+Winner = -1
+for x in range(1,2):
+    if Highest < AverageSuccess[x]:
+        Winner = x
+        Highest = AverageSuccess[x]
+print(Horses[Winner].GetName(), " has the highest average chance of success ")
+
+=== 9618_w24_ms_41_p27_b44 | 9618_w24_ms_41.pdf p27 | python (label) | context: 3(a) / Python
+LinkedList = [] #global
+FirstNode = -1
+FirstEmpty = 0
+for x in range(0, 19):
+    LinkedList.append([-1, x + 1])
+LinkedList[19][0] = -1
+LinkedList[19][1] = -1
+
+=== 9618_w24_ms_41_p28_b47 | 9618_w24_ms_41.pdf p28 | python (label) | context: e.g. / Python
+def InsertData():
+    global LinkedList
+    global FirstNode
+    global FirstEmpty
+    for _ in range(5):
+        if FirstEmpty != -1:
+            nextEmpty = LinkedList[FirstEmpty][1]
+            LinkedList[FirstEmpty][0] = int(input("Value: "))
+            LinkedList[FirstEmpty][1] = FirstNode
+            FirstNode = FirstEmpty
+            FirstEmpty = nextEmpty
+
+=== 9618_w24_ms_41_p31_b51 | 9618_w24_ms_41.pdf p31 | python (label) | context: • Following pointers until end reached and outputting data for each node / Python
+def OutputLinkedList():
+    global LinkedList
+    global FirstNode
+    global FirstEmpty
+    CurrentPointer = FirstNode
+    Flag = True
+    while Flag:
+        print(LinkedList[CurrentPointer][0])
+        CurrentPointer = LinkedList[CurrentPointer][1]
+        if CurrentPointer == -1:
+            Flag = False
+
+=== 9618_w24_ms_41_p32_b54 | 9618_w24_ms_41.pdf p32 | python (label) | context: 3(c)(ii) 1 mark for calling InsertData() then OutputLinkedList() / Python
+InsertData()
+OutputLinkedList()
+
+=== 9618_w24_ms_41_p33_b58 | 9618_w24_ms_41.pdf p33 | python (label) | context: • Adding deleted node to end of/start of empty list (and updating FirstEmpty if needed) / Python
+def RemoveData(ItemToRemove):
+    global LinkedList
+    global FirstNode
+    global FirstEmpty
+    if LinkedList[FirstNode][0] == ItemToRemove:
+        NewFirst = LinkedList[FirstNode][1]
+        LinkedList[FirstNode][1] = FirstEmpty
+        FirstEmpty = FirstNode
+        FirstNode = NewFirst
+    else:
+        if FirstNode != -1:
+            CurrentPointer = FirstNode
+            PreviousNode = -1
+            while(ItemToRemove != LinkedList[CurrentPointer][0] and CurrentPointer != -1): PreviousNode = CurrentPointer
+                    CurrentPointer = LinkedList[CurrentPointer][1]
+            if ItemToRemove == LinkedList[CurrentPointer][0]:
+                LinkedList[PreviousNode][1] = LinkedList[CurrentPointer][1]
+                LinkedList[CurrentPointer][0] = -1
+                LinkedList[CurrentPointer][1] = FirstEmpty
+                FirstEmpty = CurrentPointer
+
+=== 9618_w24_ms_41_p36_b61 | 9618_w24_ms_41.pdf p36 | python (label) | context: 3(d)(ii) 1 mark for calling RemoveData(5), outputting "After", calling OutputLinkedList() / Python
+LinkedList = []
+FirstNode = -1
+FirstEmpty = 0
+for x in range(0, 19):
+    LinkedList.append([-1, x + 1])
+InsertData()
+OutputLinkedList()
+RemoveData(5)
+print("After")
+OutputLinkedList()
+
+=== 9618_w24_ms_42_p4_b1 | 9618_w24_ms_42.pdf p4 | python (label) | context: e.g. / Python
+class EventItem():
+    def __init__(self, pName, pType, pDifficulty):
+        self.__EventName = pName #String
+        self.__EventType = pType #String
+        self.__Difficulty = pDifficulty #Integer
+
+=== 9618_w24_ms_42_p5_b4 | 9618_w24_ms_42.pdf p5 | python (label) | context: e.g. / Python
+def GetName(self):
+    return self.__EventName
+def GetEventType(self):
+    return self.__EventType
+def GetDifficulty(self):
+    return self.__Difficulty
+
+=== 9618_w24_ms_42_p6_b7 | 9618_w24_ms_42.pdf p6 | python (label) | context: e.g. / Python
+Group = [] #type Event, 5 spaces
+
+=== 9618_w24_ms_42_p7_b10 | 9618_w24_ms_42.pdf p7 | python (label) | context: e.g. / Python
+Group.append(EventItem("Bridge", "jump", 3))
+Group.append(EventItem("Water wade", "swim", 4))
+Group.append(EventItem("100 mile run", "run", 5))
+Group.append(EventItem("Gridlock", "drive", 2))
+Group.append(EventItem("Wall on wall", "jump", 4))
+
+=== 9618_w24_ms_42_p8_b13 | 9618_w24_ms_42.pdf p8 | python (label) | context: e.g. / Python
+class Character():
+    def __init__(self, pName, pJump, pSwim, pRun, pDrive):
+        self.__CName = pName #string
+        self.__Jump = pJump #integer chance of success
+        self.__Swim = pSwim #integer chance of success
+        self.__Run = pRun #integer chance of success
+        self.__Drive = pDrive #integer chance of success
+    def GetName(self):
+        return self.__CName #STRING
+
+=== 9618_w24_ms_42_p10_b16 | 9618_w24_ms_42.pdf p10 | python (label) | context: e.g. / Python
+def CalculateScore(self, Type, Difficulty): if Type == "jump": Chance = self.__Jump
+        elif Type == "swim":
+            Chance = self.__Swim
+        elif Type == "run":
+            Chance = self.__Run
+        else:
+            Chance = self.__Drive
+        if Chance >= Difficulty:
+            return 100
+        else:
+            Difference = Difficulty - Chance
+            if Difference == 1:
+                return 80
+            elif Difference == 2:
+                return 60
+            elif Difference == 3:
+                return 40
+            elif Difference == 4:
+                return 20
+            else:
+                return 0
+
+=== 9618_w24_ms_42_p13_b19 | 9618_w24_ms_42.pdf p13 | python (label) | context: e.g. / Python
+P1 = Character("Tarz", 5, 3, 5, 1)
+P2 = Character("Geni", 2, 2, 3, 4)
+
+=== 9618_w24_ms_42_p14_b22 | 9618_w24_ms_42.pdf p14 | python (label) | context: 1(e)(ii) e.g. / Python
+P1Points = 0
+P2Points = 0
+for x in range(0, 5):
+    P1EventScore = P1.CalculateScore(Group[x].GetEventType(), Group[x].GetDifficulty())
+    P2EventScore = P2.CalculateScore(Group[x].GetEventType(), Group[x].GetDifficulty())
+    if P1EventScore > P2EventScore:
+        P1Points = P1Points + 1
+        print(P1.GetName(), "you win this event")
+    elif P2EventScore > P1EventScore:
+        P2Points = P2Points + 1
+        print(P2.GetName(), "you win this event")
+    else:
+        print("This event is a draw")
+if P1Points > P2Points:
+    print(P1.GetName(), "you have won with", P1Points)
+elif P2Points> P1Points:
+    print(P2.GetName(), "you have won with", P2Points)
+else:
+    print("It's a draw")
+
+=== 9618_w24_ms_42_p18_b25 | 9618_w24_ms_42.pdf p18 | python (label) | context: e.g. / Python
+class Queue:
+    def __init__(self):
+        self.QueueArray = []
+        HeadPointer = 0 #integer
+        TailPointer = 0 #integer
+        for x in range(0, 100):
+            self.QueueArray.append(-1)
+
+=== 9618_w24_ms_42_p19_b28 | 9618_w24_ms_42.pdf p19 | python (label) | context: e.g. / Python
+class Queue:
+    def __init__(self):
+        self.QueueArray = []
+        for x in range(0, 100):
+            self.QueueArray.append(-1)
+        self.HeadPointer = -1
+        self.TailPointer = 0
+TheQueue= Queue()
+
+=== 9618_w24_ms_42_p21_b32 | 9618_w24_ms_42.pdf p21 | python (label) | context: e.g. / Python
+def Enqueue(AQueue, TheData):
+    if AQueue.HeadPointer == -1:
+        AQueue.HeadPointer = 0
+        AQueue.QueueArray[AQueue.HeadPointer] = TheData
+        AQueue.TailPointer +=1
+        return AQueue, 1
+    elif AQueue.TailPointer > 99:
+        return AQueue, -1
+    else:
+        AQueue.QueueArray[AQueue.TailPointer] = TheData
+        AQueue.TailPointer = AQueue.TailPointer + 1
+        return AQueue, 1
+
+=== 9618_w24_ms_42_p22_b35 | 9618_w24_ms_42.pdf p22 | python (label) | context: e.g. / Python
+def ReturnAllData(TheQueue):
+    Temp = ""
+    for X in range(TheQueue.HeadPointer, TheQueue.TailPointer):
+        Temp = Temp + str(TheQueue.QueueArray[X]) + " "
+    return Temp
+
+=== 9618_w24_ms_42_p24_b38 | 9618_w24_ms_42.pdf p24 | python (label) | context: 2(e)(i) e.g. / Python
+for x in range(0, 10):
+    Continue = True
+    while(Continue == True):
+        DataInput = int(input("Enter an integer that is 0 or more"))
+        if DataInput > -1:
+            Continue = False
+    TheQueue, ReturnValue = Enqueue(TheQueue, DataInput)
+    if(ReturnValue == -1):
+        print("Queue full")
+    else:
+        print("Item inserted")
+print(ReturnAllData(TheQueue))
+
+=== 9618_w24_ms_42_p26_b42 | 9618_w24_ms_42.pdf p26 | python (label) | context: Example program code: / Python
+def Dequeue(AQueue):
+    if AQueue.HeadPointer = 100 or AQueue.HeadPointer == -1 or AQueue.HeadPointer ==
+AQueue.TailPointer: return AQueue, -1
+    else:
+        Temp = AQueue.QueueArray[AQueue.HeadPointer]
+        AQueue.HeadPointer = AQueue.HeadPointer + 1
+        return AQueue, Temp
+
+=== 9618_w24_ms_42_p28_b45 | 9618_w24_ms_42.pdf p28 | python (label) | context: e.g. / Python
+TheQueue, ReturnValue = Dequeue(TheQueue)
+if ReturnValue == -1:
+    print("Queue empty")
+else:
+    print(ReturnValue, " is returned")
+TheQueue, ReturnValue = Dequeue(TheQueue)
+if ReturnValue == -1:
+    print("Queue empty")
+else:
+    print(ReturnValue, " is returned")
+print(ReturnAllData(TheQueue))
+
+=== 9618_w24_ms_42_p31_b48 | 9618_w24_ms_42.pdf p31 | python (label) | context: e.g. / Python
+HighScores = [] #String, 7 x 3
+HighScores = [['' for x in range(3)] for y in range(7)]
+
+=== 9618_w24_ms_42_p32_b51 | 9618_w24_ms_42.pdf p32 | python (label) | context: e.g. / Python
+def ReadData():
+    Temp = []
+    HighScores = []
+    try:
+        File = open("HighScoreTable.txt")
+        Temp = File.read().split("\n")
+        File.close()
+    except:
+        print("No file found")
+    NumberRecords = len(Temp)-1
+    Counter = 0
+    while Counter < NumberRecords:
+        HighScores.append([Temp[Counter], Temp[Counter+1], Temp[Counter+2]])
+        Counter = Counter + 3
+    return HighScores
+
+=== 9618_w24_ms_42_p34_b55 | 9618_w24_ms_42.pdf p34 | python (label) | context: e.g. / Python
+def OutputHighScores(HighScores):
+    for x in range(0, len(HighScores)):
+        print(HighScores[x][0], "reached level", HighScores[x][1], "with a score of",
+HighScores[x][2])
+
+=== 9618_w24_ms_42_p35_b58 | 9618_w24_ms_42.pdf p35 | python (label) | context: e.g. / Python
+def SortScores(HighScores):
+    Counter = 0
+    ArrayLength = len(HighScores)
+    for x in range(ArrayLength-1):
+        for y in range(0, ArrayLength-x-1):
+            if int(HighScores[y][1]) < int(HighScores[y + 1][1]):
+                HighScores[y], HighScores[y + 1] = HighScores[y + 1], HighScores[y]
+            elif int(HighScores[y][1]) == int(HighScores[y+1][1]):
+                if int(HighScores[y][2]) < int(HighScores[y+1][2]):
+                    HighScores[y], HighScores[y + 1] = HighScores[y + 1], HighScores[y]
+    return HighScores
+
+=== 9618_w24_ms_42_p38_b64 | 9618_w24_ms_42.pdf p38 | python (label) | context: e.g. / Python
+HighScores = []
+HighScores = ReadData()
+print("Before")
+OutputHighScores(HighScores)
+HighScores = SortScores(HighScores)
+print("After")
+OutputHighScores(HighScores)
+
+=== 9618_s25_ms_41_p8_b1 | 9618_s25_ms_41.pdf p8 | python (label) | context: Example program code: / Python
+Queue = [-1 for x in range(20)]
+HeadPointer = -1
+TailPointer = -1
+NumberItems = 0
+
+=== 9618_s25_ms_41_p10_b4 | 9618_s25_ms_41.pdf p10 | python (label) | context: Example program code: / Python
+def Enqueue(InputData):
+    global Queue
+    global HeadPointer
+    global TailPointer
+    global NumberItems
+    if NumberItems >= 20:
+        return False
+    if TailPointer <= -1:
+        TailPointer = 0
+        HeadPointer = 0
+        Queue[TailPointer] = InputData
+    else:
+        TailPointer = TailPointer + 1
+        if TailPointer == 20:
+            TailPointer = 0
+        Queue[TailPointer] = InputData
+    NumberItems +=1
+    return True
+
+=== 9618_s25_ms_41_p12_b7 | 9618_s25_ms_41.pdf p12 | python (label) | context: Example program code: / Python
+for X in range(1, 26):
+    ReturnValue = Enqueue(X)
+    if ReturnValue == True:
+        print(x,"Successful")
+    else:
+        print(x,"Unsuccessful")
+
+=== 9618_s25_ms_41_p14_b10 | 9618_s25_ms_41.pdf p14 | python (label) | context: Example program code: / Python
+def Dequeue():
+    global Queue
+    global HeadPointer
+    global TailPointer
+    global NumberItems
+    if NumberItems <= 0:
+        return -1
+    else:
+        ReturnValue = Queue[HeadPointer]
+        HeadPointer +=1
+        if HeadPointer >= 20:
+            HeadPointer = 0
+        NumberItems -=1
+        if NumberItems == 0:
+            HeadPointer = -1
+            TailPointer = -1
+        return ReturnValue
+
+=== 9618_s25_ms_41_p16_b13 | 9618_s25_ms_41.pdf p16 | python (label) | context: Example program code: / Python
+NextValue = Dequeue()
+print(NextValue)
+NextValue = Dequeue()
+print(NextValue)
+
+=== 9618_s25_ms_41_p19_b16 | 9618_s25_ms_41.pdf p19 | python (label) | context: Example program code: / Python
+def ReadData():
+    DataList = []
+    FileName = input("Enter the filename")
+    try:
+        File = open(FileName)
+        for Line in File:
+            DataList.append(Line)
+        File.close()
+    except:
+        print("Cannot open file")
+    return DataList
+
+=== 9618_s25_ms_41_p22_b19 | 9618_s25_ms_41.pdf p22 | python (label) | context: Example program code: / Python
+def SplitData(DataArray):
+    Red = []
+    Green = []
+    Blue = []
+    Orange = []
+    Yellow = []
+    Pink = []
+    for Line in DataArray:
+        SplitLine = Line.split(",")
+        if SplitLine[1].strip() == "red":
+            Red.append(SplitLine[0])
+        elif SplitLine[1].strip() == "green":
+            Green.append(SplitLine[0])
+        elif SplitLine[1].strip() == "blue":
+            Blue.append(SplitLine[0])
+        elif SplitLine[1].strip() == "orange":
+            Orange.append(SplitLine[0])
+        elif SplitLine[1].strip() == "yellow":
+            Yellow.append(SplitLine[0])
+        else:
+            Pink.append(SplitLine[0])
+
+=== 9618_s25_ms_41_p26_b23 | 9618_s25_ms_41.pdf p26 | python (label) | context: Example program code: / Python
+def StoreData(DataToStore, FileName):
+    try:
+        File = open(FileName,"a+")
+        for Item in DataToStore:
+            File.write(Item)
+            File.write("\n")
+        File.close()
+    except:
+        print("Cannot create or write to file")
+
+=== 9618_s25_ms_41_p28_b26 | 9618_s25_ms_41.pdf p28 | python (label) | context: Example program code: / Python
+StoreData(Red, "Red.txt")
+StoreData(Green, "Green.txt")
+StoreData(Blue, "Blue.txt")
+StoreData(Orange, "Orange.txt")
+StoreData(Yellow, "Yellow.txt")
+StoreData(Pink, "Pink.txt")
+
+=== 9618_s25_ms_41_p29_b29 | 9618_s25_ms_41.pdf p29 | python (label) | context: Example program code: / Python
+DataFromFile = ReadData()
+SplitData(DataFromFile)
+
+=== 9618_s25_ms_41_p31_b32 | 9618_s25_ms_41.pdf p31 | python (label) | context: Example program code: / Python
+class Node:
+    def _init_(self, pNodeData):
+        self._NodeData = pNodeData #integer
+        self._LeftNode = None #node
+        self._RightNode = None #node
+
+=== 9618_s25_ms_41_p32_b35 | 9618_s25_ms_41.pdf p32 | python (label) | context: Example program code: / Python
+def GetLeft(self):
+    return self._LeftNode
+def GetRight(self):
+    return self._RightNode
+def GetData(self):
+    return self._NodeData
+
+=== 9618_s25_ms_41_p33_b38 | 9618_s25_ms_41.pdf p33 | python (label) | context: Example program code: / Python
+def SetLeft(self, NewNode):
+    self._LeftNode = NewNode
+def SetRight(self, NewNode):
+    self._RightNode = NewNode
+
+=== 9618_s25_ms_41_p34_b41 | 9618_s25_ms_41.pdf p34 | python (label) | context: Example program code: / Python
+FirstNode = Node(10)
+SecondNode = Node(20)
+ThirdNode = Node(5)
+FourthNode = Node(15)
+FifthNode = Node(7)
+
+=== 9618_s25_ms_41_p35_b44 | 9618_s25_ms_41.pdf p35 | python (label) | context: Example program code: / Python
+class Tree:
+    def _init_(self, FirstNode):
+        self._FirstNode = FirstNode #node
+
+=== 9618_s25_ms_41_p36_b47 | 9618_s25_ms_41.pdf p36 | python (label) | context: Example program code: / Python
+def GetRootNode(self):
+    return self._FirstNode
+
+=== 9618_s25_ms_41_p38_b50 | 9618_s25_ms_41.pdf p38 | python (label) | context: Example program code: / Python
+def Insert(self, NewNode):
+    CurrentNode = self._FirstNode
+    Inserted = True
+    while Inserted:
+        if NewNode.GetData() < CurrentNode.GetData():
+            if CurrentNode.GetLeft() == None:
+                CurrentNode.SetLeft(NewNode)
+                return True
+            else:
+                CurrentNode = CurrentNode.GetLeft()
+        else:
+            if CurrentNode.GetRight() == None:
+                CurrentNode.SetRight(NewNode)
+                return True
+            else:
+                CurrentNode = CurrentNode.GetRight()
+
+=== 9618_s25_ms_41_p41_b53 | 9618_s25_ms_41.pdf p41 | python (label) | context: Example program code: / Python
+def OutputInOrder(RootNode):
+    if RootNode.GetLeft() != None:
+        OutputInOrder(RootNode.GetLeft())
+    print(RootNode.GetData())
+    if RootNode.GetRight() != None:
+        OutputInOrder(RootNode.GetRight())
+
+=== 9618_s25_ms_41_p42_b56 | 9618_s25_ms_41.pdf p42 | python (label) | context: Example program code: / Python
+FirstNode = Node(10)
+SecondNode = Node(20)
+ThirdNode = Node(5)
+FourthNode = Node(15)
+FifthNode = Node(7)
+MyTree = Tree(FirstNode)
+MyTree.Insert(SecondNode)
+MyTree.Insert(ThirdNode)
+MyTree.Insert(FourthNode)
+MyTree.Insert(FifthNode)
+OutputInOrder(MyTree.GetRootNode())
+
+=== 9618_s25_ms_42_p7_b3 | 9618_s25_ms_42.pdf p7 | python (label) | context: VB.NET / Python
+Stack = []
+TopOfStack = -1
+#main
+for x in range(20):
+    Stack.append("-1")
+
+=== 9618_s25_ms_42_p9_b6 | 9618_s25_ms_42.pdf p9 | python (label) | context: Python
+def Push(Data):
+    global Stack
+    global TopOfStack
+    if TopOfStack == 19:
+        return -1
+    else:
+        TopOfStack += 1
+        Stack[TopOfStack] = Data
+        return 1
+
+=== 9618_s25_ms_42_p11_b9 | 9618_s25_ms_42.pdf p11 | python (label) | context: Python
+def Pop():
+    global Stack
+    global TopOfStack
+    if TopOfStack == -1:
+        return "-1"
+    else:
+        ReturnValue = Stack[TopOfStack]
+        TopOfStack -= 1
+        return ReturnValue
+
+=== 9618_s25_ms_42_p13_b12 | 9618_s25_ms_42.pdf p13 | python (label) | context: Python
+def ReadData(FileName):
+    global Stack
+    global TopOfStack
+    try:
+        File = open(FileName)
+        for Line in File:
+            ReturnValue = Push(Line.strip())
+            if ReturnValue == -1:
+                print("Stack full")
+        File.close()
+    except:
+        print("Cannot open file")
+
+=== 9618_s25_ms_42_p16_b15 | 9618_s25_ms_42.pdf p16 | python (label) | context: Python
+def Calculate():
+    global Stack
+    global TopOfStack
+    Total = Pop()
+    Total = int(Total)
+    Return = 0
+    LastOperator = ""
+    Operator = True
+    while(Return != "-1"):
+        Return = Pop()
+        if Operator == False:
+            Data = int(Return)
+            if LastOperator == "+":
+                Total = Total + Data
+            elif LastOperator == "-":
+                Total = Total - Data
+            elif LastOperator == "*":
+                Total = Total * Data
+            elif LastOperator == "/":
+                Total = Total / Data
+            elif LastOperator == "^":
+                Total = Total ** Data
+            Operator = True
+       else:
+            LastOperator = Return
+            Operator = False
+   return Total
+
+=== 9618_s25_ms_42_p17_b18 | 9618_s25_ms_42.pdf p17 | python (label) | context: Python
+FileName = input("Enter the filename: ")
+ReadData(FileName)
+ReturnValue = Calculate()
+print(ReturnValue)
+
+=== 9618_s25_ms_42_p20_b21 | 9618_s25_ms_42.pdf p20 | python (label) | context: Python
+class Record:
+    def __init__(self, pKey, pItem1, pItem2):
+        self.__Key = pKey #integer
+        self.__Item1 = pItem1 #integer
+        self.__Item2 = pItem2 #integer
+    def GetKey(self):
+        return self.__Key
+    def GetItem1(self):
+        return self.__Item1
+    def GetItem2(self):
+        return self.__Item2
+
+=== 9618_s25_ms_42_p21_b24 | 9618_s25_ms_42.pdf p21 | python (label) | context: VB.NET / Python
+HashTable = []
+Spare = []
+
+=== 9618_s25_ms_42_p23_b27 | 9618_s25_ms_42.pdf p23 | python (label) | context: Python
+def Initialise():
+    global HashTable
+    global Spare
+    for X in range(200):
+        HashTable.append(Record(-1,-1,-1))
+    for X in range(100):
+        Spare.append(Record(-1,-1,-1))
+
+=== 9618_s25_ms_42_p24_b30 | 9618_s25_ms_42.pdf p24 | python (label) | context: VB.NET / Python
+def CalculateHash(Key):
+    return Key % 200
+
+=== 9618_s25_ms_42_p27_b33 | 9618_s25_ms_42.pdf p27 | python (label) | context: Python
+def InsertIntoHash(TheRecord):
+    global HashTable
+    global Spare
+    HashValue = CalculateHash(TheRecord.GetKey())
+    if HashTable[HashValue].GetKey() == -1:
+        HashTable[HashValue] = TheRecord
+    else:
+        for x in range(0, 100):
+            if Spare[x].GetKey() == -1:
+                Spare[x] = TheRecord
+                break
+
+=== 9618_s25_ms_42_p29_b36 | 9618_s25_ms_42.pdf p29 | python (label) | context: Python
+def CreateHashTable():
+    global HashTable
+    global Spare
+    try:
+        File = open("HashData.txt")
+        for Line in File:
+           Data = Line.strip()
+           Data = Line.split(",")
+           InsertIntoHash(Record(int(Data[0]), int(Data[1]), int(Data[2])))
+        File.close()
+    except:
+        print("Cannot open file")
+
+=== 9618_s25_ms_42_p30_b39 | 9618_s25_ms_42.pdf p30,31 | python (label) | context: Python
+def PrintSpare():
+    global Spare
+    X = 0
+    while Spare[X].GetKey() != -1:
+        print(Spare[X].GetKey())
+        X +=1
+1 mark for calling Initialise() then CreateHashTable() then PrintSpare()
+
+=== 9618_s25_ms_42_p35_b45 | 9618_s25_ms_42.pdf p35 | python (label) | context: Python
+class Animal:
+    def __init__(self, pName, pSound, pSize, pIntelligence):
+        self.Name = pName #string
+        self.Sound = pSound #string
+        self.Size = pSize #integer
+        self.Intelligence = pIntelligence #integer
+
+=== 9618_s25_ms_42_p36_b48 | 9618_s25_ms_42.pdf p36 | python (label) | context: VB.NET / Python
+def Description(self): Message = "The animal's name is " + self.Name + ", it makes a " + self.Sound + ", its size is " +
+str(self.Size) + " and its intelligence level is " + str(self.Intelligence)
+        return Message
+
+=== 9618_s25_ms_42_p38_b51 | 9618_s25_ms_42.pdf p38 | python (label) | context: Python
+class Parrot(Animal):
+    def __init__(self, pName, pSound, pSize, pIntelligence, pWingSpan, pNumberWords):
+        super().__init__(pName, pSound, pSize, pIntelligence)
+        self.WingSpan = pWingSpan #integer
+        self.NumberWords = pNumberWords #integer
+    def ChangeNumberWords(self, Change):
+        self.NumberWords = self.NumberWords + Change
+
+=== 9618_s25_ms_42_p39_b54 | 9618_s25_ms_42.pdf p39 | python (label) | context: VB.NET / Python
+def Description(self): Message = "The animal's name is " + self.Name + ", it makes a " + self.Sound + ", its size is " +
+str(self.Size) + " and its intelligence level is " + str(self.Intelligence) + ". It has a wingspan of " +
+str(self.WingSpan) + "cm and can say " + str(self.NumberWords) + " words."
+        return Message
+
+=== 9618_s25_ms_42_p41_b57 | 9618_s25_ms_42.pdf p41 | python (label) | context: Python
+class Wolf(Animal):
+    def __init__(self, pName, pSound, pSize, pIntelligence, pTerritorySize):
+        super().__init__(pName, pSound, pSize, pIntelligence)
+        self.TerritorySize = pTerritorySize #integer
+    def SetTerritorySize(self, Change):
+        self.TerritorySize = self.TerritorySize + Change
+
+=== 9618_s25_ms_42_p42_b60 | 9618_s25_ms_42.pdf p42 | python (label) | context: VB.NET / Python
+def Description(self): Message = "The animal's name is " + self.Name + ", it makes a " + self.Sound + ", its size is " +
+str(self.Size) + " and its intelligence level is " + str(self.Intelligence) + " it's territory is " +
+str(self.TerritorySize) +" square miles."
+        return Message
+
+=== 9618_s25_ms_42_p43_b63 | 9618_s25_ms_42.pdf p43 | python (label) | context: VB.NET / Python
+Animal1 = Parrot("Chewie","Squawk",1,10,30,29)
+Animal2 = Wolf("Nighteyes","Howl",8,7,100)
+Animal3 = Animal("Copper", "Neigh", 10, 6)
+
+=== 9618_s25_ms_42_p44_b66 | 9618_s25_ms_42.pdf p44 | python (label) | context: VB.NET / Python
+Animal2.SetTerritorySize(-20)
+Animal1.ChangeNumberWords(2)
+print(Animal1.Description())
+print(Animal2.Description())
+print(Animal3.Description())
+
+=== 9618_s25_ms_43_p8_b1 | 9618_s25_ms_43.pdf p8 | python (label) | context: Example program code: / Python
+Queue = [] #integer 50 elements
+HeadPointer = -1
+TailPointer = -1
+#main
+HeadPointer = -1
+TailPointer = -1
+for x in range(50):
+    Queue.append(-1)
+
+=== 9618_s25_ms_43_p10_b4 | 9618_s25_ms_43.pdf p10 | python (label) | context: Example program code: / Python
+def Enqueue(Data):
+    global Queue
+    global TailPointer
+    global HeadPointer
+    if TailPointer < 49:
+        TailPointer = TailPointer + 1
+        Queue[TailPointer] = Data
+        if HeadPointer == -1:
+            HeadPointer = 0
+        return True
+    else:
+        return False
+
+=== 9618_s25_ms_43_p13_b7 | 9618_s25_ms_43.pdf p13 | python (label) | context: Example program code: / Python
+def Dequeue():
+    global Queue
+    global HeadPointer
+    if HeadPointer > -1 and HeadPointer <= TailPointer:
+        ReturnValue = Queue[HeadPointer]
+        HeadPointer = HeadPointer + 1
+        return ReturnValue
+    else:
+        return -1
+
+=== 9618_s25_ms_43_p15_b10 | 9618_s25_ms_43.pdf p15 | python (label) | context: Example program code: / Python
+def CreateQueue():
+    try:
+        File = open("QueueData.txt")
+        for Line in File:
+            ReturnValue = Enqueue(int(Line))
+            if ReturnValue == False:
+                print("Queue full")
+                break;
+        File.close()
+    except:
+        print("Cannot open or read file")
+
+=== 9618_s25_ms_43_p17_b14 | 9618_s25_ms_43.pdf p17 | python (label) | context: Example program code: / Python
+CreateQueue()
+Total = 0
+ReturnValue = 0
+
+=== 9618_s25_ms_43_p17_b15 | 9618_s25_ms_43.pdf p17 | python (label) | context: Example program code: / Python
+while ReturnValue > -1:
+    ReturnValue = Dequeue()
+    if ReturnValue != -1:
+        Total = Total + ReturnValue
+print("The total is", Total)
+
+=== 9618_s25_ms_43_p19_b18 | 9618_s25_ms_43.pdf p19 | python (label) | context: Example program code: / Python
+DataArray = [0, 3, 4, 56, 67, 44, 43, 32, 31, 345, 45, 6, 54, 1]
+
+=== 9618_s25_ms_43_p21_b21 | 9618_s25_ms_43.pdf p21 | python (label) | context: Example program code: / Python
+def InsertionSort(DataArray):
+    if (len(DataArray)) <= 1:
+        return DataArray
+    for X in range(1, len(DataArray)):
+        CurrentValue = DataArray[X]
+        Y = X-1
+        while Y >=0 and CurrentValue < DataArray[Y]:
+            DataArray[Y+1] = DataArray[Y]
+            Y = Y -1
+        DataArray[Y+1] = CurrentValue
+    return DataArray
+
+=== 9618_s25_ms_43_p24_b24 | 9618_s25_ms_43.pdf p24 | python (label) | context: Example program code: / Python
+def OutputArray(DataArray):
+    Output = ""
+    for Item in DataArray:
+        Output = Output + str(Item) + " "
+    print(Output)
+
+=== 9618_s25_ms_43_p25_b27 | 9618_s25_ms_43.pdf p25 | python (label) | context: Example program code / Python
+OutputArray(DataArray)
+DataArray = InsertionSort(DataArray)
+OutputArray(DataArray)
+
+=== 9618_s25_ms_43_p27_b30 | 9618_s25_ms_43.pdf p27 | python (label) | context: Example program code: / Python
+def Search(DataArray, ItemToFind):
+    Low = 0
+    High = len(DataArray) - 1
+    Middle = 0
+    while Low <= High:
+        Middle = (High + Low) // 2
+        if DataArray[Middle] < ItemToFind:
+            Low = Middle + 1
+        elif DataArray[Middle] > ItemToFind:
+            High = Middle - 1
+        else:
+            return Middle
+    return -1
+
+=== 9618_s25_ms_43_p30_b33 | 9618_s25_ms_43.pdf p30 | python (label) | context: Example program code: / Python
+Location = Search(DataArray, 0)
+if Location == -1:
+    print("Data not found")
+else:
+    print("Data found at", Location)
+Location = Search(DataArray, 345)
+if Location == -1:
+    print("Data not found")
+else:
+    print("Data found at", Location)
+Location = Search(DataArray, 67)
+if Location == -1:
+    print("Data not found")
+else:
+    print("Data found at", Location)
+Location = Search(DataArray, 2)
+if Location == -1:
+    print("Data not found")
+else:
+    print("Data found at", Location)
+
+=== 9618_s25_ms_43_p33_b36 | 9618_s25_ms_43.pdf p33 | python (label) | context: Example program code: / Python
+class Node:
+    def _init_(self, NodeData):
+        self._TheData = NodeData #Integer
+        self._NextNode = None #Node
+
+=== 9618_s25_ms_43_p34_b39 | 9618_s25_ms_43.pdf p34 | python (label) | context: Example program code: / Python
+def GetData(self):
+    return self._TheData
+def GetNextNode(self):
+    return self._NextNode
+
+=== 9618_s25_ms_43_p35_b42 | 9618_s25_ms_43.pdf p35 | python (label) | context: Example program code: / Python
+def SetNextNode(self, pNextNode):
+    self._NextNode = pNextNode
+
+=== 9618_s25_ms_43_p36_b45 | 9618_s25_ms_43.pdf p36 | python (label) | context: Example program code: / Python
+class LinkedList:
+    def _init_(self):
+        self._HeadNode = None #Node
+
+=== 9618_s25_ms_43_p37_b48 | 9618_s25_ms_43.pdf p37 | python (label) | context: Example program code: / Python
+def InsertNode(self, NodeData):
+    TheNode = Node(NodeData)
+    TheNode.SetNextNode(self._HeadNode)
+    self._HeadNode = TheNode
+
+=== 9618_s25_ms_43_p39_b51 | 9618_s25_ms_43.pdf p39 | python (label) | context: Example program code: / Python
+def Traverse(self):
+    ReturnValue = ""
+    CurrentNode = self._HeadNode
+    while(CurrentNode != None):
+        ReturnValue = ReturnValue + str(CurrentNode.GetData())+ " "
+        CurrentNode = CurrentNode.GetNextNode()
+    return ReturnValue
+
+=== 9618_s25_ms_43_p41_b55 | 9618_s25_ms_43.pdf p41 | python (label) | context: Example program code: / Python
+def RemoveNode(self, DataToRemove):
+    if self._HeadNode == None:
+        return False
+    elif self._HeadNode.GetData() == DataToRemove:
+        self._HeadNode = self._HeadNode.GetNextNode()
+        return True
+    Found = False
+    CurrentNode = self._HeadNode
+    while not(Found) and CurrentNode != None:
+        if ((CurrentNode).GetNextNode()).GetData() == DataToRemove:
+            CurrentNode.SetNextNode(CurrentNode.GetNextNode().GetNextNode())
+            Found = True
+        else:
+            CurrentNode = CurrentNode.GetNextNode()
+
+=== 9618_s25_ms_43_p44_b59 | 9618_s25_ms_43.pdf p44 | python (label) | context: Example program code: / Python
+CreateList = LinkedList()
+CreateList.InsertNode(10)
+CreateList.InsertNode(20)
+CreateList.InsertNode(30)
+CreateList.InsertNode(40)
+CreateList.InsertNode(50)
+ReturnValue1 = (CreateList.Traverse())
+CreateList.RemoveNode(30)
+ReturnValue2 = (CreateList.Traverse())
+
+=== 9618_w25_ms_41_p6_b3 | 9618_w25_ms_41.pdf p6 | python (label) | context: Python
+Stack = [None for x in range(30)]
+TopOfStack = -1
+
+=== 9618_w25_ms_41_p8_b6 | 9618_w25_ms_41.pdf p8 | python (label) | context: 1(b) / Python
+def Push(DataToPush):
+    global Stack
+    global TopOfStack
+    if TopOfStack < 29:
+        TopOfStack = TopOfStack + 1
+        Stack[TopOfStack] = DataToPush
+        return True
+    else:
+        return False
+
+=== 9618_w25_ms_41_p10_b9 | 9618_w25_ms_41.pdf p10 | python (label) | context: 1(c) / Python
+def Pop():
+    global Stack
+    global TopOfStack
+    if TopOfStack == -1:
+        return -999
+    else:
+        DataReturn = Stack[TopOfStack]
+        TopOfStack = TopOfStack - 1
+        return DataReturn
+
+=== 9618_w25_ms_41_p11_b12 | 9618_w25_ms_41.pdf p11 | python (label) | context: Python
+for x in range(40):
+    Pushed = Push(random.randint(0,1000))
+    if Pushed == False:
+        print("Stack full")
+        break
+
+=== 9618_w25_ms_41_p13_b15 | 9618_w25_ms_41.pdf p13 | python (label) | context: Python
+def FindValues():
+    Highest = Pop()
+    Lowest = Highest
+    ReturnValue = Lowest
+    while(ReturnValue != -999):
+        if ReturnValue > Highest:
+            Highest = ReturnValue
+        if ReturnValue < Lowest:
+            Lowest = ReturnValue
+        ReturnValue = Pop()
+    print("The highest value is", Highest, "and the lowest value is", Lowest)
+
+=== 9618_w25_ms_41_p15_b21 | 9618_w25_ms_41.pdf p15 | python (label) | context: Python
+class Train():
+    def __init__(self, pNumber, pRoute):
+        self.__TrainIDNumber = pNumber #string
+        self.__Route = pRoute #integer
+
+=== 9618_w25_ms_41_p16_b24 | 9618_w25_ms_41.pdf p16 | python (label) | context: Python
+def GetTrainIDNumber(self):
+    return self.__TrainIDNumber
+def GetRoute(self):
+    return self.__Route
+
+=== 9618_w25_ms_41_p17_b27 | 9618_w25_ms_41.pdf p17 | python (label) | context: VB.NET / Python
+FirstTrain = Train("12ADV",134)
+SecondTrain = Train("33ART",20)
+ThirdTrain = Train("9FKF",3)
+FourthTrain = Train("21VBC",24)
+
+=== 9618_w25_ms_41_p19_b30 | 9618_w25_ms_41.pdf p19 | python (label) | context: 2(c)(i) Python
+class Station():
+    def __init__(self, pID, pNumberOfPlatforms):
+        self.__StationID = pID #string
+        self.__NumberPlatforms = pNumberOfPlatforms #integer
+        self.__Trains = [] #train 10 elements
+        self.__NumberTrains = 0 #integer
+
+=== 9618_w25_ms_41_p20_b33 | 9618_w25_ms_41.pdf p20 | python (label) | context: Python
+def AddTrain(self, NewTrain):
+    if self.__NumberTrains >= self.__NumberPlatforms:
+        return False
+    else:
+        self.__Trains.append(NewTrain)
+        self.__NumberTrains += 1
+        return True
+
+=== 9618_w25_ms_41_p22_b36 | 9618_w25_ms_41.pdf p22 | python (label) | context: 2(c)(iii) Python
+def GetTrains(self):
+    if self.__NumberTrains == 0:
+        return "There are no trains"
+    OutputLine = "The trains at station " + self.__StationID + " are: \n"
+    for x in range(self.__NumberTrains):
+        OutputLine = OutputLine + self.__Trains[x]. GetTrainIDNumber() + " on route number
+" + str(self.__Trains[x].GetRoute()) + "\n"
+    return OutputLine
+
+=== 9618_w25_ms_41_p22_b39 | 9618_w25_ms_41.pdf p22 | python (label) | context: VB.NET / Python
+SouthStation = Station("STH",2)
+NorthStation = Station("NTH",1)
+
+=== 9618_w25_ms_41_p24_b42 | 9618_w25_ms_41.pdf p24 | python (label) | context: Python
+ReturnValue = SouthStation.AddTrain(FirstTrain)
+if ReturnValue == False:
+    print("Station is full")
+ReturnValue = SouthStation.AddTrain(SecondTrain)
+if ReturnValue == False:
+    print("Station is full")
+ReturnValue = SouthStation.AddTrain(ThirdTrain)
+if ReturnValue == False:
+    print("Station is full")
+
+=== 9618_w25_ms_41_p24_b43 | 9618_w25_ms_41.pdf p24 | python (keywords) | context: 
+ReturnValue = NorthStation.AddTrain(FourthTrain)
+if ReturnValue == False:
+    print("Station is full")
+print(SouthStation.GetTrains())
+print(NorthStation.GetTrains())
+
+=== 9618_w25_ms_41_p26_b46 | 9618_w25_ms_41.pdf p26 | python (label) | context: Python
+class Record:
+    def __init__(self, pKey, pData):
+        self.Key = pKey #integer
+        self.Data = pData #string
+
+=== 9618_w25_ms_41_p27_b49 | 9618_w25_ms_41.pdf p27 | python (label) | context: Python
+HashTable = []
+def InitialiseHashTable():
+    global HashTable
+    HashTable = [[Record(-1,"")]*10 for i in range(100)]
+
+=== 9618_w25_ms_41_p28_b52 | 9618_w25_ms_41.pdf p28 | python (label) | context: VB.NET / Python
+def Hash(Key):
+    return Key % 100
+
+=== 9618_w25_ms_41_p30_b55 | 9618_w25_ms_41.pdf p30 | python (label) | context: 3(d) / Python
+def InsertData(RecordData):
+    global HashTable
+    HashValue = Hash(RecordData.Key)
+    for X in range(0, 10):
+        if HashTable[HashValue][X].Key == -1:
+            HashTable[HashValue][X] = RecordData
+
+=== 9618_w25_ms_41_p32_b58 | 9618_w25_ms_41.pdf p32 | python (label) | context: Python
+def ReadData():
+    global HashTable
+    File = open("HashTableData.txt")
+    for Line in File:
+        Data = Line.strip()
+        Data = Line.split(",")
+        InsertData(Record(int(Data[0]), Data[1]))
+    File.close()
+
+=== 9618_w25_ms_41_p34_b61 | 9618_w25_ms_41.pdf p34 | python (label) | context: 3(f) / Python
+def GetRecord(Key):
+    global HashTable
+    HashValue = Hash(Key)
+    for X in range(0, 10):
+        if HashTable[HashValue][X].Key == Key:
+            return HashTable[HashValue][X].Data
+    return "Not found"
+
+=== 9618_w25_ms_41_p36_b65 | 9618_w25_ms_41.pdf p36 | python (label) | context: 3(g)(i) Python
+InitialiseHashTable()
+ReadData()
+for x in range(5):
+    Key = int(input("Enter key field "))
+    print(GetRecord(Key))
+
+=== 9618_w25_ms_42_p7_b4 | 9618_w25_ms_42.pdf p7 | python (label) | context: 1(a)(i) Python
+class Bird:
+    def __init__(self, pDistancePerHour, pSpecies):
+        self.__Species = pSpecies #string
+        self.__DistancePerHour = pDistancePerHour #real
+        self.__XPosition = 500.0 #real
+        self.__YPosition = 500.0 #real
+
+=== 9618_w25_ms_42_p7_b7 | 9618_w25_ms_42.pdf p7 | python (label) | context: VB.NET / Python
+def GetSpecies(self):
+    return self.__Species
+
+=== 9618_w25_ms_42_p8_b10 | 9618_w25_ms_42.pdf p8 | python (label) | context: VB.NET / Python
+def GetPosition(self):
+    ReturnValue = "X = " + str(self.__XPosition) + " Y = " + str(self.__YPosition)
+    return ReturnValue
+
+=== 9618_w25_ms_42_p10_b14 | 9618_w25_ms_42.pdf p10 | python (label) | context: Python
+def Move(self, Direction, MinsFlying):
+    if Direction == "E":
+        self.__XPosition = self.__XPosition + ((self.__DistancePerHour/60)*MinsFlying)
+    elif Direction == "W":
+        self.__XPosition = self.__XPosition - ((self.__DistancePerHour/60)*MinsFlying)
+    elif Direction == "N":
+        self.__YPosition = self.__YPosition + ((self.__DistancePerHour/60)*MinsFlying)
+    elif Direction == "S":
+        self.__YPosition = self.__YPosition - ((self.__DistancePerHour/60)*MinsFlying)
+
+=== 9618_w25_ms_42_p11_b17 | 9618_w25_ms_42.pdf p11 | python (label) | context: VB.NET / Python
+FirstBird = Bird(71.0, "Cockatiel")
+SecondBird = Bird(56.0, "Macaw")
+
+=== 9618_w25_ms_42_p15_b21 | 9618_w25_ms_42.pdf p15,16 | python (label) | context: Python
+Choice = 0
+while Choice != 1 and Choice != 2:
+    print("Which bird do you want to move")
+    print("Enter 1 for", FirstBird.GetSpecies(), "is currently at",
+FirstBird.GetPosition())
+    Choice = -1
+    print("Enter 2 for", SecondBird.GetSpecies(), "is currently at",
+SecondBird.GetPosition())
+1(c)(i)     Choice = int(input())
+        Time = -1
+        while Time < 0 || Time > 500:
+            Time = int(input("To the nearest minute how long has the bird been flying "))
+            Valid = False
+        while Valid == False:
+            Valid = True
+            Direction = input("Which direction has the bird been flying, North, South, East or West
+        ").upper()
+            if Direction == "NORTH" or Direction == "N":
+                if Choice == 1:
+                    FirstBird.Move("N",Time)
+                else:
+                    SecondBird.Move("N",Time)
+            elif Direction == "SOUTH" or Direction == "S":
+                if Choice == 1:
+                    FirstBird.Move("S",Time)
+                else:
+                    SecondBird.Move("S",Time)
+            elif Direction == "EAST" or Direction == "E":
+                if Choice == 1:
+                    FirstBird.Move("E",Time)
+                else:
+                    SecondBird.Move("E",Time)
+            elif Direction == "WEST" or Direction == "W":
+                if Choice == 1:
+                    FirstBird.Move("W",Time)
+                else:
+                    SecondBird.Move("W",Time)
+            else:
+                Valid = False
+        print(FirstBird.GetSpecies(), "is currently at", FirstBird.GetPosition())
+        print(SecondBird.GetSpecies(), "is currently at", SecondBird.GetPosition())
+
+=== 9618_w25_ms_42_p19_b24 | 9618_w25_ms_42.pdf p19 | python (label) | context: 2(a) / Python
+TheArray = []
+TheArray = random.sample(range(0,101),20)
+
+=== 9618_w25_ms_42_p19_b27 | 9618_w25_ms_42.pdf p19 | python (label) | context: Python
+def PrintArray(DataArray):
+    Output = ""
+    for Item in DataArray:
+        Output = Output + str(Item) + " "
+    print(Output)
+
+=== 9618_w25_ms_42_p21_b30 | 9618_w25_ms_42.pdf p21 | python (label) | context: Python
+def BubbleSort(DataArray):
+    Swap = True
+    while Swap  == True:
+        Swap = False
+        for y in range(0, len(DataArray)-1):
+            if DataArray[y] > DataArray[y+1]:
+                DataArray[y], DataArray[y+1] = DataArray[y+1], DataArray[y]
+                Swap = True
+    return DataArray
+
+=== 9618_w25_ms_42_p22_b33 | 9618_w25_ms_42.pdf p22 | python (label) | context: VB.NET / Python
+PrintArray(TheArray)
+SortedArray = BubbleSort(TheArray)
+print("Sorted")
+PrintArray(SortedArray)
+
+=== 9618_w25_ms_42_p24_b36 | 9618_w25_ms_42.pdf p24 | python (label) | context: Python
+def RecursiveBinarySearch(DataArray, Lower, Upper, DataToFind):
+    if Upper >= Lower:
+        Middle = Lower + (Upper - Lower) // 2
+        if DataArray[Middle] == DataToFind:
+            return Middle
+        elif DataArray[Middle] > DataToFind:
+            return RecursiveBinarySearch(DataArray, Lower, Middle - 1, DataToFind)
+        else:
+            return RecursiveBinarySearch(DataArray, Middle + 1, Upper, DataToFind)
+    else:
+        return -1
+
+=== 9618_w25_ms_42_p25_b39 | 9618_w25_ms_42.pdf p25 | python (label) | context: Python
+DataToFind = int(input("Enter the number to find "))
+Location = RecursiveBinarySearch(SortedArray, 0, 19, DataToFind)
+if Location == -1:
+    print("Not found")
+else:
+    print("Found at position", Location)
+
+=== 9618_w25_ms_42_p28_b42 | 9618_w25_ms_42.pdf p28 | python (label) | context: 3(a) / Python
+TreeArray = []
+for x in range(50):
+    TreeArray.append([-1,-1,-1])
+RootPointer = -1
+FreeNode = 0
+
+=== 9618_w25_ms_42_p31_b46 | 9618_w25_ms_42.pdf p31,32 | python (label) | context: Python
+def AddNode(NodeData):
+    global FreeNode
+    global TreeArray
+    global RootPointer
+    if FreeNode <= 49:
+        TreeArray[FreeNode][0] = -1
+        TreeArray[FreeNode][1] = NodeData
+        TreeArray[FreeNode][2] = -1
+        if RootPointer == -1:
+            RootPointer = 0
+        else:
+            Placed = False
+            CurrentNode = RootPointer
+            while Placed == False:
+                if NodeData < TreeArray[CurrentNode][1]:
+                 if TreeArray[CurrentNode][0] == -1:
+                     TreeArray[CurrentNode][0] = FreeNode
+                     Placed = True
+                 else:
+                     CurrentNode = TreeArray[CurrentNode][0]
+            else:
+                 if TreeArray[CurrentNode][2] == -1:
+                     TreeArray[CurrentNode][2] = FreeNode
+                     Placed = True
+                 else:
+                     CurrentNode = TreeArray[CurrentNode][2]
+    FreeNode = FreeNode + 1
+else:
+    print("The tree is full")
+
+=== 9618_w25_ms_42_p34_b50 | 9618_w25_ms_42.pdf p34 | python (label) | context: Python
+try:
+    File= open("TreeData.txt")
+    for Line in File:
+        AddNode(int(Line.strip()))
+    File.close()
+except:
+    print("Error cannot open file")
+
+=== 9618_w25_ms_42_p36_b53 | 9618_w25_ms_42.pdf p36 | python (label) | context: Python
+def WriteAllToFile():
+    try:
+        File = open("Tree.txt","a+")
+        for x in range(0, 50):
+            Line = str(TreeArray[x][0]) + "," + str(TreeArray[x][1])+ "," +
+str(TreeArray[x][2]) + "\n"
+            File.write(Line)
+        File.close()
+    except:
+        print("Cannot write to file")
+
+=== 9618_w25_ms_43_p7_b3 | 9618_w25_ms_43.pdf p7 | python (label) | context: Python
+class BoardObject():
+    def __init__(self, Code, Value):
+        self.Code = Code #string
+        self.Value = Value # integer
+
+=== 9618_w25_ms_43_p8_b6 | 9618_w25_ms_43.pdf p8 | python (label) | context: Python
+def GetCode(self):
+    return self.Code
+def GetValue(self):
+    return self.Value
+
+=== 9618_w25_ms_43_p9_b9 | 9618_w25_ms_43.pdf p9 | python (label) | context: VB.NET / Python
+Object1 = BoardObject("A",2)
+Object2 = BoardObject("B",3)
+Object3 = BoardObject("C",5)
+Object4 = BoardObject("D",2)
+Object5 = BoardObject("E",7)
+
+=== 9618_w25_ms_43_p11_b12 | 9618_w25_ms_43.pdf p11 | python (label) | context: 1(b)(i) Python
+class Board():
+    def __init__(self):
+        self.TheBoard = [] #type BoardObject
+        for x in range(10):
+            TempList = []
+            for y in range(10):
+                TempList.append(BoardObject("-",0))
+            self.TheBoard.append(TempList)
+
+=== 9618_w25_ms_43_p11_b15 | 9618_w25_ms_43.pdf p11 | python (label) | context: VB.NET / Python
+def GetObject(self, Rowpos, Columnpos): return self.TheBoard[Rowpos][Columnpos]
+
+=== 9618_w25_ms_43_p12_b18 | 9618_w25_ms_43.pdf p12 | python (label) | context: VB.NET / Python
+def SetObject(self, TheObject, Rowpos, Columnpos): self.TheBoard[Rowpos][Columnpos] = TheObject
+
+=== 9618_w25_ms_43_p14_b21 | 9618_w25_ms_43.pdf p14 | python (label) | context: 1(b)(iv) Python
+def DisplayBoard(self): for x in range(10): OutputLine = ""
+            for y in range(10):
+                OutputLine = OutputLine + str(self.TheBoard[x][y].GetCode()) + " "
+            print(OutputLine)
+
+=== 9618_w25_ms_43_p16_b25 | 9618_w25_ms_43.pdf p16 | python (label) | context: 1(c)(i) Python
+GameBoard = Board()
+Object1 = BoardObject("A",2)
+Object2 = BoardObject("B",3)
+Object3 = BoardObject("C",5)
+Object4 = BoardObject("D",2)
+Object5 = BoardObject("E",7)
+GameBoard.SetObject(Object1, 0, 0)
+GameBoard.SetObject(Object2, 9, 9)
+GameBoard.SetObject(Object3, 4, 5)
+GameBoard.SetObject(Object4, 2, 2)
+GameBoard.SetObject(Object5, 8, 7)
+GameBoard.DisplayBoard()
+
+=== 9618_w25_ms_43_p18_b29 | 9618_w25_ms_43.pdf p18 | python (label) | context: Python
+InputRow = -1
+while InputRow < 0 or InputRow > 9:
+    InputRow = int(input("Enter the row position between 0 and 9 "))
+InputColumn = -1
+while InputColumn < 0 or InputColumn > 9:
+    InputColumn = int(input("Enter the column position between 0 and 9 "))
+GuessObject = GameBoard.GetObject(InputRow, InputColumn)
+if GuessObject.GetCode() == "-":
+    print("Miss")
+else:
+    print("You found " + str(GuessObject.GetCode()) + " with value " +
+str(GuessObject.GetValue()))
+
+=== 9618_w25_ms_43_p21_b32 | 9618_w25_ms_43.pdf p21 | python (label) | context: 2(a) / Python
+global Queue, QueueHead, QueueTail, NumberItems
+Queue = []
+    for x in range(100):
+        Queue.append("")
+    QueueHead = -1
+    QueueTail = -1
+    NumberItems = 0
+
+=== 9618_w25_ms_43_p23_b35 | 9618_w25_ms_43.pdf p23 | python (label) | context: Python
+def Enqueue(TheData):
+    global Queue, QueueHead, QueueTail, NumberItems
+    if(QueueHead == -1){
+         Queue[0] = TheData
+         QueueHead = 0
+         QueueTail = 0
+         NumberItems +=1
+         return True
+    elif QueueTail >= 99:
+        Queue[QueueTail+1] = TheData
+        QueueTail +=1
+        NumberItems +=1
+        return True
+    else:
+        return False
+
+=== 9618_w25_ms_43_p25_b38 | 9618_w25_ms_43.pdf p25 | python (label) | context: 2(c) / Python
+def Dequeue():
+    global Queue, QueueHead, QueueTail, NumberItems
+    if NumberItems == 0:
+        return "False"
+    else:
+        ReturnData = Queue[QueueHead]
+        QueueHead += 1
+        NumberItems -=1
+        return ReturnData
+
+=== 9618_w25_ms_43_p27_b41 | 9618_w25_ms_43.pdf p27 | python (label) | context: Python
+def ReadData():
+    TheFile = open("BinaryData.txt")
+    for Line in TheFile:
+        ReturnValue = Enqueue(Line.strip())
+        if ReturnValue == False:
+            break
+    TheFile.close()
+
+=== 9618_w25_ms_43_p29_b44 | 9618_w25_ms_43.pdf p29 | python (label) | context: Python
+def Compress():
+    global NewString
+    First = Dequeue()
+    NewString = ""
+    while NumberItems > 0 and First != "False":
+        Count = 1
+        NextChar = Dequeue()
+        while NextChar == First:
+            Count += 1
+            First = NextChar
+            NextChar = Dequeue()
+        NewLine = First + str(Count)
+        NewString = NewString + NewLine
+        First = NextChar
+
+=== 9618_w25_ms_43_p31_b48 | 9618_w25_ms_43.pdf p31 | python (label) | context: 2(f)(i) Python
+NewString = ""
+Queue = []
+for x in range(100): Queue.append("")
+QueueHead = -1
+QueueTail = -1
+NumberItems = 0
+ReadData()
+Compress()
+print(NewString)
+
+=== 9618_w25_ms_43_p33_b52 | 9618_w25_ms_43.pdf p33 | python (label) | context: Python
+def RecursiveCount(DataToFind, ArrayCopy, NumberElements):
+    if NumberElements > 0:
+        NewArray = ArrayCopy[1:]
+        if ArrayCopy[0] == DataToFind:
+            return 1 + RecursiveCount(DataToFind, NewArray, NumberElements - 1)
+        else:
+            return RecursiveCount(DataToFind, NewArray, NumberElements - 1)
+    else:
+        return 0
+
+=== 9618_w25_ms_43_p34_b55 | 9618_w25_ms_43.pdf p34 | python (label) | context: VB.NET / Python
+MyArray = [0,5,1,2,5,9,9,6,5,0]
+print(RecursiveCount(0, MyArray, 10))
+
+=== 9618_w25_ms_43_p34_b58 | 9618_w25_ms_43.pdf p34 | python (label) | context: VB.NET / Python
+Code = "x=0;y=1;x=x+y;y++;"
+
+=== 9618_w25_ms_43_p37_b61 | 9618_w25_ms_43.pdf p37 | python (label) | context: 3(b)(ii) Python
+def SplitData(DataString):
+    SplitDataArray = []
+    Count = 0
+    for x in range(4):
+        TempString = ""
+        try:
+            Character = DataString[Count]
+            while Character != ";":
+                TempString = TempString + (Character)
+                Count += 1
+                Character = DataString[Count]
+            SplitDataArray.append(TempString)
+        except:
+            print("No more characters")
+        Count += 1
+    return SplitDataArray
+
+=== 9618_w25_ms_43_p38_b64 | 9618_w25_ms_43.pdf p38 | python (label) | context: VB.NET / Python
+Code = "x=0;y=1;x=x+y;y++;"
+SplitDataArray = SplitData(Code)
+for x in range(4):
+    print(SplitDataArray[x])
+
