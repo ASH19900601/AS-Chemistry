@@ -139,7 +139,7 @@ tables: `stats/pseudocode_counts.csv`, `stats/python_counts.csv`,
 | Identifier case | 0478: "mixed case using Pascal case, e.g. FirstName … must start with a capital letter … the underscore should not be used". 9618: "mixed case … for example NumberOfPlayers" | PascalCase dominates (section 4). The schemes call this "Camel Case": "Sensible / meaningful variable names // use of Camel Case", "Capitalised keywords" (9618_s23_ms_22, 9608_w19_ms_22) |
 | Case sensitivity | Both: identifiers are case-insensitive; `Countdown` and `CountDown` must not be two variables | Followed |
 | Single letters | Both: allowed where conventional (`i`, `j` for indices, `X`, `Y` for coordinates) | `i`, `j`, `n` in 9608 loops; `X`, `Y` in 9618 Paper 4 Python |
-| Keywords | Upper case | Upper case (old IG has `Print`, `For`, `To` occasionally) |
+| Keywords | Upper case | Upper case; IGCSE answers occasionally write `Print`, `For`, `Next`, `Repeat` |
 | Indentation | 0478: four spaces, `THEN`/`ELSE` and `CASE` branches two. 9618: usually three spaces | IG: `IF … ` then `THEN` on the next line, indented two. 9618: `IF … THEN` on one line |
 | Arrays | 9618: "Generally, a lower bound of 1 will be used". 0478: "The first index can be zero or one" | 1-based in most pseudocode; 0-based in Python |
 | Parameters | 9618: by value unless `BYREF` is stated | `BYREF` appears in 13 AS headers |
@@ -312,11 +312,11 @@ where answers had to match program code (`ARRAY[0:9] OF Node`).
 
 The declaration is followed by a comment that states the pseudocode type and size:
 `Queue = [] #integer 50 elements`, `HighScores = [] #String, 7 x 3`.
-Three answers build 2D lists whose rows are the same object, which is a bug in Python:
-`ResultArray = [['*'] * 2] * 100` (9608_w18_ms_21 p12, an "alternative" answer),
-`// Board =[["E"]*9]*9` (9608_s16_ms_41 p12), and
-`[[Record(-1,"")]*10 for i in range(100)]` (9618_w25_ms_41), where each row repeats one
-record object.
+Two answers build 2D lists whose rows are one shared list, which is a bug in Python:
+`ResultArray = [['*'] * 2] * 100` (9608_w18_ms_21 p12, an "alternative" answer) and
+`// Board =[["E"]*9]*9` (9608_s16_ms_41 p12). A third,
+`[[Record(-1,"")]*10 for i in range(100)]` (9618_w25_ms_41), repeats one record object
+across each row.
 
 ### 6.4 Records and classes
 
@@ -533,8 +533,8 @@ ENDPROCEDURE
 ```
 (9608_s20_ms_22; the same in 9608_w17_ms_21, 9618_w22_ms_22, 9618_s25_ms_21)
 
-IGCSE uses `Swap` / `Flag` with `REPEAT` or `WHILE Flag DO` and a shrinking `Last`
-(0478_m24_ms_22, 0478_s24_ms_23). Paper 4 Python answers often use two nested `for` loops
+IGCSE uses `Swap` / `Flag` with `REPEAT … UNTIL NOT Swap` and a shrinking `Last`
+(0478_m24_ms_22) or `WHILE Flag DO` (0478_s24_ms_23). Paper 4 Python answers often use two nested `for` loops
 without a flag (`for X in range(0, ArrayLength-1):` / `for Y in range(0, ArrayLength-X-1):`,
 9618_s23_ms_42). Recent ones swap with a tuple (`DataArray[J], DataArray[J+1] =
 DataArray[J+1], DataArray[J]`, 9618_w22_ms_41, 9618_w24_ms_41, 9618_w25_ms_42); others swap
