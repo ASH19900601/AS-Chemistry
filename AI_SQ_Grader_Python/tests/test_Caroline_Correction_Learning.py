@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from unittest import mock
 
-from TestHelpers import SampleFolder, SampleGrading, MakeFeedback, RunWithInput, Quiet
+from TestHelpers import SampleFolder, SampleGrading, MakeFeedback, RunWithInput, Quiet, FakeAIServer
 import CorrectionRegrading as Correction
 import LearningRecords as Records
 import SQRecords
@@ -75,6 +75,38 @@ class TestCorrection(unittest.TestCase):
         self.assertIn('The corrected answer is empty', Printed)
 
 
+class TestPhotoCorrection(unittest.TestCase):
+
+    def setUp(self):
+        self.Grading = SampleGrading()
+        self.Server = FakeAIServer()
+        self.Settings = self.Server.Settings()
+        self.Photo = os.path.join(SampleFolder, 'Sample_Answer_Q3.png')
+
+    def tearDown(self):
+        self.Server.Stop()
+
+    def test_photo_is_read_and_regraded(self):
+        self.Server.Reply({'answers': [{'question': '2(b)', 'answer': GoodAnswer, 'confidence': 'high'}]})
+        self.Server.Reply({'points': [{'point_id': 'P1', 'category': 'Clearly correct'},
+                                      {'point_id': 'P2', 'category': 'Clearly correct'}], 'outside_ms': []})
+        Result, Printed = RunWithInput(Correction.CorrectAndRegrade, ['Y', '2(b)', '3', self.Photo], self.Grading, self.Settings)
+        self.assertIn('Read from the photo: ' + GoodAnswer, Printed)
+        self.assertIn('Estimated mark: 0 / 2 -> 2 / 2', Printed)
+        self.assertEqual(Result.Attempts[1].AnswerText, GoodAnswer)
+        self.assertEqual(self.Server.ImageCount(0), 1)          # reading the photo
+        self.assertEqual(self.Server.ImageCount(1), 1)          # marking, with the photo attached
+        self.assertIn('2(b)', self.Server.PromptOf(0))
+
+    def test_unclear_photo_is_flagged(self):
+        self.Server.Reply({'answers': [{'question': '2(b)', 'answer': '???', 'confidence': 'low'}]})
+        Result, Printed = RunWithInput(Correction.CorrectAndRegrade, ['Y', '2(b)', '3', self.Photo], self.Grading, self.Settings)
+        self.assertIn('could not be read with confidence', Printed)
+        self.assertTrue(Result.Attempts[1].Feedback.NeedsReview)
+        self.assertEqual(Result.MarkChange, 0)
+        self.assertEqual(len(self.Server.Requests), 1)           # nothing sent for marking
+
+
 class TestLearningRecords(unittest.TestCase):
 
     def setUp(self):
@@ -135,6 +167,8 @@ class TestLearningRecords(unittest.TestCase):
         self.assertEqual(len(Learning.MistakeEntries), 4)
         self.assertEqual(Learning.Progress.PaperScores, [30])
         self.assertIn('Original paper results (corrections not included):', Printed)
+        self.assertIn('Average by subject:', Printed)
+        self.assertIn('Chemistry (9701): 1 paper(s), average 30%', Printed)
         self.assertIn('Correction attempts saved: 1', Printed)
         with open(self.DatabaseName, encoding='utf-8') as File:
             Data = json.load(File)
@@ -151,6 +185,7 @@ class TestLearningRecords(unittest.TestCase):
         self.assertEqual(Records.CollectFilterValues(Database, 3), ['Not corrected', 'Needs review'])
         _, Printed = RunWithInput(Records.ReviewMistakeNotebook, ['2', '1', '6'], Database)
         self.assertIn('question 1(a)  [Not corrected]', Printed)
+        self.assertIn('To improve - P2: Demo marker: 1 of 2 key terms found (50%).', Printed)
         self.assertIn('question 3  [Needs review]', Printed)
         self.assertNotIn('question 2(a)', Printed)
 

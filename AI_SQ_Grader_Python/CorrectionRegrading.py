@@ -2,22 +2,25 @@
 # AI SQ Grader - Correction and Regrading Module                 (Caroline)
 #
 # Receives the GradingResult and AISettings. The student selects one question and submits
-# a corrected answer as text (typed or from a .txt file) or as an image. The answer is
-# reassessed against the SAME marking points and rules stored in the GradingResult and the
-# two attempts are compared. Returns one RegradeResult record; HasCorrection = FALSE when
-# no correction is submitted.
+# a corrected answer as text (typed or from a .txt file) or as a photo of handwriting,
+# which is read by the AI service. The answer is reassessed against the SAME marking points
+# and rules stored in the GradingResult and the two attempts are compared. Returns one
+# RegradeResult record; HasCorrection = FALSE when no correction is submitted.
 #
 # Integration: reassessment calls AssessMarkingPoints and CalculateEstimatedMark from the
-# Grading and Feedback Module (GradingFeedback.py, written by Kevin).
+# Grading and Feedback Module, and photos are read with TranscribeAnswerImage from the
+# Document Processing Module (both written by Kevin); images are loaded by AIConnection.py (Fox).
 # Acknowledgement: the record types in SQRecords.py were agreed by the whole group.
 
 import os                  # os.path checks that an image or text file exists
 
+import AIConnection        # Fox's module, loads the photo for the AI
+import DocumentProcessing  # Kevin's module, reads the handwriting in a photo
 import GradingFeedback     # Kevin's module, used to mark the corrected answer
 import SQRecords
 
 # CONSTANT
-ImageTypes = [".png", ".jpg", ".jpeg"]
+ImageTypes = [".png", ".jpg", ".jpeg", ".webp"]
 CorrectionMethods = ["Type the corrected answer", "Load the corrected answer from a .txt file",
                      "Upload a photo of the corrected answer (.png or .jpg)"]
 
@@ -148,6 +151,36 @@ def HasImageType(FileName):
     return False
 
 
+def ReadCorrectionPhoto(FileName, Question, Settings):
+    # Reads the handwriting in a photo of a corrected answer. Returns the text, or "" if it
+    # cannot be read with confidence (the correction is then flagged for review).
+    # DECLARE ImageURL, AnswerText : STRING
+    # DECLARE Rows : ARRAY OF ARRAY[0:3] OF STRING
+    # DECLARE Index : INTEGER
+    if AIConnection.IsOnline(Settings) == False:
+        print("Without an AI service the photo cannot be read, so the correction will be flagged for review.")
+        return ""
+    ImageURL = AIConnection.MakeImageURL(FileName)
+    if ImageURL == "":
+        return ""
+    print("Reading the handwriting in", os.path.basename(FileName), "...")
+    Rows = DocumentProcessing.TranscribeAnswerImage(ImageURL, FileName, [Question], Settings)
+    AnswerText = ""
+    for Index in range(0, len(Rows)):
+        if Rows[Index][3] == "failed" or Rows[Index][3] == "low":
+            print("The handwriting could not be read with confidence, so the correction will be flagged for review.")
+            return ""
+        if AnswerText == "":
+            AnswerText = Rows[Index][1]
+        else:
+            AnswerText = AnswerText + "\n" + Rows[Index][1]
+    if AnswerText == "":
+        print("No answer was found in the photo, so the correction will be flagged for review.")
+    else:
+        print("Read from the photo:", AnswerText)
+    return AnswerText
+
+
 def CopyQuestionItem(Question, NewAnswerText, NewImageRef):
     # Makes a new QuestionItem with the same marking points and rules but a new answer.
     # The marking points are copied one by one so the original question is not changed.
@@ -156,6 +189,7 @@ def CopyQuestionItem(Question, NewAnswerText, NewImageRef):
     # DECLARE Index : INTEGER
     NewQuestion = SQRecords.QuestionItem()
     NewQuestion.QuestionID = Question.QuestionID
+    NewQuestion.QuestionText = Question.QuestionText
     NewQuestion.AnswerText = NewAnswerText
     NewQuestion.SourceImageRef = NewImageRef
     NewQuestion.MarkingRules.MaxMark = Question.MarkingRules.MaxMark
@@ -221,7 +255,8 @@ def RegradeQuestion(Grading, QuestionIndex, NewAnswerText, NewImageRef, Settings
     Result = SQRecords.RegradeResult()
     Original = Grading.QuestionResults[QuestionIndex]
     NewQuestion = CopyQuestionItem(Original.Question, NewAnswerText, NewImageRef)
-    # a typed answer belongs to the selected question; an image cannot be read, so it is flagged
+    # the corrected answer belongs to the selected question; a photo that could not be read
+    # (no text) is flagged for review
     IsMatched = NewAnswerText.strip() != ""
     NewFeedback = GradingFeedback.AssessMarkingPoints(NewQuestion, IsMatched, Settings)
     NewMark = GradingFeedback.CalculateEstimatedMark(NewFeedback, NewQuestion.MarkingRules)
@@ -296,6 +331,7 @@ def CorrectAndRegrade(Grading, Settings):
         FileName = InputFileName("Image file of the corrected answer: ")
         if HasImageType(FileName) == True and os.path.isfile(FileName) == True:
             NewImageRef = FileName
+            NewAnswerText = ReadCorrectionPhoto(FileName, Grading.QuestionResults[QuestionIndex].Question, Settings)
         else:
             print("That is not an existing .png or .jpg file.")
 
