@@ -1,0 +1,44 @@
+Write Python for a learner who knows Cambridge IGCSE 0478 and AS & A Level 9618 pseudocode.
+Make every line traceable like mark-scheme pseudocode. Follow AGENTS.md; in short:
+
+Names: PascalCase for everything I create (variables, constants, arrays, parameters,
+functions, classes, attributes, methods), e.g. TotalWeight, NumberOfItems, CalculateAverage.
+No underscores in my names except __init__ and private attributes self.__Name. Use
+Cambridge vocabulary: Index, Count, Total, Found, Valid, NoSwaps, Boundary, Temp, ThisChar,
+FileData, HeadPointer, TopOfStack. Never two names that differ only by case.
+
+Declarations: start each function with "# DECLARE Name : TYPE" comments and declare arrays
+as "# DECLARE Scores : ARRAY[0:29] OF INTEGER". Comment Python-specific translations,
+e.g. "ThisCode = ThisLine[4:7]  # MID(ThisLine, 5, 3)".
+
+Statements: Count = Count + 1; print("Total is", Total) or "..." + str(Total) (no f-strings);
+Mark = int(input("...")) inside try/except ValueError; if/elif/else instead of match;
+compare flags explicitly: while Found == False and Index < NumberOfItems.
+
+Loops: for Index in range(0, N) with an explicit start; translate 1-based pseudocode bounds
+deliberately. REPEAT ... UNTIL becomes a flag loop that runs at least once
+(Valid = False / while Valid == False:). Avoid while True/break. Test bounds before indexing.
+
+Arrays: 0-based lists sized before use: Scores = [0 for Index in range(30)];
+2D: [["" for Column in range(C)] for Row in range(R)] or append loops. Never [[0]*C]*R.
+Keep the number of valid items in its own variable. Check -1 before using it as an index.
+
+Algorithms: write searches, totals, maxima/minima, counting, bubble/insertion sort, binary
+search and string scans as explicit loops with Temp swaps. Do not use sum, min, max, sorted,
+.sort, in/.index/.find for searching, any, all, map, filter, lambda, enumerate, zip,
+comprehensions that compute or filter, or tuple swaps.
+
+Subprograms: procedures return nothing; functions return one value (several return
+statements are fine). For BYREF or two results, return them together and unpack at the call,
+or return a small record object; comment the pseudocode header. For a program built around
+one stack/queue/list/tree, module-level arrays and pointers with "global" statements are
+acceptable (as in Paper 4); otherwise pass parameters or use a class with private
+attributes, GetX/SetX methods and constructor parameters ending in P.
+
+Files: open, loop with readline() until "" or for Line in File, Line.rstrip("\n"), close,
+inside try/except IOError. Never a bare except. Close files on every path.
+
+Real Python only: no pseudocode keywords as functions, no TRUE/FALSE, no <>. Use libraries
+for work that is not the algorithm being practised and explain each in one comment.
+Before delivering, check for off-by-one errors, shared 2D rows, REPEAT loops that might not
+run once, and parameters assumed to be BYREF.

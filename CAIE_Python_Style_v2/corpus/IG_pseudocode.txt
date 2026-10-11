@@ -1,0 +1,4320 @@
+# CAIE mark-scheme code corpus: IG / pseudocode
+# Source: Cambridge International mark schemes (MS) 2016-2025, re-extracted from the PDFs
+#         listed in tools/ms_manifest.csv (SHA-256 verified). Cambridge retains copyright;
+#         this file is for private study.
+# Levels: IG = IGCSE 0478 Papers 1-2; AS = 9608/9618 Papers 1-2; AL = 9608/9618 Papers 3-4.
+# Each block header: block id | source PDF and physical page(s) | language (basis) | MS prose
+#         just above the block (truncated). Identical blocks repeated in other variants are
+#         listed once; corpus/blocks.jsonl records every block and its duplicate_of link.
+# Extraction is automatic (monospace-font detection, indentation rebuilt from x positions).
+# Typos in the code are Cambridge's own and are kept; wrapped lines may be re-joined.
+# The PDF page is authoritative.
+
+=== 0478_s16_ms_21_p2_b2 | 0478_s16_ms_21.pdf p2 | pseudocode (keywords) | context: Max 5 marks / Sample Answer.
+INPUT Length, Breadth, Height, Weight
+IF Length <= 80 AND Breadth <= 80 AND Height <= 80 AND Weight >= 1
+AND Weight <=10 AND Length + Breadth + Height <= 200 THEN
+  PRINT 'Parcel accepted'
+  ELSE
+    PRINT 'Parcel rejected'
+    IF Length > 80 OR Breadth > 80 OR Height > 80 THEN
+      PRINT 'At least one dimension too large'
+    ENDIF
+    IF Weight < 1 THEN
+      PRINT 'Parcel too light'
+    ENDIF
+    IF Weight > 10 THEN
+     PRINT 'Parcel too heavy'
+    ENDIF
+ENDIF
+
+=== 0478_s16_ms_21_p4_b3 | 0478_s16_ms_21.pdf p4 | pseudocode (keywords) | context: line 5: change comparison from < to > / (ii) 3 marks maximum, 1 mark for each change correctly included.
+Large = 0
+2  Counter = 0
+3  REPEAT
+4    INPUT Num
+5    IF Num > Large THEN Large = Num
+6    Counter = Counter + 1
+7  UNTIL Counter = 10
+8  PRINT Large
+
+=== 0478_s16_ms_22_p2_b2 | 0478_s16_ms_22.pdf p2 | pseudocode (keywords) | context: Max 5 marks / Sample Answer 1
+INPUT 'Number of sand sacks ordered ' num_sand_ordered
+INPUT 'Number of cement sacks ordered ' num_cement_ordered
+INPUT 'Number of gravel sacks ordered ' num_gravel_ordered
+total_weight ← 0
+FOR Counter ← 1 TO num_sand_ordered
+   INPUT 'weight of sack of sand ' sack_weight
+      total_weight ← total_weight + sack_weight
+NEXT Counter
+FOR Counter ← 1 TO num_cement_ordered
+   INPUT 'weight of sack of cement ' sack_weight
+      total_weight ← total_weight + sack_weight
+NEXT Counter
+FOR Counter ← 1 TO num_gravel_ordered
+   INPUT 'weight of sack of gravel' sack_weight
+      total_weight ← total_weight + sack_weight
+NEXT Counter
+Print 'Total weight of sacks is ' total_weight
+
+=== 0478_s16_ms_22_p3_b3 | 0478_s16_ms_22.pdf p3 | pseudocode (keywords) | context: 0478 / Sample Answer 2
+INPUT 'Number of sand sacks ordered ' num_sand_ordered
+INPUT 'Number of cement sacks ordered ' num_cement_ordered
+INPUT 'Number of gravel sacks ordered ' num_gravel_ordered
+total_sacks_ordered ← num_sand_ordered + num_cement_ordered +
+num_gravel_ordered
+total_weight ← 0
+FOR Counter ← 1 TO total_sacks_ordered
+   INPUT 'weight of sack ' sack_weight
+      total_weight ← total_weight + sack_weight
+NEXT Counter
+Print 'Total weight of sacks is ' total_weight
+
+=== 0478_s16_ms_22_p4_b5 | 0478_s16_ms_22.pdf p4 | pseudocode (keywords) | context: (ii) 3 marks maximum, 1 mark for each improvement correctly included. / Sample answer below
+Total = 0
+2   FOR Counter = 1 To 10
+3    REPEAT
+4     INPUT Num
+5   UNTIL Num >0
+6     Total = Total + Num
+7 NEXT Counter
+8 PRINT Total
+
+=== 0478_s16_ms_22_p5_b6 | 0478_s16_ms_22.pdf p5 | pseudocode (keywords) | context: four correct 3), each box must have only one connection. / example
+FOR X ← 1 TO 10
+
+=== 0478_s16_ms_22_p5_b10 | 0478_s16_ms_22.pdf p5 | pseudocode (keywords) | context: 5 – data structure (one—dimensional) array ………. / – ……… reason to simplify programming/ make programs shorter, etc.
+6 –  IF (… THEN … ELSE … ENDIF)
+   –  CASE (… OF … OTHERWISE … ENDCASE)
+
+=== 0478_w16_ms_21_p4_b2 | 0478_w16_ms_21.pdf p4 | pseudocode (keywords) | context: 5 For each example 1 mark for correct structure, 1 mark for appropriate content inside loop and / 1 mark for reason. There are many correct answers th
+REPEAT
+..INPUT Number
+  Total ← Total + Number
+UNTIL Number = 0
+
+=== 0478_w16_ms_21_p4_b3 | 0478_w16_ms_21.pdf p4 | pseudocode (keywords) | context: 1 mark for reason. There are many correct answers these are only samples / – at least one repeat is required
+WHILE Number <> -1 DO
+..INPUT Number
+   Total ← Total + Number
+ENDWHILE
+
+=== 0478_w16_ms_22_p2_b1 | 0478_w16_ms_22.pdf p2 | pseudocode (keywords) | context: [5] / Sample Answer.
+REPEAT
+  PRINT 'Please enter choice of charity 1, 2. or 3 '
+  INPUT Choice
+UNTIL Choice = 1 or Choice = 2 or Choice = 3
+PRINT 'Please enter value of shopping bill '
+INPUT BillValue
+Donation ← BillValue * 0.01
+Total (Choice) ← Total (Choice) + Donation
+PRINT 'Charity ', CharityName (Choice), ' has received a donation
+of ', Donation
+
+=== 0478_w16_ms_22_p5_b4 | 0478_w16_ms_22.pdf p5 | pseudocode (keywords) | context: 4  For each example: 1 mark for correct structure, 1 mark for appropriate content, 1 mark for / the reason.  There are many correct answers these are 
+IF X > 0 AND X <= 10
+  THEN PRINT 'In Range'
+  ELSE PRINT 'Out of Range'
+ENDIF
+
+=== 0478_w16_ms_22_p5_b5 | 0478_w16_ms_22.pdf p5 | pseudocode (keywords) | context: – e.g. checking a condition that may be complex//uses relational operators// checking for a range / of values// only 2 options
+CASE X OF
+  1 : PRINT 'Option 1'
+  2 : PRINT 'Option 2'
+  3 : PRINT 'Option 3'
+  OTHERWISE PRINT 'Incorrect choice'
+ENDCASE
+
+=== 0478_m17_ms_22_p2_b3 | 0478_m17_ms_22.pdf p2 | pseudocode (keywords) | context: – storing input values in appropriate arrays / Sample Answer.
+FOR Counter ← 1 TO 650
+   OUTPUT (ꞌInput House, Age and Reaction Timeꞌ)
+   INPUT HouseArray [Counter], AgeArray [Counter],
+   ReactionTimeArray[Counter]
+NEXT
+
+=== 0478_m17_ms_22_p4_b4 | 0478_m17_ms_22.pdf p4 | pseudocode (keywords) | context: 2 / 1 mark for each error identified with effective corrective action
+Num18 = 0
+02 INPUT Age
+03 WHILE Age >= 0 DO
+04  IF Age >= 18 THEN
+05   Num18 = Num18 + Age
+06  END IF
+07 END WHILE
+08 PRINT Num18 - Age
+
+=== 0478_m17_ms_22_p5_b22 | 0478_m17_ms_22.pdf p5 | pseudocode (keywords) | context: – correct use of WHILE … DO … ENDWHILE / Example:
+INPUT Num
+Counter ← 1
+WHILE Counter <= 12 DO
+   Num ← Num * Counter
+   A [Counter] ← Num
+   Counter ← Counter + 1
+ENDWHILE
+
+=== 0478_s17_ms_21_p2_b1 | 0478_s17_ms_21.pdf p2 | pseudocode (keywords) | context: - Output of cost to be charged with suitable annotation / Example
+Coach  550
+Ticket  30
+PRINT "Please enter the number of students taking part "
+INPUT NumberOfStudents
+WHILE NumberOfStudents <= 0 OR NumberOfStudent > 45
+  PRINT "Your number of students is out of range, please
+try again"
+  INPUT NumberOfStudents
+ENDWHILE
+FreeTickets  NumberOfStudents DIV 10
+TotalCostTickets  (NumberOfStudents – FreeTickets) *
+Ticket
+CostPerStudent  (Coach + TotalCostTickets) /
+NumberOfStudents
+PRINT "The cost to be charged to each student is $",
+CostPerStudent
+
+=== 0478_s17_ms_21_p6_b4 | 0478_s17_ms_21.pdf p6 | pseudocode (keywords) | context: 5(b) / Any one from:
+REPEAT (… UNTIL)
+WHILE (… DO … ENDWHILE)
+
+=== 0478_s17_ms_21_p6_b5 | 0478_s17_ms_21.pdf p6 | pseudocode (keywords) | context: - Correct error message / Many correct algorithms. This is an example only.
+OUTPUT "Enter a number between 0 and 100 "
+INPUT Number
+IF Number < 0 OR Number > 100
+  THEN
+  OUTPUT "The number you have entered is outside the
+specified range"
+ENDIF
+
+=== 0478_s17_ms_22_p3_b1 | 0478_s17_ms_22.pdf p3 | pseudocode (keywords) | context: Max 5 marks / Example
+TotalPaid  0
+FOR Counter  1 TO NoSenCit
+  PRINT "Please Enter Name"
+  INPUT SenCitName[Counter]
+  PRINT "Please Enter amount paid"
+  INPUT SenCitAmount[Counter]
+  TotalPaid  TotalPaid + Amount
+NEXT Counter
+Extras  TRUE
+WHILE NoSenCit < 36 and Extras
+  PRINT "Do you want to add another person? Y/N"
+  INPUT Answer
+  IF Answer = "Y"
+    THEN
+      NoSenCit  NoSenCit + 1
+      PRINT "Please Enter Name"
+      INPUT SenCitName[NoSenCit]
+    ELSE Extras  FALSE
+  ENDIF
+ENDWHILE
+PRINT "Please Enter Name of First Carer"
+INPUT Carer1
+PRINT "Please Enter Name of Second Carer"
+INPUT Carer2
+IF NoSenCit > 24
+  THEN
+    PRINT "Please Enter Name of Third Carer"
+    INPUT Carer3
+ENDIF
+
+=== 0478_s17_ms_22_p4_b2 | 0478_s17_ms_22.pdf p4 | pseudocode (keywords) | context: - print out largest number / Sample algorithm
+INPUT Num1, Num2, Num3
+IF (Num1 > Num2) AND (Num1 > Num3) THEN PRINT Num1
+               ENDIF
+IF (Num2 > Num1) AND (Num2 > Num3) THEN PRINT Num2
+               ENDIF
+IF (Num3 > Num1) AND (Num3 > Num2) THEN PRINT Num3
+               ENDIF
+
+=== 0478_s17_ms_22_p4_b3 | 0478_s17_ms_22.pdf p4 | pseudocode (keywords) | context: or
+INPUT Num1
+Big  Num1
+INPUT Num2, Num3
+IF Num2 > Big THEN Big  Num2 ENDIF
+IF Num3 > Big THEN Big  Num3 ENDIF
+PRINT Big
+
+=== 0478_s17_ms_22_p5_b5 | 0478_s17_ms_22.pdf p5 | pseudocode (keywords) | context: - « removal of increment for Count / Sample algorithm
+   Sum  0
+   FOR Count  1 TO 100
+     INPUT Number
+     Sum  Sum + Number
+   NEXT // NEXT Count
+PRINT Sum
+
+=== 0478_w17_ms_21_p3_b3 | 0478_w17_ms_21.pdf p3 | pseudocode (keywords) | context: with message(s) / Algorithm example:
+OUTPUT "Please Enter Type of Plane"
+OUTPUT "1: 2 Seater"
+OUTPUT "2: 4 Seater"
+OUTPUT "3: Historic"
+INPUT PlaneType
+OUTPUT "Please Enter Length of Flight"
+INPUT FlightLength
+CASE FlightLength of
+  30: OUTPUT "Maximum number of flights is 10"
+  60: OUTPUT "Maximum number of flights is 6"
+OTHERWISE OUTPUT "Invalid length of flight"
+ENDCASE
+CASE PlaneType of
+  1: Price30 ← 100; Price60 ← 150
+  2: Price30 ← 120; Price60 ← 200
+  3: Price30 ← 120; Price60 ← 500
+OTHERWISE OUTPUT "Invalid type of plane"
+ENDCASE
+CASE FlightLength of
+  30: OUTPUT "Total Possible Income is ", Price30 * 10
+  60: OUTPUT "Total Possible Income is ", Price60 * 6
+ENDCASE
+
+=== 0478_w17_ms_21_p5_b6 | 0478_w17_ms_21.pdf p5 | pseudocode (keywords) | context: Pseudocode statement
+IF…THEN…ELSE…ENDIF
+
+=== 0478_w17_ms_21_p5_b7 | 0478_w17_ms_21.pdf p5 | pseudocode (keywords) | context: Pseudocode statement
+WHILE…DO…ENDWHILE
+
+=== 0478_w17_ms_21_p5_b8 | 0478_w17_ms_21.pdf p5 | pseudocode (keywords) | context: 
+CASE…OF…OTHERWISE…ENDCASE
+
+=== 0478_w17_ms_21_p5_b10 | 0478_w17_ms_21.pdf p5 | pseudocode (keywords) | context: Note reading and printing MUST be within the same loop / Example algorithm:
+Count ← 0
+WHILE Count < 50 DO
+   OUTPUT Name[Count]
+   Count ← Count + 1
+ENDWHILE
+
+=== 0478_w17_ms_22_p3_b4 | 0478_w17_ms_22.pdf p3 | pseudocode (keywords) | context: boat). / Example:
+MaxHoursHired ← 0
+TotalHoursHired ← 0
+TotalMoney ← 0
+NumberBoatsUnused ← 0
+FOR BoatNumber ← 1 to 10
+  TotalMoney ← TotalMoney + Money(BoatNumber)
+  TotalHoursHired ← TotalHoursHired + HoursHired(BoatNumber)
+  IF HoursHired(BoatNumber) = 0
+    THEN NumberBoatsUnused ← NumberBoatsUnused + 1
+  ENDIF
+  IF HoursHired(BoatNumber) > MaxHoursHired
+    THEN
+     MostUsed ← BoatNumber
+     MaxHoursHired ← HoursHired(BoatNumber)
+  ENDIF
+NEXT BoatNumber
+PRINT "Boats were hired for ", TotalHoursHired, " hours"
+PRINT "Total amount of money taken was ", TotalMoney
+PRINT NumberBoatsUnused, " boats were not used"
+Print "Boat number ", MostUsed, " was used most"
+
+=== 0478_w17_ms_22_p4_b5 | 0478_w17_ms_22.pdf p4 | pseudocode (keywords) | context: FOR BoatNumber ← 1 to 10 loop to check for all boats / IF ReturnTime(BoatNumber) <= CurrentTime check return time against current time
+    THEN BoatsAvailable ← BoatsAvailable + 1  keep a running total
+  ENDIF
+NEXT BoatNumber
+PRINT "Number of boats available ", BoatsAvailable
+
+=== 0478_w17_ms_22_p5_b6 | 0478_w17_ms_22.pdf p5 | pseudocode (keywords) | context: Print average and total (outside loop) / Sample algorithm:
+INPUT NumberCount
+Total ← 0
+FOR Count ← 1 TO NumberCount
+  INPUT Number
+  Total ← Total + Number
+NEXT
+Average ← Total/NumberCount
+  PRINT Total, Average
+
+=== 0478_w17_ms_22_p6_b7 | 0478_w17_ms_22.pdf p6 | pseudocode (keywords) | context: 2 marks for identification, 1 mark for description, 1 mark for reason. / Identification:
+CASE …
+… OF … OTHERWISE … (ENDCASE)or
+… OF … (OTHERWISE) … ENDCASE
+
+=== 0478_m18_ms_22_p5_b4 | 0478_m18_ms_22.pdf p5 | pseudocode (keywords) | context: Prompts for all inputs and messages with all outputs / Sample answer for Task 1
+physics ← 0; chemistry ← 0; history ← 0; geography ← 0; compSci ← 0;
+FOR counter ← 1 TO 60
+   INPUT name, subject(1), subject(2)
+   studentName(counter) ← name
+   studentCounter1(counter) ← subject(1)
+   studentCounter2(counter) ← subject(2)
+   FOR sCount ← 1 TO 2
+      CASE subject(sCount) OF
+            ˈPhysicsˈ: physics ← physics + 1
+            ˈChemistryˈ: chemistry ← chemistry + 1
+            ˈHistoryˈ: history ← history + 1
+            ˈGeographyˈ: geography ← geography + 1
+            ˈComputer Scienceˈ: compSci ← compSci + 1
+      OTHERWISE: PRINT ˈError subject not foundˈ
+      ENDCASE
+   NEXT
+NEXT
+PRINT ˈGroup            Number of Studentsˈ
+PRINT ˈPhysics          ˈ,physics
+PRINT ˈChemistry        ˈ,chemistry
+PRINT ˈHistory          ˈ,history
+PRINT ˈGeography        ˈ,geography
+PRINT ˈComputer Science ˈ,compSci
+
+=== 0478_m18_ms_22_p8_b7 | 0478_m18_ms_22.pdf p8 | pseudocode (keywords) | context: to be executed depending upon the result of a question (1) / sequence example (1)
+PRINT X
+PRINT Y
+
+=== 0478_s18_ms_21_p6_b2 | 0478_s18_ms_21.pdf p6 | pseudocode (keywords) | context: 1(c) / Sample answer:
+foundProc ← FALSE
+count ← 1
+WHILE NOT foundProc AND count <=3 DO
+  IF processor(estNo) = proc(count) AND stProc(count) > 0
+    THEN
+      foundProc ← TRUE
+  ENDIF
+  count ← count + 1
+ENDWHILE
+IF foundProc
+  THEN
+    foundRAM ← FALSE
+    IF RAM(estNO) = RAM1 AND stRAM1 >0
+      THEN
+        foundRAM ← TRUE
+        stRAM1 ← stRAM1 - 1
+    ENDIF
+    IF RAM(estNO) = RAM2 AND stRAM2 >0
+      THEN
+        foundRAM ← TRUE
+        stRAM2 ← stRAM2 - 1
+    ENDIF
+ENDIF
+IF NOT foundProc
+  THEN
+    OUTPUT "Processor out of stock"
+  ELSE
+    stProc(count) ← stProc(count) - 1
+ENDIF
+IF NOT foundRAM
+  THEN
+    OUTPUT "RAM out of stock"
+ENDIF
+
+=== 0478_s18_ms_21_p8_b3 | 0478_s18_ms_21.pdf p8 | pseudocode (keywords) | context: 7 Update zero counter / 8 Output counters with appropriate messages outside loop
+zero ← 0
+posCount ← 0
+FOR count ← 1 TO 1000
+  INPUT number
+  IF number > 0
+    THEN posCount ← posCount + 1
+  ENDIF
+  IF number = 0
+    THEN zero ← zero + 1
+  ENDIF
+NEXT
+OUTPUT posCount, " positive numbers"
+OUTPUT zero, " zeros"
+
+=== 0478_s18_ms_22_p4_b3 | 0478_s18_ms_22.pdf p4 | pseudocode (keywords) | context: 6 value(s) rounded / Sample answer
+total ← 0
+FOR counter ← 1 TO numCows
+    total ← total + mondayMorning(counter)
+    total ← total + mondayEvening(counter)
+    total ← total + tuesdayMorning(counter)
+    total ← total + tuesdayEvening (counter)
+    total ← total + wednesdayMorning(counter)
+    total ← total + wednesdayEvening (counter)
+    total ← total + thursdayMorning(counter)
+    total ← total + thursdayEvening (counter)
+    total ← total + fridayMorning(counter)
+    total ← total + fridayEvening (counter)
+    total ← total + saturdayMorning(counter)
+    total ← total + saturdayEvening (counter)
+    total ← total + sundayMorning(counter)
+    total ← total + sundayEvening(counter)
+NEXT counter
+Average ← ROUND(total/numCows)
+OUTPUT "Total volume of milk for week ", ROUND(total)
+OUTPUT "Average weekly yield ", average
+
+=== 0478_s18_ms_22_p5_b5 | 0478_s18_ms_22.pdf p5 | pseudocode (keywords) | context: One mark complete Flowlines, one mark working flowlines, one mark correct use / flowchart symbols
+Count ← 0
+
+=== 0478_s18_ms_22_p5_b14 | 0478_s18_ms_22.pdf p5 | pseudocode (keywords) | context: 
+                           positive
+                           numbers"
+Count ← Count + 1
+                            END
+
+=== 0478_s18_ms_22_p6_b16 | 0478_s18_ms_22.pdf p6 | pseudocode (keywords) | context: 3(b) / List +, -, *, / with correct assignments (1)
+OTHERWISE Answer ← 0 (1)
+
+=== 0478_s18_ms_22_p6_b17 | 0478_s18_ms_22.pdf p6 | pseudocode (keywords) | context: List +, -, *, / with correct assignments (1) / Example
+CASE Sign OF
+    ꞌ+ꞌ : Answer ← Number1 + Number2
+    ꞌ-ꞌ : Answer ← Number1 - Number2
+    ꞌ*ꞌ : Answer ← Number1 * Number2
+    ꞌ/ꞌ : Answer ← Number1 / Number2
+    OTHERWISE Answer ← 0
+ENDCASE
+
+=== 0478_s18_ms_23_p4_b3 | 0478_s18_ms_23.pdf p4 | pseudocode (keywords) | context: • Generate next ticket number / • Update and display number of car park spaces available after entry
+Ticket_Number ← 1 //This number would not reset each day
+Ticket_Array[1:100]
+Entry_Time[1:100]
+Spaces ← 100
+Count ← 1 //This number would reset each day
+WHILE Count > 1 DO
+    OUTPUT "Available Spaces" Spaces
+    INPUT "Press enter to get ticket", Entry
+    OUTPUT "Next Ticket Number", Ticket_Number
+    INPUT "Current time", Current_Time
+    Ticket_Array[Count] ← Ticket_Number
+    Entry_Time[Count] ← Current_Time
+    Ticket_Number ← Ticket_Number + 1
+    Spaces ← Spaces – 1
+    Count ← Count + 1
+ENDWHILE
+
+=== 0478_s18_ms_23_p5_b4 | 0478_s18_ms_23.pdf p5 | pseudocode (keywords) | context: 3 / One mark for each correct answer
+Counter = 0
+FOR Count = 1 TO 30
+Total = Total + Number
+NEXT Count
+
+=== 0478_s18_ms_23_p6_b5 | 0478_s18_ms_23.pdf p6 | pseudocode (keywords) | context: • Correct INPUT and OUTPUT / e.g.
+INPUT Number
+WHILE Number > 100 DO
+  OUTPUT ″The number is too large″
+  INPUT Number
+ENDWHILE
+OUTPUT ″The number is acceptable″
+INPUT Number
+REPEAT
+  IF Number > 100
+    THEN
+      OUTPUT ″The number is too large″
+  ENDIF
+  INPUT Number
+UNTIL Number <= 100
+OUTPUT ″The number is acceptable″
+
+=== 0478_w18_ms_12_p9_b1 | 0478_w18_ms_12.pdf p9 | pseudocode (keywords) | context: 1 mark for each correct tick (9) / Computer code
+10110111
+11001100
+01011100
+FOR X = 1 TO 10
+     PRINT X
+NEXT X
+INP X
+STA X
+LDA Y
+
+=== 0478_w18_ms_21_p6_b8 | 0478_w18_ms_21.pdf p6,7 | pseudocode (keywords) | context: • « display complete with unique order code, menu items, quantities, prices, total cost of order / Example algorithm
+Total_Cost ← 0
+Order_Complete ← FALSE
+Order_Item ← 0
+Order_Number ← 0
+Daily_Order_Counter ← 1
+// The following would be repeated throughout the day
+REPEAT
+  OUTPUT "Enter item code or X to finish"
+  INPUT Item_Code[Order_Item]
+  IF Item_Code[Order_Item] <> "X"
+    THEN
+      Menu_Count ← 0
+      Menu_Flag ← FALSE
+      REPEAT
+        IF Menu_Code[Menu_Count] = Item_Code[Order_Item]
+          THEN
+            Menu_Place[Order_Item] ← Menu_Count
+            Menu_Flag ← TRUE
+            Total_Cost ← Total_Cost + Menu_Price[Menu_Count]
+          ELSE
+            Menu_Count ← Menu_Count + 1
+        ENDIF
+      UNTIL Menu_Flag ← TRUE
+      OUTPUT "How many would you like? "
+      INPUT Item_Quantity[Order_Item]
+      Order_Item ← Order_Item + 1
+    ELSE
+      Order_Complete ← TRUE
+      Order_Number ← Order_Number + 1
+  ENDIF
+UNTIL Order_Complete = TRUE
+OUTPUT "Order Number ", Order_Number
+Counter ← 0
+WHILE Item_Code[Counter] <> "X" DO
+  Menu_Count ← Menu_Place[Counter]
+  OUTPUT Item_Code[Counter], " ", Menu_Item{Menu_Count], " ",
+  Price[Menu_Count], " ",Item_Quantity[Counter]
+  Counter ← Counter + 1
+ENDWHILE
+OUTPUT "Total cost of order = ", Total_Cost
+Daily_Order_Code[Daily_Order_Counter] ← Order_Number
+Daily_Total_Cost_of_Order[Daily_Order_Counter] ← Total_Cost
+
+=== 0478_w18_ms_21_p10_b9 | 0478_w18_ms_21.pdf p10 | pseudocode (keywords) | context: • « Correct statements outside loop / e.g.
+Total ← 0
+Count ← 1
+
+=== 0478_w18_ms_21_p10_b13 | 0478_w18_ms_21.pdf p10,11 | pseudocode (keywords) | context: • « Correct statements outside loop / e.g.
+  INPUT Num
+  Total ← Total + Num
+  Count ← Count + 1
+ENDWHILE
+OUTPUT Total
+Total ← 0
+Count ← 0
+REPEAT
+
+=== 0478_w18_ms_21_p11_b14 | 0478_w18_ms_21.pdf p11 | pseudocode (keywords) | context: Accept alternative correct ranges e.g.
+Count ← 1
+
+=== 0478_w18_ms_21_p11_b15 | 0478_w18_ms_21.pdf p11 | pseudocode (keywords) | context: 
+INPUT Num
+Total ← Total + Num
+
+=== 0478_w18_ms_21_p11_b17 | 0478_w18_ms_21.pdf p11 | pseudocode (keywords) | context: 4(b)
+  Count ← Count + 1
+UNTIL Count = 50
+OUTPUT Total
+
+=== 0478_w18_ms_22_p6_b2 | 0478_w18_ms_22.pdf p6 | pseudocode (keywords) | context: 1(c) / Sample answer:
+Counter ← 1
+Found ← FALSE
+WHILE NOT Found = TRUE
+   OUTPUT "Please enter ID number use 9999 to finish "
+   INPUT ParkrunID
+   Search ← 1
+   REPEAT
+      IF ParkrunID = IdNumber[search] THEN Found ← TRUE
+      Search ← Search + 1
+   UNTIL Search = 21 OR Found = TRUE
+ENDWHILE
+RunnerID[Counter] ← ParkRunID
+WHILE ParkRunID <> 9999
+   INPUT StartTime
+   INPUT FinishTime
+   RunnerTime[Counter] ← FinishTime – StartTime
+   Counter ← Counter + 1
+   Found ← FALSE
+   WHILE NOT Found = TRUE
+      OUTPUT "Please enter ID number (use 9999 to finish) "
+      INPUT ParkrunID
+      Search ← 1
+      REPEAT
+      IF ParkrunID = IdNumber[Search] THEN Found ← TRUE
+         Search ← Search + 1
+      UNTIL Search = 21 OR Found = TRUE
+   ENDWHILE
+   RunnerID[Counter] ← ParkRunID
+ENDWHILE
+
+=== 0478_w18_ms_22_p8_b3 | 0478_w18_ms_22.pdf p8 | pseudocode (keywords) | context: 7 Output the result of the multiplication / Sample answer:
+REPEAT
+   OUTPUT "Enter three different numbers"
+   INPUT Number1, Number2, Number3
+UNTIL Number1 <> Number2 AND Number2 <> Number3 AND Number3 <> Number1
+IF Number3 < Number2 AND Number3 < Number1
+   THEN Answer ← Number1 * Number2
+ENDIF
+IF Number2 < Number3 AND Number2 < Number1
+   THEN Answer ← Number1 * Number3
+ENDIF
+IF Number1 < Number2 AND Number1 < Number3
+   THEN Answer ← Number2 * Number3
+ENDIF
+OUTPUT "Answer = ", Answer
+
+=== 0478_w18_ms_23_p5_b6 | 0478_w18_ms_23.pdf p5,6 | pseudocode (keywords) | context: • « show the week number for that cabin / Example
+FOR Cabin ← 0 TO 9
+   IF Booking23[Cabin] = ""
+      THEN
+          OUTPUT "Week 23 ", " Cabin ", CabinName[Cabin] " Capacity ", Capacity[Cabin]
+   ENDIF
+   IF Booking24[Cabin] = ""
+      THEN
+          OUTPUT "Week 24 ", " Cabin ", CabinName[Cabin] " Capacity ", Capacity[Cabin]
+   ENDIF
+   IF Booking25[Cabin] = ""
+      THEN
+          OUTPUT "Week 25 ", " Cabin ", CabinName[Cabin] " Capacity ", Capacity[Cabin]
+   ENDIF
+   IF Booking26[Cabin] = ""
+      THEN
+          OUTPUT "Week 26 ", " Cabin ", CabinName[Cabin] " Capacity ", Capacity[Cabin]
+   ENDIF
+   IF Booking27[Cabin] = ""
+      THEN
+          OUTPUT "Week 27 ", " Cabin ", CabinName[Cabin] " Capacity ", Capacity[Cabin]
+   ENDIF
+   IF Booking28[Cabin] = ""
+      THEN
+          OUTPUT "Week 28 ", " Cabin ", CabinName[Cabin] " Capacity ", Capacity[Cabin]
+   ENDIF
+IF Booking29[Cabin] = ""
+   THEN
+      OUTPUT "Week 29 ", " Cabin ", CabinName[Cabin] " Capacity ", Capacity[Cabin]
+ENDIF
+IF Booking30[Cabin] = ""
+   THEN
+      OUTPUT "Week 30 ", " Cabin ", CabinName[Cabin] " Capacity ",
+      Capacity[Cabin]
+ENDIF
+IF Booking31[Cabin] = ""
+   THEN
+      OUTPUT "Week 31 ", " Cabin ", CabinName[Cabin] " Capacity ",
+      Capacity[Cabin]
+ENDIF
+IF Booking32[Cabin] = ""
+   THEN
+      OUTPUT "Week 32 ", " Cabin ", CabinName[Cabin] " Capacity ",
+      Capacity[Cabin]
+ENDIF
+IF Booking33[Cabin] = ""
+   THEN
+      OUTPUT "Week 33 ", " Cabin ", CabinName[Cabin] " Capacity ",
+      Capacity[Cabin]
+ENDIF
+IF Booking34[Cabin] = ""
+   THEN
+      OUTPUT "Week 34 ", " Cabin ", CabinName[Cabin] " Capacity ",
+      Capacity[Cabin]
+ENDIF
+IF Booking35[Cabin] = ""
+   THEN
+      OUTPUT "Week 35 ", " Cabin ", CabinName[Cabin] " Capacity ",
+      Capacity[Cabin]
+ENDIF
+
+=== 0478_w18_ms_23_p7_b7 | 0478_w18_ms_23.pdf p7 | pseudocode (keywords) | context: 
+   IF Booking36[Cabin] = ""
+      THEN
+          OUTPUT "Week 36 ", " Cabin ", CabinName[Cabin] " Capacity ",
+          Capacity[Cabin]
+   ENDIF
+   IF Booking34[Cabin] = ""
+      THEN
+          OUTPUT "Week 37 ", " Cabin ", CabinName[Cabin] " Capacity ",
+          Capacity[Cabin]
+   ENDIF
+   IF Booking37[Cabin] = ""
+      THEN
+          OUTPUT "Week 38 ", " Cabin ", CabinName[Cabin] " Capacity ",
+          Capacity[Cabin]
+   ENDIF
+   IF Booking39[Cabin] = ""
+      THEN
+          OUTPUT "Week 39 ", " Cabin ", CabinName[Cabin] " Capacity ",
+          Capacity[Cabin]
+   ENDIF
+NEXT Cabin
+
+=== 0478_w18_ms_23_p9_b8 | 0478_w18_ms_23.pdf p9 | pseudocode (keywords) | context: 3 / Condition controlled loop – 1 mark for each correct answer e.g.
+WHILE Number > 0 DO … ENDWHILE // REPEAT … UNTIL Number > 0
+
+=== 0478_w18_ms_23_p9_b9 | 0478_w18_ms_23.pdf p9 | pseudocode (keywords) | context: Condition controlled loop – 1 mark for each correct answer e.g. / Conditional statement - 1 mark for each correct answer e.g.
+IF Number = 0 THEN (… ELSE) Number ← 1 ENDIF //
+CASE Number OF
+0: Number ← 1
+(… OTHERWISE) … (ENDCASE)
+
+=== 0478_w18_ms_23_p9_b10 | 0478_w18_ms_23.pdf p9 | pseudocode (keywords) | context: Conditional statement - 1 mark for each correct answer e.g. / Totalling - 1 mark for each correct answer e.g.
+Total ← Total + Number
+
+=== 0478_m19_ms_22_p4_b4 | 0478_m19_ms_22.pdf p4,5 | pseudocode (keywords) | context: There are many possible correct answers, this is an example only. / Sample answer
+                      1"
+PRINT "Chicken        2"
+PRINT "Extra cheese  3"
+PRINT "Mushrooms      4"
+PRINT "Spinach        5"
+PRINT "Olives         6"
+REPEAT
+  PRINT "How many extra toppings do you want"
+  INPUT NoTopping
+UNTIL NoTopping >= 0 and NoTopping <=3
+WHILE NoTopping >0 DO
+  PRINT "Enter Topping ",  NoTopping
+  INPUT ToppingType
+  CASE OF ToppingType
+      1: Pepperoni ← Pepperoni + 1
+      2: Chicken ← Chicken + 1
+      3: ExtraCheese ← ExtraCheese + 1
+      4: Mushrooms ← Mushrooms + 1
+      5: Spinach ← Spinach + 1
+      6: Olives ← Olives + 1
+  OTHERWISE: PRINT "Error"
+  ENDCASE
+  IF ToppingType >=1 AND ToppingType <=6
+    THEN
+    PizzaTop[NoTopping] ← ToppingType
+    NoTopping ← NoTopping - 1
+  ENDIF
+ENDWHILE
+
+=== 0478_m19_ms_22_p6_b5 | 0478_m19_ms_22.pdf p6 | pseudocode (keywords) | context: Section B
+Total ← Count should be  Total ← 0
+Number <> 0 should be Number > 0
+Total ← Total + Count should be Total ← Total + Number
+UNTIL Count < 50 should be
+UNTIL Count > 50, UNTIL Count >= 51, UNTIL Count = 51
+
+=== 0478_m19_ms_22_p8_b6 | 0478_m19_ms_22.pdf p8 | pseudocode (keywords) | context: Statements
+FOR X ← 1 TO 10
+  SUM ← SUM + 1
+NEXT X
+WHILE X > 10 DO
+  SUM ← SUM + 1
+  X ← X - 1
+ENDWHILE
+IF X > 10
+THEN
+  SUM ← SUM + 1
+  X ← X - 1
+ENDIF
+REPEAT
+  SUM ← SUM + 1
+  X ← X - 1
+UNTIL X > 10
+
+=== 0478_s19_ms_21_p4_b3 | 0478_s19_ms_21.pdf p4 | pseudocode (keywords) | context: 1(b) / Example algorithm
+CountA ← 0; CountB ← 0; CountC ← 0; CountD ← 0;
+CountE ← 0; CountF ← 0
+TotalA ← 0; TotalB ← 0; TotalC ← 0; TotalD ← 0;
+TotalE ← 0; TotalF ← 0
+FOR Days ← 0 to 19
+   IF BusA[Days] < 0
+      THEN
+          CountA ← CountA + 1
+          TotalA ← TotalA + BusA[Days]
+   ENDIF
+   IF BusB[Days] < 0
+      THEN
+          CountB ← CountB + 1
+          TotalB ← TotalB + BusBA[Days]
+   ENDIF
+   IF BusC[Days] < 0
+      THEN
+          CountC ← CountC + 1
+          TotalC ← TotalC + BusC[Days]
+   ENDIF
+   IF BusD[Days] < 0
+      THEN
+          CountD ← CountD + 1
+          TotalD ← TotalD + BusD[Days]
+   ENDIF
+   IF BusE[Days] < 0
+      THEN
+          CountE ← CountE + 1
+          TotalE ← TotalE + BusE[Days]
+   ENDIF
+   IF BusF[Days] < 0
+      THEN
+          CountF ← CountF + 1
+          TotalF ← TotalF + BusF[Days]
+   ENDIF
+NEXT
+PRINT "The number of late days for each bus route are:
+Bus A "CountA", Bus B "CountB", Bus C "CountC", Bus D ",
+CountD", Bus E ", CountE", Bus F "CountF
+PRINT "The average number of minutes late for each route
+are: Bus A "TotalA/20", Bus B "TotalB/20", Bus C
+"TotalC/20", Bus D ", TotalD/20", Bus E ", TotalE/20",
+Bus F "TotalF/20
+
+=== 0478_s19_ms_21_p6_b4 | 0478_s19_ms_21.pdf p6 | pseudocode (keywords) | context: • Condition and outcome / Example answer:
+IF X < 0
+   THEN
+      PRINT "Negative"
+   ELSE
+      PRINT "Not negative"
+ENDIF
+
+=== 0478_s19_ms_21_p6_b5 | 0478_s19_ms_21.pdf p6 | pseudocode (keywords) | context: • Condition and outcome / Example answer:
+CASE X OF
+   1: PRINT ("ONE")
+   2: PRINT ("TWO")
+   OTHERWISE PRINT ("Less than ONE or more than TWO")
+ENDCASE
+
+=== 0478_s19_ms_22_p4_b2 | 0478_s19_ms_22.pdf p4 | pseudocode (keywords) | context: MP8 Store Buyer Number / Sample answer
+REPEAT
+   PRINT "Enter Buyer Number"
+   INPUT BuyerNumber
+UNTIL BuyerNumber >= BuyerLow and BuyerNumber <=
+BuyerHigh
+REPEAT
+   PRINT "Enter Bid -99 to exit"
+   INPUT Bid
+   IF Bid > HighestBid(item)
+      THEN
+          HighestBid(item) ← Bid
+          NumberBids(item) ← NumberBids(item) + 1
+   ENDIF
+UNTIL Bid > HighestBid(item) OR Bid = -99
+IF Bid <> -99
+   THEN
+      BuyerItem(item) ← BuyerNumber
+ENDIF
+
+=== 0478_s19_ms_22_p6_b3 | 0478_s19_ms_22.pdf p6 | pseudocode (keywords) | context: Section B / 1 mark for each error identified + suggested correction
+• Low ← Count should be Low ← Number
+• Number > Low should be Number < Low
+• UNTIL Count = 99 should be UNTIL Count > 99 or UNTIL
+   Count = 100 or UNTIL Count >= 100 // Count ← 1
+
+=== 0478_s19_ms_22_p6_b4 | 0478_s19_ms_22.pdf p6 | pseudocode (keywords) | context: 1 mark for each error identified + suggested correction / should be Count ← 0
+   • PRINT "Largest Number is ", Number should be PRINT
+      "Largest Number is ", High
+MP1 Add Total ← 0 // Total ← Number
+MP2 Add Total ← Total + Number
+MP3 Add PRINT "Total is ", Total
+
+=== 0478_s19_ms_22_p6_b5 | 0478_s19_ms_22.pdf p6 | pseudocode (keywords) | context: should be Count ← 0 / MP4 All positioning explained / seen
+Count ← 1
+INPUT Number
+High ← Number
+Low ← Number
+Total ← Number
+REPEAT
+   INPUT Number
+   Total ← Total + Number
+   IF Number > High
+   THEN
+      High ← Number
+   ENDIF
+   IF Number < Low
+   THEN
+      Low ← Number
+   ENDIF
+   Count ← Count + 1
+UNTIL Count > 99
+PRINT "Largest Number is ", High
+PRINT "Smallest Number is ", Low
+PRINT "Total is ", Total
+
+=== 0478_s19_ms_22_p8_b6 | 0478_s19_ms_22.pdf p8 | pseudocode (keywords) | context: Statements
+FOR A ← 1 TO 100
+   B ← B + 1
+NEXT A
+CASE A OF
+   100: B ← A
+   200: C ← A
+ENDCASE
+IF A > 100
+   THEN
+      B ← A
+ENDIF
+REPEAT
+   A ← B * 10
+UNTIL A > 100
+
+=== 0478_s19_ms_23_p4_b2 | 0478_s19_ms_23.pdf p4 | pseudocode (keywords) | context: MP10 « update appropriate stock level / Sample answer
+REPEAT
+   PRINT "Enter Item Code"
+   INPUT ItemCode
+   Found ← False
+   Count ← 1
+   REPEAT
+      IF ItemCode = ItemList(Count} THEN Found ← True
+ENDIF
+      Count ← Count + 1
+   UNTIL Found OR Count = NoItems
+UNTIL Found
+REPEAT
+   PRINT "Enter Number to purchase"
+   INPUT Number
+UNTIL Number > 0 and Number <= Stock(ItemCode)
+PriceToPay ← Number * Price (ItemCode)
+IF Number >= 10 AND Number < 20 THEN PriceToPay ←
+PriceToPay * 0.95 ENDIF
+IF Number >= 20 AND Number < 50 THEN PriceToPay ←
+PriceToPay * 0.9 ENDIF
+IF Number >= 50 AND Number < 100 THEN PriceToPay ←
+PriceToPay * 0.75 ENDIF
+IF Number >= 100 AND Number < 500 THEN PriceToPay ←
+PriceToPay * 0.65 ENDIF
+IF Number >= 500 THEN PriceToPay ← PriceToPay * 0.5
+ENDIF
+PRINT "Enter Value of discount voucher, 0 if no voucher"
+INPUT Voucher
+PriceToPay ← PriceToPay – Voucher
+PRINT "Price to pay is ", PriceToPay
+PRINT "Order confirmed? Y/N"
+INPUT Confirm
+IF Confirm = "Y" THEN Stock(ItemCode) ← Stock(ItemCode)
+– Number ENDIF
+
+=== 0478_s19_ms_23_p6_b4 | 0478_s19_ms_23.pdf p6 | pseudocode (keywords) | context: Count ← 1 should be Count ← 0 or Count >= 500 should be / AND should be OR
+Reject ← Reject – 1 should be Reject ← Reject + 1
+Reject ← Reject/100 should be Reject ← Reject/5 or Reject
+    * 100 / 500
+
+=== 0478_s19_ms_23_p6_b5 | 0478_s19_ms_23.pdf p6,7 | pseudocode (keywords) | context: MP3 Add Accept ← Accept/5 after UNTIL AND correct loop/position / described
+MP4 ADD IF Accept < 50 THEN PRINT "Less than 50%
+     accepted" at end
+Accept ← 0
+Count ← 1 // 0
+Reject ← 0
+Over ← 62
+Under ← 58
+REPEAT
+   INPUT ItemWeight
+   IF ItemWeight > Over OR ItemWeight < Under // IF
+ItemWeight <= Over AND
+   ItemWeight >= Under
+      THEN
+          Reject ← Reject + 1
+      ELSE
+          Accept ← Accept + 1//ELSE not required
+   ENDIF
+   Count ← Count + 1
+UNTIL Count > 500  // >= 500
+Accept ← Accept / 5
+IF Accept < 50
+   THEN
+      PRINT "Less than 50% accepted"
+ENDIF
+TreadReject Count   Depth
+
+=== 0478_w19_ms_21_p4_b1 | 0478_w19_ms_21.pdf p4 | pseudocode (keywords) | context: MP10 Output of cost of patio with annotation / Example
+TotalCost ← 0
+OUTPUT "Please enter type of stone needed"
+INPUT StoneType
+OUTPUT "Please enter the number of rectangles needed"
+INPUT NumberRectangle
+FOR Counter ← 1 TO NumberRectangle
+   OUTPUT "Please enter the length"
+   INPUT Length
+   OUTPUT "Please enter the Width"
+   INPUT Width
+   TotalCost ← TotalCost + CostFromTask1(Length, Width,
+   StoneType)
+   // use Task 1 to calculate cost
+NEXT Counter
+OUTPUT ("Total Cost of Patio " TotalCost
+
+=== 0478_w19_ms_21_p6_b2 | 0478_w19_ms_21.pdf p6 | pseudocode (keywords) | context: • Correct output / e.g.
+Total ← 0
+INPUT CounterLimit
+FOR LoopCounter ← 1 To CounterLimit
+   INPUT Number
+   Total ← Total + Number
+NEXT LoopCounter
+OUTPUT ″The average equals ″, Total / CounterLimit
+
+=== 0478_w19_ms_22_p4_b1 | 0478_w19_ms_22.pdf p4 | pseudocode (keywords) | context: MP9 « Suitable output message(s) / Sample answer
+REPEAT
+   PRINT "Enter Number of slabs to purchase"
+   INPUT Number
+UNTIL Number >= 20 and Number <= 100
+PurchaseNo ← Number
+IF Number > 20 AND Number <= 40 THEN PurchaseNo ← 40 ENDIF
+IF Number > 40 AND Number <= 60 THEN PurchaseNo ← 60 ENDIF
+IF Number > 60 AND Number <= 80 THEN PurchaseNo ← 80 ENDIF
+IF Number > 80 THEN PurchaseNo ← 100 ENDIF
+BatchNo ← PurchaseNo / 20
+PriceToPay ← BatchNo * BatchPrice //BatchPrice calculated
+in Task 1
+PRINT "Price for ", PurchaseNo, " Slabs is $", PriceToPay
+
+=== 0478_w19_ms_22_p5_b2 | 0478_w19_ms_22.pdf p5 | pseudocode (keywords) | context: 2 / One mark for each error identified and suggested correction:
+• IF TotalTry > Number should be  IF Guess > Number
+• IF Guess > Number should be IF Guess < Number
+• TotalTry ← Guess + 1 should be TotalTry ← TotalTry + 1
+•  UNTIL Guess <> Number should be UNTIL Guess = Number
+
+=== 0478_w19_ms_23_p4_b3 | 0478_w19_ms_23.pdf p4 | pseudocode (keywords) | context: MP10 Appropriate message(s) with output / Example algorithm
+REPEAT
+   OUTPUT "Please enter height of wall "
+   INPUT Height
+UNTIL Height > 0
+REPEAT
+   OUTPUT "Please enter width of wall "
+   INPUT Width
+UNTIL Width > 0
+REPEAT
+   Found ← FALSE
+   Counter ← 0
+   REPEAT
+      OUTPUT "Please enter tile identification code "
+      INPUT MyTileId
+      IF MyTileId = TileCode(Counter)
+          THEN
+             MyCost ← TilePrice(Counter)
+             Found ← TRUE
+      ENDIF
+      Counter ← Counter + 1
+   UNTIL Found OR Counter = 10
+UNTIL Found
+Area ← Height * Width
+NoBoxes ← Int(Round (Area + 0.5))
+// Rounds up to nearest Integer
+TotalPrice ← NoBoxes * MyCost
+OUTPUT ("Area of wall is ", Area, " metres")
+OUTPUT ("Number of boxes of tiles is ", Area, " NoBoxes)
+OUTPUT ("Cost of Tiles is ", TotalPrice, " dollars"
+
+=== 0478_w19_ms_23_p6_b5 | 0478_w19_ms_23.pdf p6 | pseudocode (keywords) | context: MP5 Single ENDCASE included / e.g.
+CASE OF Response // CASE Response OF
+   1 : X ← X + Y
+   2 : X ← X - Y
+   3 : X ← X * Y
+   4 : X ← X / Y
+   OTHERWISE OUTPUT ″No response″
+ENDCASE
+
+=== 0478_m20_ms_22_p5_b2 | 0478_m20_ms_22.pdf p5 | pseudocode (keywords) | context: MP7 Attempt to output showing all 3 payment methods with appropriate messages (MPs 4,5,6 not awarded) / Sample answer:
+PRINT "Full Amount ",amountToPay, " to pay.  Number of Payments is 1"
+PRINT "Cashback ", amountToPay * 0.01
+PRINT "Over four years ",amountToPay, " to pay.  Number of Payments is 48"
+PRINT "Each monthly payment is ", amountToPay / 48
+PRINT "Over seven years ",amountToPay * 1.05, " to pay.  Number of Payments is 84"
+PRINT "Each monthly payment is ", amountToPay * 1.05 / 84
+
+=== 0478_s20_ms_21_p5_b3 | 0478_s20_ms_21.pdf p5,6 | pseudocode (keywords) | context: • Input with message to find out if a SIM card is required / Example answer
+OUTPUT "Which type of phone or tablet would you like? Input the Item Code"
+DeviceFlag ← False
+WHILE DeviceFlag = False
+  INPUT DeviceCode
+  Count ← 0
+  WHILE Count<10 DO
+    IF DeviceCode = ItemCode[Count]
+      THEN
+        IF Count < 6
+          THEN
+            DeviceType ← "Phone"
+          ELSE
+            DeviceType ← "Tablet"
+        ENDIF
+        DeviceFlag ← True
+        Count ← 10
+    ENDIF
+    Count ← Count + 1
+  ENDWHILE
+  IF DeviceFlag = False
+    THEN
+      OUTPUT "Your code doesn’t exist, please try again"
+  ENDIF
+ENDWHILE
+IF DeviceType ← "Phone"
+  THEN
+    OUTPUT "Would you like a SIM Card? (Answer Y or N)"
+    INPUT SimRequired
+ENDIF
+
+=== 0478_s20_ms_21_p8_b4 | 0478_s20_ms_21.pdf p8 | pseudocode (keywords) | context: 4(b)
+Count ← 0
+REPEAT
+  INPUT Number
+  IF Number >= 100
+    THEN
+      Values[Count] ← Number
+  ENDIF
+Count ← Count + 1
+UNTIL Count = 50
+
+=== 0478_s20_ms_22_p5_b3 | 0478_s20_ms_22.pdf p5 | pseudocode (keywords) | context: • … Until valid amount input / Sample answer
+PRINT "Please Enter Payment"
+INPUT amount
+WHILE amount < priceToPay DO
+    PRINT "Insufficient payment, please enter new Payment"
+    INPUT amount
+ENDWHILE
+totalPayment ← totalPayment + amount
+
+=== 0478_s20_ms_22_p6_b4 | 0478_s20_ms_22.pdf p6 | pseudocode (keywords) | context: 3(a) / One mark for error and correction
+Line 1 HighestMark ← 0
+Line 7 INPUT Mark[Count]
+Line 10 HighestMarkStudents ← HighestMarkStudents + 1
+Line 14 HighestMark ← Mark[Count]
+
+=== 0478_s20_ms_23_p5_b4 | 0478_s20_ms_23.pdf p5,6 | pseudocode (keywords) | context: • Output total price with message (outside final loop) / Example answer
+AnotherItem ← "Y"
+While AnotherItem = "Y"
+  SnackCodeFlag ← False
+  OUTPUT "Input an Item Code"
+  WHILE SnackCodeFlag = False
+    INPUT SnackCode
+    Count ← 0
+    WHILE Count < 22 DO
+      IF SnackCode = ItemCode[Count]
+        THEN
+          SnackCodeFlag ← True
+          OUTPUT "Item Description ", Description[Count], " Item Price ",
+          Price[Count], " Item is Healthy? ", Healthy[Count]
+          TotalPrice ← TotalPrice + Price[Count]
+          Count ← 22
+      ENDIF
+      Count ← Count + 1
+    ENDWHILE
+    IF SnackCodeFlag = False
+      THEN
+        OUTPUT "Your Item Code doesn’t exist, please try again"
+    ENDIF
+  ENDWHILE
+  OUTPUT "Would you like another item? (Answer Y or N)"
+  INPUT AnotherItem
+ENDWHILE
+OUTPUT "The total price is ", TotalPrice
+
+=== 0478_s20_ms_23_p7_b5 | 0478_s20_ms_23.pdf p7 | pseudocode (keywords) | context: Description                                                       Pseudocode example
+CASE … OF … OTHERWISE … ENDCASE
+
+=== 0478_s20_ms_23_p7_b6 | 0478_s20_ms_23.pdf p7 | pseudocode (keywords) | context: Description                                                       Pseudocode example
+Number ← Number + 1
+
+=== 0478_s20_ms_23_p7_b7 | 0478_s20_ms_23.pdf p7 | pseudocode (keywords) | context: Description                                                       Pseudocode example
+WHILE … DO … ENDWHILE
+
+=== 0478_s20_ms_23_p7_b8 | 0478_s20_ms_23.pdf p7 | pseudocode (keywords) | context: 
+Sum ← Sum + NewValue
+
+=== 0478_w20_ms_21_p3_b2 | 0478_w20_ms_21.pdf p3 | pseudocode (keywords) | context: MP8 Output new price and value of extra discount, with suitable message / Sample answer
+PRINT "Are you a new customer Y/N?"
+INPUT new
+discount ← 0
+IF new = "Y" DO
+  IF age >= 26 AND age <= 70
+    THEN
+      IF yearsWithoutClaim >=2
+        THEN
+          discount ← price * 0.1
+          price ← price * 0.9
+      ENDIF
+  ENDIF
+  PRINT "New price", price
+  PRINT "Extra discount for new customer", discount
+ENDIF
+
+=== 0478_w20_ms_21_p5_b4 | 0478_w20_ms_21.pdf p5 | pseudocode (keywords) | context: 3(b) / One mark for error and correction
+Line 1 TotalWeight ← 0
+Line 10 move OUTPUT "Number of bags in the load is ",
+
+=== 0478_w20_ms_21_p5_b6 | 0478_w20_ms_21.pdf p5 | pseudocode (keywords) | context: After line 11 / Divide TotalWeight by
+… BagCount
+Assign a new variable AverageWeight ← TotalWeight / BagCount
+
+=== 0478_w20_ms_22_p4_b4 | 0478_w20_ms_22.pdf p4 | pseudocode (keywords) | context: appropriate message) / Example answer:
+OUTPUT "Which type of Case would you like? Input the Item
+Code"
+ComponentFlag ← False
+WHILE ComponentFlag = False
+  INPUT CaseCode
+  Count ← 0
+  WHILE Count<2 DO
+    IF CaseCode = ComponentCode[Count]
+      THEN
+        CaseIndex ← Count
+        ComponentFlag ← True
+        Count ← 2
+    ENDIF
+    Count ← Count + 1
+  ENDWHILE
+  IF ComponentFlag = False
+    THEN
+      OUTPUT "Your case Item Code doesn’t exist, please
+try again"
+  ENDIF
+ENDWHILE
+OUTPUT "Which type of RAM would you like? Input the Item
+Code"
+ComponentFlag ← False
+WHILE ComponentFlag = False
+  INPUT RAMCode
+  Count ← 2
+  WHILE Count<5 DO
+    IF RAMCode = ComponentCode[Count]
+      THEN
+        RAMIndex ← Count
+        ComponentFlag ← True
+        Count ← 5
+    ENDIF
+    Count ← Count + 1
+  ENDWHILE
+
+=== 0478_w20_ms_22_p5_b5 | 0478_w20_ms_22.pdf p5 | pseudocode (keywords) | context: October/November
+  IF ComponentFlag = False
+    THEN
+      OUTPUT "Your RAM Item Code doesn’t exist, please try
+again"
+  ENDIF
+ENDWHILE
+OUTPUT "Which type of Primary Hard Disk Drive would you
+like? Input the Item Code"
+ComponentFlag ← False
+WHILE ComponentFlag = False
+  INPUT PHDDCode
+  Count ← 5
+  WHILE Count<8 DO
+    IF PHDDCode = ComponentCode[Count]
+      THEN
+        HDDIndex ← Count
+        ComponentFlag ← True
+        Count ← 8
+    ENDIF
+    Count ← Count + 1
+  ENDWHILE
+  IF ComponentFlag = False
+    THEN
+      OUTPUT "Your Primary HDD Item Code doesn’t exist,
+please try again"
+  ENDIF
+ENDWHILE
+TotalPrice ← 200 + ComponentPrice[CaseIndex] +
+ComponentPrice[RAMIndex] + ComponentPrice[HDDIndex]
+OUTPUT "Your computer consists of ",
+Description[CaseIndex], " case, ", Description[RAMIndex],
+" RAM and ", Description[HDDIndex], " Primary Hard Disk
+Drive."
+OUTPUT "The total price of your computer is $", TotalPrice
+
+=== 0478_w20_ms_22_p7_b6 | 0478_w20_ms_22.pdf p7 | pseudocode (keywords) | context: MP6 Appropriate message in output / MP7 Correct location of OUTPUT and IF statements
+Higher ← 0
+FOR Count ← 1 TO 5000
+  INPUT Number[Count]
+  IF Number[Count] > 500
+    THEN
+      Higher ← Higher + 1
+  ENDIF
+NEXT Count
+OUTPUT "There are ", Higher, " values that are greater than
+500"
+
+=== 0478_w20_ms_23_p4_b1 | 0478_w20_ms_23.pdf p4 | pseudocode (keywords) | context: MP9 At least one error message for incorrect data entry / Example answer:
+REPEAT
+    PRINT "Beef        1"
+    PRINT "Chicken     2"
+    PRINT "Cheese      3"
+    PRINT "Egg         4"
+    PRINT "Tuna        5"
+    PRINT "Turkey      6"
+    OUTPUT "Please enter your choice of filling"
+    INPUT Filling
+UNTIL Filling >=1 AND Filling <=6
+PRINT "Lettuce      1"
+PRINT "Tomato       2"
+PRINT "Sweetcorn    3"
+PRINT "Cucumber     4"
+PRINT "Peppers      5"
+REPEAT
+  PRINT "How many salads do you want"
+  INPUT NumSalad
+UNTIL NumSalad >= 0 and NumSalad <=3
+WHILE NumSalad >0 DO
+  PRINT "Enter Salad ", NumSalad
+  OUTPUT "Please enter your choice of salad"
+  INPUT SaladType
+  CASE SaladType OF
+    1: NumSalad ← NumSalad – 1
+    2: NumSalad ← NumSalad – 1
+    3: NumSalad ← NumSalad – 1
+    4: NumSalad ← NumSalad – 1
+    5: NumSalad ← NumSalad – 1
+    OTHERWISE: PRINT "Error"
+  ENDCASE
+  Salad[NumSalad] ← SaladType
+ENDWHILE
+
+=== 0478_w20_ms_23_p5_b3 | 0478_w20_ms_23.pdf p5 | pseudocode (keywords) | context: One mark for error and correction / Line 02  TooCold ← 0
+Line 08  TooCold ← TooCold + 1
+Line 15  IF TooHot > 5
+Line 17  OUTPUT "Alarm!!"
+
+=== 0478_m21_ms_22_p4_b1 | 0478_m21_ms_22.pdf p4 | pseudocode (keywords) | context: score / Example
+Score = 0
+Multiplier[1] ← 2
+Multiplier[2] ← 5
+Multiplier[3] ← 7
+Multiplier[4] ← 8
+Multiplier[5] ← 11
+OUTPUT "Multiplication Table Test"
+OUTPUT "Please enter your name"
+INPUT Name
+REPEAT
+    OUTPUT "Please enter the table (2 to 12) you would like
+to be tested"
+    INPUT Table
+UNTIL (Table >=2) AND (Table <=12)
+FOR Count = 1 TO 5
+    OUTPUT ("Question ", Count)
+    OUTPUT (Multiplier[Count], " X ", Table, " = ")
+    REPEAT
+        INPUT Answer
+    UNTIL Answer > 0 AND Answer = INT(Answer)
+    IF Answer = Multiplier[Count] * Table
+      THEN
+        Score ← Score + 1
+    ENDIF
+NEXT
+OUTPUT (Name, " your score is ", Score)
+IF Score = 5
+  THEN
+    OUTPUT ("Well done full marks")
+  ELSE
+    OUTPUT ("Have another practice")
+ENDIF
+
+=== 0478_m21_ms_22_p6_b4 | 0478_m21_ms_22.pdf p6 | pseudocode (keywords) | context: Pseudocode statement
+X ← Y + Z
+
+=== 0478_m21_ms_22_p7_b8 | 0478_m21_ms_22.pdf p7 | pseudocode (keywords) | context: 
+Error Total ← Accept – Over – Under // line 26
+Correction Total ← Accept + Over + Under
+
+=== 0478_s21_ms_21_p6_b3 | 0478_s21_ms_21.pdf p6 | pseudocode (keywords) | context: MP7 Store voter number in a suitable data structure / Example answer
+OUTPUT "Please enter your unique voter number"
+INPUT UniqueVoterNumber
+FoundFlag ← False
+AllNumbersChecked ← False
+Counter ← 0
+WHILE FoundFlag = False AND AllNumbersChecked = False
+  IF StudentNumbers[Counter] = ""
+    THEN
+      AllNumbersChecked = True
+      StudentNumbers[Counter] ← UniqueVoterNumber
+    ELSE
+      IF UniqueVoterNumber = StudentNumbers[Counter]
+        THEN
+          FoundFlag = True
+          PRINT "Sorry, you have already voted"
+        ELSE
+          Counter = Counter + 1
+      ENDIF
+  ENDIF
+ENDWHILE
+IF FoundFlag = False
+  THEN
+    OUTPUT "Please enter the code of your chosen candidate"
+    INPUT Vote
+ENDIF
+
+=== 0478_s21_ms_21_p9_b7 | 0478_s21_ms_21.pdf p9 | pseudocode (keywords) | context: MP4 Suitable messages/text in output for both arrays / Example answers
+Count ← 0
+REPEAT
+  PRINT "Student: ", Count, " Mark: ", Score[Count], " Grade: ",Grade[Count]
+  Count ← Count + 1
+UNTIL Count = 30
+Count ← 0
+WHILE Count < 30 DO
+  PRINT "Student: ", Count, " Mark: ", Score[Count], " Grade: ",Grade[Count]
+  Count ← Count + 1
+ENDWHILE
+FOR Count ← 0 TO 29
+  PRINT "Student: ", Count, " Mark: ", Score[Count], " Grade: ", Grade[Count]
+NEXT
+
+=== 0478_s21_ms_22_p6_b2 | 0478_s21_ms_22.pdf p6 | pseudocode (keywords) | context: MP10 Update total cost for up train and down train / Example answers
+OUTPUT "How many tickets"
+INPUT NoTickets
+OUTPUT "Which Train up the mountain? 1, 2, 3 or 4"
+INPUT UpNumber
+OUTPUT "Which Train down the mountain? 1, 2, 3 or 4"
+INPUT DownNumber
+IF (DownNumber = 4 AND TrainUp[UpNumber] + NoTickets <= 480 AND TrainDown[DownNumber] +
+NoTickets <= 640) OR (TrainUp[UpNumber] + NoTickets <= 480 AND TrainDown[DownNumber] +
+NoTickets <= 480)
+  THEN
+    Cost ← (NoTickets – NoTickets DIV 10) * 50
+    TrainUp[UpNumber] ← TrainUp[UpNumber] + NoTickets
+    TrainDown[DownNumber] ← TrainUp[DownNumber] + NoTickets
+    TrainUpTotal[UpNumber] ← TrainUpTotal[UpNumber]  + Cost / 2
+    TrainDownTotal[DownNumber] ← TrainDownTotal[DownNumber]  + Cost / 2
+ENDIF
+
+=== 0478_s21_ms_22_p7_b4 | 0478_s21_ms_22.pdf p7 | pseudocode (keywords) | context: 
+OUTPUT "Tickets"
+ INPUT Tickets
+
+=== 0478_s21_ms_22_p7_b5 | 0478_s21_ms_22.pdf p7 | pseudocode (keywords) | context: 
+OUTPUT "Up Train"
+    INPUT UpNo
+
+=== 0478_s21_ms_22_p7_b6 | 0478_s21_ms_22.pdf p7 | pseudocode (keywords) | context: 
+OUTPUT "Down Train"
+                  Yes
+   INPUT DownNo
+
+=== 0478_s21_ms_22_p7_b9 | 0478_s21_ms_22.pdf p7 | pseudocode (keywords) | context: 
+Cost ← (NoTickets – NoTickets DIV 10) * 50
+
+=== 0478_s21_ms_22_p7_b10 | 0478_s21_ms_22.pdf p7 | pseudocode (keywords) | context: 
+TrainUp[UpNo] ← TrainUp[UpNo] + NoTickets
+TrainDown[DownNo] ← TrainUp[DownNo] + NoTickets
+TrainUpTotal[UpNo] ← TrainUpTotal[UpNo]  + Cost / 2
+TrainDownTotal[DownNo] ← TrainDownTotal[DownNo]  + Cost / 2
+
+=== 0478_s21_ms_22_p9_b12 | 0478_s21_ms_22.pdf p9 | pseudocode (keywords) | context: MP9 Calculating the range / MP10 Outputting the largest, smallest and range with message
+Large ← 0
+Small ← 1000
+FOR Count ← 1 TO 500
+  REPEAT
+    OUTPUT "Enter a whole number between 1 and 999"
+    INPUT Number
+  UNTIL Number >= 1 AND Number < 1000 AND Number = Number DIV 1
+  IF Number < Small
+    THEN
+      Small ← Number
+  ENDIF
+  IF Number > Large
+    THEN
+      Large ← Number
+  ENDIF
+NEXT
+Range ← Large – Small
+OUTPUT "Largest number is ", Large, " Smallest number is ", Small, " Range of numbers is
+     ", Range
+
+=== 0478_s21_ms_22_p10_b16 | 0478_s21_ms_22.pdf p10 | pseudocode (keywords) | context: 
+IF Number = 20
+PRINT Number
+Number ← Number + 1  counting
+
+=== 0478_s21_ms_22_p12_b20 | 0478_s21_ms_22.pdf p12 | pseudocode (keywords) | context: • Working loop with correct number of Iterations / • Correct assignment
+FOR Count ← 1 TO 20
+  dataArray[Count] ← 0
+NEXT (Count)
+
+=== 0478_s21_ms_23_p6_b3 | 0478_s21_ms_23.pdf p6 | pseudocode (keywords) | context: Example answers / Version 1
+TotalAS ← 0; TotalBS ← 0; TotalCS ← 0; TotalDS ← 0; TotalsES ← 0; TotalAF ← 0;
+TotalBF ← 0; TotalCF ← 0; TotalDF ← 0; TotalEF ← 0
+FOR Count ← 0 TO 150
+  TotalAS ← TotalAS + StudentA[Count]
+  TotalBS ← TotalBS + StudentB[Count]
+  TotalCS ← TotalCS + StudentC[Count]
+  TotalDS ← TotalDS + StudentD[Count]
+  TotalES ← TotalES + StudentE[Count]
+NEXT Count
+FOR Count = 0 TO 20
+  TotalAF ← TotalAF + StaffA [Count]
+  TotalBF ← TotalBF + StaffA [Count]
+  TotalCF ← TotalCF + StaffA [Count]
+  TotalDF ← TotalDF + StaffA [Count]
+  TotalEF ← TotalEF + StaffA [Count]
+NEXT Count
+OUTPUT "Option    Students    Staff    Total"
+OUTPUT "A ", TotalAS, TotalAF, (TotalAS + TotalAF)
+OUTPUT "B ", TotalBS, TotalBF, (TotalBS + TotalBF)
+OUTPUT "C ", TotalCS, TotalCF, (TotalCS + TotalCF)
+OUTPUT "D ", TotalDS, TotalDF, (TotalDS + TotalDF)
+OUTPUT "E ", TotalES, TotalEF, (TotalES + TotalEF)
+
+=== 0478_s21_ms_23_p7_b4 | 0478_s21_ms_23.pdf p7,8 | pseudocode (keywords) | context: 1(b) / Version 2
+TotalAS ← 0; TotalBS ← 0; TotalCS ← 0; TotalDS ← 0; TotalsES ← 0; TotalAF ← 0;
+TotalBF ← 0; TotalCF ← 0; TotalDF ← 0; TotalEF ← 0
+OUTPUT "Are you a student? (Y or N)"
+INPUT Student
+IF Student = "Y" THEN
+  OUTPUT "Enter your number"
+  INPUT Number
+  IF Students[Number] = 0 THEN
+    REPEAT
+      OUTPUT "Enter preference for A"
+      INPUT Vote
+    UNTIL Vote >= 1 and Vote <= 5
+    TotalAS ← TotalAS + Vote
+    REPEAT
+      OUTPUT "Enter preference for B"
+      INPUT Vote
+    UNTIL Vote >= 1 and Vote <= 5
+    TotalBS ← TotalBS + Vote
+    REPEAT
+      OUTPUT "Enter preference for C"
+      INPUT Vote
+    UNTIL Vote >= 1 and Vote <= 5
+    TotalCS ← TotalCS + Vote
+    REPEAT
+      OUTPUT "Enter preference for D"
+      INPUT Vote
+    UNTIL Vote >= 1 and Vote <= 5
+    TotalDS ← TotalDS + Vote
+    REPEAT
+      OUTPUT "Enter preference for E"
+      INPUT Vote
+    UNTIL Vote >= 1 and Vote <= 5
+    TotalES ← TotalES + Vote
+    Student[Number] ← 1
+ELSE
+  OUTPUT "Enter your number"
+  INPUT Number
+  IF staff[number] = 0 THEN
+    REPEAT
+      OUTPUT "Enter preference for A"
+      INPUT Vote
+    UNTIL Vote >= 1 and Vote <= 5
+    TotalAS ← TotalAS + Vote
+    REPEAT
+      OUTPUT "Enter preference for B"
+      INPUT Vote
+    UNTIL Vote >= 1 and Vote <= 5
+    TotalBS ← TotalBS + Vote
+    REPEAT
+      OUTPUT "Enter preference for C"
+      INPUT Vote
+    UNTIL Vote >= 1 and Vote <= 5
+    TotalCS ← TotalCS + Vote
+    REPEAT
+      OUTPUT "Enter preference for D"
+      INPUT Vote
+    UNTIL Vote >= 1 and Vote <= 5
+    TotalDS ← TotalDS + Vote
+    REPEAT
+      OUTPUT "Enter preference for E"
+      INPUT Vote
+    UNTIL Vote >= 1 and Vote <= 5
+    TotalES ← TotalES + Vote
+  Staff[Number] ← 1
+ENDIF
+
+=== 0478_s21_ms_23_p9_b5 | 0478_s21_ms_23.pdf p9 | pseudocode (keywords) | context: 
+OUTPUT "Option    Students    Staff    Total"
+OUTPUT "A ", TotalAS, TotalAF, (TotalAS + TotalAF)
+OUTPUT "B ", TotalBS, TotalBF, (TotalBS + TotalBF)
+OUTPUT "C ", TotalCS, TotalCF, (TotalCS + TotalCF)
+OUTPUT "D ", TotalDS, TotalDF, (TotalDS + TotalDF)
+OUTPUT "E ", TotalES, TotalEF, (TotalES + TotalEF)
+
+=== 0478_s21_ms_23_p12_b6 | 0478_s21_ms_23.pdf p12 | pseudocode (keywords) | context: One mark for error identified and suggested correction / Line 3 – should be FullScore ← 0
+Line 7 – should be FullScore ← FullScore + Score
+
+=== 0478_s21_ms_23_p12_b7 | 0478_s21_ms_23.pdf p12 | pseudocode (keywords) | context: Line 11 – should be INPUT Another / Correct Algorithm 1
+Count ← 0
+2 REPEAT
+3   FullScore ← 0
+4   INPUT Number
+5   FOR StoreLoop ← 1 TO Number
+6     INPUT Score
+7     FullScore ← FullScore + Score
+8   NEXT
+9   OUTPUT "The full score is ", FullScore
+10   OUTPUT "Another set of scores (Y or N)?"
+11   INPUT Another
+12   IF Another = "N"
+13     THEN
+14       Count ← 1
+15   ENDIF
+16 UNTIL Count = 1
+
+=== 0478_s21_ms_23_p13_b8 | 0478_s21_ms_23.pdf p13 | pseudocode (keywords) | context: Correct Algorithm 2
+Count ← 0
+2 REPEAT
+3   FullScore ← 0
+4   INPUT Number
+        StoreLoop ← 0
+5   REPEAT
+6     INPUT Score
+7     FullScore ← FullScore + Score
+          StoreLoop ← StoreLoop + 1
+8   UNTIL StoreLoop = Number
+9   OUTPUT "The full score is ", FullScore
+10   OUTPUT "Another set of scores (Y or N)?"
+11   INPUT Another
+12   IF Another = "N"
+13     THEN
+14       Count ← 1
+15   ENDIF
+16 UNTIL Count = 1
+
+=== 0478_s21_ms_23_p14_b9 | 0478_s21_ms_23.pdf p14 | pseudocode (keywords) | context: One mark per mark point (Max 4) / MP1 After line 6 // replace line 6
+MP2 ScoreArray[StoreLoop] ← Score // INPUT ScoreArray[StoreLoop]
+
+=== 0478_s21_ms_23_p14_b10 | 0478_s21_ms_23.pdf p14 | pseudocode (keywords) | context: MP1 After line 6 // replace line 6 / MP3 between lines 8 and 10
+MP4 AverageScore ← FullScore/Number
+MP5 OUTPUT "The average score is ", AverageScore
+
+=== 0478_w21_ms_21_p5_b2 | 0478_w21_ms_21.pdf p5,6 | pseudocode (keywords) | context: MP10 Change mobile number if necessary / Sample
+OUTPUT ("Which time do you want to book a squash court")
+INPUT BookTime
+Booked ← FALSE
+CourtNumber ← 0
+IF BookTime >= 8 AND BookTime <= 17
+  THEN
+  BookTime ← BookTime - 7
+    IF Available1[BookTime] THEN Available1[BookTime] ← FALSE; CourtNumber ← 1; Booked ←
+TRUE ENDIF
+    IF NOT Booked AND Available2[BookTime] THEN Available2[BookTime] ← FALSE; CourtNumber
+← 2; Booked ← TRUE ENDIF
+    IF NOT Booked AND Available3[BookTime] THEN Available3[BookTime] ← FALSE; CourtNumber
+← 3; Booked ← TRUE ENDIF
+    IF NOT Booked AND Available4[BookTime] THEN Available4[BookTime] ← FALSE; CourtNumber
+← 4; Booked ← TRUE ENDIF
+    IF NOT Booked AND Available5[BookTime] THEN Available5[BookTime] ← FALSE; CourtNumber
+← 5; Booked ← TRUE ENDIF
+    IF NOT Booked AND Available6[BookTime] THEN Available6[BookTime] ← FALSE; CourtNumber
+← 6; Booked ← TRUE ENDIF
+    IF NOT Booked AND Available7[BookTime] THEN Available7[BookTime] ← FALSE; CourtNumber
+← 7; Booked ← TRUE ENDIF
+    IF NOT Booked AND Available8[BookTime] THEN Available8[BookTime] ← FALSE; CourtNumber
+← 8; Booked ← TRUE ENDIF
+    IF NOT Booked OUTPUT("No court available at ", BookTime + 7)
+ENDIF
+IF Booked
+  THEN
+    OUTPUT ("Please enter your name")
+    INPUT Name
+    Code ← Code + 1
+    Correct ← "N"
+    WHILE Correct = "N" DO
+      OUTPUT ("Please enter your mobile number")
+      INPUT Mobile
+      OUTPUT ("Is Your mobile number correct Y/N? ", Mobile, " Your court number is ",
+CourtNumber, " Your entry code is ", Code)
+      INPUT Correct
+    ENDWHILE
+    CASE CourtNumber OF
+      1 : Guest1[BookTime} ← Name; Mobile1[BookTime] ← Mobile; Code1[BookTime] ← Code
+      2 : Guest2[BookTime} ← Name; Mobile2[BookTime] ← Mobile; Code2[BookTime] ← Code
+      3 : Guest3[BookTime} ← Name; Mobile3[BookTime] ← Mobile; Code3[BookTime] ← Code
+      4 : Guest4[BookTime} ← Name; Mobile4[BookTime] ← Mobile; Code4[BookTime] ← Code
+      5 : Guest5[BookTime} ← Name; Mobile5[BookTime] ← Mobile; Code5[BookTime] ← Code
+      6 : Guest6[BookTime} ← Name; Mobile6[BookTime] ← Mobile; Code6[BookTime] ← Code
+      7 : Guest6[BookTime} ← Name; Mobile7[BookTime] ← Mobile; Code7[BookTime] ← Code
+      8 : Guest8[BookTime} ← Name; Mobile8[BookTime] ← Mobile; Code8[BookTime] ← Code
+    ENDCASE
+    NoCoutsBooked[BookTime] ← NoCoutsBooked[BookTime] - 1
+  ELSE
+    OUTPUT ("Court not booked")
+ENDIF
+
+=== 0478_w21_ms_21_p8_b3 | 0478_w21_ms_21.pdf p8 | pseudocode (keywords) | context: 2(a) / Line 1 should be Counter ← 0
+Line 3 RandNum[Counter] ← Rand(1, 100)should be RandNum[Counter] ← Rand(1, 101)
+Line 4 Counter ← Counter + 2 should be Counter ← Counter + 1
+Line 5 UNTIL Count <= 50 should be UNTIL Counter >= 50 // UNTIL Counter = 50
+1 Counter ← 0
+2 REPEAT
+3     RandNum[Counter} ← Rand(1, 100)
+4     Counter ← Counter + 1
+5 UNTIL Counter >= 50
+
+=== 0478_w21_ms_21_p8_b4 | 0478_w21_ms_21.pdf p8 | pseudocode (keywords) | context: Or
+Line 3 RandNum[Counter] should be RandNum[Count]
+Line 3 Rand(1, 100)should be Rand(1, 101)
+Line 4 Counter ← Counter + 2 should be Count ← Count + 1
+Line 5 UNTIL Count <= 50 should be UNTIL Count >= 50 // UNTIL Count = 50
+1 Count ← 0
+2 REPEAT
+3     RandNum[Count} ← Rand(1, 100)
+4     Count ← Count + 1
+5 UNTIL Count >= 50
+
+=== 0478_w21_ms_21_p8_b5 | 0478_w21_ms_21.pdf p8 | pseudocode (keywords) | context: 2(b) / One mark for each correct line
+FOR Count ← 0 TO 49 // FOR Count ← 1 TO 50
+  RandNum[Count] ← Rand(1, 101) / Rand(0, 101)
+NEXT // NEXT Count
+
+=== 0478_w21_ms_22_p5_b2 | 0478_w21_ms_22.pdf p5 | pseudocode (keywords) | context: 1(c) / Example answer
+// Tasks 1 and 2 completed
+IF CollectedTime[Index] > 10:00
+  THEN
+    JourneyCost[Index] ← JouneyCost[Index] * 0.6
+ENDIF
+PRINT "Your journey cost is: ", JourneyCost[Index]
+PRINT "Your journey details are: ", PassengerID[Index], JourneyTime[Index], JourneyCodes[Index], JourneyID[Index]
+PRINT "Are these details correct? (Y or N)"
+INPUT Correct
+IF Correct = "N"
+  THEN
+    WHILE Correct = "N"
+      PRINT "Re-enter your journey details"
+      PRINT "Correct passenger ID "
+      INPUT PassengerID[Index]
+      PRINT "Correct journey time "
+      INPUT JourneyTime[Index]
+      PRINT "Correct journey codes "
+      INPUT JourneyCodes[Index]
+      PRINT "Your revised journey details are: ", PassengerID[Index], JourneyTime[Index], JourneyCodes[Index]
+      PRINT "Are these details correct? (Y or N)"
+      INPUT Correct
+    ENDWHILE
+ENDIF
+//Program continues
+
+=== 0478_w21_ms_22_p7_b4 | 0478_w21_ms_22.pdf p7 | pseudocode (keywords) | context: Method 1 / Line 1 Continue ← 1 should be Continue ← 0
+Line 22 UNTIL Continue = 0 should be ENDWHILE // Line 2 WHILE Continue = 0 should be REPEAT and Line
+22 UNTIL Continue = 0 should be Until Continue = 1
+
+=== 0478_w21_ms_22_p7_b7 | 0478_w21_ms_22.pdf p7 | pseudocode (keywords) | context: OR / Method 3
+Line 2 WHILE Continue = 0 should be WHILE Continue = 1
+Line 20 Continue ← 1 should be Continue ← 0 and Line 22 UNTIL Continue = 0 should be ENDWHILE
+
+=== 0478_w21_ms_22_p8_b8 | 0478_w21_ms_22.pdf p8 | pseudocode (keywords) | context: Corrected algorithm example 1
+Continue ← 0
+2 WHILE Continue = 0 (DO)
+3   OUTPUT "Enter 1 for +, 2 for -, 3 for * or 4 for /"
+4   INPUT Operator
+5   OUTPUT "Enter the first value"
+6   INPUT Value1
+7   OUTPUT "Enter the second value"
+8   INPUT Value2
+9   CASE OF Operator
+10    1: Answer ← Value1 + Value2
+11    2: Answer ← Value1 - Value2
+12    3: Answer ← Value1 * Value2
+13    4: Answer ← Value1 / Value2
+14  ENDCASE
+15  OUTPUT "The answer is ", Answer
+16  OUTPUT "Do you wish to enter more values (Yes or No)?"
+17  INPUT MoreValues
+18  IF MoreValues = "No"
+19    THEN
+20      Continue ← 1
+21  ENDIF
+22 ENDWHILE
+
+=== 0478_w21_ms_22_p9_b9 | 0478_w21_ms_22.pdf p9 | pseudocode (keywords) | context: Corrected algorithm example 2
+Continue ← 1
+2 REPEAT
+3   OUTPUT "Enter 1 for +, 2 for -, 3 for * or 4 for /"
+4   INPUT Operator
+5   OUTPUT "Enter the first value"
+6   INPUT Value1
+7   OUTPUT "Enter the second value"
+8   INPUT Value2
+9   CASE OF Operator
+10    1: Answer ← Value1 + Value2
+11    2: Answer ← Value1 - Value2
+12    3: Answer ← Value1 * Value2
+13    4: Answer ← Value1 / Value2
+14  ENDCASE
+15  OUTPUT "The answer is ", Answer
+16  OUTPUT "Do you wish to enter more values (Yes or No)?"
+17  INPUT MoreValues
+18  IF MoreValues = "No"
+19    THEN
+20      Continue ← 0
+21  ENDIF
+22 UNTIL Continue = 0
+
+=== 0478_w21_ms_22_p10_b10 | 0478_w21_ms_22.pdf p10 | pseudocode (keywords) | context: MP3 Suitable message / MP4 Input/re-input
+WHILE Operator < 1 OR Operator > 4 (DO)
+  OUTPUT "Enter 1, 2, 3 or 4"
+  INPUT Operator
+ENDWHILE
+
+=== 0478_w21_ms_22_p10_b11 | 0478_w21_ms_22.pdf p10 | pseudocode (keywords) | context: MP4 Input/re-input / Alternative answer
+REPEAT
+  IF Operator < 1 OR Operator > 4
+    THEN
+      OUTPUT "Enter 1, 2, 3 or 4"
+      INPUT Operator
+  ENDIF
+UNTIL Operator >= 1 AND Operator <= 4
+
+=== 0478_w21_ms_23_p5_b2 | 0478_w21_ms_23.pdf p5 | pseudocode (keywords) | context: MP7 … output suitable message / Sample
+REPEAT
+    OUTPUT "Which session do you want to book a table?"
+    INPUT Session
+UNTIL Session >= 1 AND Session <= 3
+IF TablesAvailable[Session] = 0
+  THEN
+    OUTPUT "No tables available "
+ENDIF
+
+=== 0478_w21_ms_23_p6_b4 | 0478_w21_ms_23.pdf p6 | pseudocode (keywords) | context: Line 2 should be < 50 / Line 4 should be Counter ← Counter + 1
+Counter ← 0
+2 WHILE Counter < 50 DO
+3     NumRand[Counter} ← RandUp(0, 100)
+4     Counter ← Counter + 1
+5 ENDWHILE
+
+=== 0478_w21_ms_23_p6_b5 | 0478_w21_ms_23.pdf p6 | pseudocode (keywords) | context: 2(b) / Any three from:
+FOR Counter ← 0 TO 49 // FOR Counter ← 1 TO 50
+  NumRand[Counter] ← RandUp(0,100) / RandUp(-1,100)
+NEXT // NEXT Counter
+
+=== 0478_m22_ms_22_p5_b4 | 0478_m22_ms_22.pdf p5,6 | pseudocode (keywords) | context: MP10 … check if required then output number of strokes / Example Answer
+FOR Hole ← 1 TO NumberOfHoles
+  FOR Player ← 1 TO NumberOfPlayers
+    REPEAT
+      OUTPUT PlayerName[Player], "Please enter the number of strokes played for hole ", Hole
+      INPUT NumberStrokes
+      OUTPUT PlayerName[Player], " please re-enter the number"
+      INPUT NumberStrokesAgain
+    UNTIL NumberStrokes = NumberStrokesAgain
+    IF Player = 1
+      THEN
+        Player1[Hole] ← NumberStrokes
+        Player1Total ← Player1Total + NumberStrokes
+        OUTPUT "Do you want to see number total of strokes played so far Y/N? "
+        INPUT SeeTotal
+        IF SeeTotal = "Y"
+          THEN
+            OUTPUT "Total number of strokes so far ", Player1Total
+        ENDIF
+    ENDIF
+    IF Player = 2
+      THEN
+        Player2[Hole] ← NumberStrokes
+        Player2Total ← Player2Total + NumberStrokes
+        OUTPUT "Do you want to see number total of strokes played so far Y/N? "
+        INPUT SeeTotal
+        IF SeeTotal = "Y"
+          THEN
+            OUTPUT "Total number of strokes so far ", Player2Total
+        ENDIF
+    ENDIF
+    IF Player = 3
+      THEN
+        Player3[Hole] ← NumberStrokes
+        Player3Total ← Player3Total + NumberStrokes
+        OUTPUT "Do you want to see number total of strokes played so far Y/N? "
+        INPUT SeeTotal
+        IF SeeTotal = "Y"
+          THEN
+            OUTPUT "Total number of strokes so far ", Player3Total
+        ENDIF
+    ENDIF
+    IF Player = 4
+      THEN
+        Player4[Hole] ← NumberStrokes
+        Player4Total ← Player4Total + NumberStrokes
+        OUTPUT "Do you want to see number total of strokes played so far Y/N? "
+        INPUT SeeTotal
+        IF SeeTotal = "Y"
+          THEN
+            OUTPUT "Total number of strokes so far ", Player4Total
+        ENDIF
+    ENDIF
+  NEXT Player
+NEXT Hole
+
+=== 0478_m22_ms_22_p8_b6 | 0478_m22_ms_22.pdf p8 | pseudocode (keywords) | context: 2(b) / One mark suitable IF construct, one mark correct assignment statement, for example
+IF Age < 7
+  THEN
+    CountUnder7 ← CountUnder7 + 1
+ENDIF
+
+=== 0478_s22_ms_21_p7_b1 | 0478_s22_ms_21.pdf p7,8 | pseudocode (keywords) | context: program should allow data to be re-entered. Once complete, the data is stored and the sponsor is charged $200. / Example answer
+ArrayIndex ← 0 //initial array's index
+Check ← "N"
+WHILE Check <> "Y"
+  OUTPUT "Enter your name"
+  INPUT Name
+  OUTPUT "Enter the message you would like on your brass plaque"
+  INPUT Message
+  OUTPUT "The data you have entered is, name: ", Name, " and your
+         message for the plaque is: ", Message
+  OUTPUT "Is this correct (Y or N)"
+  INPUT Check
+  IF Check <> "Y"
+    THEN
+      OUTPUT "The data entered is incorrect, please re-enter"
+  ENDIF
+ENDWHILE
+PlankName[ArrayIndex] ← Name
+Message[ArrayIndex] ← Message
+ArrayIndex ← ArrayIndex + 1
+OUTPUT "The fee for this service is $200"
+//some method of paying the fee or acknowledgement of the fee
+
+=== 0478_s22_ms_21_p10_b2 | 0478_s22_ms_21.pdf p10 | pseudocode (keywords) | context: MP5 increment both array counters / MP6 correct check of number of scores
+    START
+PassCount ← 0
+FailCount ← 0
+  Count ← 0
+    INPUT
+    Score
+
+=== 0478_s22_ms_21_p10_b5 | 0478_s22_ms_21.pdf p10 | pseudocode (keywords) | context: 
+Pass[PassCount] ← Score
+
+=== 0478_s22_ms_21_p10_b6 | 0478_s22_ms_21.pdf p10 | pseudocode (keywords) | context: 
+Fail[FailCount] ← Score
+
+=== 0478_s22_ms_21_p10_b7 | 0478_s22_ms_21.pdf p10 | pseudocode (keywords) | context: 
+PassCount ← PassCount + 1
+
+=== 0478_s22_ms_21_p10_b8 | 0478_s22_ms_21.pdf p10 | pseudocode (keywords) | context: 
+FailCount ← FailCount + 1
+
+=== 0478_s22_ms_21_p10_b9 | 0478_s22_ms_21.pdf p10 | pseudocode (keywords) | context: 
+Count ← Count + 1
+
+=== 0478_s22_ms_21_p11_b12 | 0478_s22_ms_21.pdf p11 | pseudocode (keywords) | context: MP3 appropriate error message / MP4 repeated input of score until correct
+WHILE Score < 0 OR Score > 100 (DO)
+  OUTPUT "Your entry must be between 0 and 100, inclusive, please try again "
+  INPUT Score
+ENDWHILE
+
+=== 0478_s22_ms_21_p11_b13 | 0478_s22_ms_21.pdf p11 | pseudocode (keywords) | context: MP4 repeated input of score until correct / Or:
+REPEAT
+  IF Score < 0 OR Score > 100
+    THEN
+      OUTPUT "Your entry must be between 0 and 100, inclusive, please try again "
+      INPUT Score
+  ENDIF
+UNTIL Score >= 0 AND Score <= 100
+
+=== 0478_s22_ms_22_p6_b3 | 0478_s22_ms_22.pdf p6,7 | pseudocode (keywords) | context: MP10 … add the cost of the attractions to the (running) total / Example answer
+TotalCost ← 0
+TotalPeople ← 0
+OUTPUT "Do you want single tickets? Y/N"
+INPUT Single
+IF Single = "Y"
+  THEN
+  FOR Type ← 1 TO 3  // adults, children and seniors
+    REPEAT
+      Flag ← True
+      OUTPUT "How many ",TicketDecription[Type], " tickets"
+      INPUT NumberOfTickets[Type]
+      IF Type = 2
+        THEN
+          IF NumberOfTickets[2] > 2 * NumberOfTickets[1]
+            THEN
+              Flag ← FALSE
+              OUTPUT "Too many children"
+              ENDIF
+      ENDIF
+    UNTIL NumberOfTickets[Type] >= 0 AND Flag
+    TotalCost ← TotalCost + TicketPrice[Type] * NumberOfTickets[Type]
+    TotalPeople ← TotalPeople + NumberOfTickets[Type]
+  NEXT Type
+ENDIF
+OUTPUT "Do you want a family ticket? Y/N"
+INPUT Family
+IF Family = "Y"
+  THEN
+    OUTPUT "How many?"
+    INPUT NumberOfTickets[4]
+    TotalCost ← TotalCost + TicketPrice[4] * NumberOfTickets[4]
+    TotalPeople ← TotalPeople + NumberOfTickets[4] * 5
+ENDIF
+OUTPUT "Do you want a group ticket? Y/N"
+INPUT Group
+IF Group = "Y"
+  THEN
+    OUTPUT "How many people in the group?"
+    INPUT NumberOfTickets[5]
+    TotalCost ← TotalCost + TicketPrice[5] * NumberOfTickets[5]
+    TotalPeople ← TotalPeople + NumberOfTickets[5]
+ENDIF
+REPEAT
+  OUTPUT "How many people would like to see the lion feeding?"
+  INPUT LionFeedingNumber
+  IF TotalPeople >= LionFeedingNumber
+    THEN TotalCost ← TotalCost + LionFeedingNumber * LionfeedingPrice
+  ENDIF
+  OUTUT "How many people would like to see the penguin feeding?"
+  INPUT PenguinFeedingNumber
+   IF TotalPeople >= PenguinFeedingNumber
+    THEN TotalCost ← TotalCost + PenguinFeedingNumber * PenguinfeedingPrice
+  ENDIF
+UNTIL TotalPeople >= PenguinFeedingNumber AND TotalPeople >= LionFeedingNumber
+
+=== 0478_s22_ms_22_p9_b4 | 0478_s22_ms_22.pdf p9 | pseudocode (keywords) | context: One mark per mark point, max three
+line 8 / PassCheck ← TRUE
+
+=== 0478_s22_ms_23_p7_b2 | 0478_s22_ms_23.pdf p7,8 | pseudocode (keywords) | context: Assume the booking is for a single day and the requested booking day is available. / Example answer
+//Assume variables representing the current index position for the client //related
+arrays, ClientIndex, and index for date related arrays, //DateIndex, have been used
+OUTPUT "Your name is ", ClientName, Meeting Room ", MeetingRoom, " starting on ", StartDay, " cost of booking ", BookingCost
+OUTPUT "Is this correct (Y or N)"
+INPUT Confirm
+IF Confirm = "Y"
+  THEN
+    BookingCode ← BookingCode + 1
+    CASE OF MeetingRoom
+      'Lg': MeetingLarge[DayIndex] ← BookingCode
+      'S1': MeetingSmall1[DayIndex] ← BookingCode
+      'S2': MeetingSmall2[DayIndex] ← BookingCode
+    ENDCASE
+    BookingCode[ClientIndex] ← BookingCode
+    ClientName[ClientIndex] ← ClientName
+    BookingCost[ClientIndex] ← BookingCost
+    //No ELSE clause is specified in the task or the question
+    //so, ignore it if one is given
+ENDIF
+
+=== 0478_s22_ms_23_p12_b5 | 0478_s22_ms_23.pdf p12 | pseudocode (keywords) | context: MP5 correct calculation of Average / MP6 correct outputs of Total and Average
+   START
+ Total ← 0
+Counter ← 0
+
+=== 0478_s22_ms_23_p12_b7 | 0478_s22_ms_23.pdf p12 | pseudocode (keywords) | context: 
+Total ← Total + Number
+ Counter ← Counter + 1
+
+=== 0478_s22_ms_23_p12_b9 | 0478_s22_ms_23.pdf p12 | pseudocode (keywords) | context: 
+       IS Counter =
+           100?
+         Yes
+Average ← Total / Counter
+       OUTPUT Total
+
+=== 0478_w22_ms_21_p5_b2 | 0478_w22_ms_21.pdf p5 | pseudocode (keywords) | context: MP8 yes store 90% of appropriate full fee / Example
+FOR Member ← 1 TO Total
+  CASE Age[Member] OF
+    18 : Type[Member] ← "Adult"
+    50 : Type[Member] ← "Senior"
+    80 : Type[Member] ← "Golden"
+  ENDCASE
+  IF Team[Member]
+    THEN
+      CASE Type[Member] OF
+        "Junior" : Fee[Member] ← JuniorFee * 0.9
+        "Adult"  : Fee[Member] ← AdultFee * 0.9
+        "Senior" : Fee[Member] ← SeniorFee * 0.9
+      ENDCASE
+    ELSE
+      CASE Type[Member] OF
+        "Junior" : Fee[Member] ← JuniorFee
+        "Adult"  : Fee[Member] ← AdultFee
+        "Senior" : Fee[Member] ← SeniorFee
+        "Golden" : Fee[Member] ← GoldenFee
+      ENDCASE
+  ENDIF
+NEXT Member
+
+=== 0478_w22_ms_22_p5_b2 | 0478_w22_ms_22.pdf p5 | pseudocode (keywords) | context: MP6 appropriate line of code / construct to answer the question / Example code
+INPUT Day
+WHILE Day < 1 OR Day > 14 DO
+  OUTPUT "You must enter a number between 1 and 14 inclusive"
+  INPUT Day
+ENDWHILE
+
+=== 0478_w22_ms_22_p7_b3 | 0478_w22_ms_22.pdf p7 | pseudocode (keywords) | context: 1(c) / Example answer
+//Assume LicenceNumber array has been initialised with the null string
+OUTPUT "Enter the number of the day in which you require parking "
+INPUT Day
+OUTPUT "Do you require an accessible space? (Y or N)"
+INPUT Accessible
+IF Accessible = "Y"
+  THEN
+    SpaceAllocated ← FALSE
+    Space ← (Day - 1) * 20
+    REPEAT
+        IF LicenceNumbers[Space] = ""
+          THEN
+            OUTPUT "Enter your car licence number "
+            INPUT LicenceNumbers[Space]
+            SpaceAllocated ← TRUE
+        ENDIF
+        Space ← Space + 1
+    UNTIL SpaceAllocated OR Space = (Day - 1) * 20 + 20
+    IF NOT SpaceAllocated
+      THEN
+        OUTPUT "No space available"
+      ELSE
+        OUTPUT "You are allocated space: ", Space – (Day – 1) * 20
+    ENDIF
+ENDIF
+
+=== 0478_w22_ms_22_p11_b4 | 0478_w22_ms_22.pdf p11 | pseudocode (keywords) | context: 5(a) / One mark per mark point, max four
+• Line 09 / Higher[HighList] ← MarksEntry
+   should be Higher[HighList] ← Mark
+• Line 15 / MidList ← MidList
+   should be MidList ← MidList + 1
+• Line 17 / Lower[HighList] ← Mark
+   should be Lower[LowList] ← Mark
+• Line 22 / NEXT MarksEntry = 500
+   should be UNTIL MarksEntry = 500
+
+=== 0478_w22_ms_22_p11_b5 | 0478_w22_ms_22.pdf p11,12 | pseudocode (keywords) | context: Corrected algorithm
+HighList ← 0
+02 MidList ← 0
+03 LowList ← 0
+04 MarksEntry ← 0
+05 REPEAT
+06   INPUT Mark
+07   IF Mark >= 80
+08     THEN
+09       Higher[HighList] ← Mark
+10       HighList ← HighList + 1
+11     ELSE
+12       IF Mark >= 50
+13         THEN
+14           Middle[MidList] ← Mark
+15           MidList ← MidList + 1
+ 16         ELSE
+ 17           Lower[LowList] ← Mark
+ 18           LowList ← LowList + 1
+ 19       ENDIF
+ 20   ENDIF
+ 21   MarksEntry ← MarksEntry + 1
+ 22 UNTIL MarksEntry = 500
+ 23 OUTPUT "You entered ", HighList, " higher marks"
+ 24 OUTPUT "You entered ", MidList, " middle marks"
+25 OUTPUT "You entered ", LowList, " lower marks"
+
+=== 0478_w22_ms_22_p13_b6 | 0478_w22_ms_22.pdf p13 | pseudocode (keywords) | context: Example answers / Testing at the end of the algorithm
+OUTPUT "Do you want to enter another mark?"
+INPUT AnotherMark
+UNTIL AnotherMark = "No"
+
+=== 0478_w22_ms_22_p13_b8 | 0478_w22_ms_22.pdf p13 | pseudocode (keywords) | context: Testing at the beginning of the algorithm / should replace line 05 at the start of the loop
+OUTPUT "Do you want to enter another mark?"
+INPUT AnotherMark
+ENDWHILE
+
+=== 0478_w22_ms_23_p5_b2 | 0478_w22_ms_23.pdf p5 | pseudocode (keywords) | context: MP8 check for solar panels and add 20.00 if required / Sample
+Total ← 10.00
+ExtraWindowsCost ← INT((NumberExtraWindows[Bill] –1) / 5) * 5.00
+Total ← Total + ExtraWindowsCost
+CASE NumberOfFloors[Bill] OF // check number of floors
+  2 : Total ← Total * 1.1
+  3 : Total ← Total * 1.15
+ENDCASE
+IF Inside[Bill] // check for cleaning inside windows
+  THEN
+    Total ← Total * 1.25
+ENDIF
+IF Polish[Bill] // check for polishing windows
+   THEN
+    Total ← Total * 1.05
+ENDIF
+IF Solar[Bill] // check for cleaning solar panels
+  THEN
+    Total ← Total + 20.00
+ENDIF
+
+=== 0478_w22_ms_23_p7_b5 | 0478_w22_ms_23.pdf p7 | pseudocode (keywords) | context: • line 25 End FOR loop / NEXT Count / Examples
+Count ← 50
+22 REPEAT
+23 OUTPUT "There are ", Reading[Count], " readings, " of ", Count
+24 Count ← Count –1
+25 UNTIL Count = 34
+21 FOR Count ← 50 TO 35 STEP –1
+23 OUTPUT "There are ", Reading[Count], " readings, " of ", Count
+25 NEXT Count
+
+=== 0478_m23_ms_22_p4_b1 | 0478_m23_ms_22.pdf p4 | pseudocode (keywords) | context: One mark for each single correct line from a description to statement / Pseudocode statement
+  FOR Count ← 1 TO 10
+Value ← Value + NewValue
+   WHILE Value > 10 DO
+
+=== 0478_m23_ms_22_p4_b2 | 0478_m23_ms_22.pdf p4 | pseudocode (keywords) | context: 
+Value ← Value + 1
+
+=== 0478_m23_ms_22_p5_b4 | 0478_m23_ms_22.pdf p5 | pseudocode (keywords) | context: • output of average outside loop / Example: Total ← 0
+FOR Count ← 1 TO 50
+    Total ← Total + Number[Count]
+NEXT Count
+Average ← Total / 50
+OUTPUT "The average is ", Average
+
+=== 0478_m23_ms_22_p7_b6 | 0478_m23_ms_22.pdf p7 | pseudocode (keywords) | context: One mark for outputting "A-rated" only if the condition is met / For example
+IF Efficiency >= 92
+  THEN
+    OUTPUT "A-rated"
+ENDIF
+
+=== 0478_m23_ms_22_p11_b10 | 0478_m23_ms_22.pdf p11 | pseudocode (keywords) | context: 10(a) / One mark for each correct line
+DECLARE X : INTEGER
+DECLARE Y : REAL
+DECLARE Z : BOOLEAN
+One mark for using FUNCTION and ENDFUNCTION and RETURNS BOOLEAN
+
+=== 0478_m23_ms_22_p11_b11 | 0478_m23_ms_22.pdf p11 | pseudocode (keywords) | context: One mark for correct function call / Example definition:
+FUNCTION Same(A : INTEGER, B : REAL) RETURNS BOOLEAN
+   IF A = ROUND(B,0)
+     THEN
+       RETURN TRUE
+     ELSE
+       RETURN FALSE
+   ENDIF
+ENDFUNCTION
+
+=== 0478_m23_ms_22_p11_b12 | 0478_m23_ms_22.pdf p11 | pseudocode (keywords) | context: Example call:
+Z ← Same(X,Y)
+
+=== 0478_m23_ms_22_p13_b14 | 0478_m23_ms_22.pdf p13,14 | pseudocode (keywords) | context: 11 / Example 15-mark answer in pseudocode:
+// meaningful identifier names and appropriate data structures to store the data required
+DECLARE TeamCounter : INTEGER
+DECLARE MatchCounter : INTEGER
+FOR TeamCounter ← 1 to LeagueSize // zero totals for each club’s results
+    TotalPoints[TeamCounter] ← 0
+NEXT TeamCounter
+FOR TeamCounter ← 1 TO LeagueSize
+    AwayWinNo ← 0  // zero totals for each club’s result details
+    HomeWinNo ← 0
+    DrawNo ← 0
+    LostNo ← 0
+    FOR MatchCounter ← 1 TO MatchNo
+        TotalPoints[TeamCounter] ← TotalPoints[TeamCounter] +
+        TeamPoints[TeamCounter, MatchCounter]
+        CASE OF TeamPoints[TeamCounter, MatchCounter]
+          3 : AwayWinNo ← AwayWinNo + 1
+          2 : HomeWinNo ← HomeWinNo + 1
+          1 : DrawNo ← DrawNo + 1
+          0 : LostNo ← LostNo + 1
+        ENDCASE
+    NEXT MatchCounter
+    OUTPUT "Team ", TeamName[TeamCounter]  // Output details of a team’s results
+    OUTPUT "Total points ", TotalResult[TeamCounter]
+    OUTPUT "Away wins ", AwayWinNo
+    OUTPUT "Home wins ", HomeWinNo
+    OUTPUT "Draws ", DrawNo
+    OUTPUT "Losses ", LostNo
+// Check for highest and lowest results
+    IF TeamCounter = 1
+      THEN
+        HighestResult ← TotalPoints[TeamCounter]
+        LowestResult ← TotalPoints[TeamCounter]
+    ENDIF
+    IF TotalPoints[TeamCounter] > HighestResult
+      THEN
+        HighestResult ← TotalPoints[TeamCounter]
+        TopTeam ← TeamCounter
+    ENDIF
+    IF TotalPoints[TeamCounter] < LowestResult
+      THEN
+        LowestResult ← TotalPoints[TeamCounter]
+        BottomTeam ← TeamCounter
+    ENDIF
+NEXT TeamCounter
+// output names of the teams with the highest and lowest number of points
+OUTPUT "Top Team ", TeamName[TopTeam]
+OUTPUT "Bottom Team ", TeamName[BottomTeam]
+
+=== 0478_s23_ms_21_p7_b2 | 0478_s23_ms_21.pdf p7 | pseudocode (keywords) | context: should be ENDWHILE / Correct algorithm:
+Exit ← 1
+02 WHILE Exit <> 0 DO
+03     INPUT Number
+04     IF Number > 0
+05       THEN
+06         Total ← Total + Number
+07       ELSE
+08         IF Number = 0
+09           THEN
+10             Exit ← 0
+11         ENDIF
+12     ENDIF
+13 ENDWHILE
+14 OUTPUT "The total value of your numbers is ", Total
+
+=== 0478_s23_ms_21_p8_b3 | 0478_s23_ms_21.pdf p8 | pseudocode (keywords) | context:  … Count ← 0 // to count the acceptable numbers /  Insert a counting statement between lines 05 and 07
+ … Count ← Count + 1
+
+=== 0478_s23_ms_21_p10_b6 | 0478_s23_ms_21.pdf p10 | pseudocode (keywords) | context:  Correct outputs of LENGTH and UCASE / For example:
+Phrase ← "The beginning is the most important part"
+OUTPUT LENGTH(Phrase)
+OUTPUT UCASE(Phrase)
+
+=== 0478_s23_ms_21_p15_b14 | 0478_s23_ms_21.pdf p15,16 | pseudocode (keywords) | context: 11 / Example 15 mark answer in pseudocode
+// meaningful identifiers and appropriate data structures for
+// all data required
+DECLARE Days : ARRAY[1:7] OF STRING
+DECLARE Readings : ARRAY[1:7, 1:24] OF REAL
+DECLARE AverageTemp : ARRAY[1:7] OF REAL
+DECLARE WeekLoop : INTEGER
+DECLARE DayLoop : INTEGER
+DECLARE InTemp : REAL
+DECLARE TotalDayTemp : REAL
+DECLARE TotalWeekTemp : REAL
+DECLARE AverageWeekTemp : REAL
+// initial population of Days[] array
+// input and a loop are also acceptable
+Days[1] ← "Sunday"
+Days[2] ← "Monday"
+Days[3] ← "Tuesday"
+Days[4] ← "Wednesday"
+Days[5] ← "Thursday"
+Days[6] ← "Friday"
+Days[7] ← "Saturday"
+// input temperatures inside nested loop
+FOR WeekLoop ← 1 TO 7
+    TotalDayTemp ← 0
+    FOR DayLoop ← 1 TO 24
+        OUTPUT "Enter temperature ", DayLoop, " for ", Days[WeekLoop]
+        INPUT InTemp
+// validation of input for between -20 and +50 inclusive
+        WHILE InTemp < -20.0 OR InTemp > 50.0 DO
+            OUTPUT "Your temperature must be between -20.0 and +50.0 inclusive. Please try
+                    again"
+            INPUT InTemp
+        ENDWHILE
+        Readings[WeekLoop, DayLoop] ← InTemp
+// totalling of temperatures during the day
+        TotalDayTemp ← TotalDayTemp + ROUND(InTemp, 1)
+    NEXT DayLoop
+// average temperature for the day
+    AverageTemp[WeekLoop] ← ROUND(TotalDayTemp / 24,1)
+NEXT WeekLoop
+// calculate the average temperature for the week
+TotalWeekTemp ← 0
+FOR WeekLoop ← 1 TO 7
+    TotalWeekTemp ← TotalWeekTemp + AverageTemp[WeekLoop]
+NEXT WeekLoop
+AverageWeekTemp ← ROUND(TotalWeekTemp / 7,1)
+// outputs in Celsius and Fahrenheit
+FOR WeekLoop ← 1 TO 7
+    OUTPUT "The average temperature on ", Days[WeekLoop], " was ", AverageTemp[WeekLoop], "
+            Celsius and ",
+           ROUND(AverageWeekTemp * 9 / 5 + 32), 1, " Fahrenheit"
+NEXT WeekLoop
+OUTPUT "The average temperature for the week was ", AverageWeekTemp," Celsius and ", ROUND(AverageWeekTemp * 9 / 5 + 32, 1),"
+Fahrenheit"
+
+=== 0478_s23_ms_22_p5_b1 | 0478_s23_ms_22.pdf p5 | pseudocode (keywords) | context:  use of the given variable Measurement / For example
+REPEAT
+    OUTPUT "Please enter measurement "
+    INPUT Measurement
+    OUTPUT "Please re-enter measurement "
+    INPUT MeasurementCheck
+UNTIL Measurement = MeasurementCheck
+
+=== 0478_s23_ms_22_p6_b5 | 0478_s23_ms_22.pdf p6 | pseudocode (keywords) | context: 7(b) / One mark for each error identified and correction
+ Line 07 Total ← Total + Number * Counter
+   should be Total ← Total + Number[Counter] * Counter
+ Line 08 IF Number[Counter] = 0
+   should be IF Number[Counter] = -1 // should be IF Number[Counter] < 0
+ Line 16 FOR Counter ← 0 TO 5
+   should be FOR Counter ← 1 TO 5
+
+=== 0478_s23_ms_22_p7_b6 | 0478_s23_ms_22.pdf p7 | pseudocode (keywords) | context:  check for length of digit <> 1 / Example
+REPEAT
+    OUTPUT "Enter a digit "
+    INPUT Number[Counter]
+UNTIL Number[Counter] = Round(Number[Counter],0) AND ((Number[Counter] = -1) OR
+     (Number[Counter] > 0 AND Number[Counter] < 10))
+
+=== 0478_s23_ms_22_p10_b10 | 0478_s23_ms_22.pdf p10 | pseudocode (keywords) | context: 11(a) / One mark for any two correct lines
+DECLARE P : STRING
+P ← "The world"
+DECLARE Q : CHAR
+Q ← 'W'
+
+=== 0478_s23_ms_22_p11_b11 | 0478_s23_ms_22.pdf p11 | pseudocode (keywords) | context:  storing the loop counter in Position if the value is found / For example:
+P ← UCASE(P)
+Counter ← 1
+Position ← 0
+REPEAT
+    IF SUBSTRING(P, Counter, 1) = Q
+       THEN
+         Position ← Counter
+    ENDIF
+    Counter ← Counter + 1
+UNTIL Position <> 0 OR Counter = LENGTH(P)
+
+=== 0478_s23_ms_22_p12_b13 | 0478_s23_ms_22.pdf p12,13 | pseudocode (keywords) | context: R3 Perform actions selected (use of arrays and procedures with parameters) / Example 15 mark answer in pseudocode
+// Procedures to be called
+PROCEDURE CheckDetails(AccID : INTEGER)
+    DECLARE Name, Password : STRING // local variables
+    Valid ← FALSE
+    IF AccID <0 OR AccID > Size
+      THEN
+        OUTPUT "Invalid Account Number"
+      ELSE
+        OUTPUT "Please Enter Name "
+        INPUT Name
+        OUTPUT "Please Enter Password "
+        INPUT Password
+        IF Name <> Account[AccID,1] OR Password <> Account[AccID,2]
+          THEN
+            OUTPUT "Invalid name or password"
+          ELSE
+            Valid ← True
+        ENDIF
+    ENDIF
+ENDPROCEDURE
+PROCEDURE Balance(AccID : INTEGER)
+    OUTPUT "Your balance is ", AccDetails[AccID,1]
+ENDPROCEDURE
+PROCEDURE WithDrawal(AccID : INTEGER)
+    DECLARE Amount : REAL // local variable
+    REPEAT
+        OUTPUT "Please enter amount to withdraw "
+        INPUT Amount
+        IF Amount > AccDetails[AccID,3]
+          THEN
+            OUTPUT "Amount greater than withdrawal limit"
+        ENDIF
+        IF Amount > AccDetails[AccID,2] + AccDetails[AccID,1]
+          THEN
+            OUTPUT "Amount greater than cash available"
+        ENDIF
+        IF Amount <= AccDetails[AccID,3] AND Amount < AccDetails[AccID,2] +
+          AccDetails[AccID,1]
+          THEN
+            AccDetails[AccID,1] ← AccDetails[AccID,1] - Amount
+        ENDIF
+    UNTIL Amount<= AccDetails[AccID,3] AND Amount > AccDetails[AccID,2] + AccDetails[AccID,1] AND Amount > 0
+ENDPROCEDURE
+PROCEDURE Deposit(AccID : INTEGER)
+    DECLARE Amount : REAL // local variable
+    REPEAT
+        OUTPUT "Please enter a positive amount to deposit "
+        INPUT Amount
+    UNTIL Amount >0
+    AccDetails[AccID,1] ← AccDetails[AccID,1] + Amount
+
+=== 0478_s23_ms_22_p14_b14 | 0478_s23_ms_22.pdf p14 | pseudocode (keywords) | context: 
+ENDPROCEDURE
+// Declarations of global variables for information – not required in candidate responses
+DECLARE AccountNumber, Choice : INTEGER
+DECLARE Valid, Exit : BOOLEAN
+OUTPUT "Please enter your account number "
+INPUT AccountNumber
+CheckDetails(AccountNumber)
+IF Valid
+  THEN
+    REPEAT
+        OUTPUT "Menu"
+        OUTPUT "1. display balance"
+        OUTPUT "2. withdraw money"
+        OUTPUT "3. deposit money"
+        OUTPUT "4. exit"
+        OUTPUT "please choose 1, 2, 3 or 4"
+        INPUT Choice
+        CASE OF Choice
+          1 : Balance(AccountNumber)
+          2 : Withdrawal(AccountNumber)
+          3 : Deposit(AccountNumber)
+          4 : Exit ← TRUE
+          OTHERWISE OUTPUT "Invalid choice"
+        ENDCASE
+    UNTIL Choice = 4
+  ELSE
+    OUTPUT "Invalid account number "
+ENDIF
+
+=== 0478_s23_ms_23_p6_b1 | 0478_s23_ms_23.pdf p6 | pseudocode (keywords) | context: Example answers: / WHILE Loop
+OUTPUT "Enter a number between 15 and 35 inclusive"
+INPUT Length
+WHILE Length <15 OR Length > 35 (DO)
+    OUTPUT "Your number must be between 15 and 35 inclusive
+    INPUT Length
+ENDWHILE
+
+=== 0478_s23_ms_23_p6_b2 | 0478_s23_ms_23.pdf p6 | pseudocode (keywords) | context: REPEAT Loop
+REPEAT
+    OUTPUT "Enter a number between 15 and 35 inclusive"
+    INPUT Length
+UNTIL Length >= 15 AND LENGTH <= 35
+
+=== 0478_s23_ms_23_p7_b3 | 0478_s23_ms_23.pdf p7 | pseudocode (keywords) | context:  Line 01 / Counter ← 100 / should be Counter ← 0
+ Line 03 / While Counter > 100 DO
+should be While Counter < 100 DO
+ Line 07 / Total ← Total + Counter
+   should be Total ← Total + Number
+
+=== 0478_s23_ms_23_p7_b4 | 0478_s23_ms_23.pdf p7 | pseudocode (keywords) | context: should be ENDIF / Correct algorithm
+Counter ← 0
+02 Total ← 0
+03 WHILE Counter < 100 DO
+04     INPUT Number
+05     IF Number > 0
+06       THEN
+07         Total ← Total + Number
+08         Counter ← Counter + 1
+09     ENDIF
+10 ENDWHILE
+11 OUTPUT "The total value of your numbers is ", Total
+12 OUTPUT "The average value of your numbers is ", Total / 100
+
+=== 0478_s23_ms_23_p12_b7 | 0478_s23_ms_23.pdf p12 | pseudocode (keywords) | context: MP5 correct use of filename Quotations.txt throughout / For example:
+INPUT Saying
+OPENFILE "Quotations.txt" FOR WRITE
+WRITEFILE "Quotations.txt", Saying
+CLOSEFILE "Quotations.txt"
+
+=== 0478_s23_ms_23_p15_b11 | 0478_s23_ms_23.pdf p15,16 | pseudocode (keywords) | context: 11 / Example 15 mark answer in pseudocode
+// meaningful identifiers and appropriate data structures for
+// all data required
+DECLARE Contacts : ARRAY[1:100, 1:2] OF STRING
+DECLARE CurrentSize : INTEGER
+DECLARE Cont : BOOLEAN
+DECLARE Choice : INTEGER
+DECLARE NewContacts : INTEGER
+DECLARE Count : INTEGER
+DECLARE Count2 : INTEGER
+DECLARE Flag : BOOLEAN
+DECLARE Temp1 : STRING
+DECLARE Temp2 : STRING
+// the number of contacts in the array
+CurrentSize ← 0
+// to allow program to continue indefinitely
+Cont ← TRUE
+WHILE Cont DO
+// display menu
+    OUTPUT "Please choose one of the following: "
+    OUTPUT "Press 1 to enter new contacts "
+    OUTPUT "Press 2 to display your contacts "
+    OUTPUT "Press 3 to delete all contacts "
+    INPUT Choice
+// validate choice as 1, 2 or 3
+    WHILE Choice = 1 AND CurrentSize = 100 DO
+        OUTPUT "Your contacts are full, please enter 2 or 3"
+        INPUT Choice
+    ENDWHILE
+    WHILE Choice < 1 OR Choice > 3 DO
+        OUTPUT "Incorrect entry – please enter 1, 2, or 3"
+        INPUT Choice
+    ENDWHILE
+// enter new contacts
+    IF Choice = 1
+      THEN
+        OUTPUT "How many contacts (1 to 5 only)?"
+        INPUT NewContacts
+// validates new contacts input
+        WHILE NewContacts < 1 OR NewContacts > 5 DO
+            OUTPUT "You may only enter between 1 and 5 contacts. Please try again"
+            INPUT NewContacts
+        ENDWHILE
+// checks the maximum size is not exceeded
+        WHILE CurrentSize + NewContacts > 100
+            OUTPUT "Not enough space in your contacts"
+            OUTPUT "The maximum number you may input is ", 100 – CurrentSize
+            INPUT NewContacts
+        ENDWHILE
+        FOR Count ← CurrentSize + 1 TO CurrentSize + NewContacts
+            OUTPUT "Enter the contact name as last name, first name"
+            INPUT Contacts[Count, 1]
+            OUTPUT "Enter the telephone number"
+            INPUT Contacts[Count, 2]
+        NEXT Count
+        CurrentSize ← CurrentSize + NewContacts
+// bubble sort to sort array if it contains 2 or more contacts
+        IF CurrentSize >= 2
+          THEN
+            REPEAT
+                Flag ← FALSE
+                FOR Count ← 1 TO CurrentSize-1
+                    IF Contacts[Count + 1, 1] <
+                      Contacts[Count, 1]
+                        THEN
+                          Flag ← TRUE
+                          Temp1 ← Contacts[Count, 1]
+                          Temp2 ← Contacts[Count, 2]
+
+=== 0478_s23_ms_23_p17_b12 | 0478_s23_ms_23.pdf p17 | pseudocode (keywords) | context: 
+                          Contacts[Count, 1] ← Contacts[Count + 1, 1]
+                          Contacts[Count, 2] ← Contacts[Count + 1, 2]
+                          Contacts[Count + 1, 1] ← Temp1
+                          Contacts[Count + 1, 2] ← Temp2
+                    ENDIF
+                NEXT Count
+            UNTIL NOT Flag
+        ENDIF
+    ENDIF
+// display all contacts
+    IF Choice = 2
+      THEN
+        IF CurrentSize > 0
+          THEN
+            OUTPUT "Name and Telephone Number"
+            FOR Count ← 1 TO CurrentSize
+                OUTPUT Contacts[Count, 1], "   ", Contacts[Count, 2]
+                NEXT Count
+        ENDIF
+    ENDIF
+// delete all contacts
+    IF Choice = 3
+      THEN
+        FOR Count ← 1 TO 100
+            FOR Count2 ← 1 TO 2
+                Contacts[Count, Count2] ← ""
+            NEXT Count2
+        NEXT Count
+    ENDIF
+ENDWHILE
+
+=== 0478_w23_ms_21_p8_b12 | 0478_w23_ms_21.pdf p8 | pseudocode (keywords) | context: 
+Price ← Length * Cost
+
+=== 0478_w23_ms_21_p10_b19 | 0478_w23_ms_21.pdf p10,11 | pseudocode (keywords) | context: R3 Checking if seats available (selection, assignment, output with appropriate messages) / Example 15-mark answer in pseudocode
+// meaningful identifier names and appropriate data structures to store the data required
+DECLARE Counter, SeatCounter, NumSeats, Row, Column : INTEGER
+CONSTANT HouseFull = 200
+CONSTANT MaxRow = 10
+CONSTANT MaxColumn = 20
+SeatCounter1 ← 0 // initialise seat counter for performance 1
+FOR Row ← 1 TO 10
+    FOR Column ← 1 TO 20
+        IF Evening[Row, Column]
+          THEN
+            SeatCounter ← SeatCounter + 1
+        ENDIF
+    NEXT Column
+NEXT Row
+// validate input
+OUTPUT "How many seats do you want to book? 1, 2, 3 or 4 "
+INPUT NumSeats
+WHILE 1 < NumSeats OR NumSeats > 4 OR NumSeats <> ROUND(NumSeats, 0)
+    OUTPUT "Please enter 1, 2, 3 or 4 for the number of seats "
+    INPUT NumSeats
+ENDWHILE
+IF SeatCounter + NumSeats > 200)// check for house full
+  THEN
+    OUTPUT "House full"
+  ELSE
+    IF SeatCounter + NumSeats > 200 // checks for not enough seats
+            THEN
+              OUTPUT "Only ", SeatCounter + NumSeats – 200, " seats left"
+            ELSE
+              FOR Counter ← 1 TO NumSeats // book required number of seats for performance
+                  Evening[MOD(SeatCounter + Counter, MaxColumn), DIV(SeatCounter + Counter), MaxColumn] ← TRUE
+                  OUTPUT "Row ", MOD(SeatCounter + Counter, MaxColumn), " seat ", DIV(SeatCounter + Counter, MaxColumn)," booked"
+              NEXT Counter
+           ENDIF
+
+=== 0478_w23_ms_22_p4_b1 | 0478_w23_ms_22.pdf p4 | pseudocode (keywords) | context: MP5 output the result (with an appropriate message) after the loop / Example answer:
+Min ← 100
+FOR Count ← 1 TO 25
+    IF Temperatures[Count] < Min
+      THEN
+        Min ← Temperatures[Count]
+    ENDIF
+NEXT Count
+OUTPUT "The lowest temperature is ", Min
+
+=== 0478_w23_ms_22_p4_b2 | 0478_w23_ms_22.pdf p4 | pseudocode (keywords) | context: 4(a) / One mark per mark point, max four
+MP1 Line 01 / DECLARE City ARRAY[1:50, 1:2] OF BOOLEAN
+      should be DECLARE City : ARRAY[1:50, 1:2] OF STRING
+
+=== 0478_w23_ms_22_p4_b4 | 0478_w23_ms_22.pdf p4 | pseudocode (keywords) | context: MP2 Line 07 / INPUT City[Count, 2]should be INPUT / MP3 Line 11 / UNTIL Count = 50 // Line 04 / Count ← 1 AND Line
+10 / Count ← Count + 1 should be UNTIL Count = 51 /
+
+=== 0478_w23_ms_22_p4_b5 | 0478_w23_ms_22.pdf p4 | pseudocode (keywords) | context: MP4 Line 12 / FOR Out ← 1 TO 1 should be FOR Out ← 1 TO 50 / Correct algorithm:
+DECLARE City : ARRAY[1:50, 1:2] OF STRING
+02 DECLARE Count : INTEGER
+03 DECLARE Out : INTEGER
+04 Count ← 1
+05 REPEAT
+06     OUTPUT "Enter the name of the city"
+07     INPUT City[Count, 1]
+08     OUTPUT "Enter the name of the country"
+09     INPUT City[Count, 2]
+10     Count ← Count + 1
+11 UNTIL Count > 50
+12 FOR Out ← 1 TO 50
+13     OUTPUT "The city ", City[Out, 1], " is in ", City[Out, 2]
+14 NEXT Out
+
+=== 0478_w23_ms_22_p7_b7 | 0478_w23_ms_22.pdf p7 | pseudocode (keywords) | context: MP6 two correct outputs / For example:
+Quote ← "Learning Never Exhausts The Mind"
+Start ← 25
+Number ← 8
+OUTPUT SUBSTRING(Quote, Start, Number)
+OUTPUT LCASE(Quote)
+
+=== 0478_w23_ms_22_p11_b13 | 0478_w23_ms_22.pdf p11 | pseudocode (keywords) | context: 11 / Example 15-mark answer in pseudocode
+// declarations not required in the answer
+// initial population of WoodType[] and Price[] arrays
+// input and loops are also acceptable
+WoodType[1] ← "Laminate"
+WoodType[2] ← "Pine"
+WoodType[3] ← "Oak"
+Price[1] ← 29.99
+Price[2] ← 39.99
+Price[3] ← 54.99
+// initialises starting customer in sales arrays
+CurrentCustomer ← 1
+// to allow program to continue to next customer
+Cont ← TRUE
+WHILE Cont DO
+// input customer name
+    OUTPUT "Input the customer’s name "
+    INPUT Customers[CurrentCustomer]
+// input of room dimensions with validation
+    OUTPUT "What is the length of your room? "
+    INPUT RoomLength
+// validate RoomLength
+    WHILE RoomLength < 1.5 OR RoomLength > 10.0
+        OUTPUT "The measurement must be in the range 1.5
+                to 10.0 inclusive, please try again "
+        INPUT RoomLength
+    ENDWHILE
+    OUTPUT "What is the width of your room? "
+    INPUT RoomWidth
+// validate RoomWidth
+    WHILE RoomWidth < 1.5 OR RoomWidth > 10.0
+        OUTPUT "The measurement must be in the range 1.5
+                to 10.0 inclusive, please try again "
+        INPUT RoomWidth
+    ENDWHILE
+    RoomArea ← ROUND(RoomLength, 1) * ROUND(RoomWidth,
+1)
+    RoomArea ← ROUND (RoomArea + 0.5, 0)
+// show the wood available and prices
+    OUTPUT "the wood choices available are:"
+    OUTPUT "Number    Wood Type   Price($)"
+    FOR Count ← 1 TO 3
+        OUTPUT Count, "  ", WoodType[Count], "  ",
+
+=== 0478_w23_ms_22_p12_b14 | 0478_w23_ms_22.pdf p12 | pseudocode (keywords) | context: October/November
+Price[Count]
+    Next Count
+// input wood choice
+    OUTPUT "Input a number from 1 to 3 "
+    INPUT WoodChoice
+// validate wood choice
+    WHILE WoodChoice < 1 OR WoodChoice > 3
+        OUTPUT "Your input is out of range, please try
+                again "
+        INPUT WoodChoice
+    ENDWHILE
+// to calculate the total cost of the wood
+    WoodCost ← RoomArea * Price[WoodChoice]
+// to store the relevant data in Quotations[]
+    Quotations[CurrentCustomer, 1] ← RoomLength
+    Quotations[CurrentCustomer, 2] ← RoomWidth
+    Quotations[CurrentCustomer, 3] ← RoomArea
+    Quotations[CurrentCustomer, 4] ← WoodChoice
+    Quotations[CurrentCustomer, 5] ← WoodCost
+// final output of quotation
+    OUTPUT "Customer name: ", Customers[CurrentCustomer]
+    OUTPUT "The wood you have chosen is: ", WoodType[WoodChoice]
+    OUTPUT "Your total price is: ", Quotations[CurrentCustomer,5]
+// ready for next customer
+    CurrentCustomer ← CurrentCustomer + 1
+// resets CurrentCustomer to beginning of array when
+   array
+// limit reached
+    IF CurrentCustomer > 100
+        THEN
+          CurrentCustomer ← 1
+    ENDIF
+ENDWHILE
+
+=== 0478_w23_ms_23_p5_b6 | 0478_w23_ms_23.pdf p5 | pseudocode (keywords) | context: • ability to reinput value / Example:
+WHILE Seats < 1 OR Seats > 6 OR Seats <> ROUND(Seats, 0) DO
+    OUTPUT "Please enter a valid number of seats "
+    INPUT Seats
+ENDWHILE
+
+=== 0478_w23_ms_23_p12_b12 | 0478_w23_ms_23.pdf p12,13 | pseudocode (keywords) | context: temperature (output with appropriate messages and rounded values) / Example 15-mark answer in pseudocode:
+// meaningful identifier names and appropriate data structures to store the data required
+DECLARE DayCounter, HourCounter : INTEGER
+DECLARE AvDay, AvWeek, MaxDay, MinDay, MaxWeek, MinWeek : REAL
+DECLARE DayTotal, WeekTotal : REAL
+DECLARE Day : STRING
+CONSTANT Hours ← 24
+CONSTANT Days ← 7
+MaxWeek ← -1000// initialise max and min temperatures and total for the week
+MinWeek ← 1000
+WeekTotal ← 0
+FOR DayCounter ← 0 TO Days - 1
+    MaxDay ← -1000// initialise max and min temperatures and total for each day
+    MinDay ← 1000
+    DayTotal ← 0
+    FOR HourCounter ← 0 TO Hours - 1
+        DayTotal ← DayTotal + Temperatures(HourCounter, DayCounter)
+          // update total maximum and minimum
+        IF Temperatures(HourCounter, DayCounter) > MaxDay
+          THEN
+            MaxDay ← Temperatures(HourCounter, DayCounter)
+        ENDIF
+        IF Temperatures(HourCounter, DayCounter) < MinDay
+          THEN
+            MinDay ← Temperatures(HourCounter, DayCounter)
+        ENDIF
+    NEXT HourCounter
+    CASE OF DayCounter  // select message for day
+      0 : Day ← "Monday"
+      1 : Day ← "Tuesday"
+      2 : Day ← "Wednesday"
+      3 : Day ← "Thursday"
+      4 : Day ← "Friday"
+      5 : Day ← "Saturday"
+      6 : Day ← "Sunday"
+    ENDCASE
+    DayAverage ← DayTotal / Hours  // output results for day
+    OUTPUT Day  // Results from a day
+    OUTPUT "Maximum temperature ", MaxDay
+    OUTPUT "Minimum temperature ", MinDay
+    OUTPUT "Average temperature ", ROUND(DayAverage,2)
+
+=== 0478_w23_ms_23_p14_b13 | 0478_w23_ms_23.pdf p14 | pseudocode (keywords) | context: 
+    IF MaxDay > MaxWeek  // update total maximum and minimum
+      THEN
+        MaxWeek ← MaxDay
+    ENDIF
+    IF MinDay > MinWeek
+      THEN
+        MinWeek ← MinDay
+    ENDIF
+    WeekTotal ← WeekTotal + DayTotal  // update total for week
+NEXT DayCounter
+    WeekAverage ← WeekTotal / Days
+    OUTPUT "Maximum temperature for week ", MaxWeek// output results for week
+    OUTPUT "Minimum temperature for week ", MinWeek
+    OUTPUT "Average temperature for Week ", ROUND(WeekAverage,2)
+
+=== 0478_m24_ms_22_p5_b1 | 0478_m24_ms_22.pdf p5 | pseudocode (keywords) | context: • correct outputs / Example:
+INPUT MyNumber
+Location ← 0
+FOR Index ← 1 TO 50
+    IF Values[Index] = MyNumber
+       THEN
+         Location ← Index
+    ENDIF
+NEXT Index
+IF Location = 0
+   THEN
+     OUTPUT "Not found"
+   ELSE
+     OUTPUT Location
+ENDIF
+
+=== 0478_m24_ms_22_p6_b2 | 0478_m24_ms_22.pdf p6 | pseudocode (keywords) | context: • ... swap if required / • correct stopping condition
+Last ← 50
+Repeat
+    Swap ← FALSE
+    FOR Index ← 1 TO Last - 1
+        IF Values[Index] > Values[Index + 1]
+          THEN
+            Temp ← Values[Index]
+            Values[Index] ← Values[Index + 1]
+            Values[Index + 1] ← Temp
+            Swap ← TRUE
+        ENDIF
+    NEXT
+    Last ← Last - 1
+UNTIL NOT Swap or Last = 1
+
+=== 0478_m24_ms_22_p7_b3 | 0478_m24_ms_22.pdf p7 | pseudocode (keywords) | context: in a single loop / Example:
+REPEAT
+    OUTPUT "Enter cost price "
+    INPUT Cost
+UNTIL Cost >= 0
+REPEAT
+    OUTPUT "Enter selling price "
+    INPUT Sell
+UNTIL Sell >= 0
+
+=== 0478_m24_ms_22_p7_b4 | 0478_m24_ms_22.pdf p7 | pseudocode (keywords) | context: or
+OUTPUT "Enter cost price "
+INPUT Cost
+WHILE Cost < 0
+    OUTPUT "Enter cost price "
+    INPUT Cost
+ENDWHILE
+OUTPUT "Enter selling price "
+INPUT Sell
+WHILE Sell < 0
+    OUTPUT "Enter selling price "
+    INPUT Sell
+ENDWHILE
+
+=== 0478_m24_ms_22_p14_b10 | 0478_m24_ms_22.pdf p14 | pseudocode (keywords) | context: 11 / Example 15-mark answer in pseudocode
+WeekLength ← 5
+LowestMinutes ← 1000
+ClassTotal ← 0
+FOR StudentCounter ← 1 to ClassSize // loop for each student
+    Total ← 0
+    DaysOver300 ← 0
+    FOR DayCounter ← 1 to WeekLength // loop for each day
+        REPEAT
+            OUTPUT "Please enter number of minutes for day ", DayCounter
+            INPUT Minutes
+        UNTIL Minutes >= 0
+        ScreenTime[StudentCounter, DayCounter] ← Minutes
+        Total ← Total + Minutes
+        IF Minutes > 300
+          THEN
+            DaysOver300 ← DaysOver300 + 1
+        ENDIF
+        IF Minutes < LowestMinutes
+          THEN
+            LowestMinutes ← Minutes
+            LowestIndex ← StudentCounter
+        ENDIF
+    NEXT DayCounter
+    OUTPUT StudentName[StudentCounter]
+    OUTPUT "Screen time ", DIV(Total, 60), " hours ", MOD(Total, 60), " minutes "
+    OUTPUT "Days with more than 300 minutes screen time ", DaysOver300
+    ClassTotal ← ClassTotal + Total
+NEXT StudentCounter
+OUTPUT "Average weekly screen time for class ", ClassTotal / ClassSize, " minutes "
+OUTPUT "Lowest weekly time ", StudentNames[LowestIndex]
+
+=== 0478_s24_ms_21_p6_b2 | 0478_s24_ms_21.pdf p6 | pseudocode (keywords) | context: 4(a) / One mark per mark point
+ Line 01 / DECLARE Loop : STRING
+   should be DECLARE Loop : INTEGER
+ Line 07 / IF Loop ← 1 TO Limit
+   should be FOR Loop ← 1 TO Limit
+
+=== 0478_s24_ms_21_p6_b3 | 0478_s24_ms_21.pdf p6 | pseudocode (keywords) | context:  Line 09 / INPUT Loop / should be INPUT Value
+ Line 10 / Total ← Total * Value
+   should be Total ← Total + Value
+
+=== 0478_s24_ms_21_p6_b4 | 0478_s24_ms_21.pdf p6 | pseudocode (keywords) | context: should be INPUT Value / Correct algorithm:
+DECLARE Loop : INTEGER
+02 DECLARE Limit : INTEGER
+03 DECLARE Value : REAL
+04 DECLARE Total : REAL
+05 Total ← 0
+06 Limit ← ROUND(RANDOM() * 19,0) + 1
+07 FOR Loop ← 1 TO Limit
+08     OUTPUT "Enter a number"
+09     INPUT Value
+10     Total ← Total + Value
+11 NEXT Loop
+12 OUTPUT "The total of the numbers entered is ", Total
+13 OUTPUT "The average number entered is ", Total / Limit
+
+=== 0478_s24_ms_21_p8_b6 | 0478_s24_ms_21.pdf p8 | pseudocode (keywords) | context: MP5 Correct use of OTHERWISE with correct output. / For example:
+INPUT Number
+CASE OF Number
+  1 : OUTPUT Number
+  2 : OUTPUT Number
+  3 : OUTPUT Number
+  4 : OUTPUT Number
+  OTHERWISE OUTPUT "ERROR"
+ENDCASE
+
+=== 0478_s24_ms_21_p8_b7 | 0478_s24_ms_21.pdf p8 | pseudocode (keywords) | context: Or
+INPUT Number
+CASE OF Number
+  1 : OUTPUT 1
+  2 : OUTPUT 2
+  3 : OUTPUT 3
+  4 : OUTPUT 4
+  OTHERWISE OUTPUT "ERROR"
+ENDCASE
+
+=== 0478_s24_ms_21_p11_b17 | 0478_s24_ms_21.pdf p11 | pseudocode (keywords) | context: MP5 Correct use of CLOSEFILE / Example:
+DECLARE Words : STRING
+OPENFILE Quotation.txt FOR READ
+READFILE Quotation.txt, Words
+OUTPUT UCASE(Words), LENGTH(Words)
+CLOSEFILE Quotation.txt
+
+=== 0478_s24_ms_21_p15_b21 | 0478_s24_ms_21.pdf p15,16 | pseudocode (keywords) | context: 10 / Example 15-mark answer in pseudocode
+// meaningful identifiers and appropriate data structures
+// similar variables grouped to save space as in HL languages
+DECLARE Clubs : ARRAY[1:12] OF STRING
+DECLARE Statistics : ARRAY[1:12, 1:3] OF INTEGER
+DECLARE Points : ARRAY[1 : 12] OF INTEGER
+DECLARE TieIndex : ARRAY[1 : 12] OF INTEGER
+DECLARE Matches, Won, Drawn, Lost : INTEGER
+DECLARE Counter, Maximum, TieCheck, OutLoop : INTEGER
+DECLARE Max, Count : INTEGER
+// input number of matches
+REPEAT
+    OUTPUT "How many matches have been played (Maximum 22)? "
+    INPUT Matches
+UNTIL Matches <= 22
+// input of data as a single loop – multiple loops for data entry
+// is also acceptable.
+FOR Counter ← 1 TO 12
+    OUTPUT "Enter the name of the cricket club"
+    INPUT Clubs[Counter]
+    // input of match results with validation
+    REPEAT
+        OUTPUT "Enter the number of matches won, drawn and lost for ", Clubs[Counter]
+        INPUT Won, Drawn, Lost
+        IF Won + Drawn + Lost <> Matches
+          THEN
+            OUTPUT "Your inputs must total ", Matches, " please try again"
+        ENDIF
+    UNTIL Matches = Won + Drawn + Lost
+    Statistics[Counter, 1] ← Won
+    Statistics[Counter, 2] ← Drawn
+    Statistics[Counter, 3] ← Lost
+    // calculating and storing points
+    Points[Counter] ← Statistics[Counter, 1] * 12 + Statistics[Counter, 2] * 5
+NEXT Counter
+// finding the highest points
+Max ← -100
+FOR Maximum ← 1 TO 12
+    IF Points[Maximum] > Max
+      THEN
+        Max ← Points[Maximum]
+    ENDIF
+NEXT Maximum
+// finding the winner(s)
+Count ← 0
+FOR TieCheck ← 1 TO 12
+    IF Points[TieCheck] = Max
+      THEN
+        Count ← Count + 1
+        TieIndex[Count] ← TieCheck
+    ENDIF
+Next TieCheck
+// outputting the results
+FOR OutLoop ← 1 TO Count
+    OUTPUT "Winning Club(s): ", Clubs[TieIndex[OutLoop]]
+    OUTPUT "Number of wins: ", Statistics[TieIndex[OutLoop], 1]
+Next OutLoop
+OUTPUT "Winning Points: ", Max
+
+=== 0478_s24_ms_22_p5_b1 | 0478_s24_ms_22.pdf p5 | pseudocode (keywords) | context: 4(b)(i) One mark for correct use of LENGTH operation, one mark for appropriate test / Example:
+REPEAT
+   INPUT Product
+UNTIL LENGTH(Product) = 6
+
+=== 0478_s24_ms_22_p5_b2 | 0478_s24_ms_22.pdf p5 | pseudocode (keywords) | context: 4(b)(ii) One mark for correct use of SUBSTRING operation, one mark for appropriate test / Example:
+REPEAT
+   INPUT Product
+UNTIL SUBSTRING(Product, 1, 2) = "PD"
+
+=== 0478_s24_ms_22_p6_b3 | 0478_s24_ms_22.pdf p6 | pseudocode (keywords) | context: MP5 output total after loop / Example:
+Total ← 0
+INPUT Value
+WHILE Value <> 9999.9
+    Total ← Total + Value
+    INPUT Value
+ENDWHILE
+OUTPUT Total
+Value ← 0
+Total ← 0
+REPEAT
+    Total ← Total + Value
+    INPUT Value
+UNTIL Value = 9999.9
+OUTPUT Total
+
+=== 0478_s24_ms_22_p7_b4 | 0478_s24_ms_22.pdf p7 | pseudocode (keywords) | context: MP6 output value of counter after loop / Example:
+Counter ← 0
+INPUT Value
+WHILE Value <> 9999.9
+    IF Value > 100
+      THEN
+        Counter ← Counter + 1
+    ENDIF
+    INPUT Value
+ENDWHILE
+OUTPUT Counter
+
+=== 0478_s24_ms_22_p8_b6 | 0478_s24_ms_22.pdf p8 | pseudocode (keywords) | context: Line 08 Count should be Counter / Line 11 ENDWHILE should be ENDIF
+Max ← List[1]
+02 Min ← List[1]
+03 FOR Counter ← 2 TO 1000
+04     IF List[Counter] > Max
+05       THEN
+06         Max ← List[Counter]
+07     ENDIF
+08     IF List[Counter] < Min
+09       THEN
+10         Min ← List[Counter]
+11     ENDIF
+12 NEXT Counter
+13 OUTPUT "Maximum value is ", Max
+14 OUTPUT "Minimum value is ", Min
+
+=== 0478_s24_ms_22_p12_b12 | 0478_s24_ms_22.pdf p12 | pseudocode (keywords) | context: moves exceeded, give appropriate output (use of arrays, iteration, selection and output). / Example 15-mark answer in pseudocode
+// Set up game
+FOR Row ← 1 TO 5
+    FOR Column ← 1 TO 5
+        Grid[Row, Column] ← ''// set grid cells to be empty
+    NEXT Column
+NEXT Row
+
+=== 0478_s24_ms_22_p13_b13 | 0478_s24_ms_22.pdf p13,14 | pseudocode (keywords) | context: 
+REPEAT  // not in cell 1,1
+    XRow ← ROUND ((RANDOM() * 4) + 1, 0) // Random row position between 1 and 5 in GRID
+    XColumn ← ROUND ((RANDOM() * 4) + 1, 0) // Random column position between 1 and 5 in
+GRID
+UNTIL XRow <> 1 and XColumn <> 1 // not in cell 1,1
+Grid [XRow, XColumn] ← 'X'
+MaxMove ← 10
+NumberMoves ← 0
+PlayerRow ← 1
+PlayerColumn ← 1
+Win ← FALSE
+// during game
+WHILE NumberMoves < MaxMove AND NOT Win
+    MoveError ← FALSE
+    OUTPUT "Please enter your move, L – Left, R – Right, U – Up or D - Down"
+    INPUT UPPER(PlayerMove)
+    REPEAT
+        CASE OF PlayerMove
+          'L' : TempColumn ← PlayerColumn – 1
+          'R' : TempColumn ← PlayerColumn + 1
+          'U' : TempRow ← PlayerRow – 1
+          'D' : TempRow ← PlayerRow + 1
+          OTHERWISE MoveError ← TRUE
+        ENDCASE
+// check for out-of-range moves
+        IF TempColumn < 1 or TempColumn > 5
+          THEN
+            MoveError ← TRUE
+          ELSE
+            PlayerColumn ← TempColumn
+        ENDIF
+        IF TempRow < 1 or TempRow > 5
+          THEN
+            MoveError ← TRUE
+          ELSE
+            PlayerRow ← TempRow
+        ENDIF
+// check win if X Found
+        IF Grid [PlayerRow, PlayerColumn] = 'X'
+          THEN
+            OUTPUT "You Win"
+            Win ← TRUE
+          ELSE
+            IF NOT MoveError
+              THEN
+                NumberMoves ← NumberMoves + 1
+            ENDIF
+        ENDIF
+    UNTIL NOT MoveError
+ENDWHILE
+IF NOT Win
+  THEN
+    OUTPUT "You Lose"
+ENDIF
+
+=== 0478_s24_ms_23_p6_b1 | 0478_s24_ms_23.pdf p6 | pseudocode (keywords) | context: 4(a) / One mark per mark point, max four
+ Line 01 / DECLARE People : ARRAY[1:50, 1:3] OF REAL
+   should be DECLARE People : ARRAY[1:50, 1:3] OF STRING
+
+=== 0478_s24_ms_23_p6_b3 | 0478_s24_ms_23.pdf p6,7 | pseudocode (keywords) | context: should be REPEAT / Correct algorithm:
+DECLARE People : ARRAY[1:50, 1:3] OF STRING
+02 DECLARE Count : INTEGER
+03 DECLARE Response : CHAR
+04 DECLARE Continue : BOOLEAN
+05 FOR I ← 1 TO 50
+06     FOR J ← 1 TO 3
+07         People[I, J] ← ""
+08     NEXT J
+09 NEXT I
+10 Count ← 1
+11 Continue ← TRUE
+12 REPEAT
+13     OUTPUT "Enter the last name"
+14     INPUT People[Count, 1]
+15     OUTPUT "Enter the first name"
+16     INPUT People[Count, 2]
+17     OUTPUT "Enter the city"
+18     INPUT People[Count, 3]
+19     OUTPUT "Do you want to enter another name (Y or N)?"
+20     INPUT Response
+21     IF Response = 'N'
+22       THEN
+23         Continue ← FALSE
+24       ELSE
+25       Count ← Count + 1
+26     ENDIF
+27 UNTIL NOT Continue  // UNTIL Response = 'N'
+
+=== 0478_s24_ms_23_p7_b4 | 0478_s24_ms_23.pdf p7 | pseudocode (keywords) | context:  Output of all three array elements per array row (and no more) / Example algorithm:
+Count ← 1
+WHILE Count <= 50 AND People[Count, 1] <> "" DO
+    OUTPUT People[Count, 1]
+    OUTPUT People[Count, 2]
+    OUTPUT People[Count, 3]
+    Count ← Count + 1
+ENDWHILE
+
+=== 0478_s24_ms_23_p11_b8 | 0478_s24_ms_23.pdf p11 | pseudocode (keywords) | context: MP4 Output of both strings / Example:
+FullText ← "IGCSE Computer Science at Cambridge"
+PartText ← SUBSTRING(FullText, 7, 16)
+OUTPUT PartText, UCASE(FullText)
+
+=== 0478_s24_ms_23_p11_b9 | 0478_s24_ms_23.pdf p11 | pseudocode (keywords) | context: MP3 Closing the text file after writing / Example:
+OPENFILE "Subjects.txt" FOR WRITE
+WRITEFILE "Subjects.txt", PartText
+CLOSEFILE "Subjects.txt"
+
+=== 0478_s24_ms_23_p14_b12 | 0478_s24_ms_23.pdf p14,15 | pseudocode (keywords) | context: 9 / Example 15-mark answer in pseudocode
+// input number of games
+REPEAT
+    OUTPUT "How many games have been played (Maximum 18)? "
+    INPUT Played
+UNTIL Played <=18
+// input of data as a single loop – a loop for the teams and
+// another loop for the data is also acceptable.
+FOR InLoop ← 1 TO 10
+    OUTPUT "Enter the name of the team"
+    INPUT Teams[InLoop]
+    // input of games results with validation
+    REPEAT
+        OUTPUT "Enter the number of games won, drawn and lost for ", Teams[InLoop]
+        INPUT Won, Drawn, Lost
+        IF Won + Drawn + Lost <> Played
+          THEN
+            OUTPUT "Your inputs must total ", Played, " please try again"
+        ENDIF
+    UNTIL Played = Won + Drawn + Lost
+    Results[InLoop, 1] ← Won
+    Results[InLoop, 2] ← Drawn
+    Results[InLoop, 3] ← Lost
+    // calculating and storing points
+    Results[InLoop, 4] ← Results[InLoop, 1] * 3 + Results[InLoop, 2]
+NEXT InLoop
+// sorting section
+Flag ← TRUE
+WHILE Flag DO
+    Flag ← FALSE
+    FOR Sort ← 1 TO 9
+        IF Results[Sort, 4] < Results[Sort + 1, 4]
+          THEN
+            // swapping if points not higher then next element
+            TempString ← Teams[Sort]
+            Temp1 ← Results[Sort, 1]
+            Temp2 ← Results[Sort, 2]
+            Temp3 ← Results[Sort, 3]
+            Temp4 ← Results[Sort, 4]
+            Teams[Sort] ← Teams[Sort + 1, 1]
+            Results[Sort, 1] ← Results[Sort + 1, 1]
+            Results[Sort, 2] ← Results[Sort + 1, 2]
+            Results[Sort, 3] ← Results[Sort + 1, 3]
+            Results[Sort, 4] ← Results[Sort + 1, 4]
+            Teams[Sort + 1] ← TempString
+            Results[Sort + 1, 1] ← Temp1
+            Results[Sort + 1, 2] ← Temp2
+            Results[Sort + 1, 3] ← Temp3
+            Results[Sort + 1, 4] ← Temp4
+            Flag ← TRUE
+        ENDIF
+    NEXT Sort
+ENDWHILE
+// checking for tie
+Count ← 1
+Finish ← FALSE
+REPEAT
+    IF Results[Count, 4] = Results[Count + 1, 4]
+      THEN
+        Count ← Count + 1
+      ELSE
+        Finish ← TRUE
+    ENDIF
+UNTIL Finish
+
+=== 0478_s24_ms_23_p16_b13 | 0478_s24_ms_23.pdf p16 | pseudocode (keywords) | context: 
+// outputting the results
+FOR OutLoop ← 1 TO Count
+    OUTPUT "Winning Team(s): ", Teams[OutLoop]
+NEXT OutLoop
+OUTPUT "Winning Points: ", Results[1, 4]
+
+=== 0478_w24_ms_21_p5_b1 | 0478_w24_ms_21.pdf p5 | pseudocode (keywords) | context: 6(a) / One mark for each point (max three)
+• 06 T ← 0
+• 08     IF A[C] = 0
+• 14 NEXT C  // NEXT
+
+=== 0478_w24_ms_21_p5_b2 | 0478_w24_ms_21.pdf p5 | pseudocode (keywords) | context: One mark for suitable messages / Example:
+OUTPUT "Number of zeros in the array is ", T
+16 OUTPUT "Total of non-zero elements in the array is ", I
+
+=== 0478_w24_ms_21_p8_b14 | 0478_w24_ms_21.pdf p8 | pseudocode (keywords) | context: 8(b) / One mark for each point
+• OPENFILE MyPassword.txt FOR WRITE
+• WRITEFILE MyPassword.txt, Password
+• CLOSEFILE MyPassword.txt
+
+=== 0478_w24_ms_21_p9_b15 | 0478_w24_ms_21.pdf p9 | pseudocode (keywords) | context: 9(a) / One mark for each error identified and correction:
+• Line 03 Temp should be Temperature
+• Line 04 = should be <>
+• Line 14 OR should be AND
+• Line 19 WHILE should be UNTIL
+01 REPEAT
+02     OUTPUT "Please enter temperature "
+03     INPUT Temperature
+04     IF Temperature <> 999
+05       THEN
+06         IF Temperature > 38.0
+07           THEN
+08             OUTPUT "Temperature too high"
+09         ENDIF
+10         IF Temperature < 35.0
+11           THEN
+12             OUTPUT "Temperature too low"
+13         ENDIF
+14         IF Temperature >= 35.0 AND Temperature <= 38.0
+15           THEN
+16             OUTPUT "Temperature normal"
+17         ENDIF
+18     ENDIF
+19 UNTIL Temperature = 999
+
+=== 0478_w24_ms_21_p13_b22 | 0478_w24_ms_21.pdf p13,14 | pseudocode (keywords) | context: 11 / Example 15-mark answer in pseudocode
+CONSTANT ClubSize = 200  // setting the number of members in the club
+DECLARE Array Position[1:3} STRING
+DECLARE Position : ARRAY[1:3] OF STRING
+Position[1] ← "First"
+Position[2] ← "Second"
+Position[3] ← "Third"
+FOR Index ← 1 TO ClubSize // 200
+    REPEAT
+        PRINT "Please enter the time for ", MemberName[Index]
+        INPUT Time1
+        PRINT "Please re-enter the time"
+        INPUT Time2
+        IF Time1 <> Time2
+          THEN
+            PRINT "Incorrect input, the times should be the same, please re-enter"
+        ENDIF
+    UNTIL Time1 = Time2
+    MemberTime[Index] ← Time1
+NEXT Index
+Last ← ClubSize
+REPEAT
+    Swap ← FALSE
+    FOR Index ← 1 TO ClubSize - 1
+        IF MemberTime[Index] > MemberTime[Index + 1]
+          THEN
+            TempTime ← MemberTime[Index]
+            MemberTime[Index] ← MemberTime[Index + 1]
+            MemberTime[Index + 1] ← TempTime
+            TempName ← MemberName[Index]
+            MemberName[Index] ← MemberName[Index + 1]
+            MemberName[Index + 1] ← TempName
+            Swap ← TRUE
+        ENDIF
+    NEXT Index
+    Last ← Last - 1
+UNTIL NOT Swap or Last = 1
+FOR Index ← 1 TO 3
+    OUTPUT  Position[Index], MemberName[Index], " with a time of ", MemberTime[Index]
+NEXT Index
+Count ← 0
+FOR Index ← 1 TO ClubSize // 200
+    IF  MemberTime[Index] < 240
+      THEN
+        Count ← Count + 1
+        MemberCertificate[Count] ← MemberName[Index]
+    ENDIF
+NEXT Index
+OUTPUT "Number of certificates to be printed is ", Count
+
+=== 0478_w24_ms_22_p4_b2 | 0478_w24_ms_22.pdf p4 | pseudocode (keywords) | context: • Output with message / • Fully correct flowchart with all correct arrows, yes/no labels and symbols
+Total ← 0
+
+=== 0478_w24_ms_22_p5_b11 | 0478_w24_ms_22.pdf p5 | pseudocode (keywords) | context: 4(a) / One mark per mark point
+• Line 02 / DECLARE Counter : STRING
+   should be DECLARE Counter : INTEGER
+
+=== 0478_w24_ms_22_p5_b12 | 0478_w24_ms_22.pdf p5 | pseudocode (keywords) | context: • Line 09 / Temp ← TRUE / should be Swapped ← TRUE
+• Line 10 / WHILE Swapped = TRUE OR Pass <= Limit - 1 DO
+   should be WHILE Swapped = TRUE AND Pass <= Limit - 1 DO
+• Line 17 / ItemList[Counter] ← Temp
+   should be ItemList[Counter + 1] ← Temp
+
+=== 0478_w24_ms_22_p5_b13 | 0478_w24_ms_22.pdf p5 | pseudocode (keywords) | context: should be ENDIF / Correct algorithm:
+DECLARE ItemList : ARRAY[1:100] OF STRING
+02 DECLARE Counter : INTEGER
+03 DECLARE Limit : INTEGER
+04 DECLARE Pass : INTEGER
+05 DECLARE Swapped : BOOLEAN
+06 DECLARE Temp : STRING
+07 Limit ← 100
+08 Pass ← 1
+09 Swapped ← TRUE
+10 WHILE Swapped = TRUE AND Pass <= Limit - 1 DO
+11     Swapped ← FALSE
+12     FOR Counter ← 1 TO Limit – Pass
+13         IF ItemList[Counter] > ItemList[Counter + 1]
+14           THEN
+15             Temp ← ItemList[Counter]
+16             ItemList[Counter] ← ItemList[Counter + 1]
+17             ItemList[Counter + 1] ← Temp
+18             Swapped ← TRUE
+19         ENDIF
+20         Pass ← Pass + 1
+21     NEXT Counter
+22 ENDWHILE
+
+=== 0478_w24_ms_22_p9_b16 | 0478_w24_ms_22.pdf p9 | pseudocode (keywords) | context: • Correct output / For example:
+DECLARE LineOfText : STRING
+DECLARE LowercaseText: STRING
+INPUT LineOfText
+OPENFILE Main.txt FOR WRITE
+WRITEFILE Main.txt, LineOfText
+CLOSEFILE Main.txt
+LowercaseText ← LCASE(LineOfText)
+OUTPUT LowercaseText, LENGTH(LineOfText)
+OPENFILE Lowercase.txt FOR WRITE
+WRITEFILE Lowercase.txt, LowercaseText
+CLOSEFILE Lowercase.txt
+
+=== 0478_w24_ms_22_p11_b21 | 0478_w24_ms_22.pdf p11 | pseudocode (keywords) | context: data (iteration, output). / Example 15-mark answer in pseudocode
+// input and validation of number of rooms
+REPEAT
+    OUTPUT "How many rooms are in your house (enter a
+            number between 3 and 20 inclusive)?"
+    INPUT Number
+    IF Number < 3 OR Number > 20
+      THEN
+        OUTPUT "The number of rooms must be between 3 and 20 inclusive, please try again"
+    ENDIF
+UNTIL Number >= 3 AND Number <= 20
+// input of room names and dimensions – could be more
+than one loop
+FOR InLoop ← 1 TO Number
+    OUTPUT "Enter the name of room ", InLoop
+    INPUT Rooms[InLoop]
+    OUTPUT "Enter the length of the room in metres"
+    INPUT Dimensions[InLoop, 1]
+    OUTPUT "Enter the width of the room in metres"
+    INPUT Dimensions[InLoop, 2]
+    Dimensions[InLoop, 3] ← ROUND(Dimensions[InLoop, 1]
+    * Dimensions[InLoop, 2], 2)
+NEXT InLoop
+// calculates total area and average area – rounded
+values have been stored
+TotArea ← 0
+FOR Total ← 1 TO Number
+    TotArea ← TotArea + Dimensions[Total, 3]
+NEXT Total
+AvArea ← ROUND(TotArea / Number, 2)
+
+=== 0478_w24_ms_22_p12_b22 | 0478_w24_ms_22.pdf p12 | pseudocode (keywords) | context: October/November
+// finding largest and smallest rooms
+Larea ← 0
+Sarea ← 100000
+Lindex ← 1
+Sindex ← 1
+FOR Count ← 1 TO Number
+    IF Dimensions[Count, 3] > Larea
+      THEN
+        Larea ← Dimensions[Count, 3]
+        Lindex ← Count
+    ENDIF
+    IF Dimensions[Count, 3] < Sarea
+      THEN
+        Sarea ← Dimensions[Count, 3]
+        Sindex ← Count
+    ENDIF
+NEXT Count
+// outputting the results
+FOR OutLoop ← 1 TO Number
+    OUTPUT "Room: ", Rooms[Outloop]
+    OUTPUT "Length: ", Dimensions[OutLoop, 1], " metres"
+    OUTPUT "Width: ", Dimensions[OutLoop, 2], " metres"
+    OUTPUT "Area: ", Dimensions[OutLoop, 3], " square
+            metres"
+Next OutLoop
+OUTPUT "The largest room is: ", Rooms[Lindex]
+OUTPUT "The smallest room is: ", Rooms[Sindex]
+OUTPUT "The total area of the house is: ", TotArea, "
+        square metres"
+OUTPUT "The average area of the rooms is: ", AvArea, "
+        square metres"
+
+=== 0478_w24_ms_23_p5_b5 | 0478_w24_ms_23.pdf p5 | pseudocode (keywords) | context: 6(a) / One mark for each point
+• 06 C ← 1
+• 08 W ← W + A[C]
+• 11 X ← W / (C – 1) // ROUND(W / (C – 1),0)
+
+=== 0478_w24_ms_23_p5_b6 | 0478_w24_ms_23.pdf p5 | pseudocode (keywords) | context: One mark for suitable messages / Example:
+OUTPUT "Number of values stored in the array is ", C - 1
+13 OUTPUT "Average of non-zero elements in the array is ", X
+
+=== 0478_w24_ms_23_p11_b51 | 0478_w24_ms_23.pdf p11 | pseudocode (keywords) | context: number of certificates (iteration, selection, assignment, counting and output with appropriate messages) / Example 15-mark answer in pseudocode
+CONSTANT GroupSize = 200  // setting the number of members in the club
+DECLARE Position : Array[1:2} OF STRING
+Position[1] ← "Best in Group"
+Position[2] ← "Second best in Group"
+
+=== 0478_w24_ms_23_p11_b52 | 0478_w24_ms_23.pdf p11,12 | pseudocode (keywords) | context: Example 15-mark answer in pseudocode
+FOR Index ← 1 TO GroupSize
+    REPEAT
+        PRINT "Please enter the weight for ", PickerName[Index],
+          INPUT PickedWeight[Index]
+    UNTIL PickedWeight[Index] > 0 AND PickedWeight[Index] < 15
+NEXT Index
+Last ← GroupSize
+REPEAT
+    Swap ← FALSE
+    FOR Index ← 1 TO GroupSize -1
+        IF PickedWeight[Index] < PickedWeight[Index + 1]
+          THEN
+            TempWeight ← PickedWeight[Index]
+            PickedWeight[Index] ← PickedWeight[Index + 1]
+            PickedWeight [Index + 1] ← TempWeight
+            TempName ← PickerName[Index]
+            PickerName[Index] ← PickerName[Index + 1]
+            PickerName[Index + 1] ← TempName
+            Swap ← TRUE
+        ENDIF
+    NEXT Index
+    Last ← Last - 1
+UNTIL NOT Swap or Last = 1
+FOR Index ← 1 TO 2
+    OUTPUT Position[Index], PickerName[Index], " with a weight of ", PickedWeight[Index]
+NEXT Index
+Index ← 1
+Count ← 0
+WHILE PickedWeight[Index] > 3 DO // count number of certificates required and store names
+    Count ← Count + 1
+    PickerCertificate[Count] ← PickerName[Index]
+    Index ← Index + 1
+ENDWHILE
+OUTPUT "Number of certificates to be printed is ", Count
+
+=== 0478_m25_ms_22_p8_b1 | 0478_m25_ms_22.pdf p8 | pseudocode (keywords) | context: MP5 Working complete termination of loop / Example:
+REPEAT
+    INPUT Number
+    IF MOD(Number, 1) <> 0
+      THEN
+        OUTPUT "Please try again"
+    ENDIF
+UNTIL MOD(Number, 1) = 0
+
+=== 0478_m25_ms_22_p8_b2 | 0478_m25_ms_22.pdf p8 | pseudocode (keywords) | context: Or
+INPUT Number
+WHILE MOD(Number, 1) <> 0 (DO)
+    OUTPUT "Please try again"
+    INPUT Number
+ENDWHILE
+
+=== 0478_m25_ms_22_p10_b3 | 0478_m25_ms_22.pdf p10 | pseudocode (keywords) | context: 6(a) / One mark per mark point
+• Line 02 / DECLARE Highest : STRING
+   should be DECLARE Highest : INTEGER
+
+=== 0478_m25_ms_22_p10_b4 | 0478_m25_ms_22.pdf p10 | pseudocode (keywords) | context: • Line 05 / Highest ← 1500 / should be Highest ← 0
+• Line 09 / Total ← Total + Count
+   should be Total ← Total + Numbers[Count]
+• Line 10 / IF Numbers[Count] > Total
+   should be IF Numbers[Count] > Highest
+• Line 17 / OUTPUT "The average is ", Average / 1000
+   should be OUTPUT "The average is ", Total / 1000
+
+=== 0478_m25_ms_22_p11_b5 | 0478_m25_ms_22.pdf p11 | pseudocode (keywords) | context: 6(a) / Corrected algorithm
+DECLARE Numbers : ARRAY[1:1000] OF INTEGER
+02 DECLARE Highest : INTEGER
+03 DECLARE Count : INTEGER
+04 DECLARE Total : INTEGER
+05 Highest ← 0
+06 Total ← 0
+07 FOR Count ← 1 TO 1000
+08     INPUT Numbers[Count]
+09     Total ← Total + Numbers[Count]
+10     IF Numbers[Count] > Highest
+11       THEN
+12         Highest ← Numbers[Count]
+13     ENDIF
+14 NEXT Count
+15 OUTPUT "The highest number is ", Highest
+16 OUTPUT "The total is ", Total
+17 OUTPUT "The average is ", Total / 1000
+
+=== 0478_m25_ms_22_p18_b12 | 0478_m25_ms_22.pdf p18,19 | pseudocode (keywords) | context: 10 / Example 15-mark answer in pseudocode
+// Array and variable declaration – not required in candidates’ responses
+REPEAT
+    // Display of menu choices
+    OUTPUT "Enter 1 to input a new member, 2 to output member codes and
+    first and last names, or 3 to stop "
+    // Input menu choice with validation of input
+    REPEAT
+        INPUT Answer
+        IF Answer < 1 OR Answer > 3
+          THEN
+            OUTPUT "You must input 1, 2 or 3. Please try again "
+        ENDIF
+    UNTIL Answer >= 1 AND Answer <= 3
+    // User chooses to input new member details
+    IF Answer = 1
+      THEN
+        REPEAT
+            // Initialisation of flag for previous use of code
+            Used ← FALSE
+            // User enters new code, with prompt
+            OUTPUT "Enter a new six-character membership code "
+            INPUT Code
+            // Checking code is 6 characters long
+            IF LENGTH(Code) <> 6
+              THEN
+                // If code is wrong length, re-entry required
+                OUTPUT "The code must contain six characters, please try again."
+              ELSE
+                // If code is correct length, it is checked with
+                // with previous codes for uniqueness
+                 IndexCheck ← 1
+                WHILE MemberID[IndexCheck] <> "" AND NOT Used DO
+                     IF Code = MemberID[IndexCheck]
+                       THEN
+                         // If code already used, flag changed and re-entry required
+                         Used ← TRUE
+                         OUTPUT "This code has already been used,
+                         please try again "
+                       ELSE
+                         IndexCheck ← IndexCheck + 1
+                     ENDIF
+                ENDWHILE
+                // If code correct length and not previously used
+                // it is stored, along with first and last name
+                IF NOT Used
+                   THEN
+                     MemberID[IndexCheck] ← Code
+                     OUTPUT "Enter your first name "
+                     INPUT Name[IndexCheck, 1]
+                     OUTPUT "Enter your last name "
+                     INPUT Name[IndexCheck, 2]
+                ENDIF
+            ENDIF
+        UNTIL LENGTH(Code) = 6 AND NOT Used
+    ENDIF
+    // User chooses to output all member details
+    IF Answer = 2
+      THEN
+        IndexOut ← 1
+        // All array contents output using iteration
+        WHILE MemberID[IndexOut] <> ""
+            OUTPUT "Membership code: ", MemberID[IndexOut]
+            OUTPUT "First name: ", Name[IndexOut, 1]
+            OUTPUT "Last name: ", Name[IndexOut, 2]
+            IndexOut ← IndexOut + 1
+        ENDWHILE
+    ENDIF
+UNTIL Answer = 3
+
+=== 0478_s25_ms_21_p8_b1 | 0478_s25_ms_21.pdf p8 | pseudocode (keywords) | context: • Rest of algorithm correct / Examples
+Count ← 1
+REPEAT
+    OUTPUT "Please enter a name"
+    INPUT Name
+    Names[Count] ← Name
+    Count ← Count + 1
+UNTIL Count > 10
+
+=== 0478_s25_ms_21_p8_b2 | 0478_s25_ms_21.pdf p8 | pseudocode (keywords) | context: Or
+Count ← 1
+WHILE Count <= 10 DO
+    OUTPUT "Please enter a name"
+    INPUT Name
+    Names[Count] ← Name
+    Count ← Count + 1
+ENDWHILE
+
+=== 0478_s25_ms_21_p9_b3 | 0478_s25_ms_21.pdf p9 | pseudocode (keywords) | context: • Output of unknown / Example
+OUTPUT "Please enter a telephone number "
+INPUT Telephone
+Value ← SUBSTRING(Telephone, 2, 2)
+IF Value = "44"
+  THEN
+    OUTPUT "UK"
+  ELSE
+    IF Value = "20"
+      THEN
+        OUTPUT "Egypt"
+      ELSE
+        OUTPUT "Unknown"
+    ENDIF
+ENDIF
+
+=== 0478_s25_ms_21_p13_b8 | 0478_s25_ms_21.pdf p13 | pseudocode (keywords) | context: 9(a) / One mark for each correct line
+DECLARE A: INTEGER
+DECLARE B: STRING
+One mark for using FUNCTION and ENDFUNCTION and RETURNS STRING
+
+=== 0478_s25_ms_21_p13_b9 | 0478_s25_ms_21.pdf p13 | pseudocode (keywords) | context: One mark for correct function call / Example:
+FUNCTION Odds(X: INTEGER) RETURNS STRING
+  IF MOD(X, 2) = 0
+    THEN
+      RETURN "Even"
+    ELSE
+      RETURN "Odd"
+  ENDIF
+ENDFUNCTION
+B ← Odds(A)
+
+=== 0478_s25_ms_21_p16_b11 | 0478_s25_ms_21.pdf p16 | pseudocode (keywords) | context: // meaningful identifier names and appropriate data structures (variables, constants and the given arrays) to store all the / data required. Note that
+DECLARE Points : ARRAY [1 : 25] OF REAL
+DECLARE Highest : ARRAY [1 : 5] OF REAL
+Winner ← 0
+Max ← 0
+FOR Count ← 1 TO 25  //initialising array
+  Points[Count] ← 0
+NEXT Count
+FOR Count ← 1 TO 5  //initialising array
+  Highest[Count] ← 0
+NEXT Count
+
+=== 0478_s25_ms_21_p16_b12 | 0478_s25_ms_21.pdf p16 | pseudocode (keywords) | context: Requirement 1
+FOR Event ← 1 TO 5
+    For X ← 1 TO 25   // loops through each entrant
+        REPEAT
+            OUTPUT "Please enter a score between 0 and 100 for ", Competitor[X], " for
+event ", Event
+            INPUT Score
+        UNTIL Score >= 0 AND Score <= 100 //validates score
+        CompetitorScore[X, Event] ← Score  //stores score for each Event
+        Points[X] ← Points[X] + Score  //can total score here
+    NEXT X
+NEXT Event
+
+=== 0478_s25_ms_21_p17_b13 | 0478_s25_ms_21.pdf p17 | pseudocode (keywords) | context: 11 / Requirement 2
+FOR Event ← 1 TO 5
+    For X ← 1 TO 25
+        IF CompetitorScore[X, Event] > Highest[Event] //calculates the highest score
+          THEN
+            Highest[Event] = CompetitorScore[X, Event]
+        ENDIF
+    NEXT X
+NEXT Event
+FOR Event ← 1 TO 5   //outputs the names of competitors with the highest score
+    For X ← 1 TO 25
+        OUTPUT "The winner of a medal for the highest score in event ", Event
+        IF CompetitorScore[X, Event] = Highest[Event]
+          THEN
+            OUTPUT CompetitorName[X]
+        ENDIF
+    NEXT X
+NEXT Event
+
+=== 0478_s25_ms_21_p17_b14 | 0478_s25_ms_21.pdf p17,18 | pseudocode (keywords) | context: Requirement 3
+//points may be calculated here
+For X ← 1 TO 25   //calculates the highest points scored for the five events
+    IF Points[X] > Max
+      THEN
+        Max ← Points[X]
+    ENDIF
+NEXT X
+//outputs the names of the competitors with the highest score
+OUTPUT "The competitors with the highest score for the five events"
+For X ← 1 TO 25
+    IF Points[X] = Max
+      THEN
+        OUTPUT CompetitorName[X]
+    ENDIF
+NEXT X
+
+=== 0478_s25_ms_22_p6_b1 | 0478_s25_ms_22.pdf p6 | pseudocode (keywords) | context: MP7 Final output confirming completion, outside loop. / For example,
+// variable and array declarations or initialisations
+// are not required for this question
+FOR Index ← 1 TO 10
+    INPUT Numbers[Index]
+NEXT Index
+FOR Index ← 1 TO 10
+    INPUT CheckNumber
+    IF CheckNumber <> Numbers[Index]
+      THEN
+        OUTPUT CheckNumber, " and ", Numbers[Index], " do
+               not match.  Please re-enter the number. "
+        INPUT Numbers[Index]
+    ENDIF
+NEXT Index
+OUTPUT "The check has been completed."
+
+=== 0478_s25_ms_22_p7_b2 | 0478_s25_ms_22.pdf p7 | pseudocode (keywords) | context: 5(a) / One mark per mark point
+• Line 01 / DECLARE Names : ARRAY[1:500] OF REAL
+   should be DECLARE Names : ARRAY[1:500] OF STRING
+
+=== 0478_s25_ms_22_p7_b3 | 0478_s25_ms_22.pdf p7 | pseudocode (keywords) | context: • Line 09 / Total ← 100 / should be Total ← 0
+• Line 11 / INPUT Names[Index]
+   should be INPUT Names[Counter]
+• Line 13 / Total ← Counter + Heights[Counter]
+   should be Total ← Total + Heights[Counter]
+• Line 20 / OUTPUT "The shortest height is ", Heights
+   should be OUTPUT "The shortest height is ", Shortest
+   or OUTPUT "The shortest height is ", Heights[Index]
+01 DECLARE Names : ARRAY[1:500] OF STRING
+02 DECLARE Heights : ARRAY[1:500] OF REAL
+03 DECLARE Shortest : REAL
+04 DECLARE Total : REAL
+05 DECLARE Counter : INTEGER
+06 DECLARE Index : INTEGER
+07 Shortest ← 500
+08 Index ← 0
+09 Total ← 0
+10 FOR Counter ← 1 TO 500
+11     INPUT Names[Counter]
+12     INPUT Heights[Counter]
+13     Total ← Total + Heights[Counter]
+14     IF Heights[Counter] < Shortest
+15       THEN
+16         Shortest ← Heights[Counter]
+17         Index ← Counter
+18     ENDIF
+19 NEXT Counter
+20 OUTPUT "The shortest height is ", Shortest
+21 OUTPUT "The shortest person is ", Names[Index]
+22 OUTPUT "The average height is ", Total / 500
+
+=== 0478_s25_ms_22_p10_b6 | 0478_s25_ms_22.pdf p10 | pseudocode (keywords) | context: 
+  START
+Count ← 0
+Total ← 0
+
+=== 0478_s25_ms_22_p10_b10 | 0478_s25_ms_22.pdf p10 | pseudocode (keywords) | context: 
+Total ← Total + Value
+
+=== 0478_s25_ms_23_p7_b1 | 0478_s25_ms_23.pdf p7 | pseudocode (keywords) | context: MP4 correct increment for  PassCount / MP5 correct increment for RejectCount
+MP6 output PassCount and RejectCount
+                                  START
+                              PassCount ← 0
+                             RejectCount ← 0
+
+=== 0478_s25_ms_23_p7_b11 | 0478_s25_ms_23.pdf p7 | pseudocode (keywords) | context: 
+RejectCount ← RejectCount + 1
+
+=== 0478_s25_ms_23_p9_b21 | 0478_s25_ms_23.pdf p9 | pseudocode (keywords) | context: 3(a) / One mark per mark point
+• Line 02 / DECLARE Index : CHAR
+    should be DECLARE Index : INTEGER
+
+=== 0478_s25_ms_23_p9_b22 | 0478_s25_ms_23.pdf p9 | pseudocode (keywords) | context: • Line 07 / Stop ← FALSE / should be Stop ← TRUE
+• Line 08 / FOR Index ← 1 TO 50
+    should be FOR Index ← 1 TO 999 // FOR Index ← 1 TO 1000 - 1
+
+=== 0478_s25_ms_23_p9_b23 | 0478_s25_ms_23.pdf p9 | pseudocode (keywords) | context: MP4 Value in Hold assigned to correct array element (Index2). / For example,
+PROCEDURE Swap(Index1 : INTEGER, Index2 : INTEGER)
+    DECLARE Hold : REAL
+    Hold ← Values[Index1]
+    Values[Index1] ← Values[Index2]
+    Values[Index2] ← Hold
+ENDPROCEDURE
+
+=== 0478_s25_ms_23_p11_b25 | 0478_s25_ms_23.pdf p11 | pseudocode (keywords) | context: MP6 Correct loop termination for password of correct length. / For example,
+// Variable declarations are not required for this question
+REPEAT
+    INPUT Password
+    IF LENGTH(Password) < 12
+      THEN
+        OUTPUT "Password too short, please try again"
+    ENDIF
+UNTIL LENGTH(Password) >= 12
+
+=== 0478_s25_ms_23_p19_b32 | 0478_s25_ms_23.pdf p19,20 | pseudocode (keywords) | context: Example 15-mark answer in pseudocode
+//Array and variable declarations not required in responses
+//Initialisation of Video array
+FOR Index1 ← 1 TO 10000
+    FOR Index2 ← 1 TO 4
+        Video[Index1, Index2] ← ""
+    Next Index2
+NEXT Index1
+//Display of menu choices
+REPEAT
+    OUTPUT "Enter 1 to input data for a new video, 2 to search for a video title, or 3 to stop"
+    //Input menu choice with validation of input
+    REPEAT
+        INPUT Answer
+        IF Answer <> 1 AND Answer <> 2 AND Answer <> 3
+          THEN
+           OUTPUT "You must input 1, 2 or 3, please try again"
+        ENDIF
+    UNTIL Answer = 1 OR Answer = 2 OR Answer = 3
+    //User chooses to input data for a new video title
+    IF Answer = 1
+      THEN
+        Store ← 1
+        //Finding the next available space in the array
+        REPEAT
+           IF Video[Store, 1] <> ""
+             THEN
+                Store ← Store + 1
+           ENDIF
+        UNTIL Video[Store, 1] = ""
+        //Data entry and storage until user says no more needed
+        REPEAT
+           OUTPUT "Enter the title"
+           INPUT Video[Store, 1]
+           OUTPUT "Enter the format (4K for 4K, BD for Blu-ray, DV for DVD, DG for Digital"
+           INPUT Video[Store, 2]
+           OUTPUT "Enter the year of release"
+           INPUT Video[Store, 3]
+        OUTPUT "Enter the storage code"
+        INPUT Video[Store, 4]
+        Store ← Store + 1
+        OUTPUT "Another video (Y or N)?"
+        INPUT Another
+    UNTIL Another = 'N' OR Another = 'n'
+ENDIF
+//User chooses to search for a video title
+IF Answer = 2
+  THEN
+    REPEAT
+        //Initialisation of Results array
+        FOR Index1 ← 1 TO 20
+            FOR Index2 ← 1 TO 4
+                Results[Index1, Index2] ← ""
+           NEXT Index2
+        NEXT Index1
+        //User inputs their search criterion
+        OUTPUT "State the title of the video you want"
+        INPUT Title
+        Search ← 1
+        Store ← 1
+        //Searching for the title
+        REPEAT
+           //If found, data copied to Results array
+           IF Video[Search, 1] = Title
+             THEN
+                FOR Index1 ← 1 TO 4
+                    Results[Store, Index1] ← Video[Search, Index1]
+               NEXT Index1
+               //Search and Store indexes incremented
+                Search ← Search + 1
+                Store ← Store + 1
+             ELSE
+               //Search index incremented
+                Search ← Search + 1
+           ENDIF
+
+=== 0478_s25_ms_23_p21_b33 | 0478_s25_ms_23.pdf p21 | pseudocode (keywords) | context: 
+           //Search ends when no more data in Video array,
+           //or end of Video array reached.
+           UNTIL Video[Search, 1] = "" OR Search = 10000
+           //Outputting only results found from Results array
+           IF Results[1, 1] <> ""
+             THEN
+               OUTPUT "The results: "
+                FOR Index1 ← 1 TO Store – 1
+                    FOR Index2 ← 1 TO 4
+                       OUTPUT Results[Index1, Index2]
+                   NEXT Index2
+               NEXT Index1
+             ELSE
+             //Feedback to user if item not found
+               OUTPUT "Item not found"
+           ENDIF
+           //Another search offered
+           OUTPUT "Another search (Y or N)?"
+           INPUT Another
+        UNTIL Another = 'N' OR Another = 'n'
+    ENDIF
+UNTIL Answer = 3
+
+=== 0478_w25_ms_21_p8_b5 | 0478_w25_ms_21.pdf p8 | pseudocode (keywords) | context: • output of the total / Example:
+OUTPUT "Please enter the number of adults "
+INPUT Adult
+OUTPUT "Please enter the number of children "
+INPUT Child
+Total ← (Adult * 9.99) + (Child * 6.99)
+IF (Adult + Child) >= 6
+  THEN
+    Total ← Total – (Total * 15/100)
+ENDIF
+OUTPUT "The total cost is ", Total
+
+=== 0478_w25_ms_21_p8_b6 | 0478_w25_ms_21.pdf p8 | pseudocode (keywords) | context: • … to 2 decimal places / Example
+Total ← ROUND(Total, 2)
+
+=== 0478_w25_ms_21_p12_b8 | 0478_w25_ms_21.pdf p12 | pseudocode (keywords) | context: One mark for each line identified and the correction: / Line 05 – should be FOR Count ← 1 TO 5
+Line 08 – should be Total ← Total + (Digit * Count)
+Line 15 – should be OUTPUT "The check digit is ", CheckDigit
+
+=== 0478_w25_ms_21_p15_b13 | 0478_w25_ms_21.pdf p15 | pseudocode (keywords) | context: • output of correct count / Examples:
+DECLARE Count : INTEGER
+Count ← 0
+INPUT Number
+Value ← Count * Number
+WHILE Value <= 100 DO
+    Count ← Count + 1
+    Value ← Count * Number
+ENDWHILE
+Count ← Count – 1
+OUTPUT Count
+
+=== 0478_w25_ms_21_p15_b14 | 0478_w25_ms_21.pdf p15 | pseudocode (keywords) | context: Or
+DECLARE Count : INTEGER
+(Count ← 0)
+INPUT Number
+Count ← DIV(100, Number)
+OUTPUT Count
+
+=== 0478_w25_ms_21_p17_b19 | 0478_w25_ms_21.pdf p17 | pseudocode (keywords) | context: • … and storing in StudentAttendance / Example
+OPENFILE Attendance.txt FOR READ
+READFILE Attendance.txt, StudentAttendance
+CLOSEFILE Attendance.txt
+
+=== 0478_w25_ms_21_p17_b20 | 0478_w25_ms_21.pdf p17 | pseudocode (keywords) | context: 10(a) / One mark for both declarations correct
+DECLARE Seconds : INTEGER
+DECLARE Minutes : INTEGER
+
+=== 0478_w25_ms_21_p17_b21 | 0478_w25_ms_21.pdf p17 | pseudocode (keywords) | context: • output the minutes and seconds / Example
+PROCEDURE Time(TotalSeconds : INTEGER)
+    Minutes ← DIV(TotalSeconds, 60)
+    Seconds ← MOD(TotalSeconds, 60)
+    OUTPUT "The number of minutes is ", Minutes
+    OUTPUT "The number of seconds is ", Seconds
+ENDPROCEDURE
+
+=== 0478_w25_ms_21_p19_b23 | 0478_w25_ms_21.pdf p19,20 | pseudocode (keywords) | context: // programming techniques of iteration, selection, counting, totalling and output are used / // Candidates did not need to declare any arrays or varia
+DECLARE Score : INTEGER
+DECLARE Highest : INTEGER
+DECLARE Lowest : INTEGER
+DECLARE Qualified : INTEGER
+DECLARE Reserve : INTEGER
+DECLARE NotQualified : INTEGER
+Qualified ← 0
+Reserve ← 0
+NotQualified ← 0
+FOR X ← 1 TO 30  //looping for number of competitors
+    FOR Round ← 1 TO 10  //looping for number of rounds
+        OUTPUT CompetitorName[X]
+        OUTPUT "Enter the score for the round: ", Round
+        INPUT Score
+        // validation of input for between 0 and 30 inclusive
+        WHILE Score < 0 OR Score > 30 DO
+            OUTPUT "The score must be between 0 and 30 inclusive. Please try again."
+            INPUT Score
+        ENDWHILE
+        CompetitorScore[X, Round] ← Score  // adding score to 2-D array
+    NEXT Round
+NEXT X
+// or suitable method of determining how many competitors
+FOR X ← 1 TO 30
+    Count ← 0
+    Highest ← 0
+    Score ← 0
+    Lowest ← 999 // resetting variables for each competitor
+    FOR Y ← 1 TO 10  // loop through rounds
+        Score ← Score + CompetitorScore[X, Y]
+        IF CompetitorScore[X, Y] > Highest  // finds highest score
+          THEN
+            Highest ← CompetitorScore[X, Y]
+        ENDIF
+        IF CompetitorScore[X, Y] < Lowest  // finds lowest score
+          THEN
+            Lowest ← CompetitorScore[X, Y]
+        ENDIF
+    NEXT Y
+    Score ← Score – Highest – Lowest // calculating score to subtract highest and lowest
+    IF Score >= 210  // competitor has qualified
+      THEN
+        OUTPUT "Competitor ", CompetitorName[X], " has qualified"
+        Qualified ← Qualified + 1
+    ELSE
+      IF Score >= 180 AND Score <= 209  // competitor is a reserve competitor
+        THEN
+          OUTPUT "Competitor ", CompetitorName[X], " are a reserve"
+          Reserve ← Reserve + 1
+        ELSE
+          OUTPUT "Competitor ", CompetitorName[X], " has not qualified"  // competitor not qualified
+        NotQualified ← NOTQualified + 1
+      ENDIF
+NEXT X
+OUTPUT "The number of competitors qualified is ", Qualified    // output of results
+OUTPUT "The number of competitors who are a reserve is ", Reserve
+OUTPUT "The number of competitors not qualified is ", NotQualified
+
+=== 0478_w25_ms_22_p7_b1 | 0478_w25_ms_22.pdf p7 | pseudocode (keywords) | context: 2(a) / One mark per mark point, max five
+• Line 01 / DECLARE Contacts : ARRAY[1:500, 1:4] OF REAL
+should be DECLARE Contacts : ARRAY[1:500, 1:4] OF STRING
+• Line 12 / OUTPUT FirstName
+should be INPUT FirstName
+• Line 17 / OUTPUT Contacts[Row, 1]
+should be OUTPUT Contacts[Row, Column]
+• Line 23 / NEXT Stop OR Row > 500
+should be UNTIL Stop OR Row > 500
+
+=== 0478_w25_ms_22_p7_b2 | 0478_w25_ms_22.pdf p7 | pseudocode (keywords) | context: • Line 25 / 26 / Answer variable not declared / should be DECLARE Answer : CHAR before line 25
+• Line 28 / Continue ← TRUE
+should be Continue ← FALSE
+
+=== 0478_w25_ms_22_p8_b3 | 0478_w25_ms_22.pdf p8 | pseudocode (keywords) | context: MP4 Correct termination of both loops. / Example:
+PROCEDURE NewData(Number : INTEGER)
+   FOR Row ← 1 TO Number
+       FOR Column ← 1 TO 4
+          INPUT Contacts[Row, Column]
+       NEXT Column
+   NEXT Row
+ENDPROCEDURE
+
+=== 0478_w25_ms_22_p8_b4 | 0478_w25_ms_22.pdf p8 | pseudocode (keywords) | context: MP2 Correct call statement for NewData / Example:
+INPUT MyNumber
+CALL NewData(MyNumber)
+
+=== 0478_w25_ms_22_p10_b5 | 0478_w25_ms_22.pdf p10 | pseudocode (keywords) | context: MP8 Output that only shows when the email address is valid or invalid. Both cases required. / Example:
+// Variable declarations are not required
+INPUT EmailAddress
+Start ← 1
+Valid ← FALSE
+REPEAT
+    IF SUBSTRING(EmailAddress, Start, 1) = '@'
+      THEN
+        Valid ← TRUE
+      ELSE
+        Start ← Start + 1
+    ENDIF
+UNTIL Start > LENGTH(EmailAddress) OR Valid
+IF Valid
+  THEN
+    OUTPUT EmailAddress, " is valid"
+  ELSE
+    OUTPUT EmailAddress, " is NOT valid"
+ENDIF
+
+=== 0478_w25_ms_22_p13_b7 | 0478_w25_ms_22.pdf p13 | pseudocode (keywords) | context: MP4 Assignment of all array elements to null string (using loop counter as array index) / Example:
+DECLARE CodeStore : ARRAY[1:6] OF STRING
+DECLARE Index : INTEGER
+FOR Index ← 1 TO 6
+    CodeStore[Index] ← ""
+NEXT Index
+
+=== 0478_w25_ms_22_p17_b20 | 0478_w25_ms_22.pdf p17,18 | pseudocode (keywords) | context: output). / Example 15-mark answer in pseudocode
+// array and variable declaration
+DECLARE RandomNumber : ARRAY[1:100000] OF INTEGER
+DECLARE CountedNumber : ARRAY[1:10, 1:2] OF INTEGER
+DECLARE Index1 : INTEGER
+DECLARE Index2 : INTEGER
+DECLARE Swap : BOOLEAN
+DECLARE Temp1 : INTEGER
+DECLARE Temp2 : INTEGER
+// generate 100000 random integers between 1 and 10, inclusive,
+// and store them in an array
+FOR Index1 ← 1 TO 100000
+    RandomNumber[Index1] ← ROUND(RANDOM() * 9, 0) + 1
+NEXT Index1
+// initialising the CountedNumber array
+FOR Index1 ← 1 TO 10
+    CountedNumber[Index1, 1] ← Index1
+    CountedNumber[Index1, 2] ← 0
+NEXT Index1
+// counting the frequency of each of the random integers
+// and storing the frequencies in an array
+FOR Index1 ← 1 TO 10
+    FOR Index2 ← 1 TO 100000
+        IF RandomNumber[Index2] = CountedNumber[Index1, 1]
+          THEN
+            CountedNumber[Index1, 2] ← CountedNumber[Index1, 2] + 1
+        ENDIF
+    NEXT Index2
+NEXT Index1
+// performing sort on frequencies, so the possible random numbers
+// are stored in descending order of frequency
+Swap ← TRUE
+WHILE Swap DO
+    // sort is terminated when no swaps take place during a pass
+    Swap ← FALSE
+    FOR Index1 ← 1 TO 9
+        IF CountedNumber[Index1, 2] < CountedNumber[Index1 + 1, 2]
+          THEN
+            Temp1 ← CountedNumber[Index1, 1]
+            Temp2 ← CountedNumber[Index1, 2]
+            CountedNumber[Index1, 1] ← CountedNumber[Index1 + 1, 1]
+            CountedNumber[Index1, 2] ← CountedNumber[Index1 + 1, 2]
+            CountedNumber[Index1 + 1, 1] ← Temp1
+            CountedNumber[Index1 + 1, 2] ← Temp2
+            Swap ← TRUE
+        ENDIF
+    NEXT Index1
+ENDWHILE
+
+=== 0478_w25_ms_22_p19_b21 | 0478_w25_ms_22.pdf p19 | pseudocode (keywords) | context: 
+// outputting the results, with chances for each random number
+// calculated to 4 d.p.
+// results in descending order of frequency
+FOR Index1 ← 1 TO 10
+    OUTPUT "The chance of ", CountedNumber[Index1, 1], " occurring is: "
+    OUTPUT ROUND(CountedNumber[Index1, 2]/100000, 4)
+NEXT Index1
+
+=== 0478_w25_ms_22_p19_b22 | 0478_w25_ms_22.pdf p19 | pseudocode (keywords) | context: Alternative answer for first 20 lines after declarations, where RandomNumber[] is populated and frequency counted in the / same loop.
+// initialising the CountedNumber array
+FOR Index1 ← 1 TO 10
+    CountedNumber[Index1, 1] ← Index1
+    CountedNumber[Index1, 2] ← 0
+NEXT Index1
+// generate random integers in an array,
+// counting and storing the frequencies in an array
+FOR Index1 ← 1 TO 100000
+    Temp1 ← ROUND(RANDOM() * 9, 0) + 1
+    RandomNumber[Index1] ← Temp1
+    CountedNumber[Temp1, 2] ← CountedNumber[Temp1, 2] + 1
+NEXT Index1
+// performing sort on frequencies, so the possible random numbers
+
+=== 0478_w25_ms_23_p8_b1 | 0478_w25_ms_23.pdf p8 | pseudocode (keywords) | context: • output of the total using an appropriate message / Example:
+OUTPUT "Please enter the number of adult tickets "
+INPUT Adult
+OUTPUT "Please enter the number of children "
+INPUT Child
+Total ← (Adult * 12.99) + (Child * 7.99) + 1.99
+OUTPUT "The total cost is ", Total
+
+=== 0478_w25_ms_23_p12_b7 | 0478_w25_ms_23.pdf p12 | pseudocode (keywords) | context: Example / Repeat loop
+Position ← -1
+Count ← 1
+OUTPUT "Please enter a name "
+INPUT Name
+REPEAT
+    IF Name = ClassList[Count]
+      THEN
+        Position ← Count
+        Count ← 6
+      ELSE
+        Count ← Count + 1
+    ENDIF
+UNTIL Count > 5
+OUTPUT Position
+
+=== 0478_w25_ms_23_p13_b8 | 0478_w25_ms_23.pdf p13 | pseudocode (keywords) | context: 6(c) / While loop
+Position ← -1
+Count ← 1
+OUTPUT "Please enter a name "
+INPUT Name
+WHILE Count <= 5 DO
+    IF Name = ClassList[Count]
+      THEN
+        Position ← Count
+        Count ← 6
+      ELSE
+        Count ← Count + 1
+    ENDIF
+ENDWHILE
+OUTPUT Position
+
+=== 0478_w25_ms_23_p13_b9 | 0478_w25_ms_23.pdf p13 | pseudocode (keywords) | context: For loop
+Position ← -1
+(Count ← 1)
+OUTPUT "Please enter a name "
+INPUT Name
+FOR Count ← 1 TO 5
+    IF Name = ClassList[Count]
+      THEN
+        Position ← Count
+    ENDIF
+NEXT Count
+OUTPUT Position
+
+=== 0478_w25_ms_23_p14_b11 | 0478_w25_ms_23.pdf p14 | pseudocode (keywords) | context: One mark for each line identified and corrected / Line 05 – should be FOR Count ← 8 TO 1 STEP -1
+Line 06 – should be BinaryArray[Count] ← MOD(DenaryNumber,2)
+
+=== 0478_w25_ms_23_p14_b12 | 0478_w25_ms_23.pdf p14 | pseudocode (keywords) | context: • Correct input of DenaryNumber / Example:
+REPEAT
+  INPUT DenaryNumber
+UNTIL DenaryNumber >= 1 AND DenaryNumber <= 255
+
+=== 0478_w25_ms_23_p15_b14 | 0478_w25_ms_23.pdf p15 | pseudocode (keywords) | context: 9(a) / One mark for each correct line:
+DECLARE Name : STRING
+DECLARE Age : INTEGER
+DECLARE Found : BOOLEAN
+
+=== 0478_w25_ms_23_p15_b16 | 0478_w25_ms_23.pdf p15 | pseudocode (keywords) | context: • correctly closing the file / Example
+PROCEDURE StoreData(Name : STRING)
+    OPENFILE People.txt FOR WRITE
+    WRITEFILE People.txt, Name
+    CLOSEFILE People.txt
+ENDPROCEDURE
+
+=== 0478_w25_ms_23_p17_b19 | 0478_w25_ms_23.pdf p17,18 | pseudocode (keywords) | context: Example 15-mark answer in pseudocode. / // programming techniques of iteration, selection, totalling and output are used
+OUTPUT "Please enter the name of player 1 "  // input and validate player 1 with
+INPUT Player1                                // presence check
+WHILE Player1 = "" DO
+    OUTPUT "You must enter a name, try again "
+    INPUT Player1
+ENDWHILE
+OUTPUT "Please enter the name of player 2 "  // input and validate player 2
+INPUT Player2
+WHILE Player2 = "" DO
+    OUTPUT "You must enter a name, try again "
+    INPUT Player2
+ENDWHILE
+// generating the 100 random numbers for each competitor
+FOR X ← 1 TO 2
+    FOR Y ← 1 TO 100  // generates 100 random number between 1 and 6 for each player
+        NumberGenerated[X, Y] = ROUND(RANDOM() * 5, 0) + 1
+    NEXT Y
+NEXT X
+//comparing the random numbers
+FOR X ← 1 to 100
+    IF NumberGenerated[1, X] > NumberGenerated[2, X]
+      THEN
+        Points[1] ← Points[1] + 2
+      ELSE
+        IF NumberGenerated[1, X] < NumberGenerated[2, X]
+          THEN
+            Points[2] ← Points[2] + 2
+        ENDIF
+    ENDIF
+    IF NumberGenerated[1, X] = NumberGenerated[2, X] // if tied (the same)
+      THEN
+        Points[1] ← Points[1] + 1
+        Points[2] ← Points[2] + 1
+    ENDIF
+NEXT X
+
+=== 0478_w25_ms_23_p19_b20 | 0478_w25_ms_23.pdf p19 | pseudocode (keywords) | context: 
+// if player 1 and player 2 tie
+// could be a function
+IF Points[1] = Points[2]
+  THEN
+    REPEAT
+        P1 = ROUND(RANDOM * 6, 0) + 1
+        P2 = ROUND(RANDOM * 6, 0) + 1
+    UNTIL P1 <> P2
+    IF P1 > P2
+      THEN
+        Points[1] ← Points[1] + 2
+      ELSE
+        Points[2] ← Points[2] + 2
+    ENDIF
+ENDIF
+
+=== 0478_w25_ms_23_p19_b21 | 0478_w25_ms_23.pdf p19 | pseudocode (keywords) | context: 
+// determine the overall winner
+IF Points[1] > Points[2]
+  THEN
+    OUTPUT "First is ", Player1
+    OUTPUT "With a total score of ", Points[1]
+    OUTPUT "Second is ", Player2
+    OUTPUT "With a total score of ", Points[2]
+  ELSE
+    OUTPUT "First is ", Player2
+    OUTPUT "With a total score of ", Points[2]
+    OUTPUT "Second is ", Player1
+    OUTPUT "With a total score of ", Points[1]
+  ENDIF
+

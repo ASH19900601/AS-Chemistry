@@ -1,0 +1,9 @@
+style,AL-9608,AL-9618,AS-9608,AS-9618,IG-0478-new,IG-0478-old
+Capitalised (one word),55,45,102,88,85,44
+PascalCase (multi-word),121,76,246,210,95,86
+Pascal_Snake,0,0,0,1,0,12
+UPPERCASE,1,0,2,16,0,1
+camelCase,7,0,0,0,0,8
+lowercase,6,0,1,6,0,7
+single-letter,5,2,11,11,9,3
+snake_case,0,0,0,5,0,3

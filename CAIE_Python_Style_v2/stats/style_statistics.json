@@ -1,0 +1,4069 @@
+{
+ "pseudocode": {
+  "AL-9608": {
+   "counts": {
+    "blocks": 101,
+    "lines": 1112,
+    "assign_arrow": 257,
+    "IF": 86,
+    "THEN_own_line": 84,
+    "ident_occurrences": 246,
+    "blocks_4plus": 82,
+    "INPUT": 2,
+    "REPEAT": 10,
+    "lines_with_square_index": 158,
+    "OUTPUT": 16,
+    "OUTPUT_with_comma": 3,
+    "ENDIF": 84,
+    "UNTIL": 10,
+    "bool_compare_explicit": 8,
+    "DECLARE": 91,
+    "TYPE": 12,
+    "comment_lines": 39,
+    "FOR": 19,
+    "lines_with_paren_index_guess": 12,
+    "ENDFOR": 18,
+    "ARRAY_decl": 13,
+    "BYVAL": 12,
+    "WHILE": 19,
+    "ENDWHILE": 19,
+    "bool_NOT_bare": 2,
+    "RETURN": 54,
+    "CALL": 6,
+    "BYREF": 8,
+    "assign_equals": 4,
+    "OPENFILE_RANDOM": 4,
+    "NEXT_var": 2,
+    "OUTPUT_with_&": 1,
+    "FOR_STEP": 1,
+    "FOR_STEP_negative": 1,
+    "CONSTANT": 2,
+    "IF_THEN_same_line": 2
+   },
+   "identifier_styles_unique_names": {
+    "Capitalised (one word)": 55,
+    "PascalCase (multi-word)": 121,
+    "UPPERCASE": 1,
+    "single-letter": 5,
+    "camelCase": 7,
+    "lowercase": 6
+   },
+   "identifier_style_examples": {
+    "Capitalised (one word)": [
+     "Area",
+     "Author",
+     "Base",
+     "Book",
+     "Booking",
+     "Calories",
+     "Code",
+     "Count",
+     "Counter",
+     "Country",
+     "Current",
+     "Customer",
+     "Data",
+     "Department",
+     "Error",
+     "Exp",
+     "Fiction",
+     "Filename",
+     "Find",
+     "Finish",
+     "First",
+     "Flag",
+     "Found",
+     "Genre",
+     "Index"
+    ],
+    "PascalCase (multi-word)": [
+     "ArrayData",
+     "ArraySize",
+     "ArrayStack",
+     "AverageMark",
+     "BestSeller",
+     "BicycleID",
+     "BinaryTree",
+     "BookInfo",
+     "BookingID",
+     "BookingRecord",
+     "BorrowerID",
+     "CardData",
+     "CharacterArray",
+     "CheckWord",
+     "ComputerID",
+     "CountryList",
+     "CurrentItem",
+     "CurrentMonth",
+     "CurrentPointer",
+     "CurrentValue",
+     "CustomerData",
+     "CustomerDetails",
+     "CustomerID",
+     "CustomerLogIn",
+     "CustomerRecord"
+    ],
+    "UPPERCASE": [
+     "ISBN"
+    ],
+    "single-letter": [
+     "A",
+     "B",
+     "X",
+     "i",
+     "x"
+    ],
+    "camelCase": [
+     "binaryTree",
+     "customerID",
+     "customerRec",
+     "dataToReturn",
+     "searchValue",
+     "stackArray",
+     "topOfStack"
+    ],
+    "lowercase": [
+     "flag",
+     "lower",
+     "mid",
+     "rootpointer",
+     "session",
+     "upper"
+    ]
+   },
+   "subprogram_counts": {
+    "PROCEDURE": 22,
+    "FUNCTION": 28
+   },
+   "subprogram_name_styles": {
+    "PascalCase (multi-word)": 28,
+    "Capitalised (one word)": 9,
+    "camelCase": 4,
+    "lowercase": 1,
+    "UPPERCASE": 2
+   },
+   "subprogram_name_examples": {
+    "PascalCase (multi-word)": [
+     "AddData",
+     "AddItemToStack",
+     "AddToList",
+     "AddToQueue",
+     "AddToTree",
+     "BinarySearch",
+     "CreateTree",
+     "DeleteNode",
+     "FindBook",
+     "FindElement",
+     "FindPower",
+     "FindValue",
+     "InitialiseHashTable",
+     "InsertRecord",
+     "InsertionSort",
+     "IsPalindrome",
+     "MealsCount",
+     "NonRecursive",
+     "PostOrder",
+     "RemoveItem",
+     "RunError",
+     "SearchHashTable",
+     "SearchList",
+     "SetCalories",
+     "SetPlayerID",
+     "StoreBooking",
+     "StoreRecord",
+     "UpdateTelephone"
+    ],
+    "Capitalised (one word)": [
+     "Bubble",
+     "Calculate",
+     "Count",
+     "Dequeue",
+     "Enqueue",
+     "Find",
+     "Push",
+     "Recursion",
+     "Remove"
+    ],
+    "camelCase": [
+     "binarySearch",
+     "getCustomer",
+     "preOrder",
+     "setUpStack"
+    ],
+    "lowercase": [
+     "pop"
+    ],
+    "UPPERCASE": [
+     "POP",
+     "PUSH"
+    ]
+   },
+   "loop_variables_top": [
+    [
+     "x",
+     4
+    ],
+    [
+     "Count",
+     3
+    ],
+    [
+     "Outer",
+     2
+    ],
+    [
+     "Inner",
+     2
+    ],
+    [
+     "Pointer",
+     2
+    ],
+    [
+     "FloorCounter",
+     1
+    ],
+    [
+     "SensorCounter",
+     1
+    ],
+    [
+     "Index",
+     1
+    ],
+    [
+     "i",
+     1
+    ],
+    [
+     "CurrentValue",
+     1
+    ],
+    [
+     "X",
+     1
+    ]
+   ],
+   "assignment_targets_top": [
+    [
+     "FOR",
+     18
+    ],
+    [
+     "Index",
+     11
+    ],
+    [
+     "Value",
+     10
+    ],
+    [
+     "CurrentPointer",
+     9
+    ],
+    [
+     "Count",
+     8
+    ],
+    [
+     "Tree",
+     7
+    ],
+    [
+     "Valid",
+     7
+    ],
+    [
+     "NodeArray",
+     5
+    ],
+    [
+     "BinaryTree",
+     5
+    ],
+    [
+     "Outer",
+     4
+    ],
+    [
+     "Inner",
+     4
+    ],
+    [
+     "CountryList",
+     4
+    ],
+    [
+     "RecordKey",
+     3
+    ],
+    [
+     "Pointer",
+     3
+    ],
+    [
+     "FreePointer",
+     3
+    ],
+    [
+     "CustomerDetails",
+     3
+    ],
+    [
+     "Filename",
+     3
+    ],
+    [
+     "Swap",
+     3
+    ],
+    [
+     "StartPointer",
+     3
+    ],
+    [
+     "myBox",
+     3
+    ],
+    [
+     "LinkedList",
+     3
+    ],
+    [
+     "Node100",
+     3
+    ],
+    [
+     "PointerCounter",
+     3
+    ],
+    [
+     "Current",
+     2
+    ],
+    [
+     "IsFound",
+     2
+    ],
+    [
+     "Success",
+     2
+    ],
+    [
+     "Customer",
+     2
+    ],
+    [
+     "TableFull",
+     2
+    ],
+    [
+     "NewNodePointer",
+     2
+    ],
+    [
+     "HeadPointer",
+     2
+    ],
+    [
+     "RootPointer",
+     2
+    ],
+    [
+     "NumberItems",
+     2
+    ],
+    [
+     "HolePosition",
+     2
+    ],
+    [
+     "CardData",
+     2
+    ],
+    [
+     "First",
+     2
+    ],
+    [
+     "Last",
+     2
+    ],
+    [
+     "Found",
+     2
+    ],
+    [
+     "ArrayData",
+     2
+    ],
+    [
+     "CustomerLogIn",
+     2
+    ],
+    [
+     "mid",
+     2
+    ],
+    [
+     "topOfStack",
+     2
+    ],
+    [
+     "RecordLocation",
+     2
+    ],
+    [
+     "TailIndex",
+     2
+    ],
+    [
+     "NumberInQueue",
+     2
+    ],
+    [
+     "ItemToReturn",
+     2
+    ],
+    [
+     "HeadIndex",
+     2
+    ],
+    [
+     "Counter",
+     2
+    ],
+    [
+     "Temp",
+     2
+    ],
+    [
+     "TheArray",
+     2
+    ],
+    [
+     "CurrentItem",
+     2
+    ],
+    [
+     "Numbers",
+     2
+    ],
+    [
+     "StackPointer",
+     2
+    ],
+    [
+     "List",
+     2
+    ],
+    [
+     "TempPointer",
+     2
+    ],
+    [
+     "DataSwapped",
+     2
+    ],
+    [
+     "DataList",
+     2
+    ],
+    [
+     "PreviousPointer",
+     2
+    ],
+    [
+     "SchoolComputer",
+     2
+    ],
+    [
+     "LoanBicycle",
+     2
+    ],
+    [
+     "A",
+     2
+    ]
+   ],
+   "library_routines": [
+    [
+     "LENGTH",
+     4
+    ],
+    [
+     "DIV_operator_or_call",
+     3
+    ],
+    [
+     "MOD_operator_or_call",
+     2
+    ],
+    [
+     "MID",
+     2
+    ],
+    [
+     "MOD",
+     1
+    ]
+   ],
+   "array_lower_bounds": [
+    [
+     "0",
+     10
+    ],
+    [
+     "1",
+     3
+    ]
+   ],
+   "for_start_values": {
+    "1": 9,
+    "0": 8,
+    "other": 2
+   }
+  },
+  "AL-9618": {
+   "counts": {
+    "blocks": 54,
+    "lines": 613,
+    "blocks_4plus": 49,
+    "TYPE": 9,
+    "DECLARE": 104,
+    "ident_occurrences": 155,
+    "assign_arrow": 156,
+    "FOR": 5,
+    "lines_with_square_index": 71,
+    "WHILE": 11,
+    "ENDWHILE": 11,
+    "NEXT_var": 6,
+    "ARRAY_decl": 9,
+    "BYREF": 2,
+    "IF": 51,
+    "IF_THEN_same_line": 47,
+    "RETURN": 22,
+    "ENDIF": 50,
+    "OPENFILE_READ": 1,
+    "OPENFILE_WRITE": 1,
+    "EOF": 2,
+    "CONSTANT": 5,
+    "comment_lines": 12,
+    "CALL": 2,
+    "OUTPUT": 32,
+    "OUTPUT_with_comma": 7,
+    "OPENFILE_RANDOM": 7,
+    "REPEAT": 2,
+    "UNTIL": 2,
+    "THEN_own_line": 2,
+    "INPUT": 10,
+    "bool_compare_explicit": 7,
+    "bool_NOT_bare": 3,
+    "CLASS": 1,
+    "BYVAL": 2,
+    "lines_with_paren_index_guess": 2
+   },
+   "identifier_styles_unique_names": {
+    "Capitalised (one word)": 45,
+    "PascalCase (multi-word)": 76,
+    "single-letter": 2
+   },
+   "identifier_style_examples": {
+    "Capitalised (one word)": [
+     "Account",
+     "Animals",
+     "Answer",
+     "Base",
+     "Colour",
+     "Continue",
+     "Count",
+     "Counter",
+     "Customer",
+     "Destination",
+     "Exit",
+     "Flag",
+     "Found",
+     "Frequency",
+     "Fuel",
+     "Grade",
+     "Index",
+     "Item",
+     "Length",
+     "Location",
+     "Lower",
+     "Make",
+     "Max",
+     "Mid",
+     "Model"
+    ],
+    "PascalCase (multi-word)": [
+     "AQueue",
+     "AccessionNumber",
+     "AccountFile",
+     "AccountNumber",
+     "AircraftType",
+     "ArrayLength",
+     "ArrayStack",
+     "BasePointer",
+     "BodyType",
+     "BookingNumber",
+     "BuildingGroup",
+     "ClientName",
+     "ClientTelephone",
+     "ColourCode",
+     "CurrentItem",
+     "CurrentStock",
+     "DataAccessed",
+     "DataArray",
+     "DataItem",
+     "DateOfBirth",
+     "DateOfDeparture",
+     "DateOfJoining",
+     "DentalFile",
+     "DentalRecord",
+     "DepartureDate"
+    ],
+    "single-letter": [
+     "X",
+     "Y"
+    ]
+   },
+   "subprogram_counts": {
+    "FUNCTION": 10,
+    "PROCEDURE": 7
+   },
+   "subprogram_name_styles": {
+    "Capitalised (one word)": 5,
+    "PascalCase (multi-word)": 7
+   },
+   "subprogram_name_examples": {
+    "Capitalised (one word)": [
+     "Dequeue",
+     "Enqueue",
+     "Initialise",
+     "Pop",
+     "Push"
+    ],
+    "PascalCase (multi-word)": [
+     "AddInteger",
+     "InitialiseStack",
+     "RecursiveValue",
+     "SearchList",
+     "SearchTree",
+     "SearchValue",
+     "SortDescending"
+    ]
+   },
+   "loop_variables_top": [
+    [
+     "Student",
+     1
+    ],
+    [
+     "X",
+     1
+    ],
+    [
+     "Y",
+     1
+    ],
+    [
+     "Position",
+     1
+    ],
+    [
+     "Index",
+     1
+    ]
+   ],
+   "assignment_targets_top": [
+    [
+     "Flight1",
+     9
+    ],
+    [
+     "Found",
+     6
+    ],
+    [
+     "NowPtr",
+     6
+    ],
+    [
+     "FOR",
+     5
+    ],
+    [
+     "Location",
+     5
+    ],
+    [
+     "Pet1",
+     5
+    ],
+    [
+     "Records",
+     5
+    ],
+    [
+     "AQueue",
+     5
+    ],
+    [
+     "Name",
+     4
+    ],
+    [
+     "Item",
+     4
+    ],
+    [
+     "Count",
+     4
+    ],
+    [
+     "NotInList",
+     4
+    ],
+    [
+     "FrontPointer",
+     3
+    ],
+    [
+     "RearPointer",
+     3
+    ],
+    [
+     "Length",
+     3
+    ],
+    [
+     "TopOfList",
+     3
+    ],
+    [
+     "EndOfList",
+     3
+    ],
+    [
+     "Exit",
+     3
+    ],
+    [
+     "Pointer",
+     3
+    ],
+    [
+     "TopPointer",
+     3
+    ],
+    [
+     "DataItem",
+     3
+    ],
+    [
+     "Top",
+     3
+    ],
+    [
+     "Counter",
+     2
+    ],
+    [
+     "Score",
+     2
+    ],
+    [
+     "LibraryBook",
+     2
+    ],
+    [
+     "BuildingRegister",
+     2
+    ],
+    [
+     "TailPointer",
+     2
+    ],
+    [
+     "Animals",
+     2
+    ],
+    [
+     "Continue",
+     2
+    ],
+    [
+     "Position",
+     2
+    ],
+    [
+     "Stored",
+     2
+    ],
+    [
+     "DataArray",
+     2
+    ],
+    [
+     "Lower",
+     2
+    ],
+    [
+     "Upper",
+     2
+    ],
+    [
+     "Mid",
+     2
+    ],
+    [
+     "FoundFlag",
+     2
+    ],
+    [
+     "Flag",
+     2
+    ],
+    [
+     "Member1",
+     2
+    ],
+    [
+     "Car1",
+     2
+    ],
+    [
+     "YearSize",
+     1
+    ],
+    [
+     "Temp1",
+     1
+    ],
+    [
+     "Temp2",
+     1
+    ],
+    [
+     "Temp3",
+     1
+    ],
+    [
+     "QueueArray",
+     1
+    ],
+    [
+     "NumberItems",
+     1
+    ],
+    [
+     "Queue",
+     1
+    ],
+    [
+     "DentalFile",
+     1
+    ],
+    [
+     "ArrayLength",
+     1
+    ],
+    [
+     "Temp",
+     1
+    ],
+    [
+     "CurrentItem",
+     1
+    ],
+    [
+     "Grade",
+     1
+    ],
+    [
+     "Max",
+     1
+    ],
+    [
+     "Value",
+     1
+    ],
+    [
+     "TopOfStack",
+     1
+    ],
+    [
+     "ArrayStack",
+     1
+    ],
+    [
+     "Make",
+     1
+    ],
+    [
+     "Model",
+     1
+    ],
+    [
+     "BodyType",
+     1
+    ],
+    [
+     "Fuel",
+     1
+    ],
+    [
+     "NumberBuilt",
+     1
+    ]
+   ],
+   "library_routines": [
+    [
+     "EOF",
+     2
+    ],
+    [
+     "MID",
+     2
+    ],
+    [
+     "DIV_operator_or_call",
+     2
+    ],
+    [
+     "LENGTH",
+     1
+    ]
+   ],
+   "array_lower_bounds": [
+    [
+     "1",
+     8
+    ],
+    [
+     "0",
+     1
+    ]
+   ],
+   "for_start_values": {
+    "other": 2,
+    "0": 2,
+    "1": 1
+   }
+  },
+  "AS-9608": {
+   "counts": {
+    "blocks": 235,
+    "lines": 2850,
+    "blocks_4plus": 181,
+    "assign_equals": 13,
+    "FOR": 94,
+    "lines_with_square_index": 199,
+    "IF": 189,
+    "IF_THEN_same_line": 14,
+    "ENDWHILE": 66,
+    "ident_occurrences": 576,
+    "assign_arrow": 784,
+    "INPUT": 50,
+    "THEN_own_line": 174,
+    "OUTPUT": 106,
+    "ENDIF": 185,
+    "DECLARE": 363,
+    "comment_lines": 116,
+    "ENDFOR": 88,
+    "RETURN": 73,
+    "REPEAT": 23,
+    "UNTIL": 24,
+    "OUTPUT_with_&": 23,
+    "OPENFILE_WRITE": 8,
+    "WHILE": 66,
+    "CASE_OF_x": 9,
+    "bool_compare_explicit": 49,
+    "OPENFILE_READ": 22,
+    "EOF": 26,
+    "lines_with_paren_index_guess": 21,
+    "OUTPUT_with_comma": 28,
+    "ARRAY_decl": 17,
+    "OPENFILE_APPEND": 5,
+    "bool_NOT_bare": 7,
+    "ARRAY_2D_decl": 4,
+    "OTHERWISE": 6,
+    "BYREF": 7,
+    "CALL": 10,
+    "CONSTANT": 25,
+    "BYVAL": 3,
+    "NEXT_bare": 1
+   },
+   "identifier_styles_unique_names": {
+    "PascalCase (multi-word)": 246,
+    "Capitalised (one word)": 102,
+    "single-letter": 11,
+    "lowercase": 1,
+    "UPPERCASE": 2
+   },
+   "identifier_style_examples": {
+    "PascalCase (multi-word)": [
+     "AccNum",
+     "AccessCount",
+     "AddComma",
+     "AlarmState",
+     "AllOK",
+     "AnyName",
+     "ArrayFull",
+     "ArrayIndex",
+     "ArrayResult",
+     "ArrayString",
+     "AverageScore",
+     "BNum",
+     "BoatNum",
+     "BurnFlag",
+     "ButtonNum",
+     "CDArtist",
+     "CDLocation",
+     "CDSearch",
+     "CDTitle",
+     "CardNum",
+     "CaseCounter",
+     "CaseID",
+     "CharArray",
+     "CipherChar",
+     "ClipFlag"
+    ],
+    "Capitalised (one word)": [
+     "Accepted",
+     "Activity",
+     "Added",
+     "Adjust",
+     "Amount",
+     "Angle",
+     "Attempts",
+     "Author",
+     "Available",
+     "Average",
+     "Balance",
+     "Bonus",
+     "Boundary",
+     "Check",
+     "Code",
+     "Contact",
+     "Continue",
+     "Cost",
+     "Count",
+     "Counter",
+     "Course",
+     "Current",
+     "Danger",
+     "Description",
+     "Directory"
+    ],
+    "single-letter": [
+     "A",
+     "B",
+     "C",
+     "I",
+     "J",
+     "N",
+     "X",
+     "c",
+     "i",
+     "j",
+     "n"
+    ],
+    "lowercase": [
+     "temp"
+    ],
+    "UPPERCASE": [
+     "ID",
+     "NUMBER"
+    ]
+   },
+   "subprogram_counts": {
+    "FUNCTION": 72,
+    "PROCEDURE": 58
+   },
+   "subprogram_name_styles": {
+    "PascalCase (multi-word)": 95,
+    "Capitalised (one word)": 17
+   },
+   "subprogram_name_examples": {
+    "PascalCase (multi-word)": [
+     "AddCredit",
+     "AddHashtag",
+     "AddNewScores",
+     "AddReview",
+     "AddTime",
+     "BestRestaurants",
+     "BubbleSort",
+     "CalcBonus",
+     "CalcPoints",
+     "CalculateCustomerID",
+     "CardPayment",
+     "CharacterCount",
+     "CheckBackupFile",
+     "CheckCourse",
+     "CheckReview",
+     "CheckSkid",
+     "CheckTree",
+     "CheckWeight",
+     "ClearArray",
+     "CountHashtag",
+     "CountLines",
+     "DisplayResults",
+     "EncryptString",
+     "ExCamel",
+     "ExtractArrays",
+     "FindBooksBy",
+     "FindCD",
+     "FindDuplicates",
+     "FindRepeats",
+     "FormOut"
+    ],
+    "Capitalised (one word)": [
+     "Abbreviate",
+     "Backup",
+     "Button",
+     "Check",
+     "Clip",
+     "Decrypt",
+     "Encrypt",
+     "Extract",
+     "Flip",
+     "Frequency",
+     "Lighten",
+     "Module",
+     "Restore",
+     "Search",
+     "Unpack",
+     "Update",
+     "Verify"
+    ]
+   },
+   "loop_variables_top": [
+    [
+     "Index",
+     41
+    ],
+    [
+     "i",
+     12
+    ],
+    [
+     "n",
+     8
+    ],
+    [
+     "j",
+     7
+    ],
+    [
+     "J",
+     6
+    ],
+    [
+     "Count",
+     6
+    ],
+    [
+     "N",
+     3
+    ],
+    [
+     "ArrayIndex",
+     2
+    ],
+    [
+     "BoatNum",
+     2
+    ],
+    [
+     "I",
+     2
+    ],
+    [
+     "IndexVal",
+     1
+    ],
+    [
+     "RowIndex",
+     1
+    ],
+    [
+     "ColIndex",
+     1
+    ],
+    [
+     "X",
+     1
+    ],
+    [
+     "Counter",
+     1
+    ]
+   ],
+   "assignment_targets_top": [
+    [
+     "FOR",
+     93
+    ],
+    [
+     "Index",
+     50
+    ],
+    [
+     "Count",
+     26
+    ],
+    [
+     "NextChar",
+     22
+    ],
+    [
+     "Found",
+     20
+    ],
+    [
+     "Total",
+     15
+    ],
+    [
+     "Valid",
+     12
+    ],
+    [
+     "Result",
+     11
+    ],
+    [
+     "OutString",
+     10
+    ],
+    [
+     "ReturnFlag",
+     10
+    ],
+    [
+     "FileLine",
+     10
+    ],
+    [
+     "i",
+     8
+    ],
+    [
+     "NoSwaps",
+     8
+    ],
+    [
+     "Boundary",
+     8
+    ],
+    [
+     "Status",
+     7
+    ],
+    [
+     "FileData",
+     6
+    ],
+    [
+     "ArrayIndex",
+     6
+    ],
+    [
+     "Temp",
+     6
+    ],
+    [
+     "Response",
+     6
+    ],
+    [
+     "Picture",
+     5
+    ],
+    [
+     "Code",
+     5
+    ],
+    [
+     "NewTime",
+     5
+    ],
+    [
+     "TempString",
+     5
+    ],
+    [
+     "MyCount",
+     4
+    ],
+    [
+     "Success",
+     4
+    ],
+    [
+     "Size",
+     4
+    ],
+    [
+     "Pointer",
+     4
+    ],
+    [
+     "RetVal",
+     4
+    ],
+    [
+     "FString",
+     4
+    ],
+    [
+     "CustomerID",
+     4
+    ],
+    [
+     "FirstID",
+     4
+    ],
+    [
+     "MyGrade",
+     4
+    ],
+    [
+     "DRate",
+     4
+    ],
+    [
+     "Tries",
+     4
+    ],
+    [
+     "Continue",
+     4
+    ],
+    [
+     "TagCount",
+     4
+    ],
+    [
+     "Max",
+     4
+    ],
+    [
+     "ShortCode",
+     4
+    ],
+    [
+     "AlarmState",
+     3
+    ],
+    [
+     "NewString",
+     3
+    ],
+    [
+     "Average",
+     3
+    ],
+    [
+     "Location",
+     3
+    ],
+    [
+     "Name",
+     3
+    ],
+    [
+     "Multiple",
+     3
+    ],
+    [
+     "Available",
+     3
+    ],
+    [
+     "Cost",
+     3
+    ],
+    [
+     "LastService",
+     3
+    ],
+    [
+     "Error",
+     3
+    ],
+    [
+     "Num",
+     3
+    ],
+    [
+     "Filename",
+     3
+    ],
+    [
+     "ResultArray",
+     3
+    ],
+    [
+     "NewPoints",
+     3
+    ],
+    [
+     "Bonus",
+     3
+    ],
+    [
+     "Space",
+     3
+    ],
+    [
+     "StartPos",
+     3
+    ],
+    [
+     "MyString",
+     3
+    ],
+    [
+     "GeoCode",
+     3
+    ],
+    [
+     "Flower",
+     3
+    ],
+    [
+     "AccessCount",
+     3
+    ],
+    [
+     "DataIndex",
+     3
+    ]
+   ],
+   "library_routines": [
+    [
+     "MID",
+     46
+    ],
+    [
+     "LENGTH",
+     45
+    ],
+    [
+     "LEFT",
+     40
+    ],
+    [
+     "NUM_TO_STRING",
+     28
+    ],
+    [
+     "RIGHT",
+     27
+    ],
+    [
+     "EOF",
+     26
+    ],
+    [
+     "INT",
+     24
+    ],
+    [
+     "STRING_TO_NUM",
+     11
+    ],
+    [
+     "ASC",
+     5
+    ],
+    [
+     "CHR",
+     5
+    ],
+    [
+     "RAND",
+     5
+    ],
+    [
+     "RND",
+     5
+    ],
+    [
+     "LEN",
+     4
+    ],
+    [
+     "TONUM",
+     3
+    ],
+    [
+     "UCASE",
+     3
+    ],
+    [
+     "LCASE",
+     2
+    ],
+    [
+     "MOD",
+     2
+    ],
+    [
+     "MOD_operator_or_call",
+     2
+    ],
+    [
+     "IS_NUM",
+     2
+    ],
+    [
+     "TO_UPPER",
+     2
+    ],
+    [
+     "STR_TO_NUM",
+     2
+    ],
+    [
+     "ISNUM",
+     1
+    ],
+    [
+     "DIV",
+     1
+    ],
+    [
+     "DIV_operator_or_call",
+     1
+    ],
+    [
+     "TODAY",
+     1
+    ],
+    [
+     "CHARACTERCOUNT",
+     1
+    ]
+   ],
+   "array_lower_bounds": [
+    [
+     "1",
+     15
+    ],
+    [
+     "0",
+     2
+    ]
+   ],
+   "for_start_values": {
+    "0": 9,
+    "1": 81,
+    "other": 4
+   }
+  },
+  "AS-9618": {
+   "counts": {
+    "blocks": 229,
+    "lines": 2640,
+    "assign_arrow": 767,
+    "ident_occurrences": 533,
+    "BYREF": 6,
+    "DECLARE": 289,
+    "blocks_4plus": 178,
+    "OPENFILE_READ": 17,
+    "IF": 205,
+    "IF_THEN_same_line": 187,
+    "EOF": 20,
+    "OUTPUT": 113,
+    "WHILE": 58,
+    "ENDWHILE": 56,
+    "ENDIF": 199,
+    "REPEAT": 28,
+    "FOR": 86,
+    "lines_with_square_index": 224,
+    "NEXT_var": 84,
+    "UNTIL": 28,
+    "bool_compare_explicit": 50,
+    "CONSTANT": 33,
+    "comment_lines": 106,
+    "RETURN": 105,
+    "ARRAY_decl": 11,
+    "CASE_OF_x": 9,
+    "lines_with_paren_index_guess": 23,
+    "FOR_STEP": 5,
+    "OUTPUT_with_comma": 30,
+    "THEN_own_line": 4,
+    "OUTPUT_with_&": 4,
+    "TYPE": 4,
+    "OPENFILE_WRITE": 9,
+    "INPUT": 26,
+    "CALL": 19,
+    "assign_equals": 3,
+    "OTHERWISE": 5,
+    "OPENFILE_APPEND": 2,
+    "ARRAY_2D_decl": 2,
+    "ELSEIF": 1,
+    "bool_NOT_bare": 9,
+    "BYVAL": 1,
+    "BREAK": 4,
+    "NEXT_bare": 1,
+    "ENDFOR": 1
+   },
+   "identifier_styles_unique_names": {
+    "Capitalised (one word)": 88,
+    "PascalCase (multi-word)": 210,
+    "single-letter": 11,
+    "lowercase": 6,
+    "UPPERCASE": 16,
+    "snake_case": 5,
+    "Pascal_Snake": 1
+   },
+   "identifier_style_examples": {
+    "Capitalised (one word)": [
+     "Actual",
+     "Added",
+     "Attendance",
+     "Average",
+     "Born",
+     "Boundary",
+     "Charcter",
+     "Check",
+     "Code",
+     "Col",
+     "Completed",
+     "Count",
+     "Data",
+     "Department",
+     "Destination",
+     "Dim",
+     "Discount",
+     "Done",
+     "Duplicates",
+     "Duration",
+     "Email",
+     "Error",
+     "Even",
+     "Expression",
+     "Filename"
+    ],
+    "PascalCase (multi-word)": [
+     "AChar",
+     "ACount",
+     "Array2",
+     "BCount",
+     "BaseNum",
+     "BitString",
+     "BookID",
+     "CEven",
+     "CNum",
+     "COdd",
+     "CarID",
+     "CardNumber",
+     "CaseMatters",
+     "CentreCol",
+     "CentreRow",
+     "Char1",
+     "Char2",
+     "CharA",
+     "CharB",
+     "CharCount",
+     "CheckDigit",
+     "CheckTotal",
+     "Code1",
+     "Code2",
+     "Count2"
+    ],
+    "single-letter": [
+     "A",
+     "B",
+     "C",
+     "D",
+     "J",
+     "T",
+     "X",
+     "Y",
+     "a",
+     "b",
+     "c"
+    ],
+    "lowercase": [
+     "x1",
+     "x2",
+     "x3",
+     "y1",
+     "y2",
+     "y3"
+    ],
+    "UPPERCASE": [
+     "DD",
+     "EOL",
+     "F1",
+     "F2",
+     "HH",
+     "MM",
+     "OK",
+     "P1",
+     "P2",
+     "RA",
+     "RB",
+     "RC",
+     "SID",
+     "SP",
+     "SS",
+     "YY"
+    ],
+    "snake_case": [
+     "Club_1",
+     "Club_2",
+     "Club_3",
+     "Limit_1",
+     "Limit_2"
+    ],
+    "Pascal_Snake": [
+     "Item_Num"
+    ]
+   },
+   "subprogram_counts": {
+    "PROCEDURE": 67,
+    "FUNCTION": 74
+   },
+   "subprogram_name_styles": {
+    "PascalCase (multi-word)": 74,
+    "Capitalised (one word)": 34,
+    "UPPERCASE": 1,
+    "snake_case": 3,
+    "Pascal_Snake": 2
+   },
+   "subprogram_name_examples": {
+    "PascalCase (multi-word)": [
+     "AddError",
+     "AddItem",
+     "AddNewCustomers",
+     "AddPassword",
+     "AdjustClock",
+     "ChangeSupp",
+     "CheckAll",
+     "CheckFile",
+     "CheckFiles",
+     "CheckInfo",
+     "CheckMark",
+     "CheckNewItem",
+     "CheckNumber",
+     "CountErrors",
+     "CountLoans",
+     "CountVowels",
+     "CreateFiles",
+     "CustomerOrder",
+     "DeleteComment",
+     "DeleteSpaces",
+     "FindBaseNumber",
+     "FindCustomer",
+     "FindModules",
+     "FindPassword",
+     "FirstRowSet",
+     "GBInitialise",
+     "GetCentre",
+     "GetCentreCol",
+     "GetDate",
+     "GetField"
+    ],
+    "Capitalised (one word)": [
+     "Absentees",
+     "Assign",
+     "Calculate",
+     "Chat",
+     "Check",
+     "Compare",
+     "Conceal",
+     "Count",
+     "Evaluate",
+     "Exists",
+     "Factorial",
+     "Generate",
+     "Header",
+     "Mix",
+     "Parity",
+     "Parse",
+     "Pop",
+     "Preview",
+     "Progress",
+     "Push",
+     "Replace",
+     "Restore",
+     "Save",
+     "Select",
+     "Sort",
+     "Special",
+     "Square",
+     "Status",
+     "Store",
+     "Summarise"
+    ],
+    "UPPERCASE": [
+     "MID"
+    ],
+    "snake_case": [
+     "Report_1",
+     "Stage_1",
+     "Stage_2"
+    ],
+    "Pascal_Snake": [
+     "Sub_Part2A",
+     "Sub_Part3A"
+    ]
+   },
+   "loop_variables_top": [
+    [
+     "Index",
+     42
+    ],
+    [
+     "Count",
+     17
+    ],
+    [
+     "ThisIndex",
+     4
+    ],
+    [
+     "Col",
+     3
+    ],
+    [
+     "Row",
+     2
+    ],
+    [
+     "ThisInt",
+     2
+    ],
+    [
+     "Port",
+     2
+    ],
+    [
+     "J",
+     2
+    ],
+    [
+     "Count2",
+     1
+    ],
+    [
+     "IndexB",
+     1
+    ],
+    [
+     "ACount",
+     1
+    ],
+    [
+     "BCount",
+     1
+    ],
+    [
+     "ThisSample",
+     1
+    ],
+    [
+     "ThisUser",
+     1
+    ],
+    [
+     "ThisNum",
+     1
+    ],
+    [
+     "IxA",
+     1
+    ],
+    [
+     "Num",
+     1
+    ],
+    [
+     "GBIndex",
+     1
+    ],
+    [
+     "EasyQ",
+     1
+    ],
+    [
+     "HardQ",
+     1
+    ]
+   ],
+   "assignment_targets_top": [
+    [
+     "FOR",
+     86
+    ],
+    [
+     "Index",
+     60
+    ],
+    [
+     "Count",
+     56
+    ],
+    [
+     "Total",
+     23
+    ],
+    [
+     "Found",
+     18
+    ],
+    [
+     "ThisChar",
+     16
+    ],
+    [
+     "Result",
+     11
+    ],
+    [
+     "Number",
+     11
+    ],
+    [
+     "Line",
+     10
+    ],
+    [
+     "Port",
+     9
+    ],
+    [
+     "Loan",
+     8
+    ],
+    [
+     "Num",
+     7
+    ],
+    [
+     "MyString",
+     7
+    ],
+    [
+     "Data",
+     7
+    ],
+    [
+     "Temp",
+     6
+    ],
+    [
+     "NoSwaps",
+     6
+    ],
+    [
+     "Boundary",
+     6
+    ],
+    [
+     "Done",
+     6
+    ],
+    [
+     "Average",
+     6
+    ],
+    [
+     "ThisNum",
+     6
+    ],
+    [
+     "LoyaltyPoints",
+     6
+    ],
+    [
+     "StartPos",
+     6
+    ],
+    [
+     "LineNum",
+     5
+    ],
+    [
+     "Password",
+     5
+    ],
+    [
+     "NumString",
+     5
+    ],
+    [
+     "Value",
+     5
+    ],
+    [
+     "Flag",
+     5
+    ],
+    [
+     "Sum",
+     5
+    ],
+    [
+     "MM",
+     5
+    ],
+    [
+     "Character",
+     5
+    ],
+    [
+     "SubString",
+     4
+    ],
+    [
+     "NewString",
+     4
+    ],
+    [
+     "MidString",
+     4
+    ],
+    [
+     "ThisItemNum",
+     4
+    ],
+    [
+     "ThisString",
+     4
+    ],
+    [
+     "NewLine",
+     4
+    ],
+    [
+     "Reading",
+     4
+    ],
+    [
+     "FileData",
+     4
+    ],
+    [
+     "EndCol",
+     4
+    ],
+    [
+     "Try",
+     4
+    ],
+    [
+     "Check",
+     4
+    ],
+    [
+     "LastNum",
+     4
+    ],
+    [
+     "CheckDigit",
+     4
+    ],
+    [
+     "Row",
+     3
+    ],
+    [
+     "NextWord",
+     3
+    ],
+    [
+     "NextPos",
+     3
+    ],
+    [
+     "CharCount",
+     3
+    ],
+    [
+     "Name",
+     3
+    ],
+    [
+     "NewItemNum",
+     3
+    ],
+    [
+     "StringB",
+     3
+    ],
+    [
+     "StepValue",
+     3
+    ],
+    [
+     "ModInfo",
+     3
+    ],
+    [
+     "Hour",
+     3
+    ],
+    [
+     "Screen",
+     3
+    ],
+    [
+     "ThisCol",
+     3
+    ],
+    [
+     "CentreCol",
+     3
+    ],
+    [
+     "ErrCode",
+     3
+    ],
+    [
+     "ErrText",
+     3
+    ],
+    [
+     "Finished",
+     3
+    ],
+    [
+     "RetVal",
+     3
+    ]
+   ],
+   "library_routines": [
+    [
+     "LENGTH",
+     54
+    ],
+    [
+     "MID",
+     42
+    ],
+    [
+     "LEFT",
+     35
+    ],
+    [
+     "STR_TO_NUM",
+     31
+    ],
+    [
+     "INT",
+     27
+    ],
+    [
+     "RIGHT",
+     22
+    ],
+    [
+     "EOF",
+     20
+    ],
+    [
+     "NUM_TO_STR",
+     16
+    ],
+    [
+     "RAND",
+     14
+    ],
+    [
+     "MOD_operator_or_call",
+     13
+    ],
+    [
+     "CHR",
+     7
+    ],
+    [
+     "TO_UPPER",
+     7
+    ],
+    [
+     "IS_NUM",
+     6
+    ],
+    [
+     "SETDATE",
+     6
+    ],
+    [
+     "DIV_operator_or_call",
+     6
+    ],
+    [
+     "LCASE",
+     5
+    ],
+    [
+     "TO_LOWER",
+     4
+    ],
+    [
+     "MONTH",
+     4
+    ],
+    [
+     "TODAY",
+     4
+    ],
+    [
+     "DAYINDEX",
+     4
+    ],
+    [
+     "UCASE",
+     3
+    ],
+    [
+     "SQRT",
+     1
+    ],
+    [
+     "DAY",
+     1
+    ],
+    [
+     "YEAR",
+     1
+    ]
+   ],
+   "array_lower_bounds": [
+    [
+     "1",
+     8
+    ],
+    [
+     "0",
+     3
+    ]
+   ],
+   "for_start_values": {
+    "1": 67,
+    "other": 11,
+    "0": 8
+   }
+  },
+  "IG-0478-new": {
+   "counts": {
+    "blocks": 137,
+    "lines": 1881,
+    "assign_arrow": 463,
+    "FOR": 86,
+    "WHILE": 35,
+    "WHILE_DO": 24,
+    "ident_occurrences": 278,
+    "blocks_4plus": 99,
+    "lines_with_square_index": 337,
+    "NEXT_var": 84,
+    "OUTPUT": 243,
+    "OUTPUT_with_comma": 113,
+    "IF": 99,
+    "THEN_own_line": 91,
+    "ENDIF": 97,
+    "DECLARE": 103,
+    "RETURN": 4,
+    "comment_lines": 61,
+    "CASE_OF_x": 6,
+    "INPUT": 120,
+    "NEXT_bare": 6,
+    "UNTIL": 47,
+    "bool_NOT_bare": 12,
+    "REPEAT": 46,
+    "ENDWHILE": 34,
+    "ARRAY_decl": 20,
+    "ARRAY_2D_decl": 6,
+    "lines_with_paren_index_guess": 7,
+    "OTHERWISE": 4,
+    "OPENFILE_WRITE": 6,
+    "OPENFILE_READ": 2,
+    "assign_equals": 4,
+    "CONSTANT": 7,
+    "PRINT": 4,
+    "bool_compare_explicit": 1,
+    "CALL": 1
+   },
+   "identifier_styles_unique_names": {
+    "Capitalised (one word)": 85,
+    "single-letter": 9,
+    "PascalCase (multi-word)": 95
+   },
+   "identifier_style_examples": {
+    "Capitalised (one word)": [
+     "Age",
+     "Amount",
+     "Average",
+     "Choice",
+     "City",
+     "Clubs",
+     "Column",
+     "Cont",
+     "Contacts",
+     "Continue",
+     "Count",
+     "Counter",
+     "Day",
+     "Days",
+     "Dimensions",
+     "Drawn",
+     "Evening",
+     "Event",
+     "Exit",
+     "Finish",
+     "Flag",
+     "Found",
+     "Grid",
+     "Heights",
+     "Highest"
+    ],
+    "single-letter": [
+     "A",
+     "B",
+     "I",
+     "J",
+     "P",
+     "Q",
+     "X",
+     "Y",
+     "Z"
+    ],
+    "PascalCase (multi-word)": [
+     "AccDetails",
+     "AccID",
+     "AccountNumber",
+     "AvArea",
+     "AvDay",
+     "AvWeek",
+     "AverageTemp",
+     "AverageWeekTemp",
+     "AwayWinNo",
+     "BottomTeam",
+     "ClassTotal",
+     "CodeStore",
+     "CompetitorScore",
+     "Count2",
+     "CountedNumber",
+     "CurrentCustomer",
+     "CurrentSize",
+     "DayAverage",
+     "DayCounter",
+     "DayLoop",
+     "DayTotal",
+     "DaysOver300",
+     "DrawNo",
+     "FullText",
+     "HighestResult"
+    ]
+   },
+   "subprogram_counts": {
+    "FUNCTION": 2,
+    "PROCEDURE": 8
+   },
+   "subprogram_name_styles": {
+    "Capitalised (one word)": 6,
+    "PascalCase (multi-word)": 4
+   },
+   "subprogram_name_examples": {
+    "Capitalised (one word)": [
+     "Balance",
+     "Deposit",
+     "Odds",
+     "Same",
+     "Swap",
+     "Time"
+    ],
+    "PascalCase (multi-word)": [
+     "CheckDetails",
+     "NewData",
+     "StoreData",
+     "WithDrawal"
+    ]
+   },
+   "loop_variables_top": [
+    [
+     "Count",
+     13
+    ],
+    [
+     "Index",
+     12
+    ],
+    [
+     "Index1",
+     11
+    ],
+    [
+     "Counter",
+     5
+    ],
+    [
+     "Index2",
+     4
+    ],
+    [
+     "X",
+     4
+    ],
+    [
+     "WeekLoop",
+     3
+    ],
+    [
+     "OutLoop",
+     3
+    ],
+    [
+     "Row",
+     3
+    ],
+    [
+     "Column",
+     3
+    ],
+    [
+     "Event",
+     3
+    ],
+    [
+     "TeamCounter",
+     2
+    ],
+    [
+     "DayCounter",
+     2
+    ],
+    [
+     "InLoop",
+     2
+    ],
+    [
+     "Y",
+     2
+    ],
+    [
+     "MatchCounter",
+     1
+    ],
+    [
+     "StudentCounter",
+     1
+    ],
+    [
+     "DayLoop",
+     1
+    ],
+    [
+     "Count2",
+     1
+    ],
+    [
+     "Loop",
+     1
+    ],
+    [
+     "Maximum",
+     1
+    ],
+    [
+     "TieCheck",
+     1
+    ],
+    [
+     "I",
+     1
+    ],
+    [
+     "J",
+     1
+    ],
+    [
+     "Sort",
+     1
+    ]
+   ],
+   "assignment_targets_top": [
+    [
+     "FOR",
+     86
+    ],
+    [
+     "Count",
+     29
+    ],
+    [
+     "Total",
+     21
+    ],
+    [
+     "Results",
+     14
+    ],
+    [
+     "Position",
+     13
+    ],
+    [
+     "should",
+     10
+    ],
+    [
+     "CountedNumber",
+     10
+    ],
+    [
+     "Swap",
+     9
+    ],
+    [
+     "Points",
+     9
+    ],
+    [
+     "Days",
+     7
+    ],
+    [
+     "Value",
+     6
+    ],
+    [
+     "Last",
+     6
+    ],
+    [
+     "Counter",
+     5
+    ],
+    [
+     "Contacts",
+     5
+    ],
+    [
+     "Flag",
+     5
+    ],
+    [
+     "Max",
+     5
+    ],
+    [
+     "For",
+     5
+    ],
+    [
+     "Store",
+     5
+    ],
+    [
+     "Quotations",
+     5
+    ],
+    [
+     "Values",
+     4
+    ],
+    [
+     "Highest",
+     4
+    ],
+    [
+     "Valid",
+     4
+    ],
+    [
+     "Temp1",
+     4
+    ],
+    [
+     "Price",
+     4
+    ],
+    [
+     "Temp2",
+     3
+    ],
+    [
+     "Statistics",
+     3
+    ],
+    [
+     "Min",
+     3
+    ],
+    [
+     "MoveError",
+     3
+    ],
+    [
+     "Index",
+     3
+    ],
+    [
+     "Search",
+     3
+    ],
+    [
+     "Start",
+     3
+    ],
+    [
+     "WoodType",
+     3
+    ],
+    [
+     "CurrentCustomer",
+     3
+    ],
+    [
+     "MemberTime",
+     3
+    ],
+    [
+     "Score",
+     3
+    ],
+    [
+     "TotalPoints",
+     2
+    ],
+    [
+     "HighestResult",
+     2
+    ],
+    [
+     "LowestResult",
+     2
+    ],
+    [
+     "Location",
+     2
+    ],
+    [
+     "LowestMinutes",
+     2
+    ],
+    [
+     "ClassTotal",
+     2
+    ],
+    [
+     "DaysOver300",
+     2
+    ],
+    [
+     "Used",
+     2
+    ],
+    [
+     "IndexCheck",
+     2
+    ],
+    [
+     "IndexOut",
+     2
+    ],
+    [
+     "TotalDayTemp",
+     2
+    ],
+    [
+     "TotalWeekTemp",
+     2
+    ],
+    [
+     "P",
+     2
+    ],
+    [
+     "AccDetails",
+     2
+    ],
+    [
+     "CurrentSize",
+     2
+    ],
+    [
+     "Cont",
+     2
+    ],
+    [
+     "Limit",
+     2
+    ],
+    [
+     "Grid",
+     2
+    ],
+    [
+     "NumberMoves",
+     2
+    ],
+    [
+     "PlayerRow",
+     2
+    ],
+    [
+     "PlayerColumn",
+     2
+    ],
+    [
+     "Win",
+     2
+    ],
+    [
+     "Teams",
+     2
+    ],
+    [
+     "Finish",
+     2
+    ],
+    [
+     "Names",
+     2
+    ]
+   ],
+   "library_routines": [
+    [
+     "ROUND",
+     25
+    ],
+    [
+     "LENGTH",
+     10
+    ],
+    [
+     "MOD",
+     9
+    ],
+    [
+     "MOD_operator_or_call",
+     9
+    ],
+    [
+     "SUBSTRING",
+     6
+    ],
+    [
+     "RANDOM",
+     6
+    ],
+    [
+     "DIV",
+     5
+    ],
+    [
+     "DIV_operator_or_call",
+     5
+    ],
+    [
+     "UCASE",
+     4
+    ],
+    [
+     "LCASE",
+     2
+    ]
+   ],
+   "array_lower_bounds": [
+    [
+     "1",
+     20
+    ]
+   ],
+   "for_start_values": {
+    "1": 82,
+    "other": 2,
+    "0": 2
+   }
+  },
+  "IG-0478-old": {
+   "counts": {
+    "blocks": 156,
+    "lines": 1830,
+    "blocks_4plus": 107,
+    "assign_arrow": 433,
+    "FOR": 35,
+    "OUTPUT": 188,
+    "OUTPUT_with_comma": 73,
+    "INPUT": 169,
+    "lines_with_square_index": 230,
+    "NEXT_bare": 14,
+    "ident_occurrences": 212,
+    "assign_equals": 14,
+    "WHILE": 41,
+    "WHILE_DO": 28,
+    "IF": 155,
+    "IF_THEN_same_line": 36,
+    "ENDIF": 128,
+    "ENDWHILE": 40,
+    "PRINT": 101,
+    "CASE_x_OF": 17,
+    "OTHERWISE": 10,
+    "REPEAT": 59,
+    "UNTIL": 62,
+    "CASE_OF_x": 5,
+    "THEN_own_line": 116,
+    "NEXT_var": 23,
+    "comment_lines": 29,
+    "lines_with_paren_index_guess": 17,
+    "INPUT_with_prompt": 2,
+    "bool_compare_explicit": 17,
+    "bool_NOT_bare": 9,
+    "FOR_STEP": 1,
+    "FOR_STEP_negative": 1
+   },
+   "identifier_styles_unique_names": {
+    "Capitalised (one word)": 44,
+    "single-letter": 3,
+    "lowercase": 7,
+    "camelCase": 8,
+    "PascalCase (multi-word)": 86,
+    "UPPERCASE": 1,
+    "snake_case": 3,
+    "Pascal_Snake": 12
+   },
+   "identifier_style_examples": {
+    "Capitalised (one word)": [
+     "Accept",
+     "Area",
+     "Average",
+     "Booked",
+     "Cabin",
+     "Check",
+     "Code",
+     "Continue",
+     "Correct",
+     "Cost",
+     "Count",
+     "Counter",
+     "Days",
+     "Donation",
+     "Fail",
+     "Flag",
+     "Found",
+     "High",
+     "Higher",
+     "Hole",
+     "Large",
+     "Low",
+     "Member",
+     "Message",
+     "Multiplier"
+    ],
+    "single-letter": [
+     "A",
+     "B",
+     "X"
+    ],
+    "lowercase": [
+     "count",
+     "counter",
+     "discount",
+     "physics",
+     "price",
+     "total",
+     "zero"
+    ],
+    "camelCase": [
+     "dataArray",
+     "foundProc",
+     "foundRAM",
+     "posCount",
+     "sCount",
+     "stRAM1",
+     "stRAM2",
+     "totalPayment"
+    ],
+    "PascalCase (multi-word)": [
+     "AllNumbersChecked",
+     "AnotherItem",
+     "ArrayIndex",
+     "BatchNo",
+     "BoatNumber",
+     "BookTime",
+     "BookingCode",
+     "BookingCost",
+     "CaseIndex",
+     "ClientName",
+     "ComponentFlag",
+     "CountA",
+     "CountB",
+     "CountC",
+     "CountD",
+     "CountE",
+     "CountF",
+     "CountUnder7",
+     "CourtNumber",
+     "DeviceFlag",
+     "DeviceType",
+     "ExtraWindowsCost",
+     "FailCount",
+     "FoundFlag",
+     "FullScore"
+    ],
+    "UPPERCASE": [
+     "SUM"
+    ],
+    "snake_case": [
+     "Daily_Total_Cost_of_Order",
+     "total_sacks_ordered",
+     "total_weight"
+    ],
+    "Pascal_Snake": [
+     "Daily_Order_Code",
+     "Daily_Order_Counter",
+     "Entry_Time",
+     "Menu_Count",
+     "Menu_Flag",
+     "Menu_Place",
+     "Order_Complete",
+     "Order_Item",
+     "Order_Number",
+     "Ticket_Array",
+     "Ticket_Number",
+     "Total_Cost"
+    ]
+   },
+   "subprogram_counts": {},
+   "subprogram_name_styles": {},
+   "subprogram_name_examples": {},
+   "loop_variables_top": [
+    [
+     "Count",
+     11
+    ],
+    [
+     "Counter",
+     8
+    ],
+    [
+     "counter",
+     2
+    ],
+    [
+     "X",
+     2
+    ],
+    [
+     "sCount",
+     1
+    ],
+    [
+     "Hole",
+     1
+    ],
+    [
+     "Player",
+     1
+    ],
+    [
+     "count",
+     1
+    ],
+    [
+     "Days",
+     1
+    ],
+    [
+     "A",
+     1
+    ],
+    [
+     "StoreLoop",
+     1
+    ],
+    [
+     "Type",
+     1
+    ],
+    [
+     "BoatNumber",
+     1
+    ],
+    [
+     "Cabin",
+     1
+    ],
+    [
+     "LoopCounter",
+     1
+    ],
+    [
+     "Member",
+     1
+    ]
+   ],
+   "assignment_targets_top": [
+    [
+     "Count",
+     46
+    ],
+    [
+     "FOR",
+     31
+    ],
+    [
+     "Total",
+     22
+    ],
+    [
+     "Counter",
+     15
+    ],
+    [
+     "total",
+     15
+    ],
+    [
+     "THEN",
+     9
+    ],
+    [
+     "IF",
+     9
+    ],
+    [
+     "Line",
+     9
+    ],
+    [
+     "total_weight",
+     6
+    ],
+    [
+     "TotalCost",
+     6
+    ],
+    [
+     "ComponentFlag",
+     6
+    ],
+    [
+     "Multiplier",
+     5
+    ],
+    [
+     "Found",
+     5
+    ],
+    [
+     "TotalAS",
+     5
+    ],
+    [
+     "SUM",
+     4
+    ],
+    [
+     "X",
+     4
+    ],
+    [
+     "Reject",
+     4
+    ],
+    [
+     "FullScore",
+     4
+    ],
+    [
+     "TotalPeople",
+     4
+    ],
+    [
+     "Search",
+     4
+    ],
+    [
+     "Continue",
+     4
+    ],
+    [
+     "foundRAM",
+     3
+    ],
+    [
+     "Average",
+     3
+    ],
+    [
+     "PriceToPay",
+     3
+    ],
+    [
+     "Accept",
+     3
+    ],
+    [
+     "TotalPrice",
+     3
+    ],
+    [
+     "TotalBF",
+     3
+    ],
+    [
+     "TotalBS",
+     3
+    ],
+    [
+     "TotalCS",
+     3
+    ],
+    [
+     "TotalDS",
+     3
+    ],
+    [
+     "TotalES",
+     3
+    ],
+    [
+     "Menu_Count",
+     3
+    ],
+    [
+     "should",
+     3
+    ],
+    [
+     "A",
+     2
+    ],
+    [
+     "foundProc",
+     2
+    ],
+    [
+     "count",
+     2
+    ],
+    [
+     "OTHERWISE",
+     2
+    ],
+    [
+     "Ticket_Number",
+     2
+    ],
+    [
+     "Spaces",
+     2
+    ],
+    [
+     "CountA",
+     2
+    ],
+    [
+     "CountE",
+     2
+    ],
+    [
+     "TotalA",
+     2
+    ],
+    [
+     "TotalE",
+     2
+    ],
+    [
+     "MP2",
+     2
+    ],
+    [
+     "High",
+     2
+    ],
+    [
+     "Low",
+     2
+    ],
+    [
+     "B",
+     2
+    ],
+    [
+     "DeviceFlag",
+     2
+    ],
+    [
+     "DeviceType",
+     2
+    ],
+    [
+     "SnackCodeFlag",
+     2
+    ],
+    [
+     "Number",
+     2
+    ],
+    [
+     "Cost",
+     2
+    ],
+    [
+     "TrainUp",
+     2
+    ],
+    [
+     "TrainDown",
+     2
+    ],
+    [
+     "TrainUpTotal",
+     2
+    ],
+    [
+     "TrainDownTotal",
+     2
+    ],
+    [
+     "Large",
+     2
+    ],
+    [
+     "Small",
+     2
+    ],
+    [
+     "StoreLoop",
+     2
+    ],
+    [
+     "ArrayIndex",
+     2
+    ]
+   ],
+   "library_routines": [
+    [
+     "DIV_operator_or_call",
+     4
+    ],
+    [
+     "INT",
+     2
+    ],
+    [
+     "ROUND",
+     2
+    ]
+   ],
+   "array_lower_bounds": [],
+   "for_start_values": {
+    "1": 27,
+    "0": 7,
+    "other": 1
+   }
+  }
+ },
+ "python": {
+  "AL-9608": {
+   "counts": {
+    "blocks": 97,
+    "lines": 663,
+    "list_comprehension": 3,
+    "for": 20,
+    "for_range_1_n": 7,
+    "for_range_other": 3,
+    "list_times_n": 3,
+    "for_range_n": 8,
+    "append": 8,
+    "empty_list_init": 4,
+    "def": 95,
+    "print": 29,
+    "while": 10,
+    "compare_eq_bool": 9,
+    "print_str_concat": 4,
+    "incr_X_eq_X_plus_1": 6,
+    "class": 14,
+    "private_attr_use": 142,
+    "return": 63,
+    "public_attr_use": 34,
+    "multiple_assignment": 1,
+    "getter": 11,
+    "print_with_commas": 4,
+    "random": 6,
+    "not_operator": 2,
+    "try": 5,
+    "input": 12,
+    "input_converted": 4,
+    "except_bare": 5,
+    "parent_init_explicit": 3,
+    "return_tuple": 1,
+    "percent_or_format": 4,
+    "global_stmt": 1,
+    "setter": 9,
+    "private_method": 6,
+    "open": 2,
+    "comment_lines": 4,
+    "for_range_0_n": 2,
+    "literal_list_init": 2,
+    "while_True": 2,
+    "in_membership": 1,
+    "super_init": 1,
+    "trailing_type_comment": 3,
+    "read_all": 1,
+    "close": 1
+   },
+   "identifier_styles_unique_names": {
+    "Capitalised (one word)": 22,
+    "PascalCase (multi-word)": 36,
+    "single-letter": 4,
+    "attr:Capitalised (one word)": 23,
+    "attr:PascalCase (multi-word)": 21,
+    "lowercase": 8,
+    "snake_case": 2,
+    "camelCase": 13,
+    "attr:lowercase": 5,
+    "attr:camelCase": 1
+   },
+   "identifier_style_examples": {
+    "Capitalised (one word)": [
+     "Board",
+     "Chars",
+     "Counter",
+     "Credits",
+     "Filename",
+     "Found",
+     "Foundtreasure",
+     "Grade",
+     "Hash",
+     "Hole",
+     "Island",
+     "Location",
+     "Message",
+     "Pointer",
+     "Sand",
+     "Score",
+     "Skill",
+     "Ten",
+     "Treasure",
+     "Twenty",
+     "Valid",
+     "Value"
+    ],
+    "PascalCase (multi-word)": [
+     "BMXJudge",
+     "BasicSalary",
+     "BonusPayment",
+     "CreditPerDollar",
+     "FinalMark",
+     "FirstQuiz",
+     "FreeCredit10",
+     "FreeCredit20",
+     "GameData",
+     "GiftBox",
+     "HashV",
+     "HoursBonus",
+     "HoursMonthBonus",
+     "ISBNint",
+     "InputPlayerID",
+     "IsValid",
+     "JoannePlayer",
+     "MonthlySalary",
+     "NewNodePointer",
+     "NoFurther",
+     "OneS",
+     "ParkingMeter",
+     "PensionCost",
+     "PensionPayment",
+     "PlayerID"
+    ],
+    "single-letter": [
+     "F",
+     "i",
+     "x",
+     "y"
+    ],
+    "attr:Capitalised (one word)": [
+     "Address",
+     "Amount",
+     "Calories",
+     "Category",
+     "Credits",
+     "Data",
+     "Gender",
+     "Grade",
+     "Grid",
+     "Health",
+     "Instructor",
+     "Lock",
+     "Name",
+     "Pension",
+     "Pointer",
+     "Score",
+     "Shape",
+     "Shield",
+     "Size",
+     "Skill",
+     "Sport",
+     "State",
+     "Strength"
+    ],
+    "attr:PascalCase (multi-word)": [
+     "CauseDamage",
+     "DamagePoints",
+     "DateOfBirth",
+     "EmployeeID",
+     "FinalMark",
+     "FirstName",
+     "FoodID",
+     "FreeListPointer",
+     "HeadPointer",
+     "LastName",
+     "NodeArray",
+     "NumberOfQuestions",
+     "PaperID",
+     "PaymentInterval",
+     "PerfType",
+     "PlayerID",
+     "PositionX",
+     "PrintID",
+     "SecondaryRole",
+     "StageName",
+     "UseFire"
+    ],
+    "lowercase": [
+     "coins",
+     "contacts",
+     "count",
+     "digits",
+     "file",
+     "mark",
+     "mid",
+     "username"
+    ],
+    "snake_case": [
+     "Acrobat_1",
+     "self__Score"
+    ],
+    "camelCase": [
+     "candidateNumber",
+     "centreNumber",
+     "coinValue",
+     "isValid",
+     "lowerBound",
+     "machineOne",
+     "newAnimal",
+     "newInput",
+     "numberStudents",
+     "studentAccounts",
+     "studentAdd",
+     "theShape",
+     "upperBound"
+    ],
+    "attr:lowercase": [
+     "amount",
+     "balance",
+     "code",
+     "items",
+     "state"
+    ],
+    "attr:camelCase": [
+     "moneyIn"
+    ]
+   },
+   "def_name_styles": {
+    "PascalCase (multi-word)": 50,
+    "lowercase": 4,
+    "Capitalised (one word)": 6,
+    "camelCase": 9
+   },
+   "def_name_examples": {
+    "PascalCase (multi-word)": [
+     "AddItem",
+     "AddQuestion",
+     "AddToList",
+     "CalculateMonthlySalary",
+     "CreateID",
+     "CreatePlayer",
+     "DigHole",
+     "DisplayFullnameAndDateofbirth",
+     "DisplayGrid",
+     "EditSecondaryRole",
+     "EditStageName",
+     "FindLeaves",
+     "GenerateDirection",
+     "GetCalories",
+     "GetCategory",
+     "GetDetails",
+     "GetEmployeeID",
+     "GetFee",
+     "GetFinalMark",
+     "GetGrade",
+     "GetLessonType",
+     "GetNumber",
+     "GetPaperID",
+     "GetPlayerID",
+     "GetScenery",
+     "GetScore",
+     "GetSkill",
+     "GetSquare",
+     "GiveDamagePoints",
+     "HideTreasure"
+    ],
+    "lowercase": [
+     "__init__",
+     "__valid",
+     "main",
+     "reset"
+    ],
+    "Capitalised (one word)": [
+     "Compare",
+     "Hash",
+     "Introduction",
+     "Move",
+     "Pop",
+     "Unlock"
+    ],
+    "camelCase": [
+     "__validCoin",
+     "checkValidCode",
+     "coinInserted",
+     "getAccountNumber",
+     "getBalance",
+     "recursiveBinarySearch",
+     "setAccountNumber",
+     "setBalance",
+     "stateChange"
+    ]
+   }
+  },
+  "AL-9618": {
+   "counts": {
+    "blocks": 381,
+    "lines": 2920,
+    "class": 41,
+    "def": 276,
+    "public_attr_use": 54,
+    "while": 56,
+    "print": 222,
+    "input": 55,
+    "return": 209,
+    "compare_eq_bool": 33,
+    "print_with_commas": 53,
+    "literal_list_init": 9,
+    "for": 131,
+    "for_range_0_n": 83,
+    "input_converted": 30,
+    "temp_swap_start": 6,
+    "comment_lines": 55,
+    "declaration_comment": 15,
+    "private_attr_use": 226,
+    "try": 24,
+    "open": 29,
+    "readline": 23,
+    "strip": 29,
+    "append": 73,
+    "close": 28,
+    "except_named": 11,
+    "getter": 58,
+    "incr_X_eq_X_plus_1": 31,
+    "trailing_type_comment": 82,
+    "list_times_n": 4,
+    "break": 5,
+    "return_tuple": 10,
+    "global_stmt": 148,
+    "random": 4,
+    "list_comprehension": 7,
+    "empty_list_init": 57,
+    "for_each_item": 21,
+    "for_line_in_file": 13,
+    "incr_plus_equals": 23,
+    "setter": 18,
+    "parent_init_explicit": 1,
+    "not_operator": 2,
+    "UPPER_constant_assign": 3,
+    "super_init": 5,
+    "except_bare": 13,
+    "multiple_assignment": 5,
+    "read_all": 5,
+    "split": 9,
+    "for_range_n": 21,
+    "for_range_1_n": 5,
+    "print_str_concat": 4,
+    "while_True": 1,
+    "tuple_swap": 4,
+    "for_range_other": 1
+   },
+   "identifier_styles_unique_names": {
+    "camelCase": 14,
+    "lowercase": 12,
+    "attr:lowercase": 3,
+    "PascalCase (multi-word)": 184,
+    "Capitalised (one word)": 95,
+    "attr:Capitalised (one word)": 24,
+    "attr:PascalCase (multi-word)": 48,
+    "attr:UPPERCASE": 1,
+    "UPPERCASE": 3,
+    "single-letter": 4
+   },
+   "identifier_style_examples": {
+    "camelCase": [
+     "arrayData",
+     "currentPointer",
+     "dataFetched",
+     "dataToAdd",
+     "emptyList",
+     "flagContinue",
+     "linkedList",
+     "newNode",
+     "nextEmpty",
+     "previousPointer",
+     "returnValue",
+     "searchValue",
+     "startPointer",
+     "theArray"
+    ],
+    "lowercase": [
+     "answer",
+     "attempts",
+     "choice",
+     "file",
+     "filename",
+     "keep",
+     "output",
+     "points",
+     "question",
+     "result",
+     "score",
+     "temp"
+    ],
+    "attr:lowercase": [
+     "answer",
+     "points",
+     "question"
+    ],
+    "PascalCase (multi-word)": [
+     "Animal1",
+     "Animal2",
+     "Animal3",
+     "AnimalFile",
+     "AnimalReturned",
+     "AnimalTopPointer",
+     "ArrayData",
+     "ArrayLength",
+     "ArrayNodes",
+     "AverageSuccess",
+     "Balloon1",
+     "BubbleSorted",
+     "CardArray",
+     "CardGot",
+     "CardSelected",
+     "CharacterInput",
+     "CharacterName",
+     "CharacterToMove",
+     "CheckItem",
+     "CircularQueue",
+     "ColourFile",
+     "ColourRead",
+     "ColourReturned",
+     "ColourTopPointer",
+     "ConsonantTop"
+    ],
+    "Capitalised (one word)": [
+     "Animal",
+     "Animals",
+     "Answer",
+     "Average",
+     "Blue",
+     "Bonus",
+     "Car",
+     "Chance",
+     "Character",
+     "Characters",
+     "Choice",
+     "Code",
+     "Colour",
+     "Colours",
+     "Continue",
+     "Correct",
+     "Count",
+     "Counter",
+     "Course",
+     "Data",
+     "Description",
+     "Difference",
+     "Direction",
+     "Evergreen",
+     "File"
+    ],
+    "attr:Capitalised (one word)": [
+     "Colour",
+     "Data",
+     "Description",
+     "Difficulty",
+     "Drive",
+     "Element",
+     "Evergreen",
+     "Health",
+     "Height",
+     "Intelligence",
+     "Jump",
+     "Key",
+     "Name",
+     "Number",
+     "Risk",
+     "Route",
+     "Run",
+     "Species",
+     "Speed",
+     "Swim",
+     "Total",
+     "Trains",
+     "Tree",
+     "Width"
+    ],
+    "attr:PascalCase (multi-word)": [
+     "BonusValue",
+     "CName",
+     "CharacterName",
+     "CurrentSpeed",
+     "DateOfBirth",
+     "DefenceItem",
+     "DistancePerHour",
+     "EmployeeNumber",
+     "EventName",
+     "EventType",
+     "FirstCard",
+     "FirstNode",
+     "FrameColour",
+     "HeadNode",
+     "HeightGrowth",
+     "HorizontalPosition",
+     "HourlyPay",
+     "IncreaseAmount",
+     "Item1",
+     "Item2",
+     "JobTitle",
+     "LeftNode",
+     "LeftPointer",
+     "MaxFenceHeight",
+     "MaxHeight"
+    ],
+    "attr:UPPERCASE": [
+     "ID"
+    ],
+    "UPPERCASE": [
+     "ID",
+     "P1",
+     "P2"
+    ],
+    "single-letter": [
+     "I",
+     "N",
+     "X",
+     "Y"
+    ]
+   },
+   "def_name_styles": {
+    "lowercase": 2,
+    "camelCase": 9,
+    "PascalCase (multi-word)": 138,
+    "Capitalised (one word)": 21
+   },
+   "def_name_examples": {
+    "lowercase": [
+     "__init__",
+     "_init_"
+    ],
+    "camelCase": [
+     "addNode",
+     "bubbleSort",
+     "checkAnswer",
+     "chooseCard",
+     "getPoints",
+     "getQuestion",
+     "linearSearch",
+     "outputNodes",
+     "readData"
+    ],
+    "PascalCase (multi-word)": [
+     "AddJob",
+     "AddNode",
+     "AddTrain",
+     "BinarySearch",
+     "BubbleSort",
+     "CalculateHash",
+     "CalculateScore",
+     "CalculateValue",
+     "ChangeHealth",
+     "ChangeNumberWords",
+     "ChangePosition",
+     "CheckHealth",
+     "ChooseTree",
+     "CompareStrings",
+     "CreateHashTable",
+     "CreateQueue",
+     "DisplayBoard",
+     "EnterHours",
+     "EnterRecord",
+     "FindValues",
+     "FormatArray",
+     "GetCard",
+     "GetCode",
+     "GetColour",
+     "GetCurrentSpeed",
+     "GetData",
+     "GetDefenceItem",
+     "GetDescription",
+     "GetDifficulty",
+     "GetEmployeeNumber"
+    ],
+    "Capitalised (one word)": [
+     "Arrange",
+     "Bubble",
+     "Calculate",
+     "Compress",
+     "Defend",
+     "Dequeue",
+     "Description",
+     "Enqueue",
+     "Hash",
+     "Initialise",
+     "Insert",
+     "Learn",
+     "Move",
+     "Play",
+     "Pop",
+     "Printarray",
+     "Push",
+     "Search",
+     "Success",
+     "Traverse",
+     "Unknown"
+    ]
+   }
+  },
+  "AS-9608": {
+   "counts": {
+    "blocks": 92,
+    "lines": 976,
+    "empty_list_init": 4,
+    "append": 5,
+    "input": 29,
+    "input_converted": 11,
+    "for": 33,
+    "for_range_n": 7,
+    "print": 39,
+    "print_str_concat": 6,
+    "while": 41,
+    "incr_X_eq_X_plus_1": 34,
+    "def": 56,
+    "comment_lines": 179,
+    "open": 20,
+    "close": 18,
+    "for_range_other": 1,
+    "declaration_comment": 137,
+    "readline": 28,
+    "return": 30,
+    "for_range_0_n": 7,
+    "not_operator": 14,
+    "print_with_commas": 14,
+    "while_True": 3,
+    "break": 4,
+    "strip": 7,
+    "UPPER_constant_assign": 11,
+    "trailing_type_comment": 2,
+    "compare_eq_bool": 15,
+    "temp_swap_start": 4,
+    "split": 1,
+    "for_range_1_n": 16,
+    "list_times_n": 5,
+    "random": 9,
+    "list_comprehension": 4,
+    "in_membership": 1,
+    "index_method": 1,
+    "incr_plus_equals": 5,
+    "literal_list_init": 2,
+    "for_each_item": 2,
+    "for_line_in_file": 1,
+    "declaration_comment_DECLARE_form": 21
+   },
+   "identifier_styles_unique_names": {
+    "Capitalised (one word)": 46,
+    "PascalCase (multi-word)": 95,
+    "single-letter": 2,
+    "camelCase": 11,
+    "lowercase": 13,
+    "UPPERCASE": 9
+   },
+   "identifier_style_examples": {
+    "Capitalised (one word)": [
+     "Accepted",
+     "Angle",
+     "Average",
+     "Boundary",
+     "Comma",
+     "Contact",
+     "Cost",
+     "Count",
+     "Current",
+     "Danger",
+     "Description",
+     "Due",
+     "Duration",
+     "Error",
+     "File",
+     "Filename",
+     "Flower",
+     "Found",
+     "Hours",
+     "Index",
+     "Isbn",
+     "Key",
+     "Location",
+     "Lookup",
+     "Myfile"
+    ],
+    "PascalCase (multi-word)": [
+     "AllFlowersVisited",
+     "ArrayIndex",
+     "ArrayResult",
+     "ArrayRow",
+     "ArrayString",
+     "AverageScore",
+     "BoatNum",
+     "CDArtist",
+     "CDLocation",
+     "CDSearch",
+     "CDTitle",
+     "CharArray",
+     "CipherChar",
+     "CountAndDate",
+     "CountHashDate",
+     "CustomerID",
+     "DailyTakings",
+     "DataIndex",
+     "EnChar",
+     "EnFileData",
+     "EnFilehandle",
+     "EndOfGeoCode",
+     "EndTag",
+     "FileData",
+     "FileHandle"
+    ],
+    "single-letter": [
+     "i",
+     "n"
+    ],
+    "camelCase": [
+     "fileData",
+     "lCaseChar",
+     "myFile",
+     "nextChar",
+     "nextNumber",
+     "numChar",
+     "numberToOutput",
+     "returnFlag",
+     "searchLength",
+     "startIndex",
+     "uCaseChar"
+    ],
+    "lowercase": [
+     "average",
+     "expected",
+     "filedata",
+     "filehandle",
+     "fileline",
+     "found",
+     "frequency",
+     "highest",
+     "newdata",
+     "nextarrayelement",
+     "position",
+     "resultarray",
+     "total"
+    ],
+    "UPPERCASE": [
+     "ASTERISK",
+     "COLON",
+     "COMMA",
+     "FILENAME",
+     "HASH",
+     "ID",
+     "SAFELIMIT",
+     "SPACE",
+     "TREECOUNT"
+    ]
+   },
+   "def_name_styles": {
+    "PascalCase (multi-word)": 41,
+    "camelCase": 1,
+    "Capitalised (one word)": 7,
+    "lowercase": 1
+   },
+   "def_name_examples": {
+    "PascalCase (multi-word)": [
+     "AddNewScores",
+     "AddReview",
+     "BubbleSort",
+     "CalculateCustomerID",
+     "CheckSkid",
+     "CheckTree",
+     "CountHashtag",
+     "ExtractArrays",
+     "FindBooksBy",
+     "FindCD",
+     "FindRepeats",
+     "GenerateNumber",
+     "GetAverageScore",
+     "GetInfo",
+     "GetNumber",
+     "GetTag",
+     "GetTotals",
+     "GetValidFilename",
+     "GroupReport",
+     "GroupSummary",
+     "IncrementHashtag",
+     "InputData",
+     "IsFactor",
+     "LoadArrays",
+     "OutputLines",
+     "OutputLowestScore",
+     "ProcessArray",
+     "ProcessMarks",
+     "ProductCodeSearch",
+     "RandomPath"
+    ],
+    "camelCase": [
+     "searchFile"
+    ],
+    "Capitalised (one word)": [
+     "Check",
+     "Encrypt",
+     "Extract",
+     "Search",
+     "Unpack",
+     "Update",
+     "Verify"
+    ],
+    "lowercase": [
+     "scanfile"
+    ]
+   }
+  },
+  "IG-0478-old": {
+   "counts": {
+    "blocks": 1,
+    "lines": 4
+   },
+   "identifier_styles_unique_names": {},
+   "identifier_style_examples": {},
+   "def_name_styles": {},
+   "def_name_examples": {}
+  }
+ }
+}

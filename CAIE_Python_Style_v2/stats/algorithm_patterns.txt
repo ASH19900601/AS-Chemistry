@@ -1,0 +1,97 @@
+binary search                                 pseudocode AL     5
+binary search                                 pseudocode AS     1
+binary search                                 python     AL     5
+binary search: recursive                      pseudocode AL     1
+binary search: recursive                      python     AL     3
+bubble: flag (other)                          pseudocode IG     2
+bubble: flag + REPEAT/UNTIL                   pseudocode AL     2
+bubble: flag + REPEAT/UNTIL                   pseudocode AS     7
+bubble: flag + REPEAT/UNTIL                   pseudocode IG     4
+bubble: flag + WHILE                          pseudocode AL     1
+bubble: flag + WHILE                          pseudocode IG     1
+bubble: flag + WHILE                          python     AS     2
+bubble: nested FOR, no flag                   pseudocode AL     4
+bubble: nested FOR, no flag                   python     AL     5
+bubble: shrinking boundary                    pseudocode AL     3
+bubble: shrinking boundary                    pseudocode AS     7
+bubble: shrinking boundary                    pseudocode IG     3
+bubble: shrinking boundary                    python     AS     1
+counter +1                                    pseudocode AL     6
+counter +1                                    pseudocode AS    42
+counter +1                                    pseudocode IG    44
+counter +1                                    python     AL     5
+counter +1                                    python     AS     4
+file: WHILE NOT EOF(...)                      pseudocode AL     1
+file: WHILE NOT EOF(...)                      pseudocode AS    40
+insertion sort                                pseudocode AL     3
+insertion sort                                python     AL     3
+max/min init: first element                   pseudocode IG     2
+max/min init: first element                   python     AL     1
+max/min init: from variable (e.g. first input) pseudocode IG     2
+max/min init: literal sentinel                pseudocode AL     1
+max/min init: literal sentinel                pseudocode AS     4
+max/min init: literal sentinel                pseudocode IG     9
+max/min init: literal sentinel                python     AL     1
+max/min init: literal sentinel                python     AS     1
+not-found sentinel -1                         pseudocode AL     1
+not-found sentinel -1                         pseudocode AS    12
+not-found sentinel -1                         python     AL     1
+not-found sentinel -1                         python     AS     4
+python file: for Line in File                 python     AL    12
+python file: for Line in File                 python     AS     1
+python file: read().split                     python     AL     3
+python file: readline until ""                python     AS     7
+python tuple swap                             python     AL     4
+python: bare except                           python     AL    17
+python: except IOError                        python     AL    11
+queue with head/tail pointers                 pseudocode AL     6
+queue with head/tail pointers                 python     AL    29
+queue: circular wrap                          pseudocode AL     6
+queue: circular wrap                          python     AL    12
+running total                                 pseudocode AS    22
+running total                                 pseudocode IG    39
+running total                                 python     AL     7
+running total                                 python     AS     5
+search: FOR with early RETURN                 pseudocode AS    10
+search: FOR with early RETURN                 python     AL     2
+search: REPEAT ... UNTIL Found OR end         pseudocode AS     5
+search: REPEAT ... UNTIL Found OR end         pseudocode IG     2
+search: WHILE ... AND NOT Found               pseudocode AL     4
+search: WHILE ... AND NOT Found               pseudocode AS    14
+search: WHILE ... AND NOT Found               pseudocode IG     1
+search: WHILE ... AND NOT Found               python     AL     2
+search: WHILE ... AND NOT Found               python     AS     5
+stack with pointer                            pseudocode AL     6
+stack with pointer                            pseudocode AS     1
+stack with pointer                            python     AL     9
+string: MID(S, i, 1) char loop                pseudocode AL     1
+string: MID(S, i, 1) char loop                pseudocode AS    44
+
+binary search ['9608_s17_ms_41_p5_b5', '9608_s18_ms_42_p8_b7', '9608_w21_ms_41_p8_b6', '9618_s22_ms_42_p22_b27']
+binary search: recursive ['9608_s17_ms_41_p5_b5', '9618_s22_ms_42_p22_b27', '9618_s24_ms_42_p48_b65', '9618_w25_ms_42_p24_b36']
+python: bare except ['9608_s17_ms_42_p16_b28', '9608_s20_ms_42_p4_b1', '9608_w21_ms_41_p14_b18', '9608_w21_ms_42_p20_b17']
+bubble: nested FOR, no flag ['9608_s18_ms_41_p5_b5', '9608_s21_ms_42_p17_b25', '9608_w18_ms_42_p6_b8', '9618_s21_ms_41_p20_b27']
+bubble: shrinking boundary ['9608_s18_ms_41_p5_b5', '9608_w18_ms_42_p7_b9', '9608_w21_ms_42_p4_b1', '9608_s20_ms_21_p9_b6']
+search: WHILE ... AND NOT Found ['9608_s18_ms_42_p8_b7', '9608_w21_ms_41_p18_b24', '9618_s24_ms_31_p12_b8', '9618_s24_ms_32_p10_b7']
+stack with pointer ['9608_s19_ms_42_p18_b18', '9608_w18_ms_41_p10_b8', '9608_w18_ms_41_p10_b9', '9618_s22_ms_42_p6_b8']
+bubble: flag + WHILE ['9608_s19_ms_42_p21_b49', '9608_s20_ms_22_p13_b12', '9608_w20_ms_23_p21_b27', '0478_w25_ms_22_p17_b20']
+insertion sort ['9608_s19_ms_42_p21_b49', '9618_s21_ms_31_p9_b8', '9618_s24_ms_42_p45_b58', '9618_s25_ms_33_p15_b8']
+counter +1 ['9608_s19_ms_42_p21_b49', '9608_s20_ms_41_p13_b16', '9608_s20_ms_42_p6_b6', '9608_s21_ms_42_p17_b25']
+search: FOR with early RETURN ['9608_s21_ms_41_p7_b5', '9618_s21_ms_41_p16_b20', '9608_s21_ms_22_p12_b10', '9618_s22_ms_22_p12_b38']
+queue with head/tail pointers ['9608_s21_ms_42_p15_b23', '9608_s21_ms_42_p16_b24', '9618_s22_ms_41_p27_b49', '9618_s22_ms_41_p28_b51']
+queue: circular wrap ['9608_s21_ms_42_p15_b23', '9608_s21_ms_42_p16_b24', '9618_s22_ms_41_p28_b51', '9618_s22_ms_41_p29_b53']
+not-found sentinel -1 ['9608_s21_ms_42_p16_b24', '9608_w21_ms_41_p18_b24', '9608_s21_ms_22_p9_b6', '9608_s21_ms_22_p15_b14']
+string: MID(S, i, 1) char loop ['9608_w18_ms_41_p8_b5', '9608_s16_ms_21_p5_b8', '9608_s17_ms_21_p4_b10', '9608_s17_ms_21_p6_b13']
+bubble: flag + REPEAT/UNTIL ['9608_w18_ms_42_p7_b9', '9608_w21_ms_42_p4_b1', '9608_s20_ms_21_p9_b6', '9608_s20_ms_22_p9_b7']
+python: except IOError ['9618_s21_ms_41_p23_b33', '9618_s22_ms_42_p29_b36', '9618_s23_ms_41_p6_b6', '9618_s23_ms_41_p31_b56']
+file: WHILE NOT EOF(...) ['9618_s23_ms_31_p8_b12', '9608_s16_ms_23_p8_b17', '9608_s17_ms_21_p5_b12', '9608_s18_ms_22_p10_b29']
+python file: for Line in File ['9618_s23_ms_41_p6_b6', '9618_s23_ms_41_p31_b56', '9618_s23_ms_41_p35_b63', '9618_s25_ms_41_p19_b16']
+running total ['9618_s23_ms_42_p27_b44', '9618_s25_ms_42_p16_b15', '9618_s25_ms_43_p17_b15', '9618_w22_ms_41_p5_b7']
+python file: read().split ['9618_s24_ms_41_p20_b30', '9618_w24_ms_41_p4_b1', '9618_w24_ms_42_p32_b51']
+max/min init: literal sentinel ['9618_s25_ms_33_p14_b7', '9618_s25_ms_43_p27_b30', '9608_s18_ms_22_p10_b29', '9608_s18_ms_22_p16_b38']
+python tuple swap ['9618_w22_ms_41_p7_b13', '9618_w24_ms_41_p9_b13', '9618_w24_ms_42_p35_b58', '9618_w25_ms_42_p21_b30']
+max/min init: first element ['9618_w24_ms_41_p22_b40', '0478_s24_ms_22_p8_b6', '0478_s25_ms_21_p17_b14']
+python file: readline until "" ['9608_s16_ms_23_p12_b24', '9608_s18_ms_22_p16_b38', '9608_s18_ms_23_p12_b23', '9608_s20_ms_22_p15_b20']
+search: REPEAT ... UNTIL Found OR end ['9608_w16_ms_22_p8_b16', '9608_w20_ms_23_p13_b17', '9608_w20_ms_23_p14_b18', '9618_s21_ms_22_p9_b23']
+bubble: flag (other) ['0478_m24_ms_22_p6_b2', '0478_w24_ms_22_p5_b13']
+max/min init: from variable (e.g. first input) ['0478_s19_ms_22_p6_b5', '0478_w23_ms_23_p14_b13']

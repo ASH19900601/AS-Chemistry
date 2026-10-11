@@ -1,0 +1,2047 @@
+# CAIE mark-scheme code corpus: AL / pseudocode
+# Source: Cambridge International mark schemes (MS) 2016-2025, re-extracted from the PDFs
+#         listed in tools/ms_manifest.csv (SHA-256 verified). Cambridge retains copyright;
+#         this file is for private study.
+# Levels: IG = IGCSE 0478 Papers 1-2; AS = 9608/9618 Papers 1-2; AL = 9608/9618 Papers 3-4.
+# Each block header: block id | source PDF and physical page(s) | language (basis) | MS prose
+#         just above the block (truncated). Identical blocks repeated in other variants are
+#         listed once; corpus/blocks.jsonl records every block and its duplicate_of link.
+# Extraction is automatic (monospace-font detection, indentation rebuilt from x positions).
+# Typos in the code are Cambridge's own and are kept; wrapped lines may be re-joined.
+# The PDF page is authoritative.
+
+=== 9608_s16_ms_41_p2_b5 | 9608_s16_ms_41.pdf p2 | pseudocode (keywords) | context: 
+(DECLARE) Ptr : INTEGER
+ENDTYPE
+
+=== 9608_s16_ms_41_p3_b27 | 9608_s16_ms_41.pdf p3 | pseudocode (keywords) | context: (ii) Accept () instead of []
+Current ← StartPtr
+02 IF Current = 0
+03  THEN
+
+=== 9608_s16_ms_41_p3_b28 | 9608_s16_ms_41.pdf p3 | pseudocode (keywords) | context: (ii) Accept () instead of [] / OUTPUT "Empty List" (or similar message)
+04
+05  ELSE
+06  IsFound ← FALSE
+07  INPUT ThisSurname
+08  REPEAT
+09  IF SurnameList[Current].Surname = ThisSurname
+10  THEN
+11  IsFound ← TRUE
+12  OUTPUT "Surname found at position ", Current
+13  ELSE
+14  // move to the next list item
+15  Current ← SurnameList[Current].Ptr
+16  ENDIF
+17  UNTIL IsFound = TRUE OR Current = 0
+18  IF IsFound = FALSE
+19  THEN
+20  OUTPUT "Not Found"
+21  ENDIF
+22 ENDIF
+
+=== 9608_s17_ms_31_p2_b1 | 9608_s17_ms_31.pdf p2 | pseudocode (keywords) | context: 
+DECLARE Book  : LibraryBookRecord
+Book.Title ← "Dune"
+TYPE LibraryBookRecord
+   DECLARE ISBN      : INTEGER
+   DECLARE Title     : STRING
+   DECLARE Genre     : (Fiction, Non-Fiction)
+   DECLARE NumberOfLoans : 1 .. 99
+ENDTYPE
+
+=== 9608_s17_ms_31_p2_b2 | 9608_s17_ms_31.pdf p2 | pseudocode (keywords) | context: 1(c)(iii) 88 / 1(c)(iv) FALSE
+        Temp2 ← 22
+        IntPointer ← @Temp1
+1(d)(iii) IntPointer^ ← Temp2
+
+=== 9608_s17_ms_31_p5_b4 | 9608_s17_ms_31.pdf p5 | pseudocode (keywords) | context: Minimum value: 0 / Maximum value: 99999
+PROCEDURE InsertRecord(CustomerID : INTEGER)
+      RecordKey ← CustomerID MOD 100000
+      Success ← FALSE
+      // Find position for new record and insert it
+      REPEAT
+         IF record at position RecordKey is empty
+            THEN
+               Insert new record at position RecordKey
+               Success ← TRUE
+            ELSE
+               IF RecordKey = 99999
+                  THEN
+                     RecordKey ← 0
+                  ELSE
+                     RecordKey ← RecordKey + 1
+               ENDIF
+         ENDIF
+      UNTIL Success = TRUE
+   ENDPROCEDURE
+
+=== 9608_s17_ms_32_p2_b1 | 9608_s17_ms_32.pdf p2 | pseudocode (keywords) | context: 
+DECLARE NewFriend  : MyContactDetail
+NewFriend.HouseNumber ← 129
+
+=== 9608_s17_ms_32_p2_b2 | 9608_s17_ms_32.pdf p2 | pseudocode (keywords) | context: 1 / For example:
+TYPE MyContactDetail
+   DECLARE Name        : STRING
+   DECLARE Area        : (uptown, downtown, midtown)     1
+   DECLARE HouseNumber : 1..499
+ENDTYPE
+
+=== 9608_s17_ms_32_p2_b3 | 9608_s17_ms_32.pdf p2 | pseudocode (keywords) | context: 1(c)(iii) 3427 / 1(c)(iv) TRUE
+        IPointer ← @MyInt2
+        MyInt1 ← 33
+1(d)(iii) IPointer^ ← MyInt2
+
+=== 9608_s17_ms_32_p7_b4 | 9608_s17_ms_32.pdf p7 | pseudocode (keywords) | context: Smoke / Tilt
+ForEver ← FALSE //TRUE
+02 REPEAT
+03   FOR FloorCounter ← 1 TO NoOfFloors
+04      FOR SensorCounter ← 1 TO NumberOfSensors
+05      READ Sensor(SensorCounter)on Floor(FloorCounter)
+06         IF Sensor value outside range
+07            THEN
+08             OUTPUT "Problem on Floor ", FloorCounter
+09          ENDIF
+10        ENDFOR
+11   ENDFOR
+12   //
+13   // Delay loop
+14   // Delay loop
+15   //
+16 UNTIL ForEver/Forever = TRUE // NOT ForEver / ForEver =
+FALSE
+
+=== 9608_s17_ms_41_p2_b2 | 9608_s17_ms_41.pdf p2 | pseudocode (keywords) | context: Comment / code
+                            // INPUT character
+          STO CHAR // store in CHAR // Initialise ACC
+          LDM #65    (ASCII value for
+                               'A' is 65)
+  LOOP:  OUT                // OUTPUT ACC // compare ACC with
+          CMP CHAR CHAR // if equal jump to
+          JPE ENDFOR
+                               end of FOR loop
+          INC ACC // increment ACC
+          JMP LOOP // jump to LOOP
+ENDFOR:  END
+  CHAR:
+ START: LDD        NUMBER // set to zero all AND       MASK          bits except sign bit
+         CMP       #0         // compare with 0 // if not equal jump
+         JPN       ELSE
+                                 to ELSE
+                              // load ACC with 'P'
+  THEN: LDM        #80
+                                (ASCII value 80)
+         JMP       ENDIF // load ACC with 'N'
+  ELSE: LDM        #78
+                                (ASCII value 78)
+ ENDIF: OUT                   //output character
+         END // integer to be
+NUMBER: B00000101 tested // show value of
+  MASK: B10000000                mask in binary here
+
+=== 9608_s17_ms_41_p3_b3 | 9608_s17_ms_41.pdf p3 | pseudocode (keywords) | context: 1 mark for getting the correct record (Customer[x].) / 1 mark for setting up a loop to go from 0 to 199
+DECLARE Customer : ARRAY[0 : 199] OF CustomerRecord
+FOR x ← 0 TO 199
+   Customer[x].CustomerID ← 0
+ENDFOR
+
+=== 9608_s17_ms_41_p3_b4 | 9608_s17_ms_41.pdf p3,4 | pseudocode (keywords) | context: 
+PROCEDURE InsertRecord(BYVAL NewCustomer : CustomerRecord)
+   TableFull ← FALSE
+   // generate hash value
+   Index ← Hash(NewCustomer.CustomerID)
+   Pointer ← Index   // take a copy of index
+   // find a free table element
+   WHILE Customer[Pointer].CustomerID > 0
+      Pointer ← Pointer + 1
+      // wrap back to beginning of table if necessary
+      IF Pointer > 199
+         THEN
+            Pointer ← 0
+      ENDIF
+      // check if back to original index
+      IF Pointer = Index
+         THEN
+            TableFull ← TRUE
+      ENDIF
+   ENDWHILE
+   IF NOT TableFull
+      THEN
+         Customer[Pointer] ← NewCustomer
+      ELSE
+         OUTPUT "Error"
+   ENDIF
+ENDPROCEDURE
+FUNCTION SearchHashTable(BYVAL SearchID : INTEGER) RETURNS
+INTEGER
+  // generate hash value
+  Index ← Hash(SearchID)
+  // check each record from index until found or not there
+  WHILE (Customer[Index].CustomerID <> SearchID) 1
+     AND (Customer[Index].CustomerID > 0)
+     Index ← Index + 1
+  // wrap if necessary
+     IF Index > 199
+        THEN
+           Index ← 0
+     ENDIF
+  ENDWHILE
+  // has customer ID been found?
+  IF Customer[Index].CustomerID = SearchID
+     THEN
+        RETURN Index
+     ELSE
+        RETURN -1
+  ENDIF
+ENDFUNCTION
+
+=== 9608_s17_ms_41_p5_b5 | 9608_s17_ms_41.pdf p5 | pseudocode (keywords) | context: 
+FUNCTION Find(BYVAL Name : STRING, BYVAL Start : INTEGER, BYVAL Finish : INTEGER) RETURNS INTEGER
+   // base case
+   IF Finish < Start
+      THEN
+         RETURN -1
+      ELSE
+         Middle ← (Start + Finish) DIV 2
+         IF NameList[Middle] = Name
+            THEN
+               RETURN Middle
+            ELSE    // general case
+               IF SearchItem > NameList[Middle]
+                  THEN
+                     Find(Name, Middle + 1, Finish) 1
+                  ELSE
+                     Find(Name, Start, Middle - 1) 1
+               ENDIF
+         ENDIF
+   ENDIF
+ENDFUNCTION
+
+=== 9608_s17_ms_41_p13_b20 | 9608_s17_ms_41.pdf p13 | pseudocode (keywords) | context: Pseudocode for reference:
+PROCEDURE AddToList(NewData)
+   // remember value of free list pointer
+   NewNodePointer ← FreeListPointer
+   // add new data item to free node pointed to by free list
+   NodeArray[NewNodePointer].Data ← NewData
+   // adjust free pointer to point to next free node
+   FreeListPointer ← NodeArray[FreeList].Pointer
+   // is list currently empty?
+   IF HeadPointer = NullPointer
+      THEN
+         // make the node the first node
+         HeadPointer ← NewnodePointer
+         // set pointer of new node to Null pointer
+         NodeArray[NewNodePointer].Pointer ← NullPointer
+      ELSE
+         // find insertion point
+         CALL FindInsertionPoint(NewData, PreviousPPointer, NextPointer)
+         // if previous pointer is Null pointer
+         IF PreviousPointer = NullPointer
+            THEN
+               // link new node to front of list
+               NodeArray[NewNodePointer].Pointer ← HeadPointer
+               HeadPointer ← NewNodePointer
+         ELSE
+            // link new node between previous node and next node
+            NodeArray[NewNodePointer].Pointer ← NextPOinter
+            NodeArray[PreviousPointer].Pointer ← NewNodePointer
+         END IF
+   ENDIF
+END PROCEDURE
+
+=== 9608_s17_ms_42_p2_b2 | 9608_s17_ms_42.pdf p2 | pseudocode (keywords) | context: Comment / code
+                         // INPUT character
+         STO CHAR1       // store in CHAR1
+         IN              // INPUT character
+         STO CHAR2       // store in CHAR2
+         LDD CHAR1       // initialise ACC to ASCII value of CHAR1
+  LOOP: OUT              //output contents of ACC
+         CMP CHAR2       // compare ACC with CHAR2
+         JPE ENDFOR     // if equal jump to end of FOR loop
+         INC ACC         // increment ACC
+         JMP LOOP        // jump to LOOP
+ENDFOR: END
+ CHAR1:
+ CHAR2:
+
+=== 9608_s17_ms_42_p4_b6 | 9608_s17_ms_42.pdf p4 | pseudocode (keywords) | context: 
+TYPE Node
+    LeftPointer : INTEGER
+    RightPointer : INTEGER
+    Data : STRING
+ENDTYPE
+DECLARE Tree : ARRAY[0 : 9] OF Node
+DECLARE FreePointer : INTEGER
+DECLARE RootPointer : INTEGER
+
+=== 9608_s17_ms_42_p4_b7 | 9608_s17_ms_42.pdf p4,5 | pseudocode (keywords) | context: 
+PROCEDURE CreateTree()
+   DECLARE Index : INTEGER
+    RootPointer ← -1
+    FreePointer ← 0
+   FOR Index ← 0 TO 9   // link nodes
+        Tree[Index].LeftPointer ← Index + 1
+        Tree[Index].RightPointer ← -1
+   ENDFOR
+   Tree[9].LeftPointer ← -1
+ENDPROCEDURE
+PROCEDURE AddToTree(ByVal NewDataItem : STRING)
+// if no free node report an error
+   IF FreePointer = -1
+      THEN
+         ERROR("No free space left")
+      ELSE   // add new data item to first node in the free list
+         NewNodePointer ← FreePointer
+         Tree[NewNodePointer].Data ← NewDataItem
+         // adjust free pointer
+         FreePointer ← Tree[FreePointer].LeftPointer
+         // clear left pointer
+         Tree[NewNodePointer].LeftPointer ← -1
+         // is tree currently empty ?
+         IF RootPointer = -1
+            THEN   // make new node the root node
+               RootPointer ← NewNodePointer
+            ELSE   // find position where new node is to be added
+               Index ← RootPointer
+               CALL FindInsertionPoint(NewDataItem, Index, Direction)
+
+=== 9608_s17_ms_42_p6_b8 | 9608_s17_ms_42.pdf p6 | pseudocode (keywords) | context: 
+                IF Direction = "Left"
+                   THEN   // add new node on left
+           Tree[Index].LeftPointer ← NewNodePointer
+                   ELSE   // add new node on right
+           Tree[Index].RightPointer ← NewNodePointer
+                ENDIF
+          ENDIF
+    ENDIF
+ENDPROCEDURE
+
+=== 9608_s17_ms_42_p6_b9 | 9608_s17_ms_42.pdf p6 | pseudocode (keywords) | context: •  recursive call for right pointer / •  order, visit left, output, visit right
+   IF Pointer <> NULL
+      THEN
+         TraverseTree(Tree[Pointer].LeftPointer)
+         OUTPUT Tree[Pointer].Data
+         TraverseTree(Tree[Pointer].RightPointer)
+   ENDIF
+ENDPROCEDURE
+
+=== 9608_w17_ms_42_p7_b8 | 9608_w17_ms_42.pdf p7 | pseudocode (keywords) | context: 4(a) / 1 mark per item in bold
+FOR Pointer ← 1 TO (Max − 1)
+   ItemToInsert ← Numbers[Pointer]
+   CurrentItem ← Pointer
+   WHILE (CurrentItem > 0) AND (Numbers[CurrentItem − 1] > ItemToInsert)
+     Numbers[CurrentItem] ← Numbers[CurrentItem − 1]
+     CurrentItem ← CurrentItem – 1
+   ENDWHILE
+   Numbers[CurrentItem] ← ItemToInsert
+ ENDFOR
+
+=== 9608_s18_ms_32_p3_b1 | 9608_s18_ms_32.pdf p3 | pseudocode (keywords) | context: 
+CollegeStudent.StudentID ← 6539
+
+=== 9608_s18_ms_32_p3_b3 | 9608_s18_ms_32.pdf p3 | pseudocode (keywords) | context: 1 mark per bullet / • All valid string options , for example:
+DECLARE StudentCourse: ARRAY[1:6] OF ("Computer Science",
+"Engineering", "Science", "Maths", "Physics", "Chemistry",
+"Music", "Drama", "English Language")
+DECLARE StudentID: 1 .. 8000
+
+=== 9608_s18_ms_32_p3_b5 | 9608_s18_ms_32.pdf p3 | pseudocode (keywords) | context: • Declaring Code as STRING / For example:
+TYPE StudentAssessment
+  DECLARE Code   : STRING
+  DECLARE Mark   : ARRAY[1:6] OF INTEGER
+  DECLARE AverageMark : REAL
+ENDTYPE
+
+=== 9608_s18_ms_41_p5_b5 | 9608_s18_ms_41.pdf p5 | pseudocode (keywords) | context: 1 mark for each completed statement
+MaxIndex ← 20
+02   NumberItems ← MaxIndex – 1 // 19
+03   FOR Outer ← 1 TO MaxIndex – 1 // 19
+04      FOR Inner ← 1 to NumberItems
+05         IF ItemList[Inner] > ItemList[Inner + 1]
+06            THEN
+07               Temp ← ItemList[Inner]
+08               ItemList[Inner] ← ItemList[Inner + 1]
+09               ItemList[Inner + 1] ← Temp
+10          ENDIF
+11      ENDFOR
+12      NumberItems ← NumberItems - 1
+13   ENDFOR
+
+=== 9608_s18_ms_41_p19_b18 | 9608_s18_ms_41.pdf p19 | pseudocode (keywords) | context: 1 mark per bullet: / • TYPE ListNode declaration and ENDTYPE
+• DECLARE Player : String
+• DECLARE Pointer : INTEGER
+TYPE ListNode
+   DECLARE Player : STRING
+   DECLARE Pointer : INTEGER
+ENDTYPE
+
+=== 9608_s18_ms_41_p19_b19 | 9608_s18_ms_41.pdf p19 | pseudocode (keywords) | context: 6(a)(ii) / 1 mark per bullet:
+• DECLARE Scorers : ARRAY[0:9]
+• OF ListNode
+DECLARE Scorers : ARRAY[0:9] OF ListNode
+
+=== 9608_s18_ms_41_p19_b20 | 9608_s18_ms_41.pdf p19 | pseudocode (keywords) | context: 6(b) / 1 mark for each completed statement
+FUNCTION SearchList(Find, Position) RETURNS INTEGER
+  IF Scorer[Position].Player = Find
+    THEN
+      RETURN Position
+    ELSE
+      IF Scorer[Position].Player <> -1
+        THEN
+           Position ← SearchList(Find, Scorer[Position].Pointer)
+           RETURN Position
+         ELSE
+           RETURN 99
+      ENDIF
+  ENDIF
+ENDPROCEDURE
+
+=== 9608_s18_ms_42_p4_b1 | 9608_s18_ms_42.pdf p4 | pseudocode (keywords) | context: 1(a) / 1 mark for each correctly completed pseudocode line to max 4
+REPEAT
+02          CALL TakePhoto
+03          CALL AddPhotoToCollection
+04          OUTPUT "Do you want to take another photo?"
+05          INPUT AddPhoto
+06       UNTIL AddPhoto = "No"
+07       REPEAT
+08          CALL AddUser
+09          OUTPUT "Do you want to add another user?"
+10          INPUT NewUser
+11       UNTIL NewUser = "No"
+12       OUTPUT "Do you want to create another collection?"
+13       INPUT NewCollection
+14    UNTIL NewCollection = "No"
+
+=== 9608_s18_ms_42_p7_b6 | 9608_s18_ms_42.pdf p7 | pseudocode (keywords) | context: 3(b) / 1 mark for each correct statement
+ArraySize ← 10
+02 FOR Pointer ← 2 TO ArraySize // 10
+03   ValueToInsert ← CardData[Pointer]
+04   HolePosition ← Pointer
+05   WHILE(HolePosition>1 AND(CardData[HolePosition - 1] > ValueToInsert))
+06     CardData[HolePosition] ← CardData[HolePosition – 1]
+07     HolePosition ← HolePosition – 1
+08   ENDWHILE
+09   CardData[HolePosition] ← ValueToInsert
+10 ENDFOR
+
+=== 9608_s18_ms_42_p8_b7 | 9608_s18_ms_42.pdf p8 | pseudocode (keywords) | context: 3(d) / 1 mark for each complete statement
+PROCEDURE BinarySearch(CardData, SearchValue)
+   DECLARE Midpoint : INTEGER
+   First ← 1
+   Last ← ARRAYLENGTH(CardData)
+   Found ← FALSE
+   WHILE (First <= Last) AND NOT(Found)
+      Midpoint ← (First + Last) \ 2
+      IF CardData[Midpoint] = SearchValue
+         THEN
+            Found ← TRUE
+        ELSE
+            IF SearchValue < CardData[Midpoint]
+               THEN
+                  Last ← Midpoint - 1
+               ELSE
+                  First ← Midpoint + 1
+            ENDIF
+         ENDIF
+    ENDWHILE
+ENDPROCEDURE
+
+=== 9608_w18_ms_31_p3_b1 | 9608_w18_ms_31.pdf p3 | pseudocode (keywords) | context: (a) Record / (b) Enumerated
+(c) DECLARE BestSeller : Book
+(d) BestSeller.Author ← "John Williams"
+
+=== 9608_w18_ms_41_p5_b1 | 9608_w18_ms_41.pdf p5 | pseudocode (keywords) | context: • LastRead as Date / For example:
+TYPE Book
+    DECLARE Title : String
+    DECLARE Author : String
+    DECLARE ISBN : String
+    DECLARE Fiction : Boolean
+    DECLARE LastRead : Date
+ENDTYPE
+
+=== 9608_w18_ms_41_p8_b5 | 9608_w18_ms_41.pdf p8 | pseudocode (keywords) | context: 2(c) / Example:
+PROCEDURE FindBook()
+  DECLARE BookInfo : Book
+  REPEAT
+    ISBN ← input("Enter the ISBN number")
+    Valid ← TRUE
+    Size ← LENGTH(ISBN)
+    IF size <> 13
+      THEN
+        Valid ← FALSE
+      ELSE
+        FOR i ← 1 to 13
+          IF NOT( MID(ISBN,i,1) >= '0' AND MID(ISBN,i,1)<= '9' )
+            THEN
+               Valid ← FALSE
+          ENDIF
+        ENDFOR
+    ENDIF
+  UNTIL Valid
+  Filename ← "myBooks.dat"
+  OPENFILE Filename FOR RANDOM
+  RecordLocation ← Hash(ISBN)
+  SEEK FileName, RecordLocation
+  GETRECORD Filename, BookInfo
+  CLOSEFILE Filename
+  OUTPUT (BookInfo.Title & " " & BookInfo.Author & " " & BookInfo.ISBN & " " & BookInfo.Fiction  & " " & BookInfo.LastRead)
+ENDPROCEDURE
+
+=== 9608_w18_ms_41_p10_b8 | 9608_w18_ms_41.pdf p10 | pseudocode (keywords) | context: 3(c)(i) / 1 mark for each correct statement:
+PROCEDURE POP
+   IF StackPointer = 0
+        THEN
+           OUTPUT ("The stack is empty")
+        ELSE
+           StackPointer ← StackPointer - 1
+           OUTPUT Parts[StackPointer]
+           Parts(StackPointer) ← "*"
+   ENDIF
+ENDPROCEDURE
+
+=== 9608_w18_ms_41_p10_b9 | 9608_w18_ms_41.pdf p10 | pseudocode (keywords) | context: 3(c)(ii) / 1 mark for each completed statement:
+PROCEDURE PUSH (BYVALUE Value : String)
+   IF StackPointer > 19
+        THEN
+           OUTPUT "Stack full"
+        ELSE
+           Parts[StackPointer] ← Value
+           StackPointer ← StackPointer + 1
+   ENDIF
+ENDPROCEDURE
+
+=== 9608_w18_ms_41_p12_b10 | 9608_w18_ms_41.pdf p12 | pseudocode (keywords) | context: • Dealing with starting value correctly / For example:
+FUNCTION Calculate(Number : INTEGER) RETURNS INTEGER
+  DECLARE Count : INTEGER
+  DECLARE Value : INTEGER
+  Value ← −10
+  FOR Count ← 1 to Number
+    Value ← Value * Count
+  ENDFOR
+  RETURN Value
+ENDFUNCTION
+
+=== 9608_w18_ms_42_p6_b8 | 9608_w18_ms_42.pdf p6 | pseudocode (keywords) | context: 3(a) / 1 mark for each completed statement:
+FOR Outer ← LENGTH(List)-1 TO 0 STEP -1
+02   FOR Inner ← 0 TO (Outer – 1)
+03     IF List[Inner] > List[Inner + 1]
+04       THEN
+05         Temp ← List[Inner]
+06         List[Inner] ← List[Inner + 1]
+07         List[Inner + 1] ← Temp
+08       ENDIF
+09   ENDFOR
+10 ENDFOR
+
+=== 9608_w18_ms_42_p7_b9 | 9608_w18_ms_42.pdf p7 | pseudocode (keywords) | context: • Set flag when a swap has been made« / • «Loop until a swap has not been made and then exit all loops
+Outer ← LENGTH(List)-1
+REPEAT
+   Inner ← 0
+   Swap ← FALSE
+   REPEAT
+      IF List[Inner] > List[Inner + 1]
+          THEN
+              Temp ← List[Inner]
+              List[Inner] ← List[Inner + 1]
+              List[Inner + 1] ← Temp
+              Swap = TRUE
+       ENDIF
+       Inner ← Inner + 1
+   UNTIL Inner = Outer – 1
+   Outer ← Outer - 1
+UNTIL Swap = FALSE OR Outer = 0
+
+=== 9608_w18_ms_42_p17_b34 | 9608_w18_ms_42.pdf p17 | pseudocode (keywords) | context: • Declaring Pointer as an integer / Example:
+TYPE ListElement
+   DECLARE Country : STRING
+   DECLARE Pointer : INTEGER
+ENDTYPE
+
+=== 9608_w18_ms_42_p18_b36 | 9608_w18_ms_42.pdf p18 | pseudocode (keywords) | context: • Declaring CountryList as an array with 15 elements / Example:
+DECLARE CountryList : ARRAY[1 : 15] OF ListElement
+
+=== 9608_w18_ms_42_p18_b37 | 9608_w18_ms_42.pdf p18 | pseudocode (keywords) | context: 6(b) / 1 mark for each completed statement
+PROCEDURE DeleteNode(NodeValue: STRING, ThisPointer: INTEGER, PreviousPointer: INTEGER)
+ IF CountryList[ThisPointer].Value = NodeValue
+   THEN
+     CountryList[ThisPointer].Value ← ""
+     IF ListHead = ThisPointer
+      THEN
+         ListHead ← CountryList[ThisPointer].Pointer
+      ELSE
+         CountryList[PreviousPointer].Pointer ← CountryList[ThisPointer].Pointer
+     ENDIF
+   CountryList[LastNode].Pointer ← ThisPointer
+   LastNode ← ThisPointer
+       CountryList[ThisPointer].Pointer ← −1
+   ELSE
+      IF CountryList[ThisPointer].Pointer <> −1
+        THEN
+          CALL DeleteNode(NodeValue,CountryList[ThisPointer].Pointer, ThisPointer)
+        ELSE
+          OUTPUT "DOES NOT EXIST"
+      ENDIF
+  ENDIF
+ENDPROCEDURE
+
+=== 9608_s19_ms_41_p5_b1 | 9608_s19_ms_41.pdf p5 | pseudocode (keywords) | context: 2(b) / 1 mark for each completed section
+FUNCTION FindElement(Item : INTEGER) RETURNS INTEGER
+   CurrentPointer ← RootPointer
+   WHILE CurrentPointer <> NullPointer
+      IF List[CurrentPointer].Data <> Item
+          THEN
+             CurrentPointer ← List[CurrentPointer].Pointer
+          ELSE
+             RETURN CurrentPointer
+      ENDIF
+   ENDWHILE
+   CurrentPointer ← NullPointer
+   RETURN CurrentPointer
+ENDFUNCTION
+
+=== 9608_s19_ms_42_p18_b18 | 9608_s19_ms_42.pdf p18 | pseudocode (keywords) | context: •  if not full, increment Top / • ... add parameter to Top of ArrayStack
+FUNCTION Push (BYVALUE DataItem : Integer) (RETURNS Boolean)
+    IF Top = 7
+        THEN
+           RETURN FALSE
+        ELSE
+           Top ← Top + 1
+           ArrayStack[Top] ← DataItem
+           RETURN TRUE
+    ENDIF
+ENDFUNCTION
+
+=== 9608_s19_ms_42_p20_b19 | 9608_s19_ms_42.pdf p20 | pseudocode (keywords) | context: 4(a)(i) / 1 mark for error and correction
+Error 1 – IF List[LowerBound] = SearchValue
+Correction – IF List[MidPoint] = SearchValue
+Error 2 – UpperBound ← MidPoint + 1
+Correction – LowerBound ← MidPoint + 1
+Error 3 – IF LowerBound > MidPoint
+Correction - IF LowerBound > UpperBound
+Error 4 – IF ValueFound = FALSE
+Correction – IF ValueFound = TRUE
+
+=== 9608_s19_ms_42_p21_b49 | 9608_s19_ms_42.pdf p21 | pseudocode (keywords) | context: • Incrementing counter inside the loop and outside IF, and remainder of algorithm completed (The IF to ENDIF) / e.g.
+Count ← 0
+WHILE Count < 5
+  IF ArrayData[Count] > ArrayData[Count + 1]
+    THEN
+       TempValue ← ArrayData[Count + 1]
+       ArrayData[Count + 1] ← ArrayData[Count]
+       ArrayData[Count] ← TempValue
+       Sorted ← False
+  ENDIF
+  Count ← Count + 1
+ENDWHILE
+
+=== 9608_w19_ms_31_p6_b3 | 9608_w19_ms_31.pdf p6 | pseudocode (keywords) | context: • EmployeeID declared as STRING / • … with commas in-between
+        • ENDTYPE
+        TYPE Employee
+           DECLARE EmployeeID   : STRING
+           DECLARE EmployeeName : STRING
+           DECLARE Department   : (Sales, Technical, CustomerServices)
+           DECLARE Salary       : 25000..150000
+        ENDTYPE
+        DECLARE NewEmployee : Employee
+5(b)(iii) NewEmployee.EmployeeID ← "02244"
+
+=== 9608_w19_ms_32_p7_b1 | 9608_w19_ms_32.pdf p7 | pseudocode (keywords) | context: • Creates data-types specific to applications // programmer’s requirements / 6(b)(i) Enumerated (data type)
+DECLARE CurrentMonth : Months
+6(b)(iii) CurrentMonth ← August
+
+=== 9608_w19_ms_41_p6_b1 | 9608_w19_ms_41.pdf p6 | pseudocode (keywords) | context: 1(b)(iv) 1 mark for each correct line
+FUNCTION Remove RETURNS STRING
+  DECLARE PrintJob : STRING
+  IF StartPointer = EndPointer
+   THEN
+     RETURN "Empty"
+   ELSE
+     PrintJob ← Queue[StartPointer]
+     IF StartPointer = 5
+       THEN
+        StartPointer ← 0
+       ELSE
+        StartPointer ← StartPointer + 1
+      ENDIF
+     RETURN PrintJob
+   ENDIF
+ENDFUNCTION
+
+=== 9608_w19_ms_41_p15_b16 | 9608_w19_ms_41.pdf p15 | pseudocode (keywords) | context: 1 mark per bullet / • Declaring StudentAccounts as array of 1000 elements«
+• «of type PrintAccount
+DECLARE StudentAccounts ARRAY[0:999] OF PrintAccount
+
+=== 9608_w19_ms_42_p15_b22 | 9608_w19_ms_42.pdf p15 | pseudocode (keywords) | context: 2(a) / 1 mark per completed statement
+FUNCTION AddToQueue(Number : INTEGER) RETURNS BOOLEAN
+  CONSTANT FirstIndex = 0
+  CONSTANT LastIndex = 7
+  TempPointer ← EndPointer + 1
+  IF TempPointer > LastIndex
+   THEN
+    TempPointer ← FirstIndex
+  ENDIF
+  IF TempPointer = StartPointer
+   THEN
+     RETURN FALSE
+   ELSE
+    EndPointer ← TempPointer
+    NumberQueue[EndPointer] ← Number
+    RETURN TRUE
+  ENDIF
+ENDFUNCTION
+
+=== 9608_s20_ms_41_p5_b1 | 9608_s20_ms_41.pdf p5 | pseudocode (keywords) | context: 2(b) / 1 mark for each of the spaces filled in
+PROCEDURE Count(BYVALUE Number : INTEGER)
+    IF MOD(Number, 2) <> 0
+        THEN
+            Number ← Number - 1
+    ENDIF
+    OUTPUT Number
+    IF Number > 0
+        THEN
+            CALL Count(Number - 1)
+    ENDIF
+ENDPROCEDURE
+
+=== 9608_s20_ms_41_p6_b2 | 9608_s20_ms_41.pdf p6 | pseudocode (keywords) | context: • Removal of loop / • Remainder of program in correct place
+PROCEDURE MealsCount(BYREF MealOption1 : INTEGER, MealOption2 : INTEGER)
+    DECLARE MealOption : INTEGER
+    INPUT MealOption
+    IF MealOption = 1
+        THEN
+            MealOption1 ← MealOption1 + 1
+            CALL MealsCount(MealOption1, MealOption2)
+        ELSE
+          IF MealOption = 2
+            THEN
+              MealOption2 ← MealOption2 + 1
+              CALL MealsCount(MealOption1, MealOption2)
+            ELSE
+              OUTPUT MealOption1, " ", MealOption2
+          ENDIF
+    ENDIF
+ENDPROCEDURE
+
+=== 9608_s20_ms_41_p11_b12 | 9608_s20_ms_41.pdf p11 | pseudocode (keywords) | context: • Array declaration with identifier LessonArray and size 9 / • Correct data type used
+DECLARE LessonArray : ARRAY[0:8] OF Lesson
+
+=== 9608_s20_ms_41_p12_b15 | 9608_s20_ms_41.pdf p12 | pseudocode (keywords) | context: • Access the UserID and PINNumber for each element in CustomerDetails / • Correct initialisation of UserID to "" and PINNumber to 0
+PROCEDURE InitialiseHashTable()
+    FOR x ← 0 TO 5999
+        CustomerDetails[x].UserID ← ""
+        CustomerDetails[x].PINNumber ← 0
+    ENDFOR
+ENDPROCEDURE
+
+=== 9608_s20_ms_41_p13_b16 | 9608_s20_ms_41.pdf p13 | pseudocode (keywords) | context: 6(b) / 1 mark for each completed missing statement
+FUNCTION InsertRecord(NewRecord) RETURNS INTEGER
+    DECLARE Count : INTEGER
+    DECLARE Index : INTEGER
+    Count ← 0
+    Index ← Hash(NewRecord.UserID)
+    WHILE (CustomerDetails[Index].UserID <> "") AND (Count <= 5999)
+        Index ← Index + 1
+        Count ← Count + 1
+        IF Index > 5999
+            THEN
+                Index ← 0
+        ENDIF
+    ENDWHILE
+    IF Count > 5999
+       THEN
+          RETURN -1
+       ELSE
+           CustomerDetails[Index] ← NewRecord
+           RETURN Index
+    ENDIF
+ENDFUNCTION
+
+=== 9608_s20_ms_41_p15_b17 | 9608_s20_ms_41.pdf p15 | pseudocode (keywords) | context: 7(c) / 1 mark per completed statement
+PROCEDURE UpdateTelephone(BYREF ThisCustomer : Customer, BYVALUE NewTelephoneNumber : STRING)
+    ThisCustomer.TelephoneNumber ← NewTelephoneNumber
+ENDPROCEDURE
+
+=== 9608_s20_ms_42_p5_b5 | 9608_s20_ms_42.pdf p5 | pseudocode (keywords) | context: • Accessing the username and password for each field / • Correct initialisation of values to “”
+DECLARE CustomerLogIn : ARRAY[0:2999] OF CustomerRecord
+FOR x ← 0 TO 2999
+  CustomerLogIn[x].Username ← ""
+  CustomerLogIn[x].Password ← ""
+ENDFOR
+
+=== 9608_s20_ms_42_p6_b6 | 9608_s20_ms_42.pdf p6 | pseudocode (keywords) | context: 2(b)(i) / 1 mark for each correctly filled in space
+FUNCTION SearchHashTable(BYVALUE SearchUser : STRING) RETURNS INTEGER
+    DECLARE Index : INTEGER
+    DECLARE Count : INTEGER
+    Index ← Hash(SearchUser)
+         Count ← 0
+    WHILE (CustomerLogIn[Index].Username <> SearchUser) AND (CustomerLogIn[Index].Username <> "") AND (Count < 2999)
+        Index ← Index + 1
+        Count ← Count + 1
+        IF Index > 2999
+            THEN
+                Index ← 0
+        ENDIF
+    ENDWHILE
+    IF CustomerLogIn[Index].Username = SearchUser
+        THEN
+            RETURN Index
+        ELSE
+            RETURN -1
+    ENDIF
+ENDFUNCTION
+
+=== 9608_s20_ms_42_p7_b7 | 9608_s20_ms_42.pdf p7 | pseudocode (keywords) | context: 3(b) / 1 mark for each (shown in bold)
+FUNCTION IsPalindrome(CheckWord : STRING) RETURNS BOOLEAN
+    IF Length(CheckWord) <= 1
+        THEN
+            RETURN True
+    ENDIF
+    IF Substring(CheckWord, 0, 1) <>
+              Substring(CheckWord,Length(CheckWord)-1, 1)
+        THEN
+            RETURN False
+        ELSE
+            RETURN IsPalindrome(Substring(CheckWord,1, Length(CheckWord)-2))
+    ENDIF
+ENDFUNCTION
+
+=== 9608_s20_ms_42_p8_b8 | 9608_s20_ms_42.pdf p8 | pseudocode (keywords) | context: • Returns result of calculation / e.g.
+FUNCTION FindPower(Base:INTEGER, Exp: INTEGER) RETURNS INTEGER
+    DECLARE Value : INTEGER
+    IF Exp = 0
+        THEN
+            RETURN 1
+        ELSE
+            Value ← Base * FindPower(Base, Exp – 1)
+            RETURN Value
+    ENDIF
+ENDFUNCTION
+
+=== 9608_s20_ms_42_p13_b17 | 9608_s20_ms_42.pdf p13 | pseudocode (keywords) | context: • Array declaration of correct name and size / • Correct data type used
+DECLARE CharacterArray : ARRAY[0:4] OF Character
+
+=== 9608_w20_ms_31_p3_b3 | 9608_w20_ms_31.pdf p3 | pseudocode (keywords) | context: size   / enumerated / 2(a)(ii) size
+myBox[1].volume ← medium
+myBox[1].price ← 10.99
+myBox[1].colour ← "red"
+
+=== 9608_w20_ms_32_p3_b1 | 9608_w20_ms_32.pdf p3 | pseudocode (keywords) | context: Enumerated / Classification Non-composite
+DECLARE session : timeOfDay
+session ← afternoon
+
+=== 9608_w20_ms_41_p8_b7 | 9608_w20_ms_41.pdf p8 | pseudocode (keywords) | context: • …Returns true if parameter is valid and stores in PlayerID / • …Returns false if parameter is not valid (and stores in PlayerID or not)
+FUNCTION SetPlayerID(NewPlayerID) RETURNS BOOLEAN
+   DECLARE Valid : BOOLEAN
+   Valid ← TRUE
+   IF Length(NewPlayerID) = 6 AND Substring(NewPlayerID,0,2) = "PL"
+       THEN
+          PlayerID ← NewPlayerID
+      ELSE
+          Valid ← FALSE
+   ENDIF
+   RETURN Valid
+ENDFUNCTION
+
+=== 9608_w20_ms_41_p8_b8 | 9608_w20_ms_41.pdf p8 | pseudocode (keywords) | context: • A child class can overwrite the methods of the parent class / 3(d)(iii) • Correct identifier, 100 elements, type Quiz and clearly array (i.e. bracke
+DECLARE QuizBank : ARRAY[0:99] OF Quiz
+
+=== 9608_w20_ms_41_p10_b13 | 9608_w20_ms_41.pdf p10 | pseudocode (keywords) | context: • Insert item in correct position in sorted list / • Repeat until all items are in the sorted list (dependent on suitable method)
+Counter ← NumberOfItems – 2
+REPEAT
+   DataSwapped ← FALSE
+   FOR CurrentValue ← 0 TO Counter // NumberOfItems – 2
+      IF DataList[CurrentValue] > DataList[CurrentValue + 1]
+         THEN
+            ValueTemp ← DataList[CurrentValue]
+            DataList[CurrentValue] ← DataList[CurrentValue + 1]
+            DataList[CurrentValue + 1] ← ValueTemp
+            DataSwapped ← TRUE
+      ENDIF
+   ENDFOR
+UNTIL DataSwapped = FALSE
+
+=== 9608_w20_ms_41_p11_b14 | 9608_w20_ms_41.pdf p11 | pseudocode (keywords) | context: 
+FUNCTION FindValue(Value : INTEGER) RETURNS INTEGER
+   DECLARE CurrentPointer : INTEGER
+   CurrentPointer ← StartPointer
+   WHILE CurrentPointer <> NULL AND LinkedList[CurrentPointer].Data <> Value
+      CurrentPointer ← LinkedList[CurrentPointer].Pointer
+   ENDWHILE
+   IF LinkedList[CurrentPointer].Data = Value
+       THEN
+          RETURN CurrentPointer
+       ELSE
+          RETURN −1
+   ENDIF
+ENDFUNCTION
+
+=== 9608_w20_ms_41_p12_b15 | 9608_w20_ms_41.pdf p12,13 | pseudocode (keywords) | context: • … return TRUE / • If end of list and not found then return FALSE
+FUNCTION DeleteNode(NodeData : STRING) RETURNS BOOLEAN
+   IF StartPointer = NULL
+      THEN
+          RETURN FALSE
+      ELSE
+         CurrentPointer ← StartPointer
+         IF LinkedList[CurrentPointer].Data = NodeData
+            THEN
+               StartPointer ← LinkedList[CurrentPointer].Pointer
+               RETURN TRUE
+            ELSE
+               PreviousPointer ← CurrentPointer
+               WHILE CurrentPointer <> NULL AND LinkedList[CurrentPointer].Data <> NodeData
+                   PreviousPointer ← CurrentPointer
+                   CurrentPointer ← LinkedList[CurrentPointer].Pointer
+               ENDWHILE
+               IF CurrentPointer = NULL
+                  THEN
+                     IF LinkedList[CurrentPointer].Data = NodeData
+                         THEN
+                            LinkedList[PreviousPointer].Pointer ← NULL
+                            RETURN TRUE
+                         ELSE
+                            RETURN FALSE
+                     ENDIF
+                  ELSE
+                     IF LinkedList[CurrentPointer].Data = NodeData
+                        THEN
+                           LinkedList[PreviousPointer].Pointer ← LinkedList[CurrentPointer].Pointer
+                           LinkedList[CurrentPointer].Pointer ← NULL
+                           RETURN TRUE
+                     ENDIF
+               ENDIF
+         ENDIF
+   ENDIF
+ENDFUNCTION
+
+=== 9608_w20_ms_42_p8_b9 | 9608_w20_ms_42.pdf p8 | pseudocode (keywords) | context: • …Returns true if parameter is valid and assigns parameter to Calories / • …Returns false if invalid and does not assign the parameter to Calories
+FUNCTION SetCalories(NumCalories : INTEGER) RETURNS BOOLEAN
+   DECLARE Valid : BOOLEAN
+   IF NumCalories > 0 AND NumCalories < 2000
+      THEN
+          Calories ← NumCalories
+          Valid ← TRUE
+      ELSE
+          Valid ← FALSE
+   ENDIF
+   RETURN Valid
+ENDFUNCTION
+
+=== 9608_w20_ms_42_p12_b48 | 9608_w20_ms_42.pdf p12 | pseudocode (keywords) | context: • Returns correct pointer when value found / • Returns −1 when all items check and still not found
+FUNCTION FindValue(Value : INTEGER) RETURNS INTEGER
+   CurrentPointer ← StartPointer
+   WHILE CurrentPointer <> NULL AND LinkedList[CurrentPointer].Data <> Value
+      CurrentPointer ← LinkedList[CurrentPointer].Pointer
+   ENDWHILE
+   IF LinkedList[CurrentPointer].Data = Value
+      THEN
+          RETURN CurrentPointer
+      ELSE
+          RETURN -1
+   ENDIF
+ENDFUNCTION
+
+=== 9608_s21_ms_41_p9_b10 | 9608_s21_ms_41.pdf p9 | pseudocode (keywords) | context: • … remaining 3 fields with data type string / e.g.
+TYPE customer
+  DECLARE customerID AS INTEGER
+  DECLARE firstName AS STRING
+  DECLARE lastName AS STRING
+  DECLARE telephoneNumber AS STRING
+ENDTYPE
+
+=== 9608_s21_ms_41_p10_b13 | 9608_s21_ms_41.pdf p10 | pseudocode (keywords) | context: • Closing file in appropriate place under all conditions / Example code:
+FUNCTION getCustomer(customerID) RETURNS customer
+  DECLARE customerRec : customer
+  filename = "customerRecords.dat"
+  OPENFILE filename FOR RANDOM
+  SEEK filename, getRecordLocation(customerID)
+  GETRECORD filename, customerRec
+  CLOSEFILE filename
+  RETURN customerRec
+ENDFUNCTION
+
+=== 9608_s21_ms_41_p14_b64 | 9608_s21_ms_41.pdf p14 | pseudocode (keywords) | context: • of type node, with identifier binaryTree / Example:
+DECLARE binaryTree : ARRAY[0:99] OF node
+
+=== 9608_s21_ms_41_p15_b65 | 9608_s21_ms_41.pdf p15 | pseudocode (keywords) | context: • Output, left, right in correct order with / Example code:
+PROCEDURE preOrder(rootpointer)
+  OUTPUT(binaryTree[rootPointer].Data)
+  IF binaryTree[rootPointer].leftPointer <> -1
+    THEN
+      preOrder(binaryTree[rootPointer].LeftPointer)
+  ENDIF
+  IF binaryTree[rootPointer].rightPointer <> -1
+    THEN
+      preOrder(binaryTree[rootPointer].rightPointer)
+  ENDIF
+ENDPROCEDURE
+
+=== 9608_s21_ms_41_p16_b66 | 9608_s21_ms_41.pdf p16 | pseudocode (keywords) | context: 1 mark for both returns / 1 mark for each completed statement
+FUNCTION binarySearch(BYVALUE upper,lower, searchValue : INTEGER) RETURNS INTEGER
+  DECLARE flag : INTEGER
+  DECLARE mid : INTEGER
+  flag ← -2
+  mid ← 0
+  WHILE flag <> -1
+    mid ← lower + ((upper - lower) DIV 2)
+    IF upper < lower
+      THEN
+        RETURN -1
+      ELSE
+        IF dataArray(mid) < searchValue
+          THEN
+            lower ← mid + 1
+          ELSE
+            IF dataArray(mid) > searchValue
+              THEN
+                upper ← mid - 1
+              ELSE
+                RETURN mid
+            ENDIF
+        ENDIF
+     ENDIF
+  ENDWHILE
+ENDFUNCTION
+
+=== 9608_s21_ms_41_p20_b101 | 9608_s21_ms_41.pdf p20 | pseudocode (keywords) | context: • Initialising all 1000 array elements to −1 and pointer to −1 / Example:
+PROCEDURE setUpStack(ByRef stackArray, ByRef topOfStack : INTEGER)
+  FOR x = 0 to 999
+    stackArray[x] ← -1
+  NEXT x
+  topOfStack ← -1
+ENDPROCEDURE
+
+=== 9608_s21_ms_41_p20_b102 | 9608_s21_ms_41.pdf p20 | pseudocode (keywords) | context: • … if empty, return -1 / • … if not empty, return topOfStack data item from stack and decrement pointer
+FUNCTION pop(ByRef stackArray, ByRef topOfStack: INTEGER) RETURNS INTEGER
+  IF topOfStack < 0
+    THEN
+      RETURN -1
+    ELSE
+      dataToReturn ← stackArray[topOfStack]
+      topOfStack ← topOfStack - 1
+      RETURN dataToReturn
+  ENDIF
+ENDFUNCTION
+
+=== 9608_s21_ms_42_p5_b1 | 9608_s21_ms_42.pdf p5 | pseudocode (keywords) | context: • booking record declaration (and end) … / • … defining all 4 fields with integer data types
+TYPE Booking
+  DECLARE BookingID : INTEGER
+  DECLARE CustomerID : INTEGER
+  DECLARE ItemID : INTEGER
+  DECLARE Quantity : INTEGER
+ENDTYPE
+
+=== 9608_s21_ms_42_p7_b5 | 9608_s21_ms_42.pdf p7 | pseudocode (keywords) | context: • Close the opened file in all circumstances / Example pseudocode
+FUNCTION StoreBooking(BookingRecord : Booking) RETURNS Boolean
+  RecordLocation ← Hash(BookingRecord.BookingID)
+  Filename ← "TheBookings.dat"
+  OPENFILE Filename FOR RANDOM
+  SEEK Filename, RecordLocation
+  GETRECORD Filename, RecordData
+  IF RecordData = NULL
+    THEN
+      PUTRECORD Filename, BookingRecord
+      CLOSE Filename
+      RETURN True
+    ELSE
+      CLOSE Filename
+      RETURN False
+  ENDIF
+ENDFUNCTION
+
+=== 9608_s21_ms_42_p15_b23 | 9608_s21_ms_42.pdf p15 | pseudocode (keywords) | context: 6 / 4(b)(i) 1 mark for each completed statement (in bold)
+FUNCTION Enqueue(BYVAL DataToInsert : INTEGER) RETURNS BOOLEAN
+     IF NumberInQueue > 9  // = 10
+  THEN
+           RETURN False
+       ELSE
+           MyNumbers[TailIndex] ← DataToInsert
+           TailIndex ← TailIndex + 1
+       IF TailIndex > 9
+    THEN
+           TailIndex ← 0
+       ENDIF
+       NumberInQueue ← NumberInQueue + 1
+       RETURN True
+     ENDIF
+ENDFUNCTION
+
+=== 9608_s21_ms_42_p16_b24 | 9608_s21_ms_42.pdf p16 | pseudocode (keywords) | context: • returning first element / Example pseudocode
+FUNCTION Dequeue() RETURNS INTEGER
+  DECLARE ItemToReturn : INTEGER
+  IF NumberInQueue = 0
+    THEN
+      ItemToReturn ← -1
+    ELSE
+      ItemToReturn ← MyNumbers(HeadIndex)
+      IF HeadIndex = 9
+        THEN
+          HeadIndex ← 0
+        ELSE
+          HeadIndex ← HeadIndex + 1
+      ENDIF
+      NumberInQueue ← NumberInQueue - 1
+  ENDIF
+  RETURN ItemToReturn
+ENDFUNCTION
+
+=== 9608_s21_ms_42_p17_b25 | 9608_s21_ms_42.pdf p17 | pseudocode (keywords) | context: 5 / 1 mark for each completed statement (in bold)
+PROCEDURE InsertionSort()
+  DECLARE Count : INTEGER
+  DECLARE Counter : INTEGER
+  DECLARE Temp : INTEGER
+  Count ← 1
+  WHILE Count < 10
+    Temp = TheArray[Count]
+    Counter = Count - 1
+    WHILE Counter >= 0 AND TheArray[Counter] > Temp
+      TheArray[Counter + 1] ← TheArray[Counter]
+      Counter ← Counter - 1
+    ENDWHILE
+    TheArray[Counter + 1] ← Temp
+    Count ← Count + 1
+  ENDWHILE
+ENDPROCEDURE
+
+=== 9618_s21_ms_31_p4_b3 | 9618_s21_ms_31.pdf p4 | pseudocode (keywords) | context: • DECLARE Weekend included with correct data types from part 2(b)(ii) / Example answer
+TYPE ClubMeet
+    DECLARE FirstName : STRING
+    DECLARE LastName : STRING
+    DECLARE Schoolday : SchoolDay
+    DECLARE Weekend : WeekEnd
+ENDTYPE
+
+=== 9618_s21_ms_31_p9_b8 | 9618_s21_ms_31.pdf p9 | pseudocode (keywords) | context: MP7 Final insertion of all three data elements / Example algorithm
+YearSize ← 249
+FOR Student ← 2 to YearSize
+    Temp1 ← Score[Student]
+    Temp2 ← Name[Student,1]
+    Temp3 ← Name[Student,2]
+    Counter ← Student
+    WHILE Counter > 1 AND Score[Counter - 1] < Temp1
+        Score[Counter] ← Score[Counter - 1]
+        Name[Counter,1] ← Name[Counter - 1,1]
+        Name[Counter,2] ← Name[Counter - 1,2]
+        Counter ← Counter – 1
+    ENDWHILE
+    Score[Counter] ← Temp1
+    Name[Counter,1] ← Temp2
+    Name[Counter,2] ← Temp3
+NEXT Student
+
+=== 9608_w21_ms_31_p3_b1 | 9608_w21_ms_31.pdf p3 | pseudocode (keywords) | context: 
+        SchoolComputer.ComputerID ← 1234
+        SchoolComputer.ComputerLocation ← Lab2
+1(b)(i) DECLARE StudentID : ARRAY[1:20] OF INTEGER
+1(b)(ii) DECLARE ComputerID : 1000 .. 1999 // DECLARE ComputerID : INTEGER 1000 .. 1999
+
+=== 9608_w21_ms_31_p6_b5 | 9608_w21_ms_31.pdf p6 | pseudocode (keywords) | context: 7(b)(ii) One mark for suitable loop, could be FOR, REPEAT or WHILE / One mark for suitable delay must be at least 100
+FOR Count ← 1 to 99999
+ENDFOR / NEXT
+
+=== 9608_w21_ms_32_p3_b1 | 9608_w21_ms_32.pdf p3 | pseudocode (keywords) | context: 
+        LoanBicycle.BicycleID ← 567
+        LoanBicycle.BicycleAvailable ← FALSE
+1(b)(i) DECLARE BorrowerID : ARRAY[1:10] OF INTEGER
+1(b)(ii) DECLARE BicycleID : 500 .. 599 // DECLARE BicycleID : INTEGER 500 .. 599
+
+=== 9608_w21_ms_32_p7_b5 | 9608_w21_ms_32.pdf p7 | pseudocode (keywords) | context: 8(b)(ii) One mark for suitable loop, could be REPEAT or WHILE / One mark for suitable delay must be at least 100
+FOR Count ← 1 to 99999
+ENDFOR // NEXT // NEXT Count
+
+=== 9608_w21_ms_41_p8_b6 | 9608_w21_ms_41.pdf p8 | pseudocode (keywords) | context: 3 / 1 mark for each completed statement
+FUNCTION BinarySearch(ThisArray, LowerBound, UpperBound, SearchItem: INTEGER) RETURNS INTEGER
+  DECLARE Flag : BOOLEAN
+  DECLARE Mid : INTEGER
+  Flag ← -2
+  WHILE Flag <> -1
+    Mid ← LowerBound + ((UpperBound – LowerBound) DIV 2)
+    IF UpperBound < LowerBound
+      THEN
+        RETURN -1
+      ELSE
+        IF ThisArray[Mid] > SearchItem
+          THEN
+            UpperBound ← Mid – 1
+          ELSE
+            IF ThisArray[Mid] < SearchItem
+              THEN
+                 LowerBound ← Mid + 1
+              ELSE
+                RETURN Mid
+             ENDIF
+         ENDIF
+      ENDIF
+  ENDWHILE
+ENDFUNCTION
+
+=== 9608_w21_ms_41_p11_b14 | 9608_w21_ms_41.pdf p11 | pseudocode (keywords) | context: • … checking if A<= B in loop and if true, add 10 to variable and A – 10 / Example pseudocode:
+FUNCTION Recursion(A, B  : INTEGER) RETURNS INTEGER
+  DECLARE Value : INTEGER
+  Value ← 1
+  WHILE A > 100
+      IF A > B
+        THEN
+          Value ← Value + 5
+           A ← A - 1
+        ELSE
+          Value ← Value + 10
+          A ← A - 10
+      ENDIF
+  ENDWHILE
+  RETURN Value
+ENDFUNCTION
+
+=== 9608_w21_ms_41_p12_b15 | 9608_w21_ms_41.pdf p12 | pseudocode (keywords) | context: • record declaration named CustomerData … / • … all 3 correct data items with suitable data types (and identifiers)
+TYPE CustomerData
+  DECLARE CustomerID : INTEGER
+  DECLARE FirstName : STRING
+  DECLARE SecondName : STRING
+ENDTYPE
+
+=== 9608_w21_ms_41_p12_b16 | 9608_w21_ms_41.pdf p12 | pseudocode (keywords) | context: 6(b) / 1 mark per completed statement
+PROCEDURE StoreRecord(NewData : CustomerData)
+  HashValue ← CustomerHash(NewData.CustomerID)
+  Filename ← "CustomerRecords.dat"
+  OPENFILE Filename FOR RANDOM
+  SEEK Filename, HashValue
+  PUTRECORD Filename, NewData
+  CLOSE Filename
+ENDPROCEDURE
+
+=== 9608_w21_ms_41_p16_b21 | 9608_w21_ms_41.pdf p16 | pseudocode (keywords) | context: 8(b) / 1 mark for each completed statement
+PROCEDURE PostOrder(RootNode : INTEGER)
+   IF BinaryTree[RootNode, 0] <> -1 THEN
+      PostOrder(BinaryTree[RootNode, 0])
+   ENDIF
+   IF BinaryTree[RootNode, 2] <> -1 THEN
+      PostOrder(BinaryTree[RootNode, 2])
+   ENDIF
+   OUTPUT(BinaryTree[RootNode, 1])
+ENDPROCEDURE
+
+=== 9608_w21_ms_41_p16_b22 | 9608_w21_ms_41.pdf p16 | pseudocode (keywords) | context: • All elements initialised with −1 / Example pseudocode
+DECLARE StoredData : ARRAY[0:9999] OF INTEGER
+FOR X ← 0 to 9999
+  StoredData[X] ← -1
+NEXT X
+
+=== 9608_w21_ms_42_p4_b1 | 9608_w21_ms_42.pdf p4 | pseudocode (keywords) | context: 1(b) / 1 mark for each completed statement
+PROCEDURE Bubble(ByRef NumberArray : ARRAY[0:99] OF INTEGER)
+  DECLARE Outer : INTEGER
+  DECLARE Swap : BOOLEAN
+  DECLARE Inner : INTEGER
+  DECLARE Temp : INTEGER
+  Outer ← LENGTH(NumberArray)-1
+  REPEAT
+    Inner ← 0
+    Swap ← FALSE
+    REPEAT
+      IF NumberArray[Inner] > NumberArray[Inner + 1]
+        THEN
+           Temp ← NumberArray[Inner]
+            NumberArray[Inner] ← NumberArray[Inner + 1]
+            NumberArray[Inner + 1] ← Temp
+            Swap ← TRUE
+       ENDIF
+       Inner ← Inner + 1
+    UNTIL Inner = Outer
+    Outer ← Outer - 1
+  UNTIL Swap = FALSE OR Outer = 0
+ENDPROCEDURE
+
+=== 9608_w21_ms_42_p6_b2 | 9608_w21_ms_42.pdf p6 | pseudocode (keywords) | context: • … all three fields declared with type integer / Example:
+TYPE Node
+  DECLARE LeftPointer : INTEGER
+  DECLARE Data : INTEGER
+  DECLARE RightPointer : INTEGER
+ENDTYPE
+
+=== 9608_w21_ms_42_p7_b3 | 9608_w21_ms_42.pdf p7 | pseudocode (keywords) | context: • Assigning 100 to the Data / Example pseudocode
+DECLARE Node100 : Node
+Node100.LeftPointer ← 1
+Node100.Data ← 100
+Node100.RightPointer ← 4
+
+=== 9608_w21_ms_42_p9_b4 | 9608_w21_ms_42.pdf p9 | pseudocode (keywords) | context: 4(c)(iv) 1 mark for each completed statement
+PROCEDURE AddData(NewNode)
+  BinaryTree[FreePointer] ← NewNode
+  BinaryTree[FreePointer].LeftPointer ← -1
+  BinaryTree[FreePointer].RightPointer ← -1
+  DECLARE PositionFound : BOOLEAN
+  DECLARE PointerCounter : INTEGER
+  PositionFound ← FALSE
+  PointerCounter ← RootNode
+  WHILE NOT PositionFound
+    IF NewNode.Data < BinaryTree[PointerCounter].Data
+      THEN
+        IF BinaryTree[PointerCounter].LeftPointer = -1
+          THEN
+            BinaryTree[PointerCounter].LeftPointer ← FreePointer
+            PositionFound ← TRUE
+          ELSE
+            PointerCounter ← BinaryTree[PointerCounter].LeftPointer
+        ENDIF
+      ELSE
+        IF BinaryTree[PointerCounter].RightPointer = -1
+          THEN
+            BinaryTree[PointerCounter].RightPointer ← FreePointer
+            PostionFound ← True
+          ELSE
+            PointerCounter ← BinaryTree[PointerCounter].RightPointer
+        ENDIF
+    ENDIF
+  ENDWHILE
+  FreePointer ← FreePointer + 1
+ENDPROCEDURE
+
+=== 9608_w21_ms_42_p11_b6 | 9608_w21_ms_42.pdf p11 | pseudocode (keywords) | context: • … adding Num1 to totalling value when true / Example pseudocode:
+FUNCTION NonRecursive(Num1, Num2 : INTEGER) RETURNS INTEGER
+  Value ← 0
+  WHILE Num1 < Num2
+    Value ← Value + Num1
+    Num1 ← Num1 * 2
+  ENDWHILE
+  IF Num1 > Num2
+    THEN
+      Value ← Value + 10
+    ELSE
+      Value ← Value + Num1
+  ENDIF
+  RETURN Value
+ENDFUNCTION
+
+=== 9608_w21_ms_42_p12_b7 | 9608_w21_ms_42.pdf p12 | pseudocode (keywords) | context: 6(b)(i) 1 mark for True and False in the correct place / 1 for each other completed statement
+FUNCTION AddItemToStack(BYREF ErrorArray : ARRAY[0:99] OF Error, BYREF LastItem : INTEGER, BYVALUE Error1 : Error) RETURNS BOOLEAN
+  IF LastItem = 99 // ErrorArray.Length - 1
+    THEN
+      RETURN FALSE
+  ELSE
+    ErrorArray(LastItem + 1) ← Error1
+    LastItem ← LastItem + 1
+    RETURN TRUE
+  ENDIF
+ENDFUNCTION
+
+=== 9608_w21_ms_42_p13_b8 | 9608_w21_ms_42.pdf p13 | pseudocode (keywords) | context: 6(b)(iii) 1 mark for both return statements / 1 mark for each other completed statement
+FUNCTION RemoveItem(ByRef ErrorArray : ARRAY[0:99] OF Error, ByRef LastItem : INTEGER) RETURNS Error
+  DECLARE ItemToRemove : Error
+  IF LastItem  < 0 / = -1
+    THEN
+       RETURN NullError
+    ELSE
+       ItemToRemove ← ErrorArray[LastItem]
+       LastItem ← LastItem - 1
+       RETURN ItemToRemove
+ENDFUNCTION
+
+=== 9608_w21_ms_42_p14_b9 | 9608_w21_ms_42.pdf p14 | pseudocode (keywords) | context: • … if return value is TRUE, output "added to queue" message … / • … if return value is FALSE output "not added to queue" message
+PROCEDURE RunError(BYREF ErrorComplete : ARRAY[0:99] OF Error, BYREF ErrorArray : ARRAY[0:99] OF Error)
+  DECLARE DataItem : error
+  DataItem ← RemoveItem(ErrorArray, LastItem)
+  IF DataItem = NullError
+    THEN
+      OUTPUT "Stack empty"
+    ELSE
+      IF Enqueue(DataItem) = True
+        THEN
+          OUTPUT "Item added to queue"
+        ELSE
+          OUTPUT "Item not added to queue"
+     ENDIF
+ENDPROCEDURE
+
+=== 9618_w21_ms_31_p10_b9 | 9618_w21_ms_31.pdf p10 | pseudocode (keywords) | context: • … to correct the array element in  ArrayStack[] array. / Example algorithm
+FUNCTION AddInteger(NewInteger : INTEGER) RETURNS STRING
+   IF StackFull() THEN
+      RETURN "The stack is full"
+   ELSE
+      TopOfStack ← TopOfStack + 1
+      ArrayStack[TopOfStack] ← NewInteger
+      RETURN "Item added"
+   ENDIF
+ENDFUNCTION
+
+=== 9618_s22_ms_31_p4_b1 | 9618_s22_ms_31.pdf p4 | pseudocode (keywords) | context: 
+LibraryBook.Title ← "A Level Computer Science"
+LibraryBook.Fiction ← FALSE
+DECLARE NumberOfCopies : 1 .. 10
+DECLARE AccessionNumber : ARRAY[1:NumberOfCopies] OF INTEGER
+
+=== 9618_s22_ms_32_p4_b1 | 9618_s22_ms_32.pdf p4 | pseudocode (keywords) | context: 
+        BuildingRegister.BuildingID ← 1067
+        BuildingRegister.BuildingGroup ← "house"
+        One mark:  TYPE BuildingType =
+        One mark: (house, bungalow, apartment, farm)
+        TYPE BuildingType = (house, bungalow, apartment, farm)
+        DECLARE BuildingGroup : BuildingType
+1(b)(iii) BuildingRegister.BuildingGroup ← house
+        PRIVATE OwnerName : STRING
+
+=== 9618_s22_ms_41_p28_b51 | 9618_s22_ms_41.pdf p28 | pseudocode (keywords) | context: 1 mark for function heading and end, dealing with ByRef / 1 mark for remainder of function correct and following the logic
+FUNCTION Enqueue(BYREF QueueArray[] : STRING, BYREF HeadPointer : Integer, BYREF
+                 TailPointer : Integer, NumberItems : INTEGER, DataToAdd : STRING) RETURNS
+                 BOOLEAN
+   IF NumberItems = 10 THEN
+      RETURN FALSE
+    ENDIF
+   QueueArray[TailPointer] ← DataToAdd
+   IF TailPointer >= 9 THEN
+      TailPointer ← 0
+   ELSE
+      TailPointer ← TailPointer + 1
+   ENDIF
+   NumberItems ← NumberItems + 1
+   RETURN TRUE
+ENDFUNCTION
+
+=== 9618_w22_ms_31_p6_b2 | 9618_w22_ms_31.pdf p6 | pseudocode (keywords) | context: • Correct assignment of integer data value / Example answer:
+Pet1.PetName ← "Tibbles"
+Pet1.AnimalType ← "Cat"
+Pet1.PetAge ← 8
+Pet1.PetGender ← 'M'
+Pet1.OwnerName ← "Jasmine Smith"
+
+=== 9618_w22_ms_31_p13_b5 | 9618_w22_ms_31.pdf p13 | pseudocode (keywords) | context: • Two assignments – must use CarMake / • Constructor identifier for the car model and the identifier in the Model assignment statement match
+CLASS Car
+    PRIVATE Make : STRING
+    PRIVATE Model : STRING
+    PRIVATE BodyType : STRING
+    PRIVATE Fuel : STRING
+    PRIVATE NumberBuilt : INTEGER
+    PUBLIC PROCEDURE NEW (CarMake : STRING,
+    CarModel : STRING, CarBodyType : STRING)
+        Make ← CarMake
+        Model ← CarModel
+        BodyType ← CarBodyType
+        Fuel ← ""
+        NumberBuilt ← 0
+    ENDPROCEDURE
+    getFuel()
+    getNumberBuilt()
+ENDCLASS
+
+=== 9618_w22_ms_31_p14_b6 | 9618_w22_ms_31.pdf p14 | pseudocode (keywords) | context: • Finding the value / • Correct termination of loop
+Lower ← 0
+Upper ← 99
+Mid ← 0
+Exit ← FALSE
+OUTPUT "Enter the name to be found "
+INPUT Target
+REPEAT
+  IF Upper < Lower THEN
+      OUTPUT Target, " does not exist"
+      Exit ← TRUE
+  ENDIF
+  Mid ← Lower + (Upper – Lower + 1) DIV 2
+  IF Names[Mid] < Target THEN
+      Lower ← Mid + 1
+  ENDIF
+  IF Names[Mid] > Target THEN
+      Upper ← Mid - 1
+  ENDIF
+  IF Names[Mid] = Target THEN
+      OUTPUT Target, " was found at location ", Mid
+      Exit ← TRUE
+  ENDIF
+UNTIL Exit // UNTIL Exit = TRUE
+
+=== 9618_w22_ms_32_p6_b2 | 9618_w22_ms_32.pdf p6 | pseudocode (keywords) | context: 4(b) / One mark for each point (Max 4)
+• TYPE Flight and ENDTYPE correct
+• DECLARE FlightNumber and DECLARE Destination as STRING
+• DECLARE DepartureDate as DATE
+
+=== 9618_w22_ms_32_p6_b3 | 9618_w22_ms_32.pdf p6 | pseudocode (keywords) | context: • DECLARE AircraftType as Aircraft (correct data type from part 4(a)) / Example answer:
+TYPE Flight
+    DECLARE FlightNumber : STRING
+    DECLARE Destination : STRING
+    DECLARE DepartureDate : DATE
+    DECLARE AircraftType : Aircraft
+ENDTYPE
+
+=== 9618_w22_ms_32_p7_b5 | 9618_w22_ms_32.pdf p7 | pseudocode (keywords) | context: • Correct assignments of enumerated data value / Example answer:
+Flight1.FlightNumber ← "XA782"
+Flight1.Destination ← "Cambridge"
+Flight1.DepartureDate ← 12/12/2022
+Flight1.AircraftType ← C350
+
+=== 9618_w22_ms_32_p16_b33 | 9618_w22_ms_32.pdf p16 | pseudocode (keywords) | context: 11(b) / One mark for each correct line
+Pointer ← HeadPointer
+Found ← 0
+OUTPUT "Enter a flower name "
+INPUT FlowerName
+WHILE Pointer <> 0
+   IF Flower[Pointer] = FlowerName THEN
+      Found ← Pointer
+      Pointer ← 0
+   ELSE
+      Pointer ← NextPointer[Pointer]
+   ENDIF
+ENDWHILE
+IF Pointer = 0 THEN // IF Found <> 0 THEN
+   OUTPUT Flower[Found], " is found"
+ELSE
+   OUTPUT "The flower you wanted is not in the list"
+ENDIF
+
+=== 9618_w22_ms_41_p19_b47 | 9618_w22_ms_41.pdf p19 | pseudocode (keywords) | context: 1 mark for remainder of function correct / Pseudocode:
+FUNCTION SearchValue(BYVAL Root : INTEGER, ValueToFind :
+INTEGER)
+  IF Root = -1 THEN
+    RETURN -1
+  ELSE
+    IF ArrayNodes[Root,1] = ValueToFind THEN
+       RETURN Root
+    ELSE
+       IF ArrayNodes[Root, 1] = -1 THEN
+         RETURN -1
+       ENDIF
+    ENDIF
+  ENDIF
+  IF ArrayNodes[Root,1] > ValueToFind THEN
+    RETURN SearchValue(ArrayNodes[Root,0], ValueToFind)
+  ENDIF
+  IF ArrayNodes[Root,1] < ValueToFind THEN
+    RETURN SearchValue(ArrayNodes[Root,2], ValueToFind)
+  ENDIF
+ENDFUNCTION
+
+=== 9618_s23_ms_31_p8_b12 | 9618_s23_ms_31.pdf p8 | pseudocode (keywords) | context: 10 / One mark for each correctly completed line (Max 5)
+DECLARE Account : STRING
+OPENFILE "ActiveFile.txt" FOR READ
+OPENFILE "ArchiveFile.txt" FOR WRITE
+WHILE NOT EOF("ActiveFile.txt")
+   READFILE "ActiveFile.txt", Account
+   IF Account = "" THEN
+      WRITEFILE "ArchiveFile.txt", "Account not present"
+   ELSE
+      WRITEFILE "ArchiveFile.txt", Account
+   ENDIF
+ENDWHILE
+CLOSEFILE "ActiveFile.txt"
+CLOSEFILE "ArchiveFile.txt"
+
+=== 9618_s23_ms_31_p8_b13 | 9618_s23_ms_31.pdf p8 | pseudocode (keywords) | context:  correctly defined array /  three correctly defined integers
+CONSTANT MaxSize = 60
+DECLARE Queue : ARRAY[1:60] OF STRING // DECLARE Queue :
+ARRAY[0:59] OF STRING // DECLARE Queue : ARRAY[1:MaxSize]
+OF STRING // DECLARE Queue : ARRAY[0:MaxSize - 1] OF
+STRING
+DECLARE FrontPointer : INTEGER
+DECLARE RearPointer : INTEGER
+DECLARE Length : INTEGER
+
+=== 9618_s23_ms_31_p9_b14 | 9618_s23_ms_31.pdf p9 | pseudocode (keywords) | context: 11(b) / One mark for each correctly completed line (Max 4)
+FUNCTION Dequeue RETURNS STRING
+   DECLARE Item : STRING
+   IF Length > 0 THEN
+      Item ← Queue[FrontPointer]
+      FrontPointer ← FrontPointer + 1
+      Length ← Length – 1
+      IF Length = 0 THEN
+         CALL Initialise // procedure to reset the
+      pointers
+      ELSE
+         IF FrontPointer > MaxSize THEN
+            FrontPointer ← 1
+         ENDIF
+      ENDIF
+   ELSE
+      OUTPUT "The print queue was empty – error"
+      Item ← ""
+   ENDIF
+   RETURN Item
+ENDFUNCTION
+
+=== 9618_s23_ms_32_p7_b9 | 9618_s23_ms_32.pdf p7 | pseudocode (keywords) | context: One mark for every two correct declarations (Max 3) / Example answer
+TYPE TAppointments
+    DECLARE Name : STRING
+    DECLARE DateOfBirth : DATE
+    DECLARE Telephone : STRING
+    DECLARE LastAppointment : DATE
+    DECLARE NextAppointment : DATE
+    DECLARE TreatmentsComplete : BOOLEAN
+ENDTYPE
+
+=== 9618_s23_ms_32_p7_b10 | 9618_s23_ms_32.pdf p7 | pseudocode (keywords) | context: 6(b) / One mark for each correctly completed line (Max 5)
+DECLARE DentalRecord : ARRAY[1:250] OF TAppointments
+DECLARE DentalFile : STRING
+DECLARE Count : INTEGER
+DentalFile ← "DentalFile.dat"
+OUTPUT "The file ", DentalFile, " contains these records:"
+OPENFILE DentalFile FOR RANDOM
+Count ← 1
+REPEAT
+   SEEK DentalFile, Count
+   GETRECORD DentalFile, DentalRecord[Count]
+   OUTPUT DentalRecord[Count]
+   Count ← Count + 1
+UNTIL EOF(DentalFile)
+CLOSEFILE DentalFile
+
+=== 9618_s23_ms_32_p12_b13 | 9618_s23_ms_32.pdf p12 | pseudocode (keywords) | context: FrontPointer INTEGER Points to the first term of the queue. / 11(a)(ii) One mark for each correctly completed line (Max 5)
+CONSTANT MaxLength = 50
+DECLARE FrontPointer : INTEGER
+DECLARE RearPointer : INTEGER
+DECLARE Length : INTEGER
+DECLARE Queue : ARRAY[0:MaxLength – 1] OF STRING
+// Initialisation of queue
+PROCEDURE Initialise
+   FrontPointer ← -1
+   RearPointer ← -1
+   Length ← 0
+ENDPROCEDURE
+// Adding a new item to the queue
+PROCEDURE Enqueue(NewItem : STRING)
+   IF Length < MaxLength THEN // IF Length <= MaxLength -
+      1 THEN
+      RearPointer ← RearPointer + 1
+      IF RearPointer > MaxLength – 1 THEN
+         RearPointer ← 0
+      ENDIF
+      Queue[RearPointer] ← NewItem
+      Length ← Length + 1
+   ENDIF
+ENDPROCEDURE
+
+=== 9618_s23_ms_42_p7_b7 | 9618_s23_ms_42.pdf p7 | pseudocode (keywords) | context:  Remainder of procedure correct and following example / Pseudocode:
+PROCEDURE SortDescending()
+   DECLARE ArrayLength : INTEGER
+   DECLARE Temp : STRING
+   ArrayLength ← LENGTH(Animals)
+   FOR X ← 0 TO ArrayLength - 1
+      FOR Y ← 0 TO (ArrayLength - X - 1)
+        IF MID(Animals[Y], 0, 1) < MID(Animals[Y+1], 0, 1)
+          THEN
+            Temp ← Animals[Y]
+            Animals[Y] ← Animals[Y + 1]
+            Animals[Y + 1] ← Temp
+         ENDIF
+      NEXT Y
+   NEXT X
+ENDPROCEDURE
+
+=== 9618_w23_ms_31_p6_b1 | 9618_w23_ms_31.pdf p6 | pseudocode (keywords) | context: CPU gets pre-empted). / One mark for each correctly completed line (Max 5)
+DECLARE Customer : TAccount
+DECLARE Location : INTEGER
+DECLARE AccountFile : STRING
+AccountFile ← "AccountRecords.dat"
+OPENFILE AccountFile FOR RANDOM
+OUTPUT "Please enter an account number"
+INPUT Customer.AccountNumber
+Location ← Hash(Customer.AccountNumber)
+SEEK AccountFile, Location
+GETRECORD AccountFile, Customer
+OUTPUT Customer
+CLOSEFILE AccountFile
+
+=== 9618_w23_ms_31_p8_b4 | 9618_w23_ms_31.pdf p8 | pseudocode (keywords) | context: MP3 Correct array declaration / Example answer:
+CONSTANT Capacity = 25
+DECLARE BasePointer : INTEGER
+DECLARE TopPointer : INTEGER
+DECLARE Stack : ARRAY[1:25] OF REAL
+
+=== 9618_w23_ms_31_p8_b5 | 9618_w23_ms_31.pdf p8 | pseudocode (keywords) | context: 10(b) / One mark for each correctly completed line (Max 5)
+// popping an item from the stack
+FUNCTION Pop() RETURNS REAL
+   DECLARE Item : REAL
+   Item ← 0
+   IF TopPointer >= BasePointer THEN
+      Item ← Stack[TopPointer]
+      TopPointer ← TopPointer – 1
+   ELSE
+      OUTPUT "The stack is empty – error"
+   ENDIF
+   RETURN Item
+ENDFUNCTION
+
+=== 9618_w23_ms_32_p7_b2 | 9618_w23_ms_32.pdf p7 | pseudocode (keywords) | context: 9(a)(ii) One mark for each correctly completed line (Max 5)
+CONSTANT MaxSize = 40
+DECLARE BasePointer : INTEGER
+DECLARE TopPointer : INTEGER
+DECLARE Stack : ARRAY[1:40] OF REAL
+// initialisation of stack
+PROCEDURE Initialise()
+   BasePointer ← 1
+   TopPointer ← 0
+ENDPROCEDURE
+// adding an item to the stack
+PROCEDURE Push(NewItem)
+   IF TopPointer < MaxSize THEN
+      TopPointer ← TopPointer + 1
+      Stack[TopPointer] ← NewItem
+   ENDIF
+ENDPROCEDURE
+
+=== 9618_w23_ms_32_p9_b6 | 9618_w23_ms_32.pdf p9 | pseudocode (keywords) | context: • User error // typing incorrect filename / data type / 12(b) One mark for each correctly completed blank (Max 7)
+DECLARE Customer : TAccount
+DECLARE Location : INTEGER
+DECLARE MaxSize : INTEGER
+DECLARE: FoundFlag : BOOLEAN
+DECLARE SearchCustomer : STRING
+MaxSize ← 1000
+OPENFILE "AccountRecord.dat" FOR RANDOM
+Location ← 1
+FoundFlag ← FALSE
+OUTPUT "Enter the customer’s name"
+INPUT SearchCustomer
+WHILE NOT FoundFlag AND Location <= MaxSize
+   SEEK "AccountRecord.dat", Location
+   GETRECORD "AccountRecord.dat", Customer
+   IF SearchCustomer = Customer.Name THEN
+      OUTPUT "Customer found: "
+      OUTPUT Customer
+      FoundFlag ← TRUE
+   ENDIF
+   Location ← Location + 1
+ENDWHILE
+IF NOT FoundFlag THEN
+   OUTPUT "Customer does not exist."
+ENDIF
+
+=== 9618_w23_ms_41_p18_b33 | 9618_w23_ms_41.pdf p18 | pseudocode (keywords) | context: • Incrementing NumberRecords each time (twice) a new record is added / • Procedure header (and end) and using Dequeue() and storing/using return value
+DataAccessed ← Dequeue()
+
+=== 9618_w23_ms_41_p18_b34 | 9618_w23_ms_41.pdf p18 | pseudocode (keywords) | context: • Procedure header (and end) and using Dequeue() and storing/using return value / • Checking if NumberRecords is 0 and creating a new record with ID a
+IF NumberRecords = 0 THEN
+   Records[NumberRecords].ID ← DataAccessed
+   Records[NumberRecords].Total ← 1
+   Flag ← TRUE
+
+=== 9618_w23_ms_41_p18_b35 | 9618_w23_ms_41.pdf p18 | pseudocode (keywords) | context: • Looping through all array elements to find matching ID and incrementing total if found / FOR X ← 0 TO NumberRecords – 1 Check Python loop end
+   IF Records[X].ID = DataAccessed THEN
+      Records[X].Total ← Records[X].Total + 1
+      Flag ← TRUE
+   ENDIF
+NEXT X
+
+=== 9618_w23_ms_41_p18_b36 | 9618_w23_ms_41.pdf p18 | pseudocode (keywords) | context: FOR X ← 0 TO NumberRecords – 1 Check Python loop end / • Adding new record if record is not found, storing ID and total as 1
+IF Flag = FALSE THEN
+   Records[NumberRecords].ID ← DataAccessed
+   Records[NumberRecords].Total ← 1
+   NumberRecords ← NumberRecords + 1
+ENDIF
+
+=== 9618_w23_ms_42_p19_b27 | 9618_w23_ms_42.pdf p19 | pseudocode (keywords) | context: One mark for recursive calls both accurate and in correct places / One mark for remainder of function with nothing superfluous
+FUNCTION RecursiveValue(Number : Integer, ToFind : Integer) RETURNS INTEGER
+   IF Number = 0 THEN
+      RETURN 0
+   ELSE
+      IF ToFind MODULUS Number = 0 THEN
+          RETURN Number + RecursiveValue(Number - 1, ToFind)
+      ELSE
+          RETURN RecursiveValue(Number - 1, ToFind)
+      ENDIF
+   ENDIF
+ENDFUNCTION
+
+=== 9618_s24_ms_31_p6_b1 | 9618_s24_ms_31.pdf p6 | pseudocode (keywords) | context: One mark for every two correct declarations / Example answer
+TYPE FootballClub
+    DECLARE TeamName : STRING
+    DECLARE DateOfJoining : DATE
+    DECLARE MainTelephone : STRING
+    DECLARE ManagerName : STRING
+    DECLARE NumberOfMembers : INTEGER
+    DECLARE LeaguePosition : INTEGER
+ENDTYPE
+
+=== 9618_s24_ms_31_p12_b8 | 9618_s24_ms_31.pdf p12,13 | pseudocode (keywords) | context: 10(b) / One mark for each correctly completed line (Max 5)
+DECLARE Names : ARRAY[1:100000] OF STRING
+DECLARE TopOfList : INTEGER
+DECLARE EndOfList : INTEGER
+DECLARE CurrentItem : INTEGER
+DECLARE ToFind : STRING
+DECLARE Found : BOOLEAN
+DECLARE NotInList : BOOLEAN
+TopOfList ← 1
+EndOfList ← 100000
+OUTPUT "Which name do you wish to find? "
+INPUT ToFind
+Found ← FALSE
+NotInList ← FALSE
+WHILE Found = FALSE AND NotInList = FALSE
+   CurrentItem ← (TopOfList + EndOfList) DIV 2
+   IF ToFind = Names[CurrentItem]// Names[CurrentItem] = ToFind THEN
+      Found ← TRUE
+   ELSE
+      IF TopOfList >= EndOfList THEN
+         NotInList ← TRUE
+      ELSE
+         IF ToFind > Names[CurrentItem] THEN
+             TopOfList ← CurrentItem + 1
+         ELSE
+             EndOfList ← CurrentItem – 1
+         ENDIF
+      ENDIF
+   ENDIF
+ENDWHILE
+IF Found = TRUE THEN
+   OUTPUT "Item found at position ", CurrentItem, " in array"
+ELSE
+   OUTPUT "Item not in array"
+ENDIF
+
+=== 9618_s24_ms_32_p10_b7 | 9618_s24_ms_32.pdf p10 | pseudocode (keywords) | context: 8(a) / One mark for each correctly completed line (Max 4)
+DECLARE Widgets : ARRAY[1:50000] OF STRING
+DECLARE TopOfList : INTEGER
+DECLARE EndOfList : INTEGER
+DECLARE Count : INTEGER
+DECLARE ToFind : STRING
+DECLARE Found : BOOLEAN
+DECLARE NotInList : BOOLEAN
+TopOfList ← 1
+EndOfList ← 50000
+OUTPUT "Enter the name of the item you wish to find "
+INPUT ToFind
+Found ← FALSE
+NotInList ← FALSE
+Count ← TopOfList
+WHILE Found = FALSE AND NotInList = FALSE // Count <= EndOfList
+   IF ToFind = Widgets[Count] // Widgets[Count] = ToFind THEN
+      Found ← TRUE
+   ENDIF
+   Count ← Count + 1
+   IF Found = FALSE AND Count > EndOfList THEN
+      NotInList ← TRUE
+   ENDIF
+ENDWHILE
+IF Found = TRUE THEN
+   OUTPUT "Item found at position ", Count - 1, " in array"
+ELSE
+   OUTPUT "Item not in array"
+ENDIF
+
+=== 9618_w24_ms_31_p17_b65 | 9618_w24_ms_31.pdf p17 | pseudocode (keywords) | context: 11(c) / One mark for any correct row (Max 4)
+FUNCTION SearchTree(Item : STRING) RETURNS INTEGER
+   NowPtr ← RootPtr
+   WHILE NowPtr <> -1
+      IF BinTree[NowPtr].Data > Item THEN
+         NowPtr ← BinTree[NowPtr].LeftPtr
+      ELSE
+         IF BinTree[NowPtr].Data < Item THEN
+            NowPtr ← BinTree[NowPtr].RightPtr
+         ELSE
+            RETURN NowPtr
+         ENDIF
+      ENDIF
+   ENDWHILE
+   RETURN NowPtr
+ENDFUNCTION
+
+=== 9618_w24_ms_32_p5_b1 | 9618_w24_ms_32.pdf p5 | pseudocode (keywords) | context: One mark for the two unshaded declarations / Example answer
+TYPE Order
+   DECLARE AccountNumber : INTEGER
+   DECLARE OrderNumber : INTEGER
+   DECLARE OrderPrice : REAL
+   DECLARE OrderDate : DATE
+ENDTYPE
+
+=== 9618_w24_ms_32_p15_b15 | 9618_w24_ms_32.pdf p15 | pseudocode (keywords) | context: 11(c) / One mark for any correct row (Max 4)
+FUNCTION SearchList(Item : INTEGER) RETURNS INTEGER
+   NullPtr ← -1
+   NowPtr ← RootPtr
+   WHILE NowPtr <> NullPtr
+      IF LinkList[NowPtr].Data < Item THEN
+         NowPtr ← LinkList[NowPtr].RightPtr
+      ELSE
+         IF LinkList[NowPtr].Data > Item THEN
+            NowPtr ← LinkList[NowPtr].LeftPtr
+         ELSE
+            RETURN NowPtr
+         ENDIF
+      ENDIF
+   ENDWHILE
+   RETURN NullPtr
+ENDFUNCTION
+
+=== 9618_w24_ms_42_p20_b31 | 9618_w24_ms_42.pdf p20 | pseudocode (keywords) | context: structure accurately. / Pseudocode
+FUNCTION Enqueue(BYREF AQueue : Queue, BYVAL TheData : INTEGER) RETURNS INTEGER
+   IF AQueue.HeadPointer = -1 THEN
+      AQueue.QueueArray[AQueue.TailPointer] ← TheData
+      AQueue.HeadPointer ← 0
+      AQueue.TailPointer ← AQueue.TailPointer + 1
+      RETURN 1
+   ELSE
+      IF AQueue.TailPointer > 99 THEN
+        RETURN -1
+      ELSE
+        AQueue.QueueArray[AQueue.TailPointer] ← TheData
+        AQueue.TailPointer ← AQueue.TailPointer + 1
+        RETURN 1
+      ENDIF
+   ENDIF
+ENDFUNCTION
+
+=== 9618_w24_ms_42_p38_b63 | 9618_w24_ms_42.pdf p38 | pseudocode (keywords) | context: • Code statements in order: / • Code statements in order:
+OUTPUT "Before"
+OutputHighScores(HighScores) unsorted
+OUTPUT "After"
+OutputHighScores(HighScores) sorted
+
+=== 9618_s25_ms_31_p6_b3 | 9618_s25_ms_31.pdf p6 | pseudocode (keywords) | context: MP4 Remaining fields correct / Example answer:
+TYPE Booking
+    DECLARE BookingNumber : STRING
+    DECLARE Destination : STRING
+    DECLARE ClientName : STRING
+    DECLARE ClientTelephone : STRING
+    DECLARE DateOfDeparture : DATE
+    DECLARE PickupAddress : STRING
+    DECLARE TaxiUsed : Vehicle
+ENDTYPE
+
+=== 9618_s25_ms_31_p15_b18 | 9618_s25_ms_31.pdf p15 | pseudocode (keywords) | context: 12 / One mark for each correctly completed line (Max 5)
+DECLARE Location : INTEGER
+DECLARE Item : STRING
+DECLARE Continue : BOOLEAN
+DECLARE Answer : CHAR
+Continue ← TRUE
+OPENFILE "StockList.dat" FOR RANDOM
+WHILE Continue
+   OUTPUT "Enter a location between 1 and 500: "
+   INPUT Location
+   SEEK "StockList.dat", Location
+   GETRECORD "StockList.dat", Item
+   IF Item = "" THEN
+      OUTPUT "This record is missing"
+   ELSE
+      OUTPUT "The item in stock is ", Item
+   ENDIF
+   OUTPUT "Another location (Y or N)?"
+   INPUT Answer
+   IF Answer <> 'Y' THEN
+      Continue ← FALSE
+   ENDIF
+ENDWHILE
+CLOSEFILE "StockList.dat"
+OUTPUT "End of program"
+
+=== 9618_s25_ms_32_p4_b1 | 9618_s25_ms_32.pdf p4 | pseudocode (keywords) | context: MP3 Correct assignment of date data value / Example answer
+Flight1.FlightNumber ← "SB2789"
+Flight1.Destination ← "Dublin"
+Flight1.FlightDate ← 30/07/2025
+Flight1.Gate ← "N03"
+Flight1.Airline ← "Cambridge Airways"
+
+=== 9618_s25_ms_32_p12_b18 | 9618_s25_ms_32.pdf p12 | pseudocode (keywords) | context: 13 / One mark for each correctly completed line
+DECLARE Grade : StudentResult
+DECLARE Position : INTEGER
+OPENFILE "CurrentResults.dat" FOR RANDOM
+OPENFILE "StoredResults.dat" FOR RANDOM
+FOR Position ← 1 TO 50
+   SEEK "CurrentResults.dat", Position
+   GETRECORD "CurrentResults.dat", Grade
+   IF Grade.ExamGrade = "" THEN
+      Grade.ExamGrade ← "Missing grade"
+   ENDIF
+   SEEK "StoredResults.dat", Position
+   PUTRECORD "StoredResults.dat", Grade
+NEXT Position
+CLOSEFILE "CurrentResults.dat"
+CLOSEFILE "StoredResults.dat"
+
+=== 9618_s25_ms_33_p6_b2 | 9618_s25_ms_33.pdf p6 | pseudocode (keywords) | context: MP4 Remaining Three fields correct (unshaded) / Example answer
+TYPE VideoLibrary
+    DECLARE VideoID : STRING
+    DECLARE Title : STRING
+    DECLARE ReleaseYear : INTEGER
+    DECLARE PurchaseDate : DATE
+    DECLARE VideoFormat : STRING
+    DECLARE RunningTime : INTEGER
+ENDTYPE
+
+=== 9618_s25_ms_33_p14_b7 | 9618_s25_ms_33.pdf p14 | pseudocode (keywords) | context: 11 / One mark for each correctly completed line
+DECLARE Location : INTEGER
+DECLARE NewStock : STRING
+DECLARE CurrentStock : STRING
+DECLARE Stored : BOOLEAN
+DECLARE Max : INTEGER
+Max ← 100000
+Stored ← FALSE
+Location ← 1
+OPENFILE "StockList.dat" FOR RANDOM
+OUTPUT "Enter the new item you wish to store"
+INPUT NewStock
+WHILE NOT Stored AND Location <= Max
+   SEEK "StockList.dat", Location
+   GETRECORD "StockList.dat", CurrentStock
+   IF CurrentStock = "" THEN
+      PUTRECORD "StockList.dat", NewStock
+      Stored ← TRUE
+   ELSE
+      Location ← Location + 1
+   ENDIF
+ENDWHILE
+IF Stored = FALSE THEN
+   OUTPUT "The new stock item has not been stored as the file was full"
+ENDIF
+CLOSEFILE "StockList.dat"
+
+=== 9618_s25_ms_33_p15_b8 | 9618_s25_ms_33.pdf p15 | pseudocode (keywords) | context: MP6 Re-insertion of the element outside the inner loop / Example algorithm
+FOR Index ← 2 to 1000
+   Value ← DataArray[Index]
+   Position ← Index – 1
+   IF DataArray[Position] > Value THEN
+      WHILE Position >= 1 AND DataArray[Position] > Value
+         DataArray[Position + 1] ← DataArray[Position]
+         Position ← Position – 1
+      ENDWHILE
+      DataArray[Position + 1] ← Value
+   ENDIF
+NEXT Index
+
+=== 9618_w25_ms_31_p6_b2 | 9618_w25_ms_31.pdf p6 | pseudocode (keywords) | context: 1(a)(ii) One mark for each correct answer / Example answer
+Member1.Code ← 984632
+Member1.FeesPaid ← TRUE
+
+=== 9618_w25_ms_31_p13_b6 | 9618_w25_ms_31.pdf p13,14 | pseudocode (keywords) | context: 9(a)(i) One mark for each correctly completed line (Max 5)
+FUNCTION Pop() RETURNS STRING
+   DECLARE DataItem : STRING
+   DataItem ← ""
+   IF Top > –1 // Top >= Base THEN
+      DataItem ← StackArray[Top]
+      Top ← Top – 1
+   ELSE
+      DataItem ← "You cannot remove data; the stack is empty"
+   ENDIF
+   RETURN DataItem // StackArray[Top + 1]
+ENDFUNCTION
+9(a)(ii) OUTPUT "The data removed from the stack is ", Pop()
+
+=== 9618_w25_ms_32_p6_b2 | 9618_w25_ms_32.pdf p6 | pseudocode (keywords) | context: 1(a)(ii) One mark for each correct answer / Example answer
+Car1.Colour ← "Blue"
+Car1.IntoStock ← 21/10/2025
+
+=== 9618_w25_ms_32_p17_b8 | 9618_w25_ms_32.pdf p17 | pseudocode (keywords) | context: 12(a)(i) One mark for each correctly completed line (Max 4)
+PROCEDURE Push(NewData : STRING)
+   IF Top < Max – 1 THEN
+      Top ← Top + 1
+      StackArray[Top] ← NewData
+   ELSE
+      OUTPUT "Stack full; new data cannot be added"
+   ENDIF
+ENDPROCEDURE
+
+=== 9618_w25_ms_32_p17_b9 | 9618_w25_ms_32.pdf p17 | pseudocode (keywords) | context: MP2 Procedure call for Push with parameter used matching input variable / Example answer
+INPUT MyData
+CALL Push(MyData)
+
+=== 9618_w25_ms_33_p6_b3 | 9618_w25_ms_33.pdf p6 | pseudocode (keywords) | context: REAL, BOOLEAN) / Example answer
+TYPE ColourData
+    DECLARE ColourCode : STRING
+    DECLARE Colour : Spectrum
+    DECLARE Wavelength : INTEGER
+    DECLARE Frequency : REAL
+    DECLARE PrimaryColour : BOOLEAN
+ENDTYPE
+
+=== 9618_w25_ms_33_p13_b4 | 9618_w25_ms_33.pdf p13 | pseudocode (keywords) | context: MP3 Correct array declaration / Example answer
+CONSTANT Maximum = 100
+DECLARE Base : INTEGER
+DECLARE Top : INTEGER
+DECLARE StackArray : ARRAY[1:100] OF STRING
+
+=== 9618_w25_ms_33_p13_b5 | 9618_w25_ms_33.pdf p13 | pseudocode (keywords) | context: MP3 Top pointer with appropriate value (–1, 0, 1) / Example answer
+PROCEDURE InitialiseStack()
+   Base ← 0
+   Top ← 0
+ENDPROCEDURE
+
