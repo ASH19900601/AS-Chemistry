@@ -1,0 +1,28 @@
+# Sample mark scheme for testing AI SQ Grader.
+# Written for this project in the style of an AS Chemistry paper; it is not a Cambridge document.
+#
+# Format
+#   QUESTION <question number> [<maximum mark>]
+#   <point ID> [<marks>] <what the answer must contain>      alternatives are separated by /
+#   RULE <point ID> DEPENDS ON <point ID>                    the first point is only awarded
+#                                                            if the second is also awarded
+QUESTION 1(a) [2]
+P1 [1] protons and neutrons are in the nucleus
+P2 [1] electrons are in shells / energy levels around the nucleus
+
+QUESTION 1(b) [1]
+P1 [1] isotopes have the same number of protons but different numbers of neutrons
+
+QUESTION 2(a) [3]
+P1 [1] moles of NaOH = 0.0250 x 0.100 = 0.00250 mol
+P2 [1] moles of HCl = 0.00250 mol because the reacting ratio is 1 : 1
+P3 [1] concentration of HCl = 0.100 mol dm-3
+RULE P3 DEPENDS ON P2
+
+QUESTION 2(b) [2]
+P1 [1] the rate of reaction increases at a higher temperature
+P2 [1] more particles have energy greater than or equal to the activation energy
+
+QUESTION 3 [2]
+P1 [1] a covalent bond is a shared pair of electrons
+P2 [1] electrostatic attraction between the shared pair of electrons and both nuclei
