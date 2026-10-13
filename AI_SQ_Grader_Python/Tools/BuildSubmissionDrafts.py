@@ -6,6 +6,7 @@
 #                                                       and a plan for the demo video
 # Every "Actual outcome" is produced by running the program now, so after changing the code
 # run this again:   python Tools/BuildSubmissionDrafts.py
+# To rebuild only some drafts, name the members:   python Tools/BuildSubmissionDrafts.py Kevin
 # It uses temporary folders, so the real learning records, reports and backups are not touched.
 # This is a group tool, not part of any member's module.
 
@@ -25,6 +26,7 @@ ProgramFolder = os.path.dirname(ToolFolder)
 sys.path.insert(0, ProgramFolder)
 os.chdir(ProgramFolder)
 
+import AIConnection                # noqa: E402
 import AISQGrader                  # noqa: E402
 import CorrectionRegrading         # noqa: E402
 import DocumentProcessing          # noqa: E402
@@ -120,13 +122,13 @@ def SampleDocuments():
 
 
 def SampleGrading():
-    Processed, _ = Run(DocumentProcessing.ProcessDocuments, [], SampleDocuments())
+    Processed, _ = Run(DocumentProcessing.ProcessDocuments, [], SampleDocuments(), SQRecords.AISettings())
     Grading, Printed = Run(GradingFeedback.GradePaper, [], Processed, SQRecords.AISettings())
     return Grading, Printed
 
 
 def SampleQuestion(QuestionID, AnswerText):
-    Processed, _ = Run(DocumentProcessing.ProcessDocuments, [], SampleDocuments())
+    Processed, _ = Run(DocumentProcessing.ProcessDocuments, [], SampleDocuments(), SQRecords.AISettings())
     for Question in Processed.Questions:
         if Question.QuestionID == QuestionID:
             Question.AnswerText = AnswerText
@@ -187,6 +189,14 @@ def Completion(Content):
     return json.dumps({'choices': [{'message': {'role': 'assistant', 'content': Content}}]})
 
 
+def OnlineSettings(Server):
+    Settings = SQRecords.AISettings()
+    Settings.Provider = Server.URL + 'v1'
+    Settings.ModelName = 'test-model'
+    Settings.APIKey = 'sk-test'
+    return Settings
+
+
 def Row(Kind, Data, Expected, Actual):
     return {'Data': Kind + ': ' + Data, 'Expected': Expected, 'Actual': Actual}
 
@@ -234,9 +244,9 @@ def FoxTests():
     Rows.append(Row('Abnormal', 'the same inputs through the main module (AI SQ Grader)',
                     'The session stops before the Document Processing Module is called',
                     Pick(Printed, 'session has stopped') + '; Document Processing called ' + str(Processing.call_count) + ' times'))
-    Inputs = ['2', '2', '22', '2', '2023', 'SampleData/Sample_Chemistry_Answers.txt', 'SampleData/Sample_Answer_Q3.png', '', 'SampleData/Sample_Chemistry_MS.txt']
+    Inputs = ['2', '2', '22', '2', '2023', 'SampleData/Sample_Chemistry_Answers.txt', 'SampleData/Sample_Answer_Q3.png', '', 'SampleData/Sample_Chemistry_MS.txt', '']
     Result, Printed = Run(PaperDocumentManagement.ManageDocuments, Inputs, SQRecords.DownloadSettings())
-    Processed, Printed2 = Run(DocumentProcessing.ProcessDocuments, [], Result)
+    Processed, Printed2 = Run(DocumentProcessing.ProcessDocuments, [], Result, SQRecords.AISettings())
     Rows.append(Row('Normal', 'paper, Sample_Chemistry_Answers.txt, Sample_Answer_Q3.png and Sample_Chemistry_MS.txt',
                     'IsComplete = TRUE; the DocumentSet is read by the Document Processing Module (integration)',
                     Pick(Printed, 'All documents are ready') + ' (IsComplete = ' + str(Result.IsComplete).upper() + '); Document Processing: ' + Pick(Printed2, 'Mark scheme read')))
@@ -259,12 +269,12 @@ def FoxTests():
                 ('9701/21/M/J/23', 'Abnormal', 'paper 9701/21/M/J/23; the server sends a web page instead of a PDF', 'Rejected because the file is not a PDF'),
                 ('9701/23/M/J/23', 'Abnormal', 'paper 9701/23/M/J/23; the file is not on the server', 'Download failed message with the HTTP error number')]:
             Paper.PaperCode = Code
-            _, Printed = Run(PaperDocumentManagement.DownloadMarkScheme, [], Paper, Download)
+            _, Printed = Run(PaperDocumentManagement.DownloadPaperFile, [], Paper, 'ms', Download)
             Rows.append(Row(Kind, Data, Expected, Pick(Printed, 'saved as', 'Download failed')))
         Server.Stop()
         Download.ServiceURL = ClosedPortURL()
         Paper.PaperCode = '9701/22/M/J/23'
-        _, Printed = Run(PaperDocumentManagement.DownloadMarkScheme, [], Paper, Download)
+        _, Printed = Run(PaperDocumentManagement.DownloadPaperFile, [], Paper, 'ms', Download)
         Rows.append(Row('Abnormal', 'the download server is switched off', 'Message that the service could not be reached', Pick(Printed, 'Download failed')))
     Tests.append({'Name': 'Download the mark scheme', 'Purpose': 'To check that a mark scheme can be downloaded from the online service and that anything that is not a PDF is rejected.', 'Rows': Rows})
 
@@ -280,6 +290,28 @@ def FoxTests():
     _, Printed = Run(AISQGrader.ReadSettingsFile, [], 'NoSettings.txt')
     Rows.append(Row('Abnormal', 'the settings file is missing', 'Message; default settings are used', Pick(Printed, 'Settings file not found')))
     Tests.append({'Name': 'Load the settings (main module)', 'Purpose': 'To check that the main module reads its settings file, never needs the API key to be saved, and still runs when a setting is missing.', 'Rows': Rows})
+    Rows = []
+    Details = SQRecords.PaperDetails()
+    Result, Printed = Run(PaperDocumentManagement.InputQuestionPaper, [''], Details, SQRecords.DownloadSettings())
+    Rows.append(Row('Normal', 'Enter pressed (no question paper)', 'Skipped without an error; marking can still begin',
+                    'QuestionPaperFile = "' + Result + '"'))
+    Result, Printed = Run(PaperDocumentManagement.InputQuestionPaper, ['Paper.docx', 'SampleData/Sample_Answer_Q3.png'], Details, SQRecords.DownloadSettings())
+    Rows.append(Row('Abnormal', 'Paper.docx, then a photo of the paper (.png)', 'Word file rejected; photo accepted',
+                    Pick(Printed, 'Not accepted') + '; then "' + os.path.basename(Result) + '" accepted'))
+    Tests.append({'Name': 'Upload the question paper (optional)', 'Purpose': 'To check that the question paper can be added to help the AI, but is not required.', 'Rows': Rows})
+
+    Rows = []
+    Server = FileServer(AIReplies=[(200, Completion('{"ok": true}')), (200, Completion('I am a chatbot.')), (401, '{"error": "invalid key"}')])
+    Settings = OnlineSettings(Server)
+    for Kind, Data, Expected in [('Normal', 'a test server that answers like an OpenAI-compatible AI service', 'Message that the AI service is working'),
+                                 ('Abnormal', 'the server answers with plain text instead of JSON', 'Message to choose another model'),
+                                 ('Abnormal', 'the server answers HTTP 401 (wrong API key)', 'Message that the test failed, with the error')]:
+        Result, Printed = Run(AIConnection.TestConnection, [], Settings)
+        Rows.append(Row(Kind, Data, Expected, Pick(Printed, 'working', 'not with JSON', 'failed') + ' (returned ' + str(Result).upper() + ')'))
+    Server.Stop()
+    Result, Printed = Run(AIConnection.TestConnection, [], SQRecords.AISettings())
+    Rows.append(Row('Boundary', 'the offline demo marker is chosen', 'Message that there is no AI service to test', Pick(Printed, 'offline demo marker')))
+    Tests.append({'Name': 'Test the AI connection', 'Purpose': 'To check that the program reports clearly whether the chosen AI service, model and API key work before a paper is marked.', 'Rows': Rows})
     return Tests
 
 
@@ -303,7 +335,7 @@ def KevinTests():
     Tests.append({'Name': 'Read the mark scheme', 'Purpose': 'To check that question numbers, marking points, marks and marking rules are extracted, and badly written lines are reported.', 'Rows': Rows})
 
     Rows = []
-    Processed, Printed = Run(DocumentProcessing.ProcessDocuments, [], SampleDocuments())
+    Processed, Printed = Run(DocumentProcessing.ProcessDocuments, [], SampleDocuments(), SQRecords.AISettings())
     Grading, Printed2 = Run(GradingFeedback.GradePaper, [], Processed, SQRecords.AISettings())
     Q3 = Grading.QuestionResults[4]
     Rows.append(Row('Abnormal', 'question 3 is answered only in the photo Sample_Answer_Q3.png',
@@ -317,7 +349,7 @@ def KevinTests():
         File.write('1(a) protons and neutrons are in the nucleus\n9(z) an answer to a question that is not in the paper\n')
     Documents = SampleDocuments()
     Documents.AnswerFiles = [FileName]
-    _, Printed = Run(DocumentProcessing.ProcessDocuments, [], Documents)
+    _, Printed = Run(DocumentProcessing.ProcessDocuments, [], Documents, SQRecords.AISettings())
     Rows.append(Row('Abnormal', 'an answer labelled 9(z), which is not in the mark scheme', 'Message; 9(z) is listed as an uncertain match', Pick(Printed, '9(z)')))
     Tests.append({'Name': 'Unclear question-answer match', 'Purpose': 'To check that answers that cannot be matched with certainty are flagged for review instead of being marked.', 'Rows': Rows})
 
@@ -386,6 +418,61 @@ def KevinTests():
     Feedback, Printed = Run(GradingFeedback.CompareWithMarkingPoints, [], Question, Settings)
     Rows.append(Row('Abnormal', 'the AI server is switched off', 'After 3 attempts: network error message; points "Not assessed"', Pick(Printed, 'failed') + '; ' + Categories(Feedback)))
     Tests.append({'Name': 'Request an AI judgement', 'Purpose': 'To check that the module works with an online AI service and that a failed request flags the question instead of marking it wrong.', 'Rows': Rows})
+    Rows = []
+    Folder = FreshFolder('KevinMarkScheme')
+    FileName = os.path.join(Folder, '9701_s23_ms_22.pdf')
+    import pymupdf
+    Document = pymupdf.open()
+    Document.new_page().insert_text((72, 72), 'Cambridge International AS & A Level  MARK SCHEME  Maximum Mark: 60  Published')
+    Page = Document.new_page()
+    Lines = ['Question   Answer   Marks', '1(a)  protons and neutrons in nucleus (1); electrons in shells / energy levels (1)   2',
+             '1(b)  same number of protons, different number of neutrons   1',
+             '2(b)  rate increases (1); more particles have E >= Ea (1) dep on first mark   2']
+    for Index in range(0, len(Lines)):
+        Page.insert_text((40, 72 + 16 * Index), Lines[Index], fontsize=9)
+    Document.save(FileName)
+    Document.close()
+    Reply = {'questions': [
+        {'question': '1(a)', 'max_mark': 2, 'points': [{'id': 'P1', 'marks': 1, 'requirement': 'protons and neutrons in the nucleus'},
+                                                       {'id': 'P2', 'marks': 1, 'requirement': 'electrons in shells / energy levels'}], 'rules': []},
+        {'question': '1(b)', 'max_mark': 1, 'points': [{'id': 'P1', 'marks': 1, 'requirement': 'same number of protons, different number of neutrons'}], 'rules': []},
+        {'question': '2(b)', 'max_mark': 2, 'points': [{'id': 'P1', 'marks': 1, 'requirement': 'rate increases'},
+                                                       {'id': 'P2', 'marks': 1, 'requirement': 'more particles have energy >= activation energy'}], 'rules': ['P2 DEPENDS ON P1']}]}
+    Server = FileServer(AIReplies=[(200, Completion(json.dumps(Reply))), (401, '{"error": "invalid key"}')])
+    Settings = OnlineSettings(Server)
+    with mock.patch.object(DocumentProcessing, 'ParsedFolder', os.path.join(Folder, 'ParsedMarkSchemes')):
+        Questions, Printed = Run(DocumentProcessing.ReadMarkScheme, [], FileName, Settings)
+        Rows.append(Row('Normal', 'a 2-page mark scheme PDF in the Cambridge layout (cover page, then a table of answers); test AI server',
+                        'Cover page skipped; marking points read by the AI and saved in the SQ text format for checking',
+                        Pick(Printed, 'Skipped', 'saved as') + '; ' + str(len(Questions)) + ' questions (' + ', '.join(Q.QuestionID for Q in Questions)
+                        + '); 2(b) rule "' + Questions[2].MarkingRules.RuleNotes + '"'))
+        Questions, Printed = Run(DocumentProcessing.ReadMarkScheme, [], FileName, Settings)
+        Rows.append(Row('Abnormal', 'the same PDF, but the AI service refuses the request (HTTP 401)', 'Marking stops, so no incomplete mark scheme is used',
+                        Pick(Printed, 'could not read part', 'Marking has stopped') + ' (' + str(len(Questions)) + ' questions)'))
+    Server.Stop()
+    Questions, Printed = Run(DocumentProcessing.ReadMarkScheme, [], FileName, SQRecords.AISettings())
+    Rows.append(Row('Abnormal', 'the same PDF with the offline demo marker', 'Message that an AI service or the SQ text format is needed',
+                    Pick(Printed, 'not in the SQ text format')))
+    Tests.append({'Name': 'Read a Cambridge mark scheme with AI', 'Purpose': 'To check that a mark scheme PDF is turned into marking points, and that marking stops if part of it cannot be read.', 'Rows': Rows})
+
+    Rows = []
+    Server = FileServer(AIReplies=[
+        (200, Completion(json.dumps({'answers': [{'question': '3', 'answer': 'A covalent bond is a pair of electrons shared between two atoms. The nuclei are attracted to the shared electrons.', 'confidence': 'high'}]}))),
+        (200, Completion(json.dumps({'answers': [{'question': '3', 'answer': 'A covalent ... (smudged)', 'confidence': 'low'}]}))),
+        (400, '{"error": "image input is not supported by this model"}')])
+    Settings = OnlineSettings(Server)
+    Processed, Printed = Run(DocumentProcessing.ProcessDocuments, [], SampleDocuments(), Settings)
+    Rows.append(Row('Normal', 'Sample_Answer_Q3.png (photo of handwritten answer 3); test AI server that reads images',
+                    'Answer 3 read from the photo and matched to question 3, not flagged',
+                    Pick(Printed, 'answer(s) read from', 'found (read from handwriting)') + '; text read: "' + Processed.Questions[4].AnswerText[0:48] + '..."'))
+    Processed, Printed = Run(DocumentProcessing.ProcessDocuments, [], SampleDocuments(), Settings)
+    Rows.append(Row('Abnormal', 'the AI reads the photo with low confidence', 'Question 3 flagged for review instead of being marked',
+                    Pick(Printed, 'could not be read with confidence', 'UNCERTAIN')))
+    Processed, Printed = Run(DocumentProcessing.ProcessDocuments, [], SampleDocuments(), Settings)
+    Rows.append(Row('Abnormal', 'the chosen model does not accept images (HTTP 400)', 'Message; question 3 flagged for review',
+                    Pick(Printed, 'Could not read', 'UNCERTAIN')))
+    Server.Stop()
+    Tests.append({'Name': 'Read handwriting from a photo', 'Purpose': 'To check that handwritten answers in photos and scans are read by the AI, and that an unclear reading is flagged instead of marked.', 'Rows': Rows})
     return Tests
 
 
@@ -407,8 +494,18 @@ def CarolineTests():
     Rows.append(Row('Normal', 'question 2(b), partly corrected: "The rate of reaction increases at a higher temperature."', '0 / 2 -> 1 / 2; P2 still to improve',
                     Pick(Printed, 'Estimated mark:', 'Still to improve')))
     Result, Printed = Run(CorrectionRegrading.CorrectAndRegrade, ['Y', '2(b)', '3', 'SampleData/Sample_Answer_Q3.png'], Grading, Settings)
-    Rows.append(Row('Abnormal', 'question 2(b), correction uploaded as a photo (Sample_Answer_Q3.png)', 'Flagged for teacher review; mark not changed',
+    Rows.append(Row('Abnormal', 'question 2(b), photo of a correction (Sample_Answer_Q3.png) with the offline demo marker', 'Flagged for teacher review; mark not changed',
                     Pick(Printed, 'flagged for review', 'Estimated mark:') + '; NeedsReview = ' + str(Result.Attempts[1].Feedback.NeedsReview).upper()))
+    Server = FileServer(AIReplies=[
+        (200, Completion(json.dumps({'answers': [{'question': '2(b)', 'answer': GoodAnswer2b, 'confidence': 'high'}]}))),
+        (200, Completion(json.dumps({'points': [{'point_id': 'P1', 'category': 'Clearly correct', 'explanation': 'States that the rate increases.'},
+                                                {'point_id': 'P2', 'category': 'Clearly correct', 'explanation': 'Refers to particles with at least the activation energy.'}],
+                                     'outside_ms': []})))])
+    Result, Printed = Run(CorrectionRegrading.CorrectAndRegrade, ['Y', '2(b)', '3', 'SampleData/Sample_Answer_Q3.png'], Grading, OnlineSettings(Server))
+    Server.Stop()
+    Rows.append(Row('Normal', 'question 2(b), photo of a handwritten correction; test AI server that reads images',
+                    'The photo is read by the AI (Document Processing Module) and the correction is marked: 0 / 2 -> 2 / 2',
+                    Pick(Printed, 'Read from the photo', 'Estimated mark:')))
     Tests.append({'Name': 'Submit a corrected response', 'Purpose': 'To check that a correction becomes a new attempt, marked against the original criteria, and is compared with the earlier attempt.', 'Rows': Rows})
 
     Rows = []
@@ -479,14 +576,14 @@ def AndyTests():
         Rows.append(Row('Normal', 'GradingResult of the sample paper (from the Grading and Feedback Module) and LearningData (from the Learning Records Module)',
                         'PDF report saved with the paper details, total, marking-point explanations, error diagnoses and attempt history',
                         Pick(Printed, 'PDF report saved') + Detail))
-        Special = 'Temperature \u2191 \u2192 rate (k) \u6e29\u5ea6'
+        Special = 'H' + chr(0x2082) + 'O ' + chr(0x21cc) + ' H' + chr(0x207a) + ' + OH' + chr(0x207b) + ', ' + chr(0x0394) + 'H = -57 kJ (' + chr(0x6e29) + chr(0x5ea6) + ')'
         Safe = ReportManagement.MakePdfSafe(Special)
         SpecialFile = os.path.join(Folder, 'Special.pdf')
         Written = ReportManagement.WritePdfReport(['## Special characters', Special], SpecialFile)
         with open(SpecialFile, 'rb') as File:
             SpecialData = File.read()
         Rows.append(Row('Abnormal', 'answer text with characters the PDF font cannot show: "' + Special + '"',
-                        '"\u2192" written as "->", characters with no font shape as "?", brackets escaped; the PDF is still written',
+                        'Subscripts and superscripts written as plain digits and signs, the arrow as "<=>", Delta by name, characters with no font shape as "?", brackets escaped; the PDF is still written',
                         'Written to the PDF as "' + Safe + '"; WritePdfReport returned ' + str(Written).upper()
                         + '; file starts with %PDF and ends with %%EOF: ' + str(SpecialData.startswith(b'%PDF') and SpecialData.rstrip().endswith(b'%%EOF')).upper()))
         Outcome, Printed = Run(ReportManagement.ManageReports, ['N', 'N'], SQRecords.GradingResult(), Learning)
@@ -547,64 +644,121 @@ def AndyTests():
 # ===================================================================== member information
 
 Members = [
-    {'Name': 'Fox', 'Module': 'Paper and Document Management Module (and the AI SQ Grader main module)',
-     'Files': ['PaperDocumentManagement.py', 'AISQGrader.py'], 'Tests': FoxTests,
+    {'Name': 'Fox', 'Module': 'Paper and Document Management Module (with the AI SQ Grader main module and the AI connection)',
+     'Files': ['PaperDocumentManagement.py', 'AIConnection.py', 'AISQGrader.py'], 'Tests': FoxTests,
      'Rubric': [
-         ('Input', 'User: InputMenuChoice, InputPaperNumber, InputYear, InputAnswerFiles, InputMarkScheme. File: CheckDocument, ReadSettingsFile (Settings.txt). Online data stream: DownloadMarkScheme (urllib).'),
-         ('Collection', 'Parallel arrays SubjectNames / SubjectCodes / SubjectLevels and SeriesNames / SeriesCodes / SeriesLetters; the AnswerFiles list; the 2D SettingsTable.'),
-         ('Module with parameters', 'CheckDocument(FileName, AllowedTypes) RETURNS STRING; IsAllowedType(FileName, AllowedTypes) RETURNS BOOLEAN; DownloadMarkScheme(Paper, Download) RETURNS STRING; ManageDocuments(Download) RETURNS DocumentSet; GetSetting(SettingsTable, Key, DefaultValue).'),
-         ('Sequence, selection, iteration', 'InputAnswerFiles: WHILE loop, IF / ELIF / ELSE on the checks; GetFileExtension: WHILE loop with a flag; InputMarkScheme; RunMainMenu.'),
-         ('Calls to the module', 'ManageDocuments is called by RunMarkingSession (main); CheckDocument is called by InputAnswerFiles and InputMarkScheme; DownloadMarkScheme by InputMarkScheme.'),
-         ('Output', '"Not added: This file type is not supported ...", "Missing: no mark scheme ...", "Marking cannot begin ...", DisplayDocumentSet, DisplaySettings.'),
-         ('Integration', 'Returns the DocumentSet that the main module passes to the Document Processing Module (Kevin); the main module calls all six modules.')],
+         ('Input', 'User: InputMenuChoice, InputPaperNumber, InputYear, InputAnswerFiles, InputPaperFile (mark scheme and question paper), InputAISettings. File: CheckDocument, ReadSettingsFile (Settings.txt), MakeImageURL (reads a photo). Online data streams: DownloadPaperFile (urllib) and SendChatRequest (the AI service).'),
+         ('Collection', 'Parallel arrays SubjectNames / SubjectCodes / SubjectLevels and SeriesNames / SeriesCodes / SeriesLetters; the AnswerFiles list; the 2D SettingsTable; ProviderNames / ProviderURLs; the list of request parts (text and images) in SendChatRequest.'),
+         ('Module with parameters', 'CheckDocument(FileName, AllowedTypes) RETURNS STRING; DownloadPaperFile(Paper, PaperType, Download) RETURNS STRING; SendChatRequest(PromptText, ImageURLs, Settings) RETURNS AIResponse; TestConnection(Settings) RETURNS BOOLEAN; ManageDocuments(Download) RETURNS DocumentSet; GetSetting(SettingsTable, Key, DefaultValue).'),
+         ('Sequence, selection, iteration', 'InputAnswerFiles: WHILE loop with IF / ELIF / ELSE checks; SendChatRequest: WHILE loop that retries temporary errors, with selection on the HTTP error code; GetFileExtension: WHILE loop with a flag; RunMainMenu.'),
+         ('Calls to the module', 'ManageDocuments and TestConnection are called by the main module; CheckDocument by InputAnswerFiles and InputPaperFile; SendChatRequest by Kevin\'s and Caroline\'s modules for every AI request.'),
+         ('Output', '"Not added: This file type is not supported ...", "Missing: no mark scheme ...", "Marking cannot begin ...", "The AI service is working." / "The test failed: ...", DisplayDocumentSet, DisplaySettings.'),
+         ('Integration', 'The DocumentSet goes to the Document Processing Module (Kevin); AIConnection carries every AI request of Kevin\'s and Caroline\'s modules; the main module calls all six modules in order.')],
      'Video': [
-         'Caption "AI SQ Grader - Paper and Document Management (Fox)". Run python AISQGrader.py.',
+         'Caption "AI SQ Grader - Paper and Document Management (Fox)". Run python AISQGrader.py. If you have an API key, choose 4 (Test the AI connection) and show "The AI service is working."',
          'Choose 1 (Mark a new paper). Input: AS Level, Chemistry, paper 27 (show the error message), then 22, May/June, 2023.',
          'Upload Answers.docx (show "not supported"), then SampleData/Sample_Chemistry_Answers.txt and SampleData/Sample_Answer_Q3.png, then Enter.',
          'Press Enter for the mark scheme: show "Missing: no mark scheme ..." and "The marking session has stopped". Caption "Marking cannot begin without all documents".',
-         'Choose 1 again and enter everything, with SampleData/Sample_Chemistry_MS.txt as the mark scheme: "All documents are ready".',
+         'Choose 1 again and enter everything (mark scheme SampleData/Sample_Chemistry_MS.txt; Enter for the question paper): "All documents are ready".',
          'Caption "Integration: DocumentSet passed to Kevin\'s Document Processing Module" while its question table appears. Stop recording (under 1 minute).']},
     {'Name': 'Kevin', 'Module': 'Document Processing Module and Grading and Feedback Module',
      'Files': ['DocumentProcessing.py', 'GradingFeedback.py'], 'Tests': KevinTests,
-     'Rubric': [
-         ('Input', 'Files: the mark scheme and answer files (ReadTextFile, ReadPdfText). Online data stream: RequestAIJudgement sends the prompt to the AI service and reads its reply.'),
-         ('Collection', 'ARRAY OF QuestionItem / MarkingPoint / PointFeedback; the 2D AnswerTable [label, answer]; UncertainMatches; StopWords and UnitWords; the lists of key terms.'),
-         ('Module with parameters', 'ParseMarkScheme(Lines) RETURNS ARRAY OF QuestionItem; AssessMarkingPoints(Question, IsMatched, Settings) RETURNS PointFeedbackSet; CalculateEstimatedMark(Feedback, MarkingRules) RETURNS INTEGER; RequestAIJudgement(PromptText, Settings) RETURNS AIResponse; DiagnoseErrors(Question, Feedback, Settings).'),
-         ('Sequence, selection, iteration', 'ParseMarkScheme (FOR loop over lines, IF / ELIF chain); GradePaper (FOR loop over questions); RequestAIJudgement (WHILE loop that retries); IsPointAwarded (recursion).'),
-         ('Calls to the module', 'ProcessDocuments and GradePaper are called by the main module; AssessMarkingPoints and CalculateEstimatedMark are also called by the Correction and Regrading Module (Caroline).'),
-         ('Output', 'The question table with "found" / "UNCERTAIN"; feedback for every marking point; "Not counted: this point depends on P2 ..."; "Likely reason for lost mark ..."; the estimated total.'),
-         ('Integration', 'Reads Fox\'s DocumentSet; returns the GradingResult used by Caroline\'s and Andy\'s modules.')],
+     # Kevin's draft shows selected subprograms instead of the whole files. Each excerpt is a
+     # whole subprogram (or the module header), cut from the current code by its name.
+     'Excerpts': [
+         {'ID': 'DP header', 'File': 'DocumentProcessing.py', 'Name': 'HEADER',
+          'Shows': 'Comments: what the module does and the file format it reads. Acknowledgement: AIConnection.py (Fox) and SQRecords.py (whole group). Collections: the lists TextTypes, PdfTypes, ImageTypes and ConfidenceLevels.'},
+         {'ID': 'ReadTextFile', 'File': 'DocumentProcessing.py', 'Name': 'ReadTextFile',
+          'Shows': 'Input from a file (open, readline, close). Iteration: WHILE loop to the end of the file. Exception handling (try / except) with an error message when the file cannot be opened or read. Function with a parameter that returns ARRAY OF STRING.'},
+         {'ID': 'ReadDocumentParts', 'File': 'DocumentProcessing.py', 'Name': 'ReadDocumentParts',
+          'Shows': 'Input from three kinds of file (typed text, photo, PDF). 2D collection Parts, one row [SourceRef, Text, Kind] per page. Selection: IF / ELIF on the file type and on each page. Iteration: FOR loops.'},
+         {'ID': 'ParseMarkScheme', 'File': 'DocumentProcessing.py', 'Name': 'ParseMarkScheme',
+          'Shows': 'Sequence, selection (IF / ELIF chain for each kind of line) and iteration (FOR loops, one nested) in one function. Collection: ARRAY OF QuestionItem. Output: a clear message for every line that cannot be used. Function with parameter Lines that returns ARRAY OF QuestionItem.'},
+         {'ID': 'TranscribeAnswerImage', 'File': 'DocumentProcessing.py', 'Name': 'TranscribeAnswerImage',
+          'Shows': "Input from an online data stream: the AI service's JSON reply after reading a photo of handwriting. Collections: the list of rows and the dictionaries in the reply. Selection checks each value of the reply. Output: an error message if the request failed. Four parameters."},
+         {'ID': 'MatchAnswers', 'File': 'DocumentProcessing.py', 'Name': 'MatchAnswers',
+          'Shows': 'Iteration over three lists, with selection inside each loop. Output: a message for every answer that is uncertain. Procedure with four parameters; it changes the lists Questions and UncertainMatches.'},
+         {'ID': 'DisplayProcessedPaper', 'File': 'DocumentProcessing.py', 'Name': 'DisplayProcessedPaper',
+          'Shows': 'Output: a table with one line per question and the status of its answer ("found", "found (read from handwriting)" or "UNCERTAIN - will be flagged for review").'},
+         {'ID': 'ProcessDocuments', 'File': 'DocumentProcessing.py', 'Name': 'ProcessDocuments',
+          'Shows': "Entry point of the Document Processing Module. Input: the DocumentSet with the files chosen in Fox's module (integration). Calls my own subprograms ReadMarkScheme, ReadQuestionTexts, ReadDocumentParts, LoadSourceImages, TranscribeAnswerImage, ParseAnswers, AddAnswerRow, MatchAnswers and DisplayProcessedPaper. Nested iteration and selection. Returns a ProcessedPaper record."},
+         {'ID': 'GF header', 'File': 'GradingFeedback.py', 'Name': 'HEADER',
+          'Shows': 'Comments: the sub-modules of the structure chart and how they fit together. Acknowledgement: AIConnection.py (Fox) and SQRecords.py (whole group). Collections: the lists StopWords and UnitWords.'},
+         {'ID': 'GetKeyTerms', 'File': 'GradingFeedback.py', 'Name': 'GetKeyTerms',
+          'Shows': 'Collection: builds the list KeyTerms and uses the list StopWords. Iteration and selection. Function with a parameter that returns ARRAY OF STRING.'},
+         {'ID': 'RequestAIJudgement', 'File': 'GradingFeedback.py', 'Name': 'RequestAIJudgement',
+          'Shows': "Selection between the offline demo marker and the online AI service. Integration: calls SendChatRequest in Fox's AIConnection module. Three parameters; returns an AIResponse record."},
+         {'ID': 'ParsePointFeedback', 'File': 'GradingFeedback.py', 'Name': 'ParsePointFeedback',
+          'Shows': "Input from an online data stream: the AI examiner's JSON reply. Collections: the list of points, dictionaries, and FeedbackSet.Points. Selection checks every part of the reply; iteration over the marking points. Returns a PointFeedbackSet record."},
+         {'ID': 'CompareWithMarkingPoints', 'File': 'GradingFeedback.py', 'Name': 'CompareWithMarkingPoints',
+          'Shows': 'Calls my own subprograms BuildAssessmentPrompt, RequestAIJudgement and ParsePointFeedback (as on the structure chart) and LoadSourceImages in my Document Processing Module. Output: a message if the request fails.'},
+         {'ID': 'FlagForReview', 'File': 'GradingFeedback.py', 'Name': 'FlagForReview',
+          'Shows': 'Selection between three reasons, iteration over the marking points, and an output message. Returns a PointFeedbackSet record.'},
+         {'ID': 'AssessMarkingPoints', 'File': 'GradingFeedback.py', 'Name': 'AssessMarkingPoints',
+          'Shows': "Selection on the BOOLEAN parameter IsMatched (the diamond on the structure chart): calls CompareWithMarkingPoints or FlagForReview. Called by GradePaper and by Caroline's Correction and Regrading Module."},
+         {'ID': 'IsPointAwarded', 'File': 'GradingFeedback.py', 'Name': 'IsPointAwarded',
+          'Shows': 'Recursion: the function calls itself to follow a chain of "DEPENDS ON" rules, with a base case. Four parameters; returns BOOLEAN.'},
+         {'ID': 'CalculateEstimatedMark', 'File': 'GradingFeedback.py', 'Name': 'CalculateEstimatedMark',
+          'Shows': "Function with two parameters that returns INTEGER. Iteration and selection; calls IsPointAwarded. Called by GradePaper and by Caroline's Correction and Regrading Module."},
+         {'ID': 'DiagnoseErrors', 'File': 'GradingFeedback.py', 'Name': 'DiagnoseErrors',
+          'Shows': "Input from an online data stream (the AI's reasons for lost marks), with fixed rules if the AI is not available. Collections: LostPointIDs and Diagnoses. Iteration and selection. Returns ARRAY OF ErrorDiagnosis."},
+         {'ID': 'GradePaper', 'File': 'GradingFeedback.py', 'Name': 'GradePaper',
+          'Shows': 'Entry point of the Grading and Feedback Module, called by the main module (Fox). Iteration over every question; selection. Calls AssessMarkingPoints, CalculateEstimatedMark, DiagnoseErrors and DisplayQuestionResult. Output: the mark for each question and the estimated total.'}],
+     # {ID} is replaced by the excerpt's name and number
+     'Checklist': [
+         ('Input from a file',
+          '{ReadTextFile}: opens a text file and reads it line by line. {ReadDocumentParts}: reads typed text files, photos and each page of a PDF. {ProcessDocuments}: reads every answer file that was uploaded. {ParseMarkScheme}: turns the lines of the mark scheme file into questions and marking points.'),
+         ('Input from an online data stream',
+          "{TranscribeAnswerImage}: the AI service's reading of a photo of handwriting. {ParsePointFeedback}: the AI examiner's judgement of each marking point. {DiagnoseErrors}: the AI's reasons for lost marks. {RequestAIJudgement}: sends the request through Fox's AIConnection module."),
+         ('Input chosen by the user in another module (integration)',
+          "{ProcessDocuments}: the DocumentSet with the files the user chose in Fox's Paper and Document Management Module. {GradePaper}: the ProcessedPaper and the AI service the user chose."),
+         ('A collection (list, array or dictionary) that manages complexity',
+          '{DP header}: lists of file types and ConfidenceLevels. {ReadDocumentParts}: 2D list Parts. {ParseMarkScheme}: ARRAY OF QuestionItem. {ProcessDocuments} and {MatchAnswers}: 2D list AnswerTable [label, answer, source, confidence]. {GF header} and {GetKeyTerms}: StopWords and KeyTerms. {TranscribeAnswerImage} and {ParsePointFeedback}: dictionaries in the JSON reply. {DiagnoseErrors}: LostPointIDs.'),
+         ('A module with a name, a return type and one or more parameters',
+          '{ParseMarkScheme}: parameter Lines, RETURNS ARRAY OF QuestionItem. {AssessMarkingPoints}: parameters Question, IsMatched and Settings, RETURNS PointFeedbackSet. {CalculateEstimatedMark}: parameters Feedback and MarkingRules, RETURNS INTEGER. {IsPointAwarded}: four parameters, RETURNS BOOLEAN. {ProcessDocuments}: parameters Documents and Settings, RETURNS ProcessedPaper. {GradePaper}: parameters Processed and Settings, RETURNS GradingResult. The comment under each def gives its pseudocode header with the parameter and return types.'),
+         ('Sequencing, selection and iteration in the body of the module',
+          '{ParseMarkScheme}: FOR loops and an IF / ELIF chain. {ProcessDocuments}: nested FOR loops with IF / ELIF / ELSE. {ReadTextFile}: WHILE loop. {MatchAnswers}, {ParsePointFeedback}, {DiagnoseErrors} and {GradePaper}: FOR loops with IF statements.'),
+         ('Calls to the student-developed module',
+          "{GradePaper} calls {AssessMarkingPoints}, {CalculateEstimatedMark} and {DiagnoseErrors}. {AssessMarkingPoints} calls {CompareWithMarkingPoints} or {FlagForReview}. {CompareWithMarkingPoints} calls {RequestAIJudgement} and {ParsePointFeedback}. {CalculateEstimatedMark} calls {IsPointAwarded}, which calls itself. {ProcessDocuments} calls {ReadDocumentParts}, {TranscribeAnswerImage}, {MatchAnswers} and {DisplayProcessedPaper}. Other members' modules also call my modules: the main module (Fox) calls ProcessDocuments and GradePaper; the Correction and Regrading Module (Caroline) calls AssessMarkingPoints, CalculateEstimatedMark and TranscribeAnswerImage."),
+         ('Output with appropriate messages',
+          '{DisplayProcessedPaper}: the question table ("found", "found (read from handwriting)", "UNCERTAIN - will be flagged for review"). {MatchAnswers}: a message for each uncertain answer. {ParseMarkScheme}: "Mark scheme line ... ignored: ..." with the reason. {FlagForReview}: "... this question is flagged for review." {GradePaper}: the mark for each question and "Estimated total: ... / ... (...%)". {ReadTextFile}: "Could not open ...".'),
+         ('Comments that improve understanding',
+          'Every excerpt: a header comment for each module, a comment saying what each subprogram does, its pseudocode header, # DECLARE comments for its variables, and comments where the logic is not obvious (for example in {ParsePointFeedback}, {MatchAnswers} and {ProcessDocuments}).'),
+         ('Meaningful identifiers',
+          'PascalCase names that say what they hold or do, as in Cambridge pseudocode: UncertainMatches, AnswerTable, EstimatedMark, IsMatched, LostPointIDs, CalculateEstimatedMark, TranscribeAnswerImage, FlagForReview.'),
+         ('Acknowledgement of code written by others',
+          "{DP header} and {GF header}: AIConnection.py was written by Fox, and the record types in SQRecords.py were agreed by the whole group. The import lines say the same.")],
      'Video': [
-         'Caption "AI SQ Grader - Document Processing and Grading (Kevin)". Run python AISQGrader.py, choose 1.',
-         'Enter the paper and files quickly (as in Fox\'s video). Caption "Integration: DocumentSet from Fox\'s module".',
-         'Show the question table: 1(a)-2(b) "found", question 3 "UNCERTAIN" (answer only in a photo).',
-         'Scroll through the feedback: 2(a) "Not counted: this point depends on P2", 2(b) "Outside the mark scheme", question 3 "flagged for review".',
-         'Show "Estimated total: 3 / 10". Caption "Output: point-by-point feedback". Answer N to the correction question and stop (under 1 minute).']},
+         'Caption "AI SQ Grader - Document Processing and Grading (Kevin)". With an API key for a model that reads images, choose 3 and set it up first (otherwise the offline demo marker is used).',
+         'Choose 1 and enter the paper and files quickly (as in Fox\'s video). Caption "Integration: DocumentSet from Fox\'s module".',
+         'Show the question table: with the AI, question 3 is "found (read from handwriting)"; offline it is "UNCERTAIN" and flagged for review.',
+         'Scroll through the feedback: 2(a) "Not counted: this point depends on P2", 2(b) "Outside the mark scheme", the likely reasons for lost marks.',
+         'Show the estimated total. Caption "Output: point-by-point feedback". Answer N to the correction question and stop (under 1 minute).']},
     {'Name': 'Caroline', 'Module': 'Correction and Regrading Module and Learning Records and Progress Module',
      'Files': ['CorrectionRegrading.py', 'LearningRecords.py'], 'Tests': CarolineTests,
      'Rubric': [
-         ('Input', 'User: AskYesNo, SelectQuestion, InputCorrectionMethod, InputTypedAnswer, the notebook filter menu. File: ReadAnswerFile; LoadDatabase reads LearningRecords.json.'),
-         ('Collection', 'Attempts (ARRAY OF AttemptRecord); the mistake notebook (ARRAY OF MistakeEntry); parallel arrays TopicNames / TopicWords and TypeNames / TypeCounts; LearningDatabase lists.'),
+         ('Input', 'User: AskYesNo, SelectQuestion, InputCorrectionMethod, InputTypedAnswer, the notebook filter menu. Files: ReadAnswerFile, a photo of the correction (ReadCorrectionPhoto); LoadDatabase reads LearningRecords.json.'),
+         ('Collection', 'Attempts (ARRAY OF AttemptRecord); the mistake notebook (ARRAY OF MistakeEntry); parallel arrays TopicNames / TopicWords, TypeNames / TypeCounts and Subjects / PercentTotals / PaperCounts; LearningDatabase lists.'),
          ('Module with parameters', 'RegradeQuestion(Grading, QuestionIndex, NewAnswerText, NewImageRef, Settings) RETURNS RegradeResult; CompareFeedback(OldFeedback, NewFeedback) RETURNS ARRAY OF STRING; FilterMistakes(Database, FilterType, FilterValue); CalculateProgress(Database) RETURNS ProgressSummary; SortCounts(Names, Counts).'),
-         ('Sequence, selection, iteration', 'SelectQuestion (WHILE loop); AddRegradeResult (IF / ELIF status rules); SortCounts (bubble sort with NoSwaps and Boundary); FindTopicTags (nested loops).'),
-         ('Calls to the module', 'CorrectAndRegrade and UpdateLearningRecords are called by the main module; RegradeQuestion is called by CorrectAndRegrade.'),
-         ('Output', 'The side-by-side comparison, "Well done: the corrected answer gains 2 more mark(s).", the progress dashboard and the filtered mistake notebook.'),
-         ('Integration', 'Calls AssessMarkingPoints and CalculateEstimatedMark in Kevin\'s module to reassess; returns LearningData used by Andy\'s module.')],
+         ('Sequence, selection, iteration', 'SelectQuestion (WHILE loop); AddRegradeResult (IF / ELIF status rules); SortCounts (bubble sort with NoSwaps and Boundary); FindTopicTags (nested loops); DisplaySubjectAverages.'),
+         ('Calls to the module', 'CorrectAndRegrade and UpdateLearningRecords are called by the main module; RegradeQuestion and ReadCorrectionPhoto are called by CorrectAndRegrade.'),
+         ('Output', 'The side-by-side comparison, "Well done: the corrected answer gains 2 more mark(s).", the progress dashboard with averages by subject, and the filtered mistake notebook with "To improve" notes.'),
+         ('Integration', 'Calls Kevin\'s AssessMarkingPoints, CalculateEstimatedMark and TranscribeAnswerImage to read and reassess a correction; returns LearningData used by Andy\'s module.')],
      'Video': [
          'Caption "AI SQ Grader - Correction, Regrading and Learning Records (Caroline)". Run python AISQGrader.py and mark the sample paper.',
-         'Answer Y to the correction question; type 7 (show "Question 7 is not in this paper"), then 2(b); choose 2 and load SampleData/Sample_Corrected_2b.txt.',
+         'Answer Y to the correction question; type 7 (show "Question 7 is not in this paper"), then 2(b); choose 2 and load SampleData/Sample_Corrected_2b.txt (or, with an AI service, choose 3 and upload a photo of a handwritten correction).',
          'Caption "Integration: reassessed by Kevin\'s Grading and Feedback Module". Show "Estimated mark: 0 / 2 -> 2 / 2".',
-         'Show the progress dashboard; filter the mistake notebook by correction status "Corrected" to show both attempts.',
+         'Show the progress dashboard (average by subject); filter the mistake notebook by correction status "Corrected" to show both attempts.',
          'Exit, run the program again, choose 2: the saved records are still there. Stop (under 1 minute).']},
     {'Name': 'Andy', 'Module': 'Report Management Module',
      'Files': ['ReportManagement.py'], 'Tests': AndyTests,
      'Rubric': [
          ('Input', 'User: AskYesNo and the backup file name. File: ImportBackup reads and checks a JSON file; CopyTextFile reads the records file.'),
-         ('Collection', 'The report lines (ARRAY OF STRING); pages (ARRAY OF ARRAY OF STRING); the PDF object list and offsets; the 2D field tables PaperFields, MistakeFields, AttemptFields, ErrorFields; CharacterReplacements.'),
-         ('Module with parameters', 'WritePdfReport(ReportLines, FileName) RETURNS BOOLEAN; WrapText(Text, Width) RETURNS ARRAY OF STRING; CheckEntry(Entry, FieldTable, Description) RETURNS STRING; ValidateBackupData(Data) RETURNS STRING; ImportBackup(BackupFileName, DatabaseFileName) RETURNS STRING; ManageReports(Grading, Learning) RETURNS ReportOutcome.'),
-         ('Sequence, selection, iteration', 'WritePdfReport (loops that split pages and build objects); WrapText (nested loops and IF); ValidateBackupData (a FOR loop for each section with IF checks); MakePdfSafe (FOR loop over characters).'),
+         ('Collection', 'The report lines (ARRAY OF STRING); pages (ARRAY OF ARRAY OF STRING); the PDF object list and offsets; the 2D field tables PaperFields, MistakeFields, AttemptFields, ErrorFields; the 2D CharacterReplacements table for science symbols.'),
+         ('Module with parameters', 'WritePdfReport(ReportLines, FileName) RETURNS BOOLEAN; WrapText(Text, Width) RETURNS ARRAY OF STRING; MakePdfSafe(Text) RETURNS STRING; CheckEntry(Entry, FieldTable, Description) RETURNS STRING; ValidateBackupData(Data) RETURNS STRING; ImportBackup(BackupFileName, DatabaseFileName) RETURNS STRING; ManageReports(Grading, Learning) RETURNS ReportOutcome.'),
+         ('Sequence, selection, iteration', 'WritePdfReport (loops that split pages and build objects); WrapText (nested loops and IF); ValidateBackupData (a FOR loop for each section with IF checks); MakePdfSafe (FOR loop over characters with ASC / CHR arithmetic for subscripts).'),
          ('Calls to the module', 'ManageReports is called by the main module; BuildReportLines, WritePdfReport, ExportBackup and ImportBackup are called by ManageReports.'),
-         ('Output', 'The PDF report; "PDF report saved: ...", "Backup saved: ...", "Import failed - ... Your saved records have not been changed.", "Backup imported ...".'),
+         ('Output', 'The PDF report (question text, answer, marking points, diagnoses, attempt history, progress); "PDF report saved: ...", "Backup saved: ...", "Import failed - ... Your saved records have not been changed.", "Backup imported ...".'),
          ('Integration', 'Builds the report from Kevin\'s GradingResult and Caroline\'s LearningData; restores the records file that Caroline\'s module reads.')],
      'Video': [
          'Caption "AI SQ Grader - Report Management (Andy)". Run python AISQGrader.py and mark the sample paper (answer N to the correction question).',
@@ -617,6 +771,75 @@ Members = [
 
 # ===================================================================== writing the drafts
 
+def FindExcerpt(FileName, Name):
+    # Returns (first line number, lines) of one subprogram, or of the module header when Name is
+    # 'HEADER' (everything before the first '# =====' section line). Trailing blank lines are left out.
+    with open(os.path.join(ProgramFolder, FileName), encoding='utf-8') as File:
+        Lines = File.read().split('\n')
+    if Name == 'HEADER':
+        Start = 0
+        End = 0
+        while not Lines[End].startswith('# ====='):
+            End = End + 1
+    else:
+        Matches = [Index for Index, Line in enumerate(Lines) if Line.startswith('def ' + Name + '(')]
+        if len(Matches) != 1:
+            raise ValueError(Name + ' is not defined exactly once in ' + FileName)
+        Start = Matches[0]
+        End = Start + 1
+        while End < len(Lines) and (Lines[End] == '' or Lines[End].startswith(' ')):
+            End = End + 1
+    while End > Start and Lines[End - 1].strip() == '':
+        End = End - 1
+    return Start + 1, Lines[Start:End]
+
+
+def ExcerptTitle(Number, Excerpt):
+    First, Lines = FindExcerpt(Excerpt['File'], Excerpt['Name'])
+    if Excerpt['Name'] == 'HEADER':
+        Title = Excerpt['File'] + ': module header, imports and constants'
+    else:
+        Title = Excerpt['File'] + ': ' + Excerpt['Name']
+    return 'Excerpt ' + str(Number) + ' - ' + Title + ' (lines ' + str(First) + '-' + str(First + len(Lines) - 1) + ')'
+
+
+def FillReferences(Member, Text):
+    # Replaces each {ID} with the excerpt's name and number.
+    for Index, Excerpt in enumerate(Member['Excerpts']):
+        if Excerpt['Name'] == 'HEADER':
+            Label = Excerpt['File'] + ' header'
+        else:
+            Label = Excerpt['Name']
+        Text = Text.replace('{' + Excerpt['ID'] + '}', Label + ' (Excerpt ' + str(Index + 1) + ')')
+    if '{' in Text:
+        raise ValueError('Unknown excerpt in: ' + Text)
+    return Text
+
+
+def CountLines(Member):
+    # (lines shown in the excerpts, lines in the member's files)
+    Shown = 0
+    for Excerpt in Member['Excerpts']:
+        Shown = Shown + len(FindExcerpt(Excerpt['File'], Excerpt['Name'])[1])
+    Total = 0
+    for FileName in Member['Files']:
+        with open(os.path.join(ProgramFolder, FileName), encoding='utf-8') as File:
+            Total = Total + len(File.read().rstrip('\n').split('\n'))
+    return Shown, Total
+
+
+def ExcerptIntroduction(Member):
+    Shown, Total = CountLines(Member)
+    Sizes = []
+    for FileName in Member['Files']:
+        with open(os.path.join(ProgramFolder, FileName), encoding='utf-8') as File:
+            Sizes.append(FileName + ' (' + str(len(File.read().rstrip('\n').split('\n'))) + ' lines)')
+    return ('The module is in ' + str(len(Member['Files'])) + ' files: ' + ' and '.join(Sizes) + '. To keep this document '
+            'short, it shows ' + str(len(Member['Excerpts'])) + ' complete subprograms and module headers (' + str(Shown)
+            + ' of ' + str(Total) + ' lines) chosen to meet the requirements for the program code; most requirements are '
+            'met in several places. Line numbers refer to the complete files. The table shows where each requirement is met.')
+
+
 def MarkdownTable(Tests):
     Lines = ['| Test | Purpose | Test data | Expected outcome | Actual outcome |', '|---|---|---|---|---|']
     for Test in Tests:
@@ -628,20 +851,35 @@ def MarkdownTable(Tests):
     return '\n'.join(Lines)
 
 
+def CodeToPaste(Member):
+    Files = ', '.join('`' + Name + '`' for Name in Member['Files'])
+    if 'Excerpts' in Member:
+        Shown, Total = CountLines(Member)
+        return ('**Code in the document:** the ' + str(len(Member['Excerpts'])) + ' excerpts listed below from ' + Files
+                + ' (' + str(Shown) + ' of ' + str(Total) + ' lines), not the whole files')
+    return '**Code to paste:** ' + Files + ' (shared records: `SQRecords.py`, written by the whole group)'
+
+
 def WriteMarkdown(Member, Tests):
     Text = ['# Part 2 draft - ' + Member['Name'], '',
             '**System/Application:** ' + SystemName + '  ',
             '**Module Name:** ' + Member['Module'] + '  ',
-            '**Code to paste:** ' + ', '.join('`' + Name + '`' for Name in Member['Files'])
-            + ' (shared records: `SQRecords.py`, written by the whole group)', '',
+            CodeToPaste(Member), '',
             'This draft was generated by `Tools/BuildSubmissionDrafts.py`. Every "Actual outcome" below was produced by '
             'running the program; run the tool again after changing the code. Check every row yourself before you submit, '
             'and rewrite the wording in your own words where you wish.', '',
             '## Rubric checklist (Programming techniques and code maintainability)', '',
             '| Requirement | Where it is in the code |', '|---|---|']
-    for Requirement, Where in Member['Rubric']:
-        Text.append('| ' + Requirement + ' | ' + Where + ' |')
-    Text.append('| Comments and identifiers | Header comment with the module\'s job and acknowledgements; `# DECLARE` comments in every subprogram; PascalCase names that describe the data (CAIE style). |')
+    if 'Excerpts' in Member:
+        for Requirement, Where in Member['Checklist']:
+            Text.append('| ' + Requirement + ' | ' + FillReferences(Member, Where) + ' |')
+        Text += ['', '## Code excerpts in the document', '', ExcerptIntroduction(Member), '']
+        for Index, Excerpt in enumerate(Member['Excerpts']):
+            Text.append(str(Index + 1) + '. **' + ExcerptTitle(Index + 1, Excerpt) + '** - ' + Excerpt['Shows'])
+    else:
+        for Requirement, Where in Member['Rubric']:
+            Text.append('| ' + Requirement + ' | ' + Where + ' |')
+        Text.append('| Comments and identifiers | Header comment with the module\'s job and acknowledgements; `# DECLARE` comments in every subprogram; PascalCase names that describe the data (CAIE style). |')
     Text += ['', '## Test plan', '', MarkdownTable(Tests), '',
              '## Demo video plan (under 1 minute, under 30 MB, no voice; use text captions)', '']
     for Index, Step in enumerate(Member['Video']):
@@ -659,6 +897,61 @@ def SetCellText(Cell, Text, Bold=False, Size=9):
     Run.bold = Bold
     Run.font.size = Pt(Size)
     Run.font.name = 'Times New Roman'
+
+
+def AddCodeLine(Paragraph, Line):
+    from docx.shared import Pt
+    Paragraph.paragraph_format.space_after = Pt(0)
+    Paragraph.paragraph_format.space_before = Pt(0)
+    Run = Paragraph.add_run(Line)
+    Run.font.name = 'Courier New'
+    Run.font.size = Pt(7.5)
+
+
+def AddTextParagraph(Paragraph, Text, Bold=False, Italic=False, Size=10):
+    from docx.shared import Pt
+    Paragraph.paragraph_format.space_before = Pt(0)
+    Paragraph.paragraph_format.space_after = Pt(2)
+    Run = Paragraph.add_run(Text)
+    Run.bold = Bold
+    Run.italic = Italic
+    Run.font.name = 'Times New Roman'
+    Run.font.size = Pt(Size)
+
+
+def WriteExcerpts(Document, Member, CodeHeading, CodeTable):
+    # An introduction and a requirement checklist go between "Program Code" and the code table;
+    # the code table holds the excerpts, each with a caption saying what it shows.
+    from docx.shared import Cm
+    Intro = Document.add_paragraph()
+    AddTextParagraph(Intro, ExcerptIntroduction(Member), Size=11)
+    Checklist = Document.add_table(rows=1 + len(Member['Checklist']), cols=2)
+    Checklist.style = CodeTable.style
+    SetCellText(Checklist.cell(0, 0), 'Requirement', Bold=True, Size=10)
+    SetCellText(Checklist.cell(0, 1), 'Where it is met (excerpt numbers below)', Bold=True, Size=10)
+    for Row, (Requirement, Where) in enumerate(Member['Checklist']):
+        SetCellText(Checklist.cell(Row + 1, 0), Requirement, Bold=True, Size=9)
+        SetCellText(Checklist.cell(Row + 1, 1), FillReferences(Member, Where), Size=9)
+    for Row in Checklist.rows:
+        Row.cells[0].width = Cm(4.2)
+        Row.cells[1].width = Cm(12.3)
+    Gap = Document.add_paragraph()
+    CodeHeading._p.addnext(Intro._p)
+    Intro._p.addnext(Checklist._tbl)
+    Checklist._tbl.addnext(Gap._p)
+
+    SetCellText(CodeTable.rows[0].cells[0], 'Program code - selected parts of ' + ' and '.join(Member['Files']), Bold=True, Size=11)
+    Cell = CodeTable.rows[1].cells[0]
+    First = True
+    for Index, Excerpt in enumerate(Member['Excerpts']):
+        Paragraph = Cell.paragraphs[0] if First else Cell.add_paragraph()
+        First = False
+        AddTextParagraph(Paragraph, ExcerptTitle(Index + 1, Excerpt), Bold=True)
+        if Index > 0:
+            Paragraph.paragraph_format.space_before = Cm(0.3)
+        AddTextParagraph(Cell.add_paragraph(), 'Shows: ' + Excerpt['Shows'], Italic=True, Size=9)
+        for Line in FindExcerpt(Excerpt['File'], Excerpt['Name'])[1]:
+            AddCodeLine(Cell.add_paragraph(), Line)
 
 
 def WriteDocx(Member, Tests):
@@ -686,21 +979,21 @@ def WriteDocx(Member, Tests):
             TestPlanHeading = Paragraph
 
     # program code: one paragraph per line in the second row of the code table
-    Cell = Document.tables[0].rows[1].cells[0]
+    CodeTable = Document.tables[0]
+    Cell = CodeTable.rows[1].cells[0]
     for Paragraph in list(Cell.paragraphs)[1:]:
         Paragraph._element.getparent().remove(Paragraph._element)
-    First = True
-    for FileName in Member['Files']:
-        with open(os.path.join(ProgramFolder, FileName), encoding='utf-8') as File:
-            CodeLines = ['# ' + '=' * 20 + ' ' + FileName + ' ' + '=' * 20] + File.read().rstrip('\n').split('\n') + ['']
-        for Line in CodeLines:
-            Paragraph = Cell.paragraphs[0] if First else Cell.add_paragraph()
-            First = False
-            Paragraph.paragraph_format.space_after = Pt(0)
-            Paragraph.paragraph_format.space_before = Pt(0)
-            Run = Paragraph.add_run(Line)
-            Run.font.name = 'Courier New'
-            Run.font.size = Pt(7.5)
+    if 'Excerpts' in Member:
+        WriteExcerpts(Document, Member, CodeHeading, CodeTable)
+    else:
+        First = True
+        for FileName in Member['Files']:
+            with open(os.path.join(ProgramFolder, FileName), encoding='utf-8') as File:
+                CodeLines = ['# ' + '=' * 20 + ' ' + FileName + ' ' + '=' * 20] + File.read().rstrip('\n').split('\n') + ['']
+            for Line in CodeLines:
+                Paragraph = Cell.paragraphs[0] if First else Cell.add_paragraph()
+                First = False
+                AddCodeLine(Paragraph, Line)
 
     # the cover page ends after "Teacher:"; its empty filler lines are removed and the code
     # starts on a new page, so a long module name cannot push the code onto a later page
@@ -714,7 +1007,7 @@ def WriteDocx(Member, Tests):
     CodeHeading.paragraph_format.page_break_before = True
 
     # remove the empty lines between the code table and "Test Plan", and after it
-    Element = Document.tables[0]._tbl.getnext()
+    Element = CodeTable._tbl.getnext()
     while Element is not None and Element is not TestPlanHeading._p:
         Next = Element.getnext()
         if Element.tag.endswith('}p') and ''.join(Element.itertext()).strip() == '':
@@ -735,7 +1028,7 @@ def WriteDocx(Member, Tests):
     IntroRun.font.size = Pt(11)
     TotalRows = 1 + sum(len(Test['Rows']) for Test in Tests)
     Table = Document.add_table(rows=TotalRows, cols=5)
-    Table.style = Document.tables[0].style
+    Table.style = CodeTable.style
     for Column, Heading in enumerate(['Test', 'Purpose', 'Test Data', 'Expected outcome', 'Actual outcome']):
         SetCellText(Table.cell(0, Column), Heading, Bold=True, Size=10)
     RowIndex = 1
@@ -763,7 +1056,10 @@ def Main():
     except ImportError:
         CanWriteDocx = False
         print('python-docx is not installed (pip install python-docx), so only Markdown drafts are written.')
+    Names = sys.argv[1:]
     for Member in Members:
+        if len(Names) > 0 and Member['Name'] not in Names:
+            continue
         print('Running the test plan for', Member['Name'], '...')
         Tests = Member['Tests']()
         WriteMarkdown(Member, Tests)

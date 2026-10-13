@@ -3,7 +3,8 @@
 #
 # Receives DownloadSettings from the main module and returns one DocumentSet record.
 # The user selects the paper (level, subject, paper number, series, year), uploads the
-# student's answer files and uploads the mark scheme, or downloads it through the
+# student's answer files (typed text, PDF, or photos of handwritten work) and uploads the
+# mark scheme and, optionally, the question paper, or downloads them through the
 # configured download service. Marking can begin only when DocumentSet.IsComplete = TRUE.
 #
 # Acknowledgement: the record types in SQRecords.py were agreed by the whole group.
@@ -33,8 +34,9 @@ SeriesCodes = ["F/M", "M/J", "O/N"]
 SeriesLetters = ["m", "s", "w"]            # letter used in Cambridge file names, e.g. 9701_s23_ms_22
 
 # CONSTANT
-AnswerFileTypes = [".txt", ".pdf", ".png", ".jpg", ".jpeg"]
+AnswerFileTypes = [".txt", ".pdf", ".png", ".jpg", ".jpeg", ".webp"]
 MarkSchemeFileTypes = [".txt", ".pdf"]
+QuestionPaperFileTypes = [".pdf", ".txt", ".png", ".jpg", ".jpeg"]
 MaxAnswerFiles = 20
 FirstYear = 2016
 ProgramFolder = os.path.dirname(os.path.abspath(__file__))
@@ -233,7 +235,7 @@ def InputAnswerFiles():
     # DECLARE FileName, Problem : STRING
     # DECLARE Finished : BOOLEAN
     AnswerFiles = []
-    print("Upload the student's answers (.txt, .pdf, .png or .jpg).")
+    print("Upload the student's answers: typed (.txt), PDF, or photos of handwritten pages (.png, .jpg).")
     print("Type one file path at a time and press Enter on an empty line to finish.")
     Finished = False
     while Finished == False:
@@ -255,8 +257,9 @@ def InputAnswerFiles():
     return AnswerFiles
 
 
-def MakeMarkSchemeName(Paper):
-    # Builds the Cambridge file name of the mark scheme, e.g. 9701/22/M/J/23 -> 9701_s23_ms_22
+def MakePaperFileName(Paper, PaperType):
+    # Builds the Cambridge file name of a paper. PaperType is "ms" (mark scheme) or "qp"
+    # (question paper), e.g. 9701/22/M/J/23 and "ms" -> 9701_s23_ms_22
     # DECLARE SubjectCode, PaperNumber, SeriesCode, YearDigits, Letter : STRING
     # DECLARE Index : INTEGER
     SubjectCode = Paper.PaperCode[0:4]         # LEFT(PaperCode, 4)
@@ -267,16 +270,24 @@ def MakeMarkSchemeName(Paper):
     for Index in range(0, len(SeriesCodes)):
         if SeriesCodes[Index] == SeriesCode:
             Letter = SeriesLetters[Index]
-    return SubjectCode + "_" + Letter + YearDigits + "_ms_" + PaperNumber
+    return SubjectCode + "_" + Letter + YearDigits + "_" + PaperType + "_" + PaperNumber
 
 
-def DownloadMarkScheme(Paper, Download):
-    # Downloads the mark scheme PDF from the download service (an online data stream).
-    # Returns the path of the saved file, or "" if the download failed.
-    # DECLARE URL, SavedName : STRING
+def DescribePaperType(PaperType):
+    if PaperType == "ms":
+        return "mark scheme"
+    return "question paper"
+
+
+def DownloadPaperFile(Paper, PaperType, Download):
+    # Downloads the mark scheme or question paper PDF from the download service (an online
+    # data stream). Returns the path of the saved file, or "" if the download failed.
+    # DECLARE URL, SavedName, FileStem, Description : STRING
     # DECLARE FileData : BYTES
-    URL = Download.ServiceURL + MakeMarkSchemeName(Paper) + ".pdf"
-    print("Downloading the mark scheme from", URL)
+    FileStem = MakePaperFileName(Paper, PaperType)
+    Description = DescribePaperType(PaperType)
+    URL = Download.ServiceURL + FileStem + ".pdf"
+    print("Downloading the " + Description + " from", URL)
     try:
         Reply = urllib.request.urlopen(URL, timeout=30)
         FileData = Reply.read()
@@ -290,7 +301,7 @@ def DownloadMarkScheme(Paper, Download):
     if FileData[0:4] != b"%PDF":               # every PDF file starts with %PDF
         print("Download failed: the service did not return a PDF file.")
         return ""
-    SavedName = os.path.join(DownloadFolder, MakeMarkSchemeName(Paper) + ".pdf")
+    SavedName = os.path.join(DownloadFolder, FileStem + ".pdf")
     try:
         if os.path.isdir(DownloadFolder) == False:
             os.makedirs(DownloadFolder)
@@ -300,29 +311,39 @@ def DownloadMarkScheme(Paper, Download):
     except IOError:
         print("Download failed: the file could not be saved in", DownloadFolder)
         return ""
-    print("Mark scheme saved as", SavedName)
+    print(Description[0:1].upper() + Description[1:] + " saved as", SavedName)
     return SavedName
 
 
-def InputMarkScheme(Paper, Download):
-    # Uploads the mark scheme, or downloads it when the download service is enabled.
-    # Returns the path of the mark scheme, or "" if none is available.
-    # DECLARE FileName, Problem : STRING
+def InputPaperFile(Paper, PaperType, AllowedTypes, Download):
+    # Uploads the mark scheme or question paper, or downloads it when the download service
+    # is enabled. Returns the path of the file, or "" if there is none.
+    # DECLARE FileName, Problem, Prompt, TypeList : STRING
+    # DECLARE Index : INTEGER
     # DECLARE Finished : BOOLEAN
+    TypeList = ""
+    for Index in range(0, len(AllowedTypes)):
+        TypeList = TypeList + " " + AllowedTypes[Index]
+    Prompt = DescribePaperType(PaperType)
+    Prompt = Prompt[0:1].upper() + Prompt[1:] + " file (" + TypeList.strip() + ")"
+    if PaperType == "qp":
+        Prompt = Prompt + " - optional, it helps the AI understand each question"
+    if Download.Enabled == True:
+        Prompt = Prompt + ", or press Enter to download it: "
+    elif PaperType == "qp":
+        Prompt = Prompt + ", or press Enter to skip: "
+    else:
+        Prompt = Prompt + ", or press Enter if you do not have it: "
     FileName = ""
     Finished = False
     while Finished == False:
-        if Download.Enabled == True:
-            FileName = RemoveQuotes(input("Mark scheme file (.txt or .pdf), or press Enter to download it: "))
-            if FileName == "":
-                FileName = DownloadMarkScheme(Paper, Download)
-                Finished = True
+        FileName = RemoveQuotes(input(Prompt))
+        if FileName == "":
+            if Download.Enabled == True:
+                FileName = DownloadPaperFile(Paper, PaperType, Download)
+            Finished = True
         else:
-            FileName = RemoveQuotes(input("Mark scheme file (.txt or .pdf), or press Enter if you do not have it: "))
-            if FileName == "":
-                Finished = True
-        if Finished == False:
-            Problem = CheckDocument(FileName, MarkSchemeFileTypes)
+            Problem = CheckDocument(FileName, AllowedTypes)
             if Problem == "":
                 FileName = FindFile(FileName)
                 Finished = True
@@ -331,9 +352,18 @@ def InputMarkScheme(Paper, Download):
     return FileName
 
 
+def InputMarkScheme(Paper, Download):
+    return InputPaperFile(Paper, "ms", MarkSchemeFileTypes, Download)
+
+
+def InputQuestionPaper(Paper, Download):
+    return InputPaperFile(Paper, "qp", QuestionPaperFileTypes, Download)
+
+
 def CheckCompleteness(Documents):
     # Returns TRUE only when the paper details, at least one answer file and the mark scheme
-    # are all present. Outputs a message for each item that is missing.
+    # are all present (the question paper is optional). Outputs a message for each item
+    # that is missing.
     # DECLARE Complete : BOOLEAN
     Complete = True
     if Documents.Paper.PaperCode == "":
@@ -361,6 +391,10 @@ def DisplayDocumentSet(Documents):
         print("Mark scheme: (none)")
     else:
         print("Mark scheme:", os.path.basename(Documents.MarkSchemeFile))
+    if Documents.QuestionPaperFile == "":
+        print("Question paper: (none - the AI will mark without the question text)")
+    else:
+        print("Question paper:", os.path.basename(Documents.QuestionPaperFile))
 
 
 def ManageDocuments(Download):
@@ -372,6 +406,8 @@ def ManageDocuments(Download):
     Documents.Paper = SelectPaper()
     Documents.AnswerFiles = InputAnswerFiles()
     Documents.MarkSchemeFile = InputMarkScheme(Documents.Paper, Download)
+    if Documents.MarkSchemeFile != "":
+        Documents.QuestionPaperFile = InputQuestionPaper(Documents.Paper, Download)
     Documents.IsComplete = CheckCompleteness(Documents)
     DisplayDocumentSet(Documents)
     if Documents.IsComplete == True:

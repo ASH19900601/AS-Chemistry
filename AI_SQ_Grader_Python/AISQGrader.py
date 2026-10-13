@@ -12,6 +12,7 @@
 import getpass             # reads the API key without showing it on the screen
 import os                  # reads the API key from an environment variable; builds file paths
 
+import AIConnection                # Fox
 import CorrectionRegrading         # Caroline
 import DocumentProcessing          # Kevin
 import GradingFeedback             # Kevin
@@ -141,8 +142,10 @@ def DisplaySettings(Settings, Download):
     # Outputs the current settings without showing the API key.
     if Settings.Provider == SQRecords.OfflineProvider:
         print("AI service: Offline demo marker (key words only - use a real AI service for real marking)")
+        print("  Without an AI service, Cambridge mark scheme PDFs and photos of answers cannot be read.")
     else:
         print("AI service:", Settings.Provider, " Model:", Settings.ModelName, " API key: set")
+        print("  Photos and scanned pages need a model that accepts images (e.g. gpt-4o-mini).")
     if Download.Enabled == True:
         print("Mark scheme download service:", Download.ServiceURL)
     else:
@@ -161,7 +164,7 @@ def RunMarkingSession(Settings, Download):
     if Documents.IsComplete == False:
         print("The marking session has stopped because documents are missing.")
         return
-    Processed = DocumentProcessing.ProcessDocuments(Documents)
+    Processed = DocumentProcessing.ProcessDocuments(Documents, Settings)
     if len(Processed.Questions) == 0:
         print("No questions could be read from the mark scheme, so nothing can be marked.")
         return
@@ -195,7 +198,7 @@ def RunMainMenu():
     # DECLARE Settings : AISettings
     # DECLARE Download : DownloadSettings
     # DECLARE Choice : INTEGER
-    # DECLARE MenuOptions : ARRAY[0:3] OF STRING
+    # DECLARE MenuOptions : ARRAY[0:4] OF STRING
     print("==============================================")
     print(" AI SQ Grader - structured question marking")
     print("==============================================")
@@ -205,9 +208,9 @@ def RunMainMenu():
     Download = LoadDownloadSettings(SettingsTable)
     DisplaySettings(Settings, Download)
     MenuOptions = ["Mark a new paper", "Open the mistake notebook, progress and backups",
-                   "Change the AI service", "Exit"]
+                   "Change the AI service", "Test the AI connection", "Exit"]
     Choice = -1
-    while Choice != 3:
+    while Choice != 4:
         print()
         Choice = PaperDocumentManagement.InputMenuChoice("Main menu:", MenuOptions)
         if Choice == 0:
@@ -217,6 +220,10 @@ def RunMainMenu():
         elif Choice == 2:
             Settings = InputAISettings()
             DisplaySettings(Settings, Download)
+            if AIConnection.IsOnline(Settings) == True:
+                AIConnection.TestConnection(Settings)
+        elif Choice == 3:
+            AIConnection.TestConnection(Settings)
     print("Goodbye.")
 
 

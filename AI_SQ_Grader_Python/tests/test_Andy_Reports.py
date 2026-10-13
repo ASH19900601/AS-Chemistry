@@ -27,7 +27,9 @@ class TestPdf(unittest.TestCase):
 
     def test_text_helpers(self):
         self.assertEqual(Reports.MakePdfSafe('a (b) \\ c'), 'a \\(b\\) \\\\ c')
-        self.assertEqual(Reports.MakePdfSafe('P1 → café 字'), 'P1 -> café ?')
+        self.assertEqual(Reports.MakePdfSafe('P1 \u2192 caf\u00e9 \u5b57'), 'P1 -> caf\u00e9 ?')
+        self.assertEqual(Reports.MakePdfSafe('H\u2082O \u21cc Na\u207a, \u0394H, 10\u2074, \u03bb'), 'H2O <=> Na+, Delta H, 10^4, lambda')
+        self.assertEqual(Reports.ShortSourceNames('/a/Page1.jpg; /b/Answers.pdf#12'), 'Page1.jpg, Answers.pdf page 12')
         self.assertEqual(Reports.PadNumber(931, 10), '0000000931')
         self.assertEqual(Reports.MakeSafeFileName('9701/22/M/J/23'), '9701-22-M-J-23')
         Lines = Reports.WrapText('  ' + 'word ' * 40, 30)
@@ -37,7 +39,7 @@ class TestPdf(unittest.TestCase):
         self.assertTrue(all(len(Line) <= 30 for Line in Reports.WrapText('x' * 100, 30)))
 
     def test_pdf_structure_is_valid(self):
-        Lines = ['## Heading (1)'] + ['Line ' + str(N) + ' – (text)' for N in range(120)]
+        Lines = ['## Heading (1)'] + ['Line ' + str(N) + ' \u2013 (text)' for N in range(120)]
         with tempfile.TemporaryDirectory() as Folder:
             FileName = os.path.join(Folder, 'Report.pdf')
             self.assertTrue(Reports.WritePdfReport(Lines, FileName))
@@ -72,6 +74,16 @@ class TestPdf(unittest.TestCase):
         self.assertIn('Likely reason for lost mark (P2): Incomplete explanation', Text)
         self.assertIn('(answer in image: Sample_Answer_Q3.png)', Text)
         self.assertIn('Original paper scores, oldest first: 30%', Text)
+
+    def test_question_text_and_handwriting_source_in_report(self):
+        Grading = SampleGrading()
+        Grading.QuestionResults[0].Question.QuestionText = 'Describe the structure of an atom.'
+        Grading.QuestionResults[0].Question.SourceImageRef = '/scans/Answers.pdf#2'
+        Lines = Reports.BuildReportLines(Grading, SQRecords.LearningData())
+        self.assertIn('Question:', Lines)
+        self.assertIn('    Describe the structure of an atom.', Lines)
+        self.assertIn('    (read from handwriting in: Answers.pdf page 2)', Lines)
+        self.assertIn('    (answer in image: Sample_Answer_Q3.png)', Lines)
 
     def test_attempt_history_in_report(self):
         Grading = SampleGrading()

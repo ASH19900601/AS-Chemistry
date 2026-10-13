@@ -534,6 +534,36 @@ def CountCorrectionAttempts(Database):
     return Count
 
 
+def DisplaySubjectAverages(Database):
+    # Outputs the average original score for each subject, so progress can be inspected
+    # by subject.
+    # DECLARE Subjects : ARRAY OF STRING
+    # DECLARE PercentTotals, PaperCounts : ARRAY OF INTEGER
+    # DECLARE Index, SubjectIndex, SearchIndex, Percent : INTEGER
+    Subjects = []
+    PercentTotals = []
+    PaperCounts = []
+    for Index in range(0, len(Database.Papers)):
+        if Database.Papers[Index].MaxTotal > 0:
+            Percent = round(Database.Papers[Index].TotalMark * 100 / Database.Papers[Index].MaxTotal)
+            SubjectIndex = -1
+            for SearchIndex in range(0, len(Subjects)):
+                if Subjects[SearchIndex] == Database.Papers[Index].Subject:
+                    SubjectIndex = SearchIndex
+            if SubjectIndex == -1:
+                Subjects.append(Database.Papers[Index].Subject)
+                PercentTotals.append(0)
+                PaperCounts.append(0)
+                SubjectIndex = len(Subjects) - 1
+            PercentTotals[SubjectIndex] = PercentTotals[SubjectIndex] + Percent
+            PaperCounts[SubjectIndex] = PaperCounts[SubjectIndex] + 1
+    if len(Subjects) > 0:
+        print("Average by subject:")
+        for Index in range(0, len(Subjects)):
+            print("  " + Subjects[Index] + ": " + str(PaperCounts[Index]) + " paper(s), average "
+                  + str(round(PercentTotals[Index] / PaperCounts[Index])) + "%")
+
+
 def DisplayDashboard(Database, Progress):
     # Outputs the progress dashboard. Original paper scores are shown apart from corrections.
     # DECLARE Index, Percent : INTEGER
@@ -550,6 +580,7 @@ def DisplayDashboard(Database, Progress):
             print("  " + Database.Papers[Index].DateSaved + "  " + Database.Papers[Index].PaperCode + "  "
                   + Database.Papers[Index].Subject + "  " + str(Database.Papers[Index].TotalMark) + " / "
                   + str(Database.Papers[Index].MaxTotal) + "  (" + str(Percent) + "%)")
+        DisplaySubjectAverages(Database)
     print("Correction attempts saved:", CountCorrectionAttempts(Database))
     print("Questions now fully corrected:", Progress.CorrectedCount)
     if len(Progress.CommonErrorTypes) > 0:
@@ -628,7 +659,7 @@ def CollectFilterValues(Database, FilterType):
 def DisplayMistakes(Database, Entries):
     # Outputs each mistake entry with its attempt history, so the question can be revised.
     # DECLARE Index, TagIndex, AttemptIndex, PointIndex : INTEGER
-    # DECLARE ThisAttempt : AttemptRecord
+    # DECLARE ThisAttempt, LatestAttempt : AttemptRecord
     # DECLARE PointSummary : STRING
     if len(Entries) == 0:
         print("No mistake-notebook entries match this filter.")
@@ -643,6 +674,7 @@ def DisplayMistakes(Database, Entries):
                 PointSummary = PointSummary + ", "
             PointSummary = PointSummary + Entries[Index].TopicTags[TagIndex]
         print("   Topics: " + PointSummary)
+        LatestAttempt = None
         for AttemptIndex in range(0, len(Database.Attempts)):
             if Database.Attempts[AttemptIndex].PaperCode == Entries[Index].PaperCode and Database.Attempts[AttemptIndex].Attempt.QuestionID == Entries[Index].QuestionID:
                 ThisAttempt = Database.Attempts[AttemptIndex].Attempt
@@ -650,6 +682,14 @@ def DisplayMistakes(Database, Entries):
                 for PointIndex in range(0, len(ThisAttempt.Feedback.Points)):
                     PointSummary = PointSummary + "  " + ThisAttempt.Feedback.Points[PointIndex].PointID + ": " + ThisAttempt.Feedback.Points[PointIndex].Category
                 print("   Attempt " + str(ThisAttempt.AttemptNo) + " - mark " + str(ThisAttempt.EstimatedMark) + " -" + PointSummary)
+                if LatestAttempt is None or ThisAttempt.AttemptNo > LatestAttempt.AttemptNo:
+                    LatestAttempt = ThisAttempt
+        # what the latest attempt still needs, so the question can be revised
+        if LatestAttempt is not None:
+            for PointIndex in range(0, len(LatestAttempt.Feedback.Points)):
+                if LatestAttempt.Feedback.Points[PointIndex].Category != SQRecords.CategoryClearlyCorrect:
+                    print("   To improve - " + LatestAttempt.Feedback.Points[PointIndex].PointID + ": "
+                          + LatestAttempt.Feedback.Points[PointIndex].Explanation)
 
 
 def InputChoice(Prompt, Options):

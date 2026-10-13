@@ -49,10 +49,17 @@ ValidCategories = [SQRecords.CategoryClearlyCorrect, SQRecords.CategoryPossiblyC
 
 # CONSTANT  characters that the standard PDF font cannot show, and what is printed instead
 # DECLARE CharacterReplacements : ARRAY OF ARRAY[0:1] OF STRING
-CharacterReplacements = [["–", "-"], ["—", "-"], ["−", "-"], ["‘", "'"],
-                         ["’", "'"], ["“", '"'], ["”", '"'], ["→", "->"],
-                         ["←", "<-"], ["≥", ">="], ["≤", "<="], ["…", "..."],
-                         ["•", "-"], ["\t", " "]]
+CharacterReplacements = [["\u2013", "-"], ["\u2014", "-"], ["\u2212", "-"], ["\u2018", "'"],
+                         ["\u2019", "'"], ["\u201c", '"'], ["\u201d", '"'], ["\u2192", "->"],
+                         ["\u2190", "<-"], ["\u21cc", "<=>"], ["\u21c4", "<=>"], ["\u21d2", "=>"],
+                         ["\u2191", "(up)"], ["\u2193", "(down)"], ["\u2265", ">="], ["\u2264", "<="],
+                         ["\u2248", "~"], ["\u2260", "!="], ["\u221a", "sqrt"], ["\u221e", "infinity"],
+                         ["\u2206", "Delta "], ["\u0394", "Delta "], ["\u03a3", "Sigma "], ["\u03a9", "Omega "],
+                         ["\u03b1", "alpha"], ["\u03b2", "beta"], ["\u03b3", "gamma"], ["\u03b4", "delta"],
+                         ["\u03b5", "epsilon"], ["\u03b8", "theta"], ["\u03bb", "lambda"], ["\u03bc", "mu"],
+                         ["\u03c0", "pi"], ["\u03c1", "rho"], ["\u03c3", "sigma"], ["\u03c9", "omega"],
+                         ["\u207a", "+"], ["\u207b", "-"], ["\u2103", " deg C"], ["\u2219", "."],
+                         ["\u22c5", "."], ["\u2026", "..."], ["\u2022", "-"], ["\t", " "]]
 
 
 # ===================================================================== small tools
@@ -142,6 +149,10 @@ def MakePdfSafe(Text):
             Result = Result + "\\" + ThisChar
         elif (Code >= 32 and Code <= 126) or (Code >= 160 and Code <= 255):
             Result = Result + ThisChar
+        elif Code >= 8320 and Code <= 8329:            # subscript digits, e.g. the 2 in H2O
+            Result = Result + chr(Code - 8320 + 48)
+        elif Code == 8304 or (Code >= 8308 and Code <= 8313):   # superscript 0 and 4 to 9
+            Result = Result + "^" + chr(Code - 8304 + 48)
         else:
             Replacement = "?"
             for Row in range(0, len(CharacterReplacements)):
@@ -272,6 +283,26 @@ def WritePdfReport(ReportLines, FileName):
     return True
 
 
+def ShortSourceNames(SourceImageRef):
+    # "C:/work/Page1.jpg; C:/work/Answers.pdf#2" -> "Page1.jpg, Answers.pdf page 2"
+    # DECLARE Parts : ARRAY OF STRING
+    # DECLARE Result, Name : STRING
+    # DECLARE Index, Position : INTEGER
+    Parts = SourceImageRef.split("; ")
+    Result = ""
+    for Index in range(0, len(Parts)):
+        Name = os.path.basename(Parts[Index].strip())
+        Position = len(Name) - 1
+        while Position >= 0 and Name[Position] >= "0" and Name[Position] <= "9":
+            Position = Position - 1
+        if Position >= 0 and Position < len(Name) - 1 and Name[Position] == "#":
+            Name = Name[0:Position] + " page " + Name[Position + 1:]
+        if Result != "":
+            Result = Result + ", "
+        Result = Result + Name
+    return Result
+
+
 def FindRequirement(Question, PointID):
     # Linear search for the requirement of one marking point.
     # DECLARE Index : INTEGER
@@ -291,16 +322,23 @@ def AddQuestionLines(Lines, Result, Learning):
                  + " / " + str(Result.Question.MarkingRules.MaxMark))
     if Result.Feedback.NeedsReview == True:
         Lines.append("This question needs review by a teacher.")
+    if Result.Question.QuestionText != "":
+        Lines.append("Question:")
+        AnswerLines = Result.Question.QuestionText.split("\n")
+        for Index in range(0, len(AnswerLines)):
+            Lines.append("    " + AnswerLines[Index])
     Lines.append("Student answer:")
     if Result.Question.AnswerText.strip() == "":
         if Result.Question.SourceImageRef != "":
-            Lines.append("    (answer in image: " + os.path.basename(Result.Question.SourceImageRef) + ")")
+            Lines.append("    (answer in image: " + ShortSourceNames(Result.Question.SourceImageRef) + ")")
         else:
             Lines.append("    (no answer found)")
     else:
         AnswerLines = Result.Question.AnswerText.split("\n")
         for Index in range(0, len(AnswerLines)):
             Lines.append("    " + AnswerLines[Index])
+        if Result.Question.SourceImageRef != "":
+            Lines.append("    (read from handwriting in: " + ShortSourceNames(Result.Question.SourceImageRef) + ")")
     Lines.append("Marking points:")
     if Result.Question.MarkingRules.RuleNotes != "":
         Lines.append("  Marking rules: " + Result.Question.MarkingRules.RuleNotes)

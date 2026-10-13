@@ -4,5 +4,6 @@ LearningRecords.json.*
 Reports/
 Backups/
 Downloads/
+ParsedMarkSchemes/
 __pycache__/
 *.pyc

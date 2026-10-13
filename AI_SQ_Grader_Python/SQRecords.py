@@ -7,8 +7,12 @@
 # __init__ gives every field a starting value of the right type; the calling module then
 # assigns the fields, for example:  Paper = PaperDetails()  /  Paper.Level = "AS Level"
 #
-# Change from the Part 1 notes: PointFeedback has one extra field, Marks, copied from the
-# marking point, so that CalculateEstimatedMark can add up marks from the PointFeedbackSet.
+# Changes from the Part 1 notes (made so that the program works fully):
+# - PointFeedback.Marks: copied from the marking point, so CalculateEstimatedMark can add up
+#   marks from the PointFeedbackSet.
+# - QuestionItem.QuestionText: the question from the question paper, so the AI knows what
+#   was asked.
+# - DocumentSet.QuestionPaperFile: the optional question paper.
 
 # CONSTANT
 CategoryClearlyCorrect = "Clearly correct"
@@ -77,10 +81,12 @@ class MarkRules:                               # TYPE MarkRules
 class QuestionItem:                            # TYPE QuestionItem
     def __init__(self):
         self.QuestionID = ""                   # STRING  e.g. "1(a)(ii)"
+        self.QuestionText = ""                 # STRING  from the question paper (optional)
         self.AnswerText = ""                   # STRING
         self.MarkingPoints = []                # ARRAY OF MarkingPoint
         self.MarkingRules = MarkRules()        # MarkRules
-        self.SourceImageRef = ""               # STRING  image file(s) holding the answer
+        self.SourceImageRef = ""               # STRING  image file(s) or PDF page(s) holding the answer,
+                                               #         e.g. "Page3.jpg; Answers.pdf#2"
                                                # ENDTYPE
 
 
@@ -146,6 +152,7 @@ class DocumentSet:                             # TYPE DocumentSet
         self.Paper = PaperDetails()            # PaperDetails
         self.AnswerFiles = []                  # ARRAY OF STRING
         self.MarkSchemeFile = ""               # STRING
+        self.QuestionPaperFile = ""            # STRING  optional
         self.IsComplete = False                # BOOLEAN
                                                # ENDTYPE
 
