@@ -23,8 +23,8 @@
 
 import os                  # os.path finds file names and extensions; os.makedirs creates a folder
 
-import AIConnection
-import SQRecords
+import AIConnection        # Fox's module: sends every AI request and checks the reply
+import SQRecords           # record types agreed by the whole group
 
 try:
     import pymupdf         # optional: reads PDF text and turns scanned pages into pictures (pip install pymupdf)
@@ -129,6 +129,7 @@ def OneLine(Text):
 # ===================================================================== reading files
 
 def ReadTextFile(FileName):
+    # FUNCTION ReadTextFile(FileName : STRING) RETURNS ARRAY OF STRING
     # Reads a text file line by line. Returns the lines without their line endings.
     # DECLARE Lines : ARRAY OF STRING
     # DECLARE ThisLine : STRING
@@ -218,6 +219,7 @@ def MakeSourceRef(FileName, PageNumber):
 def SplitSourceRef(SourceRef):
     # "Answers.pdf#2" -> ["Answers.pdf", "2"];  "Page1.jpg" -> ["Page1.jpg", "0"]
     # DECLARE Position : INTEGER
+    # move back over the digits at the end; a page reference has "#" just before them
     Position = len(SourceRef) - 1
     while Position >= 0 and IsDigit(SourceRef[Position]) == True:
         Position = Position - 1
@@ -227,6 +229,7 @@ def SplitSourceRef(SourceRef):
 
 
 def LoadSourceImages(SourceImageRef):
+    # FUNCTION LoadSourceImages(SourceImageRef : STRING) RETURNS ARRAY OF STRING
     # Turns a list of references separated by "; " into image data URLs for the AI.
     # Text files are skipped.
     # DECLARE ImageURLs, Parts, FileAndPage : ARRAY OF STRING
@@ -249,6 +252,7 @@ def LoadSourceImages(SourceImageRef):
 
 
 def ReadDocumentParts(FileName):
+    # FUNCTION ReadDocumentParts(FileName : STRING) RETURNS ARRAY OF ARRAY[0:2] OF STRING
     # Splits a document into parts. Each part is a row [SourceRef, Text, Kind]: Kind is
     # "text" for typed text, or "image" for a photo or a PDF page that is a picture
     # (a scan, or a page with handwriting pasted in).
@@ -270,6 +274,7 @@ def ReadDocumentParts(FileName):
         Pages = ReadPdfPages(FileName)
         for Index in range(0, len(Pages)):
             PageNumber = Index + 1
+            # little text (a scan) or a picture on the page (e.g. handwriting pasted in): the AI must see it
             if len(Pages[Index].strip()) < MinimumPageText or CountPdfPictures(FileName, PageNumber) > 0:
                 Kind = "image"
             else:
@@ -414,6 +419,7 @@ def IsSQFormat(Lines):
 
 
 def ParseMarkScheme(Lines):
+    # FUNCTION ParseMarkScheme(Lines : ARRAY OF STRING) RETURNS ARRAY OF QuestionItem
     # Extracts one QuestionItem for each QUESTION line, with its marking points and rules.
     # Questions without marking points or marks are left out, with a warning.
     # DECLARE Questions, ValidQuestions : ARRAY OF QuestionItem
@@ -429,6 +435,7 @@ def ParseMarkScheme(Lines):
         if ThisLine == "" or ThisLine[0:1] == "#":
             pass                               # blank line or comment
         elif Words[0].upper() == "QUESTION":
+            # reset first, so lines after an invalid QUESTION line cannot join the previous question
             CurrentQuestion = None
             Label = ""
             Marks = -1
@@ -553,6 +560,7 @@ def BuildMarkSchemePrompt():
 
 
 def AddAIQuestions(Questions, Data):
+    # PROCEDURE AddAIQuestions(BYREF Questions : ARRAY OF QuestionItem, Data : dictionary)
     # Adds the questions in one AI reply to the list Questions (the list is changed). A
     # question continued from an earlier page gets its new points numbered after the old
     # ones, and its rules are renumbered in the same way.
@@ -574,7 +582,9 @@ def AddAIQuestions(Questions, Data):
                     Question = Questions[Index]
                 if ToInteger(Rows[Row].get("max_mark"), 0) > Question.MarkingRules.MaxMark:
                     Question.MarkingRules.MaxMark = ToInteger(Rows[Row].get("max_mark"), 0)
-                Offset = len(Question.MarkingPoints)
+                Offset = len(Question.MarkingPoints)    # more than 0 if the question continues from earlier pages
+                # parallel arrays: OldIDs[i] is the AI's ID for a point and NewIDs[i] the ID given here,
+                # so that the rules can be renumbered in the same way
                 OldIDs = []
                 NewIDs = []
                 PointRows = AIConnection.GetJsonList(Rows[Row], "points")
@@ -606,6 +616,7 @@ def AddAIQuestions(Questions, Data):
                             if Question.MarkingRules.RuleNotes != "":
                                 Question.MarkingRules.RuleNotes = Question.MarkingRules.RuleNotes + "; "
                             Question.MarkingRules.RuleNotes = Question.MarkingRules.RuleNotes + FirstID + " DEPENDS ON " + SecondID
+                # no max_mark in the reply for a new question: use the total of its points
                 if Question.MarkingRules.MaxMark == 0 and Offset == 0:
                     Total = 0
                     for PointIndex in range(0, len(Question.MarkingPoints)):
@@ -614,6 +625,7 @@ def AddAIQuestions(Questions, Data):
 
 
 def ConvertMarkSchemeWithAI(FileName, Settings):
+    # FUNCTION ConvertMarkSchemeWithAI(FileName : STRING, Settings : AISettings) RETURNS ARRAY OF QuestionItem
     # Sends the mark scheme to the AI a few pages at a time and collects the questions.
     # Returns ARRAY OF QuestionItem, or [] if any part could not be read (an incomplete
     # mark scheme would give a wrong total, so nothing is marked).
@@ -631,6 +643,7 @@ def ConvertMarkSchemeWithAI(FileName, Settings):
         PromptText = BuildMarkSchemePrompt() + "MARK SCHEME PAGES:\n"
         ImageURLs = []
         PartsInRequest = 0
+        # one request holds up to MarkSchemePagesPerRequest pages: text in the prompt, pictures as images
         while Index < len(Parts) and PartsInRequest < MarkSchemePagesPerRequest:
             if Parts[Index][2] == "text" and IsCoverOrRulesPage(Parts[Index][1]) == True:
                 print("  Skipped", os.path.basename(Parts[Index][0]), "(cover or general marking principles)")
@@ -658,6 +671,7 @@ def ConvertMarkSchemeWithAI(FileName, Settings):
 
 
 def ReadMarkScheme(FileName, Settings):
+    # FUNCTION ReadMarkScheme(FileName : STRING, Settings : AISettings) RETURNS ARRAY OF QuestionItem
     # Returns the questions of the mark scheme. The SQ text format is read directly;
     # anything else is read by the AI and saved in the SQ text format for checking.
     # DECLARE Lines : ARRAY OF STRING
@@ -694,6 +708,8 @@ def IsQuestionPaperCover(PageText):
 
 
 def ReadQuestionTexts(FileName, Questions, Settings):
+    # PROCEDURE ReadQuestionTexts(FileName : STRING, BYREF Questions : ARRAY OF QuestionItem,
+    #                           Settings : AISettings)
     # Reads the text of each question from the question paper and stores it in
     # QuestionItem.QuestionText (the list of questions is changed). Optional: marking
     # continues without it.
@@ -773,6 +789,7 @@ def FindAnswerRow(AnswerTable, Label):
 def LowerConfidence(First, Second):
     # The lower of two confidence levels ("low" < "medium" < "high").
     # DECLARE Index : INTEGER
+    # ConfidenceLevels is ordered from low to high, so the first level found is the lower one
     for Index in range(0, len(ConfidenceLevels)):
         if ConfidenceLevels[Index] == First or ConfidenceLevels[Index] == Second:
             return ConfidenceLevels[Index]
@@ -780,6 +797,8 @@ def LowerConfidence(First, Second):
 
 
 def AddAnswerRow(AnswerTable, Label, AnswerText, SourceRef, Confidence):
+    # PROCEDURE AddAnswerRow(BYREF AnswerTable : ARRAY OF ARRAY[0:3] OF STRING,
+    #                        Label, AnswerText, SourceRef, Confidence : STRING)
     # Adds an answer to the table, or joins it to an earlier answer to the same question
     # (an answer can continue on another page). The table is changed.
     # DECLARE Row : INTEGER
@@ -800,6 +819,8 @@ def AddAnswerRow(AnswerTable, Label, AnswerText, SourceRef, Confidence):
 
 
 def ParseAnswers(Lines, Questions):
+    # FUNCTION ParseAnswers(Lines : ARRAY OF STRING, Questions : ARRAY OF QuestionItem)
+    #          RETURNS ARRAY OF ARRAY[0:3] OF STRING
     # Splits typed answer lines into a table with one row [Label, AnswerText, "", "high"]
     # per question. A line starts a new answer when its first word is a question number
     # that is in the mark scheme, or is clearly written as a question number (with
@@ -858,6 +879,8 @@ def BuildTranscriptionPrompt(Questions):
 
 
 def TranscribeAnswerImage(ImageURL, SourceRef, Questions, Settings):
+    # FUNCTION TranscribeAnswerImage(ImageURL, SourceRef : STRING, Questions : ARRAY OF QuestionItem,
+    #                                Settings : AISettings) RETURNS ARRAY OF ARRAY[0:3] OF STRING
     # Asks the AI to read one photo or scanned page. Returns rows [Label, AnswerText,
     # SourceRef, Confidence]; a label "?" means the AI found no question number. If the
     # request fails, the only row is ["", "", SourceRef, "failed"].
@@ -881,6 +904,7 @@ def TranscribeAnswerImage(ImageURL, SourceRef, Questions, Settings):
             if Label == "":
                 Label = "?"
             Confidence = str(ReplyRows[Index].get("confidence", "low")).strip().lower()
+            # an unknown confidence counts as low, so the answer is checked instead of marked
             if IsInList(Confidence, ConfidenceLevels) == False:
                 Confidence = "low"
             Rows.append([Label, str(ReplyRows[Index].get("answer", "")).strip(), SourceRef, Confidence])
@@ -888,10 +912,13 @@ def TranscribeAnswerImage(ImageURL, SourceRef, Questions, Settings):
 
 
 def MatchAnswers(Questions, AnswerTable, UnreadImages, UncertainMatches):
+    # PROCEDURE MatchAnswers(BYREF Questions : ARRAY OF QuestionItem, AnswerTable : ARRAY OF ARRAY[0:3] OF STRING,
+    #                        UnreadImages : ARRAY OF STRING, BYREF UncertainMatches : ARRAY OF STRING)
     # Copies each answer into its QuestionItem. The lists Questions and UncertainMatches
     # are changed by this procedure (Python passes the list itself, not a copy).
     # DECLARE Index, Row : INTEGER
     # DECLARE ImageList : STRING
+    # the images that could not be read, joined into one SourceImageRef
     ImageList = ""
     for Index in range(0, len(UnreadImages)):
         if ImageList == "":
@@ -899,6 +926,7 @@ def MatchAnswers(Questions, AnswerTable, UnreadImages, UncertainMatches):
         else:
             ImageList = ImageList + "; " + UnreadImages[Index]
 
+    # a low-confidence reading or a missing answer is uncertain: the question is flagged, not marked
     for Index in range(0, len(Questions)):
         Row = FindAnswerRow(AnswerTable, Questions[Index].QuestionID)
         if Row != -1:
@@ -916,6 +944,7 @@ def MatchAnswers(Questions, AnswerTable, UnreadImages, UncertainMatches):
             else:
                 print("Question " + Questions[Index].QuestionID + ": no answer found in the answer files.")
 
+    # answers whose question number is not in the mark scheme
     for Row in range(0, len(AnswerTable)):
         if FindQuestion(Questions, AnswerTable[Row][0]) == -1:
             UncertainMatches.append(AnswerTable[Row][0])
@@ -926,6 +955,7 @@ def MatchAnswers(Questions, AnswerTable, UnreadImages, UncertainMatches):
 
 
 def DisplayProcessedPaper(Processed):
+    # PROCEDURE DisplayProcessedPaper(Processed : ProcessedPaper)
     # Outputs one line per question: marks, number of marking points and match status.
     # DECLARE Index : INTEGER
     # DECLARE Status : STRING
@@ -944,6 +974,7 @@ def DisplayProcessedPaper(Processed):
 
 
 def ProcessDocuments(Documents, Settings):
+    # FUNCTION ProcessDocuments(Documents : DocumentSet, Settings : AISettings) RETURNS ProcessedPaper
     # Document Processing Module: returns one ProcessedPaper record.
     # DECLARE Processed : ProcessedPaper
     # DECLARE Parts, Rows : ARRAY OF ARRAY OF STRING
@@ -955,6 +986,7 @@ def ProcessDocuments(Documents, Settings):
     Processed.Paper = Documents.Paper
     print()
     print("=== Document Processing ===")
+    # 1. the mark scheme, then the question text from the question paper (optional)
     Processed.Questions = ReadMarkScheme(Documents.MarkSchemeFile, Settings)
     if len(Processed.Questions) == 0:
         print("No questions were found in the mark scheme.")
@@ -962,6 +994,7 @@ def ProcessDocuments(Documents, Settings):
     print("Mark scheme read:", len(Processed.Questions), "questions.")
     ReadQuestionTexts(Documents.QuestionPaperFile, Processed.Questions, Settings)
 
+    # 2. answer files: typed text is collected; photos and scanned pages are read by the AI
     TextLines = []
     UnreadImages = []
     AnswerTable = []
@@ -975,7 +1008,7 @@ def ProcessDocuments(Documents, Settings):
                 for LineIndex in range(0, len(PartLines)):
                     TextLines.append(PartLines[LineIndex])
             elif AIConnection.IsOnline(Settings) == False:
-                UnreadImages.append(SourceRef)
+                UnreadImages.append(SourceRef)     # the offline demo marker cannot read images
             else:
                 ImageURL = LoadSourceImages(SourceRef)
                 if len(ImageURL) == 0:
@@ -983,6 +1016,7 @@ def ProcessDocuments(Documents, Settings):
                 else:
                     print("Reading the handwriting in", os.path.basename(SourceRef), "...")
                     Rows = TranscribeAnswerImage(ImageURL[0], SourceRef, Processed.Questions, Settings)
+                    # TranscribeAnswerImage returns one "failed" row if the request did not work
                     if Rows[0][3] == "failed":
                         UnreadImages.append(SourceRef)
                     else:
@@ -992,7 +1026,7 @@ def ProcessDocuments(Documents, Settings):
     if len(UnreadImages) > 0 and AIConnection.IsOnline(Settings) == False:
         print(len(UnreadImages), "photo(s) or scanned page(s) can only be read with an AI service that accepts images.")
 
-    # typed answers first, then the answers read from images (which may continue them)
+    # 3. typed answers first, then the answers read from images (which may continue them)
     Rows = ParseAnswers(TextLines, Processed.Questions)
     for Row in range(0, len(Rows)):
         AddAnswerRow(AnswerTable, Rows[Row][0], Rows[Row][1], Rows[Row][2], Rows[Row][3])

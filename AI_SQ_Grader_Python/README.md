@@ -159,12 +159,14 @@ been run here against a real AI service.
 ## Part 2 submission drafts
 
 `Submission_Drafts/` has a draft for each member, made from the school template:
-`<Name>_Part2_Submission.docx` (cover, the member's code, and a test plan) and
+`<Name>_Part2_Submission.docx` (cover, the member's code, and a test plan; Kevin's shows selected
+subprograms with a table of where each code requirement is met, instead of the whole files) and
 `<Name>_Part2_Submission.md` (the same test plan, a rubric checklist and a plan for the
 one-minute video). Every "Actual outcome" was produced by running the program. Rows marked
 "test AI server" used the local test server instead of a real AI service. After changing any
-code, run `python Tools/BuildSubmissionDrafts.py` to rebuild them, then read every row and put
-it in your own words where you wish. The tables are long; keep the tests you want.
+code, run `python Tools/BuildSubmissionDrafts.py` (or `python Tools/BuildSubmissionDrafts.py Kevin`
+for one member) to rebuild them, then read every row and put it in your own words where you
+wish. The tables are long; keep the tests you want.
 
 Notes for the group:
 
