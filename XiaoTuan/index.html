@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>小團的小窩</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans&amp;family=Noto+Sans+Gujarati&amp;family=Noto+Sans+Georgian&amp;family=Noto+Sans+Yi&amp;family=Noto+Sans+Kannada&amp;family=Noto+Sans+Math&amp;family=Noto+Sans+Symbols+2&amp;display=swap&amp;text=%E0%AB%AE%E2%82%8D%CB%B6%E2%80%A2%E1%B4%97%E2%82%8E%E1%83%90%E1%B5%94%E1%B5%95%CB%8A%CB%8B%E2%99%A1%CC%A5%E2%95%AC%CC%81%E1%B4%96%CC%80%CB%87%E2%80%B8T%C2%B0%E3%85%81_%EF%B9%8F%C2%AC-%40%E2%9C%A7()%CC%A9%EA%92%B0%CB%95%EA%92%B1%E2%A4%99%E1%B7%85%D0%B4%E1%B7%84%E2%80%BF%E2%9D%80%E2%95%B9%E2%97%A1~%C3%B2%C3%B3!%E2%97%8D%CA%9A%C9%9E%3B%CB%98%E2%89%A7%E2%96%BD%E2%89%A6%E0%B2%A5%E2%89%A5%E2%89%A4%EF%B8%BF%CE%B53%CF%81%5B%5D%5Eo%C2%B3%E1%B5%92%E2%96%BF.%CB%8D%E2%8A%99">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <h1>小團的小窩</h1>
+      <p class="sub" id="status">小團現在：舒舒服服</p>
+    </div>
+    <button id="soundBtn" class="ghost small" aria-pressed="true">聲音：開</button>
+  </header>
+
+  <div class="layout">
+    <section class="play" aria-label="遊戲畫面">
+      <div id="stageWrap">
+        <div id="stage">
+          <div id="sky"><div id="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+          <div id="hills"></div>
+          <div id="ground"><div id="puddles"></div><div id="snowCover"></div></div>
+          <div id="line"><div id="wall"></div></div>
+          <div id="shelter"><div class="back"></div><div class="roof"></div><div class="post l"></div><div class="post r"></div><span class="sign">小團的窩</span></div>
+          <div id="nest">
+            <div class="basket"></div>
+            <div id="nest-blanket" class="nest-uniq" hidden></div>
+            <div id="nest-teddy" class="nest-uniq" hidden>🧸</div>
+            <div id="nest-bell" class="nest-uniq" hidden>🔔</div>
+          </div>
+          <div id="pieces"></div>
+          <div id="pot"><div id="plant"></div><div class="pot-body"><span class="pot-rim"></span></div><div id="pot-att"></div></div>
+          <div id="mg"></div>
+          <div id="tuan">
+            <div id="tshadow"></div>
+            <div id="twrap">
+              <div id="att-umbrella" class="att" hidden>☂️</div>
+              <div id="att-ice" class="att" hidden>🧊</div>
+              <div id="tbody"><span id="tface">૮₍ ˶•ᴗ•˶₎ა</span><div id="tdoodle" hidden></div><i class="hug-l">(</i><i class="hug-r">)</i></div>
+              <div id="att-blanket" class="att" hidden></div>
+              <div id="att-held" class="att" hidden></div>
+            </div>
+          </div>
+          <canvas id="weather" width="1000" height="600"></canvas>
+          <div id="fx"></div>
+          <div id="bubble" hidden></div>
+          <div id="flash"></div>
+          <div id="toast" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+      <ol id="ticker" class="ticker" aria-live="polite"><li><b>開始</b><span class="lt">點、長按或拖動小團，看看牠會怎麼反應。</span></li></ol>
+      <div id="tray" class="tray" aria-label="物品托盤"></div>
+      <p class="gesture-hint"><b>點</b>摸頭或戳肚子　<b>長按</b>抱抱　<b>拖動</b>抱起來搬，甩動會頭暈，用力甩開會丟出去　<b>物品</b>拖到小團、小窩或花盆上；從小團手上拖走就是搶</p>
+    </section>
+
+    <aside class="panel" aria-label="控制面板">
+      <div class="tabs" role="tablist">
+        <button data-tab="act" role="tab">互動</button>
+        <button data-tab="weather" role="tab">天氣</button>
+        <button data-tab="games" role="tab">小遊戲</button>
+        <button data-tab="notes" role="tab">觀察筆記</button>
+      </div>
+
+      <div class="pane" id="pane-act" role="tabpanel">
+        <h2>溫柔</h2>
+        <div class="btn-grid">
+          <button data-act="praise">誇獎</button>
+          <button data-act="nuzzle">貼貼</button>
+          <button data-act="call">叫牠名字</button>
+          <button data-act="soothe">安撫</button>
+        </div>
+        <h2>使壞</h2>
+        <div class="btn-grid bad">
+          <button data-act="scare">嚇牠！</button>
+          <button data-act="tease">取笑牠</button>
+          <button data-act="snatch">搶東西</button>
+          <button data-act="mess">弄亂小窩</button>
+        </div>
+        <h2>演戲</h2>
+        <div class="btn-grid">
+          <button data-act="fakesad">假裝難過</button>
+          <button data-act="teddy">抱布偶不理牠</button>
+        </div>
+        <p class="hint">同一個動作，牠的反應會隨冷熱、濕不濕、累不累、天氣，還有你之前對牠做過的事而不同。惹牠生氣或弄哭也是一種發現。</p>
+      </div>
+
+      <div class="pane" id="pane-weather" role="tabpanel" hidden>
+        <label class="slider" for="wTemp"><span>冷熱</span><input id="wTemp" type="range" min="0" max="100" value="50"><output id="wTempV">舒適</output></label>
+        <label class="slider" for="wWind"><span>風</span><input id="wWind" type="range" min="0" max="100" value="0"><output id="wWindV">無風</output></label>
+        <label class="slider" for="wRain"><span id="wRainName">雨</span><input id="wRain" type="range" min="0" max="100" value="0"><output id="wRainV">不下雨</output></label>
+        <div class="thunder-row">
+          <label class="switch" for="wThunder"><input id="wThunder" type="checkbox"><span>雷聲（會不時打雷）</span></label>
+          <button id="wStrike" class="small">打一聲雷</button>
+        </div>
+        <h2>一鍵天氣</h2>
+        <div class="btn-grid">
+          <button data-preset="clear">晴天</button>
+          <button data-preset="coldsnap">寒流</button>
+          <button data-preset="heat">熱浪</button>
+          <button data-preset="storm">暴風雨</button>
+          <button data-preset="snow">下雪</button>
+        </div>
+        <p class="hint">小窩有屋頂，能擋雨和一部分的風。很冷的時候下雨會變成下雪。</p>
+      </div>
+
+      <div class="pane" id="pane-games" role="tabpanel" hidden>
+        <div id="gamePanel"></div>
+      </div>
+
+      <div class="pane" id="pane-notes" role="tabpanel" hidden>
+        <div class="set-now" id="setNow"></div>
+        <div class="notes-grid">
+          <section><h2>身體</h2><div id="bodyMeters"></div></section>
+          <section><h2>心裡</h2><div id="heartMeters"></div></section>
+        </div>
+        <h2>收集 <small>情境 <span id="discCount">0</span>　表情 <span id="faceCount">0</span></small></h2>
+        <div class="chips" id="setChips"></div>
+        <ul class="hints" id="hints"></ul>
+        <details>
+          <summary>已發現的情境</summary>
+          <ul class="disc-list" id="discList"></ul>
+        </details>
+        <details open>
+          <summary>互動日誌</summary>
+          <ol class="log" id="logList"></ol>
+        </details>
+        <button id="resetBtn" class="ghost danger">重新認識小團</button>
+      </div>
+    </aside>
+  </div>
+</div>
+<script src="js/data.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/core.js"></script>
+<script src="js/games.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
