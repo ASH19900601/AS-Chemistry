@@ -61,16 +61,16 @@ const SET_REASON = {
 
 // 物品。unique：場上只有一個，會在托盤、小團身上、小窩或花盆之間移動
 const ITEMS = {
-  ice: { name: '冰塊', icon: '🧊' },
-  blanket: { name: '毯子', svg: 'blanket', unique: true },
-  tea: { name: '熱茶', icon: '🍵' },
-  cookie: { name: '餅乾', icon: '🍪' },
-  water: { name: '清水', icon: '💧' },
-  fan: { name: '扇子', svg: 'fan' },
-  umbrella: { name: '雨傘', icon: '☂️', unique: true },
-  bell: { name: '鈴鐺', icon: '🔔', unique: true },
-  teddy: { name: '布偶', icon: '🧸', unique: true },
-  crayon: { name: '蠟筆', icon: '🖍️' }
+  ice: { name: '冰塊', sname: '冰块', icon: '🧊' },
+  blanket: { name: '毯子', sname: '毯子', svg: 'blanket', unique: true },
+  tea: { name: '熱茶', sname: '热茶', icon: '🍵' },
+  cookie: { name: '餅乾', sname: '饼干', icon: '🍪' },
+  water: { name: '清水', sname: '清水', icon: '💧' },
+  fan: { name: '扇子', sname: '扇子', svg: 'fan' },
+  umbrella: { name: '雨傘', sname: '雨伞', icon: '☂️', unique: true },
+  bell: { name: '鈴鐺', sname: '铃铛', icon: '🔔', unique: true },
+  teddy: { name: '布偶', sname: '布偶', icon: '🧸', unique: true },
+  crayon: { name: '蠟筆', sname: '蜡笔', icon: '🖍️' }
 };
 const ITEM_ORDER = ['ice', 'blanket', 'tea', 'cookie', 'water', 'fan', 'umbrella', 'bell', 'teddy', 'crayon'];
 

@@ -20,23 +20,23 @@ const Games = {
       return true;
     }
     if (T.grudge > 60 && chance((T.grudge - 45) / 55)) {
-      react({ emo: 'sulk', say: pick(['不要跟你玩。', '哼，自己玩去。']), disc: 'refuse_play', act: '找牠玩' + GAME_INFO[type].name });
+      react({ emo: 'sulk', say: line('refuse_play'), disc: 'refuse_play', act: '找牠玩' + GAME_INFO[type].name });
       return true;
     }
     if (type === 'tug' && c.tugLetGo >= 2 && T.trust < 70 && chance(0.7)) {
-      react({ emo: 'sulk', say: '不要，你又會突然放手。', disc: 'tug_refuse', act: '找牠拉鋸' }); return true;
+      react({ emo: 'sulk', say: line('tug_refuse'), disc: 'tug_refuse', act: '找牠拉鋸' }); return true;
     }
     if (type === 'bell' && c.cheatBell >= 2 && chance(0.7)) {
-      react({ emo: 'speechless', say: '不要，你會作弊。', disc: 'bell_refuse', act: '找牠藏鈴' }); return true;
+      react({ emo: 'speechless', say: line('bell_refuse'), disc: 'bell_refuse', act: '找牠藏鈴' }); return true;
     }
     if (type === 'bell' && (c.snatch.bell || 0) >= 3 && T.grudge > 15) {
-      react({ emo: 'sulk', say: '不要…你會把鈴鐺搶走。', disc: 'bell_refuse_snatch', act: '找牠藏鈴' }); return true;
+      react({ emo: 'sulk', say: line('bell_refuse_snatch'), disc: 'bell_refuse_snatch', act: '找牠藏鈴' }); return true;
     }
     if (type === 'tea' && c.spills >= 2 && chance(0.6)) {
-      react({ emo: 'sulk', say: '你會打翻啦…', disc: 'tea_refuse', act: '找牠喝茶' }); return true;
+      react({ emo: 'sulk', say: line('tea_refuse'), disc: 'tea_refuse', act: '找牠喝茶' }); return true;
     }
     if (type === 'draw' && c.tornDrawings >= 2 && chance(0.7)) {
-      react({ emo: 'sad', say: '…你會撕掉我的畫。', disc: 'draw_refuse', act: '找牠畫畫' }); return true;
+      react({ emo: 'sad', say: line('draw_refuse'), disc: 'draw_refuse', act: '找牠畫畫' }); return true;
     }
     return false;
   },
@@ -61,7 +61,7 @@ const Games = {
     if (S.loc.bell === 'pot') { toast('鈴鐺掛在芽上，先把它拿下來'); return false; }
     if (X.held === 'bell') {
       if (guardLevel('bell') > 70) {
-        react({ emo: 'sulk', say: '不要…你會把鈴鐺搶走。', disc: 'bell_refuse_snatch', act: '找牠藏鈴' });
+        react({ emo: 'sulk', say: line('bell_refuse_snatch'), disc: 'bell_refuse_snatch', act: '找牠藏鈴' });
         return false;
       }
       X.held = null;
@@ -145,7 +145,7 @@ function startTug() {
   $('#mg').className = 'mg-tug';
   $('#mg').innerHTML = '<div class="tug-hand">✊</div><div class="tug-rope"></div><div class="tug-knot"></div><div class="tug-mid"></div><div class="tug-tap" data-tug="pull">點這裡也能拉</div>';
   $('#mg .tug-tap').addEventListener('pointerdown', e => { e.preventDefault(); tugCmd('pull'); });
-  react({ emo: 'smug', say: S.T.grudge > 30 ? '這次一定要贏你！' : '拉鋸！我不會輸的！', anim: 'bounce', act: '開始拉鋸' });
+  react({ emo: 'smug', say: line(S.T.grudge > 30 ? 'tug_start_grudge' : 'tug_start'), anim: 'bounce', act: '開始拉鋸' });
   tugRender();
 }
 
@@ -170,9 +170,9 @@ function tugCmd(a) {
     Sound.boing();
     if (m.force > 0.9) {
       body('dizzy', 12);
-      react({ emo: 'startle', say: '哇啊！', anim: 'tumble', fx: 'excl' });
+      react({ emo: 'startle', say: line('tug_yank_fall'), anim: 'tumble', fx: 'excl' });
     }
-    if (m.yanks >= 2) { tr('grudge', 3); offense(0.5); react({ emo: 'angry', say: '你耍賴！一直猛拉！', anim: 'shake', disc: 'tug_yank', act: '拉鋸猛拉' }); }
+    if (m.yanks >= 2) { tr('grudge', 3); offense(0.5); react({ emo: 'angry', say: line('tug_yank'), anim: 'shake', disc: 'tug_yank', act: '拉鋸猛拉' }); }
   }
   if (a === 'letgo') tugFinish('letgo');
   tugRender();
@@ -190,8 +190,8 @@ function tugTick(dt) {
     body('energy', -0.04);
     S.B.warmFx = clamp(S.B.warmFx + 0.25, -40, 40);
     m.pos = clamp(m.pos, -100, 100);
-    if (m.pos > 60 && !m.said.win) { m.said.win = true; react({ emo: 'smug', say: '快贏了！嘿咻！', dur: 1500 }); }
-    if (m.pos < -60 && !m.said.lose) { m.said.lose = true; react({ emo: 'afraid', say: '不要…撐住…！', dur: 1500 }); }
+    if (m.pos > 60 && !m.said.win) { m.said.win = true; react({ emo: 'smug', say: line('tug_almost_win'), dur: 1500 }); }
+    if (m.pos < -60 && !m.said.lose) { m.said.lose = true; react({ emo: 'afraid', say: line('tug_almost_lose'), dur: 1500 }); }
     if (m.pos >= 100) { tugFinish('tuan'); return; }
     if (m.pos <= -100) { tugFinish('you'); return; }
   }
@@ -228,7 +228,7 @@ function tugThunder() {
   MG.done = true;
   MG.result = '打雷了，小團丟下繩子跑掉了。';
   tr('fear', 2);
-  react({ emo: 'cry', say: '打雷了！不玩了！', anim: 'jump', fx: 'tear', over: 18, overDur: 8000, disc: 'tug_thunder', act: '拉鋸時打雷' });
+  react({ emo: 'cry', say: line('tug_thunder'), anim: 'jump', fx: 'tear', over: 18, overDur: 8000, disc: 'tug_thunder', act: '拉鋸時打雷' });
   later(1200, () => { Games.end(true); walkTo(P.nestX); });
   Games.renderPanel();
   return true;
@@ -249,10 +249,10 @@ function tugFinish(how) {
       body('dizzy', 25); X.lastFall = now();
       if (T.trust > 60 && T.grudge < 20) {
         X.playfulUntil = now() + 15000;
-        react({ emo: 'happy', say: '哈哈哈！跌倒了！再來再來！', fx: 'star', over: 4, overDur: 15000, disc: 'tug_letgo_fun', act: '突然放手' });
+        react({ emo: 'happy', say: line('tug_letgo_fun'), fx: 'star', over: 4, overDur: 15000, disc: 'tug_letgo_fun', act: '突然放手' });
       } else {
         tr('grudge', 6); offense();
-        react({ emo: T.fear > 50 ? 'cry' : 'angry', say: T.fear > 50 ? '好痛…你故意的…' : '突然放手很危險耶！', anim: 'shake', fx: T.fear > 50 ? 'tear' : 'anger', disc: 'tug_letgo_angry', act: '突然放手' });
+        react({ emo: T.fear > 50 ? 'cry' : 'angry', say: line(T.fear > 50 ? 'tug_letgo_hurt' : 'tug_letgo_angry'), anim: 'shake', fx: T.fear > 50 ? 'tear' : 'anger', disc: 'tug_letgo_angry', act: '突然放手' });
       }
     };
     $('#mg').innerHTML = '';
@@ -264,12 +264,12 @@ function tugFinish(how) {
     if (m.easedUsed && T.trust > 50 && chance(0.4)) {
       tr('trust', 3);
       m.result = '小團贏了，但牠好像發現你在放水。';
-      react({ emo: 'moved', say: '…你是不是讓我的？…謝謝。', fx: 'heart', disc: 'tug_eased', act: '拉鋸輸了' });
+      react({ emo: 'moved', say: line('tug_eased'), fx: 'heart', disc: 'tug_eased', act: '拉鋸輸了' });
     } else {
       tr('smug', 8); tr('trust', 1);
       X.lastGood = now();
       m.result = '小團贏了！牠得意得不得了。';
-      react({ emo: 'smug', say: pick(['我贏了！我最強！', '嘿嘿，認輸吧！']), anim: 'bounce', fx: 'sparkle', disc: 'tug_win_tuan', act: '拉鋸輸了' });
+      react({ emo: 'smug', say: line('tug_win_tuan'), anim: 'bounce', fx: 'sparkle', disc: 'tug_win_tuan', act: '拉鋸輸了' });
     }
   } else {
     S.c.tugStreakYou++;
@@ -277,15 +277,15 @@ function tugFinish(how) {
     if (S.c.tugStreakYou >= 3) {
       tr('sorrow', 6); tr('smug', -6);
       m.result = '你又贏了。小團連輸好幾次，很受打擊。';
-      react({ emo: T.fear > 45 ? 'cry' : 'speechless', say: T.fear > 45 ? '每次都輸…嗚…' : '…不玩了。反正都是你贏。', fx: 'tear', disc: 'tug_win_you_repeat', act: '拉鋸贏了' });
+      react({ emo: T.fear > 45 ? 'cry' : 'speechless', say: line(T.fear > 45 ? 'tug_lose_repeat_cry' : 'tug_lose_repeat'), fx: 'tear', disc: 'tug_win_you_repeat', act: '拉鋸贏了' });
     } else if (dur < 4500) {
       tr('grudge', 3); tr('sorrow', 2);
       m.result = '你一下子就贏了。';
-      react({ emo: 'sulk', say: '太快了吧！我還沒準備好！', disc: 'tug_win_you_fast', act: '拉鋸贏了' });
+      react({ emo: 'sulk', say: line('tug_win_you_fast'), disc: 'tug_win_you_fast', act: '拉鋸贏了' });
     } else {
       tr('trust', 2);
       m.result = '你險勝。小團不服氣但很開心。';
-      react({ emo: 'happy', say: '可惡～下次一定贏！', fx: 'note', disc: 'tug_win_close', act: '拉鋸贏了' });
+      react({ emo: 'happy', say: line('tug_win_close'), fx: 'note', disc: 'tug_win_close', act: '拉鋸贏了' });
     }
   }
   if (S.played >= 3 && S.T.trust > 60 && S.B.energy > 50) { X.playfulUntil = now() + 15000; react({ over: 4, overDur: 15000 }); discover('playful_mode'); }
@@ -320,7 +320,7 @@ function bellBeginHide() {
   m.phase = 'hide'; m.spot = -1; m.cheat = false; m.checked = []; m.count = 0;
   document.querySelectorAll('#mg .spot').forEach(el => el.classList.remove('lifted', 'has'));
   X.emo = 'sleep'; X.emoUntil = now() + 12000; updateFace(true);
-  say('我數到十喔～ 1…', 1500);
+  say(line('bell_count_start'), 1500);
   Games.renderPanel();
 }
 
@@ -331,10 +331,10 @@ function bellTick(dt) {
   if (m.cnt > 1000) {
     m.cnt = 0; m.count++;
     if (m.count < 10) { X.emoUntil = now() + 1500; say((m.count + 1) + '…', 1200); }
-    else if (m.count === 10) say('好了沒？', 1500);
+    else if (m.count === 10) say(line('bell_count_done'), 1500);
     else if (m.count >= 13) {
       tr('snark', 3);
-      react({ emo: 'speechless', say: '…你根本沒藏嘛。', act: '藏鈴' });
+      react({ emo: 'speechless', say: line('bell_not_hidden'), act: '藏鈴' });
       m.phase = 'done'; m.result = '你一直沒藏，小團睜開眼睛了。';
       Games.renderPanel();
     }
@@ -375,7 +375,7 @@ function bellBeginSeek() {
   const m = MG;
   m.phase = 'seek';
   X.emoUntil = 0;
-  react({ emo: 'happy', say: '我要開始找囉！' });
+  react({ emo: 'happy', say: line('bell_seek_start')});
   // 依照過去你常藏的地方決定先找哪裡
   const order = [0, 1, 2].sort((a, b) => (S.hide[b] + Math.random() * 0.8) - (S.hide[a] + Math.random() * 0.8));
   m.order = order;
@@ -384,11 +384,11 @@ function bellBeginSeek() {
     bellT(1400, () => {
       if (m.cheat) {
         S.c.cheatBell++; tr('grudge', 4); tr('smug', 2); offense();
-        react({ emo: 'angry', say: '先檢查你的手！…果然！你作弊！', anim: 'shake', fx: 'anger', disc: 'bell_cheat_caught', act: '藏鈴作弊' });
+        react({ emo: 'angry', say: line('bell_cheat_caught_early'), anim: 'shake', fx: 'anger', disc: 'bell_cheat_caught', act: '藏鈴作弊' });
         m.phase = 'done'; m.result = '小團記得你上次作弊，一開始就檢查了你的手。';
         Games.renderPanel();
       } else {
-        react({ emo: 'calm', say: '先檢查你的手…嗯，沒有。' });
+        react({ emo: 'calm', say: line('bell_check_hand')});
         bellT(1300, bellCheckNext);
       }
     });
@@ -414,13 +414,13 @@ function bellCheckNext() {
       const prevSame = S.hide[i] >= 2;
       S.hide[i]++;
       X.lastGood = now(); tr('trust', 1);
-      if (k === 0 && prevSame) { tr('smug', 4); react({ emo: 'smug', say: '你每次都藏這裡～', fx: 'sparkle', disc: 'bell_found_fast', act: '藏鈴' }); }
-      else react({ emo: 'happy', say: k === 0 ? '一下就找到了！' : '找到了！', fx: 'sparkle', anim: 'bounce', disc: 'bell_found', act: '藏鈴' });
+      if (k === 0 && prevSame) { tr('smug', 4); react({ emo: 'smug', say: line('bell_found_fast'), fx: 'sparkle', disc: 'bell_found_fast', act: '藏鈴' }); }
+      else react({ emo: 'happy', say: line(k === 0 ? 'bell_found_first' : 'bell_found'), fx: 'sparkle', anim: 'bounce', disc: 'bell_found', act: '藏鈴' });
       m.phase = 'done'; m.result = '小團在第 ' + (k + 1) + ' 個地方找到了。';
       Games.renderPanel();
       return;
     }
-    say(pick(['不在這裡…', '嗯…沒有。', '這裡也沒有？']), 1200);
+    say(line('bell_check_empty'), 1200);
     m.step++;
     bellT(1000, bellCheckNext);
   });
@@ -435,7 +435,7 @@ function bellSwap() {
   Sound.rustle();
   if (noticed) {
     S.c.bellSwapCaught++; tr('grudge', 4); offense();
-    react({ emo: 'angry', say: '我看到了！你偷偷換位置！', anim: 'jump', fx: 'anger', disc: 'bell_swap_caught', act: '偷換鈴鐺位置' });
+    react({ emo: 'angry', say: line('bell_swap_caught'), anim: 'jump', fx: 'anger', disc: 'bell_swap_caught', act: '偷換鈴鐺位置' });
     m.timers.forEach(clearTimeout); m.timers = [];
     stopWalk();
     m.phase = 'done'; m.result = '你偷換位置被抓到了。';
@@ -446,7 +446,7 @@ function bellSwap() {
 function bellNotFound() {
   const m = MG;
   m.phase = 'cheatwait';
-  react({ emo: 'speechless', say: '…不見了？三個地方都沒有…', fx: 'ques', dur: 4000 });
+  react({ emo: 'speechless', say: line('bell_not_found'), fx: 'ques', dur: 4000 });
   Games.renderPanel();
   bellT(8000, () => { if (MG && MG.phase === 'cheatwait') bellHush(true); });
 }
@@ -455,11 +455,11 @@ function bellReveal() {
   const m = MG, T = S.T;
   m.phase = 'done';
   if (T.trust > 65 && T.grudge < 20) {
-    react({ emo: 'happy', say: '原來在你那！哈哈，被你騙了！', fx: 'note', disc: 'bell_cheat_laugh', act: '作弊後拿出鈴鐺' });
+    react({ emo: 'happy', say: line('bell_cheat_laugh'), fx: 'note', disc: 'bell_cheat_laugh', act: '作弊後拿出鈴鐺' });
     m.result = '小團笑著說被騙了。';
   } else {
     S.c.cheatBell++; tr('grudge', 6); offense();
-    react({ emo: 'angry', say: '你作弊！根本沒藏！', anim: 'shake', fx: 'anger', disc: 'bell_cheat_caught', act: '作弊後拿出鈴鐺' });
+    react({ emo: 'angry', say: line('bell_cheat_caught'), anim: 'shake', fx: 'anger', disc: 'bell_cheat_caught', act: '作弊後拿出鈴鐺' });
     m.result = '小團氣你作弊。';
   }
   Games.renderPanel();
@@ -470,7 +470,7 @@ function bellHush(timeout) {
   m.phase = 'done';
   S.c.cheatBell++;
   tr('sorrow', 8); offense();
-  react({ emo: 'cry', say: '鈴鐺…我的鈴鐺不見了…', fx: 'tear', n: 4, disc: 'bell_cheat_cry', act: timeout ? '一直不拿出來' : '不說' });
+  react({ emo: 'cry', say: line('bell_cheat_cry'), fx: 'tear', n: 4, disc: 'bell_cheat_cry', act: timeout ? '一直不拿出來' : '不說' });
   S.loc.bell = 'tray';
   m.result = '鈴鐺留在你手上（回到托盤）。小團以為它不見了。';
   renderAttachments();
@@ -484,12 +484,12 @@ function bellTuanHides() {
   m.guesses = 0;
   document.querySelectorAll('#mg .spot').forEach(el => el.classList.remove('lifted', 'has'));
   $('#mg .eyes-shut').hidden = false;
-  react({ emo: 'smug', say: '換我藏！不准偷看喔～' });
+  react({ emo: 'smug', say: line('bell_tuan_hide')});
   m.spot = chance(0.4) ? 0 : Math.floor(Math.random() * 3);
   bellT(2600, () => {
     $('#mg .eyes-shut').hidden = true;
     m.phase = 'guess';
-    react({ emo: 'smug', say: '好了！猜猜看～' });
+    react({ emo: 'smug', say: line('bell_ready')});
     Games.renderPanel();
   });
   Games.renderPanel();
@@ -506,13 +506,13 @@ function bellGuess(i) {
     m.phase = 'done';
     if (m.guesses === 1) {
       S.c.firstHits = (S.c.firstHits || 0) + 1;
-      if (S.c.firstHits >= 2) { tr('grudge', 2); react({ emo: 'sulk', say: '又一次就猜中…你偷看了吧！', disc: 'bell_you_found_fast', act: '猜中鈴鐺' }); }
-      else react({ emo: 'startle', say: '被找到了！好快！', act: '猜中鈴鐺' });
-    } else react({ emo: 'happy', say: '被找到了～', act: '猜中鈴鐺' });
+      if (S.c.firstHits >= 2) { tr('grudge', 2); react({ emo: 'sulk', say: line('bell_you_found_fast'), disc: 'bell_you_found_fast', act: '猜中鈴鐺' }); }
+      else react({ emo: 'startle', say: line('bell_you_found_first'), act: '猜中鈴鐺' });
+    } else react({ emo: 'happy', say: line('bell_you_found'), act: '猜中鈴鐺' });
     m.result = '你在第 ' + m.guesses + ' 次找到了。';
   } else {
     tr('smug', 1);
-    react({ emo: 'smug', say: pick(['不是那裡～', '嘿嘿，錯了！']), dur: 1500 });
+    react({ emo: 'smug', say: line('bell_wrong_guess'), dur: 1500 });
   }
   Games.renderPanel();
 }
@@ -524,7 +524,7 @@ function bellGiveUp() {
   el.classList.add('lifted', 'has');
   Sound.bell();
   tr('trust', 2); tr('smug', 4); X.lastGood = now();
-  react({ emo: 'smug', say: '在這裡啦～！我藏得很厲害吧！', fx: 'sparkle', anim: 'bounce', disc: 'bell_you_giveup', act: '投降' });
+  react({ emo: 'smug', say: line('bell_you_giveup'), fx: 'sparkle', anim: 'bounce', disc: 'bell_you_giveup', act: '投降' });
   m.result = '你投降了，小團超得意。';
   Games.renderPanel();
 }
@@ -539,7 +539,7 @@ function startTea() {
   $('#mg').className = 'mg-tea';
   $('#mg').innerHTML = '<div class="tea-table" style="left:' + ((L.narrow ? 0.34 : 0.47) * L.W) + 'px;top:' + (P.ground * L.H - 8) + 'px">' +
     '<span class="t-pot">🫖</span><span class="t-cup mine">☕</span><span class="t-cup theirs"><i class="liquid"></i>🍵</span><span class="t-plate">🍽️<i class="ck">🍪</i></span><span class="t-sugar">🧂</span></div>';
-  react({ emo: 'sparkle', say: '茶會！我要坐這裡！', fx: 'sparkle', act: '開始茶會' });
+  react({ emo: 'sparkle', say: line('tea_start'), fx: 'sparkle', act: '開始茶會' });
   teaRender();
 }
 
@@ -564,38 +564,38 @@ function teaCmd(a) {
   const m = MG, c = ctx(), T = S.T;
   if (!m || m.type !== 'tea') return;
   touch();
-  if (X.sleeping) { react({ emo: 'sleep', say: '…呼…（在茶桌旁睡著了）' }); return; }
+  if (X.sleeping) { react({ emo: 'sleep', say: line('tea_sleep_table')}); return; }
   if (a === 'hot' || a === 'iced') {
-    if (m.cup.tea) { react({ emo: 'speechless', say: '還沒喝完啦。' }); return; }
+    if (m.cup.tea) { react({ emo: 'speechless', say: line('tea_cup_full')}); return; }
     m.cup.tea = a; m.cup.sugar = 0;
     Sound.splash();
     if (a === 'hot') {
-      if (c.hot) { tr('snark', 2); react({ emo: 'speechless', say: '這麼熱還喝熱茶…', fx: 'sweat', act: '倒熱茶' }); }
-      else if (c.cold) react({ emo: 'happy', say: '熱茶！暖呼呼的！', fx: 'steam', disc: 'tea_warm_cold', act: '倒熱茶' });
-      else react({ emo: 'happy', say: '好香～', fx: 'steam', act: '倒熱茶' });
+      if (c.hot) { tr('snark', 2); react({ emo: 'speechless', say: line('tea_pour_hot_hot'), fx: 'sweat', act: '倒熱茶' }); }
+      else if (c.cold) react({ emo: 'happy', say: line('tea_pour_hot_cold'), fx: 'steam', disc: 'tea_warm_cold', act: '倒熱茶' });
+      else react({ emo: 'happy', say: line('tea_pour_hot'), fx: 'steam', act: '倒熱茶' });
     } else {
-      if (c.hot) react({ emo: 'sparkle', say: '冰茶！最棒了！', fx: 'sparkle', disc: 'tea_iced_hot', act: '倒冰茶' });
-      else if (c.cold) { react({ emo: 'afraid', say: '這麼冷還喝冰的…會凍僵…', fx: 'shiver', disc: 'tea_iced_cold', act: '倒冰茶' }); }
-      else react({ emo: 'happy', say: '冰冰的～', act: '倒冰茶' });
+      if (c.hot) react({ emo: 'sparkle', say: line('tea_pour_iced_hot'), fx: 'sparkle', disc: 'tea_iced_hot', act: '倒冰茶' });
+      else if (c.cold) { react({ emo: 'afraid', say: line('tea_pour_iced_cold'), fx: 'shiver', disc: 'tea_iced_cold', act: '倒冰茶' }); }
+      else react({ emo: 'happy', say: line('tea_pour_iced'), act: '倒冰茶' });
     }
   }
   if (a === 'sugar') {
-    if (!m.cup.tea) { react({ emo: 'speechless', say: '茶呢？糖要加在哪？' }); return; }
+    if (!m.cup.tea) { react({ emo: 'speechless', say: line('tea_sugar_nocup')}); return; }
     m.cup.sugar++;
     const s = m.cup.sugar;
-    if (s <= 2) react({ emo: 'happy', say: s === 1 ? '甜甜的～' : '剛剛好！', act: '加糖' });
-    else if (s === 3) react({ emo: 'speechless', say: '夠了夠了…', act: '加糖' });
-    else { tr('grudge', 1); m.bad++; react({ emo: 'angry', say: '太甜了啦！這是糖水！', anim: 'shake', disc: 'tea_sugar_much', act: '加糖' }); }
+    if (s <= 2) react({ emo: 'happy', say: line(s === 1 ? 'tea_sugar_1' : 'tea_sugar_2'), act: '加糖' });
+    else if (s === 3) react({ emo: 'speechless', say: line('tea_sugar_3'), act: '加糖' });
+    else { tr('grudge', 1); m.bad++; react({ emo: 'angry', say: line('tea_sugar_much'), anim: 'shake', disc: 'tea_sugar_much', act: '加糖' }); }
   }
   if (a === 'cookie') {
-    if (m.cookie) { react({ emo: 'happy', say: '盤子上已經有了～' }); return; }
+    if (m.cookie) { react({ emo: 'happy', say: line('tea_cookie_already')}); return; }
     m.cookie = true;
-    if (c.full) react({ emo: 'speechless', say: '我吃不下了…放著看就好。', act: '放餅乾' });
-    else if (c.hungry) { tr('glutton', 3); react({ emo: 'sparkle', say: '餅乾！可以先吃嗎！', fx: 'sparkle', act: '放餅乾' }); }
-    else react({ emo: 'happy', say: '配茶剛好！', act: '放餅乾' });
+    if (c.full) react({ emo: 'speechless', say: line('tea_cookie_full'), act: '放餅乾' });
+    else if (c.hungry) { tr('glutton', 3); react({ emo: 'sparkle', say: line('tea_cookie_hungry'), fx: 'sparkle', act: '放餅乾' }); }
+    else react({ emo: 'happy', say: line('tea_cookie'), act: '放餅乾' });
   }
   if (a === 'cheers') {
-    if (!m.cup.tea) { tr('snark', 3); react({ emo: 'speechless', say: '用空杯乾杯…？', disc: 'tea_cheers_empty', act: '乾杯' }); return; }
+    if (!m.cup.tea) { tr('snark', 3); react({ emo: 'speechless', say: line('tea_cheers_empty'), disc: 'tea_cheers_empty', act: '乾杯' }); return; }
     const tea = m.cup.tea, sugar = m.cup.sugar, hadCookie = m.cookie;
     const tempOK = tea === 'hot' ? !c.hot : !c.cold;
     const sugarOK = sugar >= 1 && sugar <= 2;
@@ -608,16 +608,16 @@ function teaCmd(a) {
     if (tempOK && sugarOK && hadCookie) {
       m.perfect = true;
       tr('trust', 5); tr('sorrow', -5); tr('grudge', -3); X.lastGood = now();
-      react({ emo: 'moved', say: '好好喝…這是最棒的茶會！', fx: 'heart', n: 4, disc: 'tea_perfect', act: '乾杯' });
-    } else if (tempOK) react({ emo: 'happy', say: sugarOK ? '乾杯～好喝！' : '乾杯～（' + (sugar === 0 ? '有點苦' : '好甜') + '）', fx: 'note', act: '乾杯' });
-    else react({ emo: tea === 'hot' ? 'speechless' : 'sad', say: tea === 'hot' ? '…喝完更熱了。' : '…喝完好冷。', act: '乾杯' });
+      react({ emo: 'moved', say: line('tea_perfect'), fx: 'heart', n: 4, disc: 'tea_perfect', act: '乾杯' });
+    } else if (tempOK) react({ emo: 'happy', say: line(sugarOK ? 'tea_cheers_good' : sugar === 0 ? 'tea_cheers_bitter' : 'tea_cheers_sweet'), fx: 'note', act: '乾杯' });
+    else react({ emo: tea === 'hot' ? 'speechless' : 'sad', say: line(tea === 'hot' ? 'tea_cheers_hotter' : 'tea_cheers_colder'), act: '乾杯' });
   }
   if (a === 'steal') {
-    if (!m.cup.tea) { react({ emo: 'speechless', say: '杯子是空的喔。' }); return; }
+    if (!m.cup.tea) { react({ emo: 'speechless', say: line('tea_steal_empty')}); return; }
     m.cup = { tea: null, sugar: 0 };
     m.bad++;
-    if (T.smug > 50 || X.curSet === 11) { tr('smug', 3); react({ emo: 'smug', say: '那我喝你的！（咕嘟咕嘟）', disc: 'tea_steal_back', act: '偷喝牠的茶' }); }
-    else { tr('grudge', 4); offense(); react({ emo: 'angry', say: '那是我的茶！', anim: 'jump', fx: 'anger', disc: 'tea_steal', act: '偷喝牠的茶' }); }
+    if (T.smug > 50 || X.curSet === 11) { tr('smug', 3); react({ emo: 'smug', say: line('tea_steal_back'), disc: 'tea_steal_back', act: '偷喝牠的茶' }); }
+    else { tr('grudge', 4); offense(); react({ emo: 'angry', say: line('tea_steal'), anim: 'jump', fx: 'anger', disc: 'tea_steal', act: '偷喝牠的茶' }); }
   }
   if (a === 'spill') {
     m.bad++;
@@ -630,22 +630,22 @@ function teaCmd(a) {
     if (tea === 'hot') {
       tr('fear', 3); tr('grudge', 4);
       S.B.warmFx = clamp(S.B.warmFx + 15, -40, 40);
-      react({ emo: 'startle', say: '燙燙燙！', anim: 'jump', fx: 'excl', disc: 'tea_spill_hot', act: '打翻熱茶' });
-      later(1300, () => react({ emo: 'cry', say: '嗚…好燙…', fx: 'tear' }));
+      react({ emo: 'startle', say: line('tea_spill_hot'), anim: 'jump', fx: 'excl', disc: 'tea_spill_hot', act: '打翻熱茶' });
+      later(1300, () => react({ emo: 'cry', say: line('tea_spill_hot_cry'), fx: 'tear' }));
     } else if (tea === 'iced') {
       tr('grudge', 3);
       S.B.warmFx = clamp(S.B.warmFx - 20, -40, 40);
-      react({ emo: 'startle', say: '好冰！！', anim: 'jump', fx: 'shiver', disc: 'tea_spill_cold', act: '打翻冰茶' });
-    } else react({ emo: 'startle', say: '杯子倒了！', anim: 'jump', act: '打翻杯子' });
+      react({ emo: 'startle', say: line('tea_spill_cold'), anim: 'jump', fx: 'shiver', disc: 'tea_spill_cold', act: '打翻冰茶' });
+    } else react({ emo: 'startle', say: line('tea_spill_empty'), anim: 'jump', act: '打翻杯子' });
   }
   teaRender();
 }
 
 function teaEnd() {
   const m = MG;
-  if (m.perfect) react({ emo: 'happy', say: '下次再一起喝茶！', fx: 'heart' });
-  else if (m.bad >= 2) react({ emo: 'sulk', say: '…這算什麼茶會。' });
-  else if (m.cheered) react({ emo: 'calm', say: '謝謝招待～' });
+  if (m.perfect) react({ emo: 'happy', say: line('tea_end_good'), fx: 'heart' });
+  else if (m.bad >= 2) react({ emo: 'sulk', say: line('tea_end_bad')});
+  else if (m.cheered) react({ emo: 'calm', say: line('tea_end_ok')});
 }
 
 // ===================== 畫畫 =====================
@@ -668,7 +668,7 @@ function startDraw() {
   MG.g.lineCap = 'round'; MG.g.lineJoin = 'round';
   drawGuides();
   cv.addEventListener('pointerdown', drawDown);
-  react({ emo: 'happy', say: '一起畫畫！我畫右邊～', act: '開始畫畫' });
+  react({ emo: 'happy', say: line('draw_start'), act: '開始畫畫' });
   later(1800, () => { if (MG && MG.type === 'draw') tuanStartDrawing(); });
 }
 
@@ -727,37 +727,37 @@ function tuanStartDrawing() {
   const cx = ox + ow / 2, cy = oy + oh / 2;
   const strokes = [];
   const circle = (x, y, r, col, n) => { const pts = []; for (let i = 0; i <= (n || 28); i++) { const a = i / (n || 28) * Math.PI * 2; pts.push([x + Math.cos(a) * r, y + Math.sin(a) * r]); } strokes.push({ col, pts }); };
-  const line = (pts, col) => strokes.push({ col, pts });
+  const stroke = (pts, col) => strokes.push({ col, pts });
   if (mood === 'flower') {
     for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2; circle(cx + Math.cos(a) * 22, cy - 20 + Math.sin(a) * 22, 14, '#e46a6a', 16); }
     circle(cx, cy - 20, 10, '#f2b33d', 14);
-    line([[cx, cy - 6], [cx - 4, cy + 30], [cx, cy + 60]], '#6bb38a');
+    stroke([[cx, cy - 6], [cx - 4, cy + 30], [cx, cy + 60]], '#6bb38a');
   } else if (mood === 'sun') {
     circle(cx, cy, 28, '#f2b33d');
-    for (let k = 0; k < 10; k++) { const a = k / 10 * Math.PI * 2; line([[cx + Math.cos(a) * 38, cy + Math.sin(a) * 38], [cx + Math.cos(a) * 56, cy + Math.sin(a) * 56]], '#f2b33d'); }
+    for (let k = 0; k < 10; k++) { const a = k / 10 * Math.PI * 2; stroke([[cx + Math.cos(a) * 38, cy + Math.sin(a) * 38], [cx + Math.cos(a) * 56, cy + Math.sin(a) * 56]], '#f2b33d'); }
   } else if (mood === 'heart') {
     const pts = []; for (let i = 0; i <= 40; i++) { const t = i / 40 * Math.PI * 2; pts.push([cx + 2.4 * 16 * Math.pow(Math.sin(t), 3), cy - 2.4 * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t))]); }
-    line(pts, '#e46a6a');
+    stroke(pts, '#e46a6a');
   } else if (mood === 'sprout') {
-    line([[cx, cy + 60], [cx, cy]], '#6bb38a');
-    line([[cx, cy + 10], [cx - 30, cy - 15], [cx - 5, cy - 5]], '#6bb38a');
-    line([[cx, cy], [cx + 30, cy - 25], [cx + 4, cy - 8]], '#6bb38a');
-    line([[cx - 40, cy + 62], [cx + 40, cy + 62]], '#8a6a4f');
+    stroke([[cx, cy + 60], [cx, cy]], '#6bb38a');
+    stroke([[cx, cy + 10], [cx - 30, cy - 15], [cx - 5, cy - 5]], '#6bb38a');
+    stroke([[cx, cy], [cx + 30, cy - 25], [cx + 4, cy - 8]], '#6bb38a');
+    stroke([[cx - 40, cy + 62], [cx + 40, cy + 62]], '#8a6a4f');
   } else if (mood === 'rain') {
-    line([[cx - 50, cy - 30], [cx - 40, cy - 55], [cx - 10, cy - 60], [cx + 10, cy - 70], [cx + 40, cy - 55], [cx + 55, cy - 30], [cx - 50, cy - 30]], '#7f8ea3');
-    for (let k = 0; k < 6; k++) line([[cx - 40 + k * 16, cy - 15], [cx - 46 + k * 16, cy + 10]], '#5b8fd9');
+    stroke([[cx - 50, cy - 30], [cx - 40, cy - 55], [cx - 10, cy - 60], [cx + 10, cy - 70], [cx + 40, cy - 55], [cx + 55, cy - 30], [cx - 50, cy - 30]], '#7f8ea3');
+    for (let k = 0; k < 6; k++) stroke([[cx - 40 + k * 16, cy - 15], [cx - 46 + k * 16, cy + 10]], '#5b8fd9');
     strokes.push({ text: faceOf(X.curSet, 'sad'), x: cx, y: cy + 50, col: '#4a3b33' });
   } else if (mood === 'storm') {
     const pts = []; for (let i = 0; i < 26; i++) pts.push([ox + 10 + Math.random() * (ow - 20), oy + 10 + Math.random() * (oh - 20)]);
-    line(pts, '#4a3b33');
-    line([[cx, cy - 60], [cx - 15, cy - 10], [cx + 8, cy - 10], [cx - 8, cy + 45]], '#f2b33d');
+    stroke(pts, '#4a3b33');
+    stroke([[cx, cy - 60], [cx - 15, cy - 10], [cx + 8, cy - 10], [cx - 8, cy + 45]], '#f2b33d');
   } else {
     circle(cx, cy, 52, '#e8a7a0');
     strokes.push({ text: faceOf(X.curSet, 'happy'), x: cx, y: cy + 6, col: '#4a3b33' });
   }
   m.tuanStrokes = strokes; m.tdIdx = 0; m.tdPt = 0; m.tdAcc = 0; m.tuanDrawing = true;
-  if (mood === 'rain' || mood === 'storm') react({ emo: mood === 'storm' ? 'sulk' : 'sad', say: '…這是我現在的心情。', disc: 'draw_mood', act: '小團畫畫' });
-  else react({ emo: 'happy', say: pick(['看我畫～', '嘿嘿，畫好了給你看']), fx: 'note' });
+  if (mood === 'rain' || mood === 'storm') react({ emo: mood === 'storm' ? 'sulk' : 'sad', say: line(mood === 'storm' ? 'draw_mood_storm' : 'draw_mood_rain'), disc: 'draw_mood', act: '小團畫畫' });
+  else react({ emo: 'happy', say: line('draw_tuan_start'), fx: 'note' });
 }
 
 function drawTick(dt) {
@@ -794,16 +794,16 @@ function drawCmd(a, b) {
   const m = MG, T = S.T;
   if (!m || m.type !== 'draw') return;
   if (a === 'color') { m.color = b; return; }
-  if (X.sleeping) { react({ emo: 'sleep', say: '…呼…' }); return; }
+  if (X.sleeping) { react({ emo: 'sleep', say: line('draw_sleep')}); return; }
   if (a === 'praise') {
-    if (!m.tuanDrew) { react({ emo: 'speechless', say: '我還沒畫完耶。' }); return; }
+    if (!m.tuanDrew) { react({ emo: 'speechless', say: line('draw_praise_early')}); return; }
     tr('smug', 5); tr('trust', 2); tr('sorrow', -3);
-    if (m.mood === 'rain' || m.mood === 'storm') react({ emo: 'moved', say: '…連這種畫也誇？', fx: 'heart', disc: 'draw_praise', act: '誇牠的畫' });
-    else if (T.trust > 60) react({ emo: 'shy', say: '真的嗎！我畫得好嗎！', fx: 'heart', anim: 'bounce', disc: 'draw_praise', act: '誇牠的畫' });
-    else react({ emo: 'smug', say: '哼哼，那當然！', fx: 'sparkle', disc: 'draw_praise', act: '誇牠的畫' });
+    if (m.mood === 'rain' || m.mood === 'storm') react({ emo: 'moved', say: line('draw_praise_mood'), fx: 'heart', disc: 'draw_praise', act: '誇牠的畫' });
+    else if (T.trust > 60) react({ emo: 'shy', say: line('draw_praise_shy'), fx: 'heart', anim: 'bounce', disc: 'draw_praise', act: '誇牠的畫' });
+    else react({ emo: 'smug', say: line('draw_praise_smug'), fx: 'sparkle', disc: 'draw_praise', act: '誇牠的畫' });
   }
   if (a === 'ruin') {
-    if (!m.tuanDrew && !m.tuanDrawing) { react({ emo: 'speechless', say: '我還沒開始畫…' }); return; }
+    if (!m.tuanDrew && !m.tuanDrawing) { react({ emo: 'speechless', say: line('draw_ruin_nothing')}); return; }
     m.tuanDrawing = false; m.tuanDrew = false; m.ruined = true;
     const g = m.g;
     g.strokeStyle = '#4a3b33'; g.lineWidth = 8;
@@ -811,15 +811,15 @@ function drawCmd(a, b) {
     for (let i = 0; i < 18; i++) g.lineTo(m.w * 0.62 + Math.random() * m.w * 0.36, 15 + Math.random() * (m.h - 30));
     g.stroke();
     tr('sorrow', 8); tr('grudge', 6); offense();
-    react({ emo: T.fear > 50 || T.sorrow > 40 ? 'cry' : 'angry', say: '我的畫被塗掉了！', anim: 'shake', fx: 'tear', n: 3, disc: 'draw_ruin', act: '塗掉牠的畫' });
+    react({ emo: T.fear > 50 || T.sorrow > 40 ? 'cry' : 'angry', say: line('draw_ruin'), anim: 'shake', fx: 'tear', n: 3, disc: 'draw_ruin', act: '塗掉牠的畫' });
   }
   if (a === 'show') {
     const ncol = Object.keys(m.colors).length;
-    if (m.ink < 250) { tr('snark', 2); react({ emo: 'speechless', say: '這是…一條線？', disc: 'draw_show_bad', act: '給牠看你的畫' }); }
-    else if (m.fastLen > m.ink * 0.6) react({ emo: 'dizzy', say: '亂七八糟…看得頭好暈…', disc: 'draw_show_scribble', act: '給牠看你的畫' });
-    else if (T.grudge > 40) react({ emo: 'sulk', say: '…普普通通。', act: '給牠看你的畫' });
-    else if (ncol >= 3) { tr('trust', 2); react({ emo: 'sparkle', say: X.curSet === 3 ? '還、還可以啦…其實很漂亮。' : '好漂亮！好多顏色！', fx: 'sparkle', disc: 'draw_show_good', act: '給牠看你的畫' }); }
-    else { tr('trust', 1); react({ emo: 'happy', say: '畫得好認真～', fx: 'note', act: '給牠看你的畫' }); }
+    if (m.ink < 250) { tr('snark', 2); react({ emo: 'speechless', say: line('draw_show_bad'), disc: 'draw_show_bad', act: '給牠看你的畫' }); }
+    else if (m.fastLen > m.ink * 0.6) react({ emo: 'dizzy', say: line('draw_show_scribble'), disc: 'draw_show_scribble', act: '給牠看你的畫' });
+    else if (T.grudge > 40) react({ emo: 'sulk', say: line('draw_show_grudge'), act: '給牠看你的畫' });
+    else if (ncol >= 3) { tr('trust', 2); react({ emo: 'sparkle', say: line(X.curSet === 3 ? 'draw_show_good_tsun' : 'draw_show_good'), fx: 'sparkle', disc: 'draw_show_good', act: '給牠看你的畫' }); }
+    else { tr('trust', 1); react({ emo: 'happy', say: line('draw_show_ok'), fx: 'note', act: '給牠看你的畫' }); }
   }
   if (a === 'face') { useItemOnTuan('crayon'); }
   if (a === 'hang') {
@@ -833,16 +833,16 @@ function drawCmd(a, b) {
       if (S.wall.length > 4) S.wall.shift();
       UI.renderWall && UI.renderWall();
     }
-    if (m.tuanDrew) { tr('trust', 6); tr('smug', 4); X.lastGood = now(); react({ emo: 'moved', say: '我的畫被掛起來了！', fx: 'heart', n: 4, disc: 'draw_hang', act: '把畫掛起來' }); }
-    else react({ emo: 'happy', say: '掛起來了～', act: '把畫掛起來' });
+    if (m.tuanDrew) { tr('trust', 6); tr('smug', 4); X.lastGood = now(); react({ emo: 'moved', say: line('draw_hang'), fx: 'heart', n: 4, disc: 'draw_hang', act: '把畫掛起來' }); }
+    else react({ emo: 'happy', say: line('draw_hang_mine'), act: '把畫掛起來' });
     drawClear();
   }
   if (a === 'tear') {
     if (m.tuanDrew || m.tuanDrawing) {
       S.c.tornDrawings++;
       tr('sorrow', 10); tr('grudge', 5); offense();
-      react({ emo: 'cry', say: '我的畫！撕掉了…', fx: 'tear', n: 4, disc: 'draw_tear', act: '撕掉畫' });
-    } else react({ emo: 'startle', say: '嘶啦——！', anim: 'jump', act: '撕掉畫' });
+      react({ emo: 'cry', say: line('draw_tear'), fx: 'tear', n: 4, disc: 'draw_tear', act: '撕掉畫' });
+    } else react({ emo: 'startle', say: line('draw_tear_empty'), anim: 'jump', act: '撕掉畫' });
     $('#mg .paper').classList.add('torn');
     later(500, () => { const p = $('#mg .paper'); if (p) p.classList.remove('torn'); });
     drawClear();
@@ -860,6 +860,7 @@ function drawClear(restart) {
 
 // ===================== 種芽（不是一局一局的遊戲，會一直長） =====================
 const SPROUT_STAGE = ['種子', '冒芽', '小苗', '長葉', '花苞', '開花'];
+const SPROUT_STAGE_S = ['种子', '嫩芽', '小苗', '长叶', '花苞', '开花'];
 
 function sproutTick() {
   const sp = S.sprout, env = S.env;
@@ -877,7 +878,7 @@ function sproutTick() {
   sp.health = clamp(sp.health + dh, 0, 100);
   if (sp.health <= 0) {
     sp.dead = true;
-    if (!X.sleeping) { tr('sorrow', 12); react({ emo: 'cry', say: '芽芽…芽芽枯掉了…', fx: 'tear', n: 4, disc: 'sprout_dead', act: '芽枯了' }); }
+    if (!X.sleeping) { tr('sorrow', 12); react({ emo: 'cry', say: line('sprout_dead'), fx: 'tear', n: 4, disc: 'sprout_dead', act: '芽枯了' }); }
     UI.renderPot && UI.renderPot();
     return;
   }
@@ -888,8 +889,8 @@ function sproutTick() {
       sp.growth = 0; sp.stage++;
       if (sp.stage === 5) {
         tr('trust', 8); tr('sorrow', -10); X.lastGood = now();
-        if (!X.sleeping) react({ emo: 'sparkle', say: '開花了！我們的芽芽開花了！', fx: 'sparkle', n: 5, anim: 'bounce', disc: 'sprout_bloom', act: '芽開花了' });
-      } else if (!X.sleeping) react({ emo: 'happy', say: '芽芽長大了！變成' + SPROUT_STAGE[sp.stage] + '了！', fx: 'note', act: '芽長大了' });
+        if (!X.sleeping) react({ emo: 'sparkle', say: line('sprout_bloom'), fx: 'sparkle', n: 5, anim: 'bounce', disc: 'sprout_bloom', act: '芽開花了' });
+      } else if (!X.sleeping) react({ emo: 'happy', say: line('sprout_grow', { stage: SPROUT_STAGE_S[sp.stage] }), fx: 'note', act: '芽長大了' });
     }
   }
   UI.renderPot && UI.renderPot();
@@ -900,15 +901,15 @@ function sproutAI() {
   const sp = S.sprout;
   if (sp.stage < 0) return false;
   if (sp.dead) {
-    if (chance(0.12)) { walkTo(P.potX - 0.08, () => react({ emo: 'sad', say: '芽芽…' })); return true; }
+    if (chance(0.12)) { walkTo(P.potX - 0.08, () => react({ emo: 'sad', say: line('sprout_dead_visit')})); return true; }
     return false;
   }
   if (sp.water < 22 && S.B.energy > 25 && chance(0.7)) {
-    react({ emo: 'afraid', say: '芽芽口渴了！' });
+    react({ emo: 'afraid', say: line('sprout_thirsty')});
     walkTo(P.potX - 0.08, () => tuanWaters());
     return true;
   }
-  if (sp.stage === 5 && chance(0.12)) { walkTo(P.potX - 0.08, () => react({ emo: 'sparkle', say: '花好香～', fx: 'sparkle' })); return true; }
+  if (sp.stage === 5 && chance(0.12)) { walkTo(P.potX - 0.08, () => react({ emo: 'sparkle', say: line('sprout_admire'), fx: 'sparkle' })); return true; }
   return false;
 }
 
@@ -917,11 +918,11 @@ function tuanWaters() {
   if (sp.stage < 0 || sp.dead) return;
   if (S.B.energy > 60 && (now() < X.playfulUntil || chance(0.3))) {
     sp.water = clamp(sp.water + 50, 0, 100);
-    react({ emo: 'shy', say: '啊…倒太多了…', disc: 'sprout_overwater', act: '小團澆水' });
+    react({ emo: 'shy', say: line('sprout_overwater'), disc: 'sprout_overwater', act: '小團澆水' });
   } else {
     sp.water = clamp(sp.water + 28, 0, 100);
     X.lastGood = now();
-    react({ emo: 'happy', say: '咕嘟咕嘟～喝水囉！', fx: 'note', disc: 'sprout_water_self', act: '小團澆水' });
+    react({ emo: 'happy', say: line('sprout_water_self'), fx: 'note', disc: 'sprout_water_self', act: '小團澆水' });
   }
   Sound.splash();
   UI.renderPot && UI.renderPot();
@@ -955,7 +956,7 @@ function sproutCmd(a) {
     if (sp.stage >= 0 && !sp.dead) return;
     Object.assign(sp, { stage: 0, growth: 0, water: 45, health: 100, dead: false });
     if (S.loc.bell === 'pot') S.loc.bell = 'tray';
-    if (!X.sleeping) { walkTo(P.potX - 0.08); react({ emo: 'sparkle', say: '我們來種芽芽！要快快長大喔！', fx: 'sparkle', act: '播種' }); }
+    if (!X.sleeping) { walkTo(P.potX - 0.08); react({ emo: 'sparkle', say: line('sprout_plant'), fx: 'sparkle', act: '播種' }); }
   }
   if (a === 'water') { waterSprout(); }
   if (a === 'tuan') {
@@ -965,11 +966,11 @@ function sproutCmd(a) {
   }
   if (a === 'talk') {
     if (sp.stage < 0 || sp.dead) return;
-    if (now() - (sp.talkAt || 0) < 8000) { react({ emo: 'speechless', say: '剛剛才說過話啦。' }); return; }
+    if (now() - (sp.talkAt || 0) < 8000) { react({ emo: 'speechless', say: line('sprout_talk_again')}); return; }
     sp.talkAt = now();
     sp.growth = Math.min(99, sp.growth + 4);
     tr('trust', 1);
-    if (!X.sleeping) react({ emo: 'happy', say: pick(['芽芽，今天也要加油喔！', '要長得比我還高喔～']), fx: 'heart', disc: 'sprout_talk', act: '對芽說話' });
+    if (!X.sleeping) react({ emo: 'happy', say: line('sprout_talk'), fx: 'heart', disc: 'sprout_talk', act: '對芽說話' });
   }
   if (a === 'pull') {
     if (sp.stage < 0) return;
@@ -977,9 +978,9 @@ function sproutCmd(a) {
     Object.assign(sp, { stage: -1, growth: 0, water: 50, health: 100, dead: false });
     ['umbrella', 'blanket', 'bell'].forEach(id => { if (S.loc[id] === 'pot') S.loc[id] = 'tray'; });
     if (!X.sleeping) {
-      if (wasDead) react({ emo: 'sad', say: '…讓它好好休息吧。', act: '拔掉枯芽' });
-      else if (st === 0) { tr('grudge', 5); offense(); react({ emo: 'startle', say: '種子！它還沒發芽耶！', anim: 'jump', act: '挖出種子' }); }
-      else { tr('grudge', 15); tr('sorrow', 15); offense(2); react({ emo: 'cry', say: '芽芽！你為什麼要拔掉它！', anim: 'shake', fx: 'tear', n: 5, over: 18, overDur: 8000, disc: 'sprout_pulled', act: '拔掉芽' }); }
+      if (wasDead) react({ emo: 'sad', say: line('sprout_pull_dead'), act: '拔掉枯芽' });
+      else if (st === 0) { tr('grudge', 5); offense(); react({ emo: 'startle', say: line('sprout_pull_seed'), anim: 'jump', act: '挖出種子' }); }
+      else { tr('grudge', 15); tr('sorrow', 15); offense(2); react({ emo: 'cry', say: line('sprout_pulled'), anim: 'shake', fx: 'tear', n: 5, over: 18, overDur: 8000, disc: 'sprout_pulled', act: '拔掉芽' }); }
     }
   }
   UI.renderPot && UI.renderPot();
@@ -992,8 +993,8 @@ function waterSprout() {
   if (sp.stage < 0 || sp.dead) { toast('花盆裡沒有活著的芽'); return; }
   sp.water = clamp(sp.water + 30, 0, 100);
   Sound.splash();
-  if (sp.water > 92 && !X.sleeping) react({ emo: 'afraid', say: '水太多了啦！芽芽會淹死！', act: '澆水' });
-  else if (!X.sleeping) react({ emo: 'happy', say: '芽芽在喝水～', act: '澆水' });
+  if (sp.water > 92 && !X.sleeping) react({ emo: 'afraid', say: line('sprout_too_wet'), act: '澆水' });
+  else if (!X.sleeping) react({ emo: 'happy', say: line('sprout_water'), act: '澆水' });
   UI.renderPot && UI.renderPot();
 }
 
@@ -1005,15 +1006,15 @@ function useItemOnPot(id) {
   const r = o => { if (awake) react(o); };
   switch (id) {
     case 'water': waterSprout(); break;
-    case 'ice': sp.water = clamp(sp.water + 10, 0, 100); sp.health = clamp(sp.health - 10, 0, 100); r({ emo: 'afraid', say: '芽芽會冷到啦！', disc: 'sprout_cold', act: '冰塊放進花盆' }); break;
-    case 'tea': sp.health = clamp(sp.health - 12, 0, 100); r({ emo: 'speechless', say: '芽芽不喝茶啦！', disc: 'sprout_tea', act: '茶倒進花盆' }); break;
-    case 'cookie': r({ emo: 'speechless', say: '芽芽不吃餅乾…吧？', act: '餅乾放進花盆' }); break;
-    case 'fan': sp.water = clamp(sp.water - 20, 0, 100); r({ emo: 'calm', say: '幫芽芽吹風～', act: '對芽搧風' }); break;
-    case 'crayon': r({ emo: 'happy', say: '在花盆上畫小花～', act: '在花盆上畫畫' }); break;
-    case 'umbrella': S.loc.umbrella = 'pot'; r({ emo: 'happy', say: '幫芽芽撐傘！', act: '雨傘撐在花盆上' }); break;
-    case 'blanket': S.loc.blanket = 'pot'; r({ emo: 'happy', say: '芽芽也蓋被被～', act: '毯子蓋在花盆上' }); break;
-    case 'bell': S.loc.bell = 'pot'; Sound.bell(); r({ emo: 'sparkle', say: '芽芽戴鈴鐺！叮鈴～', act: '鈴鐺掛在芽上' }); break;
-    case 'teddy': r({ emo: 'happy', say: '布偶陪芽芽～', act: '布偶放在花盆旁' }); return false;
+    case 'ice': sp.water = clamp(sp.water + 10, 0, 100); sp.health = clamp(sp.health - 10, 0, 100); r({ emo: 'afraid', say: line('pot_ice'), disc: 'sprout_cold', act: '冰塊放進花盆' }); break;
+    case 'tea': sp.health = clamp(sp.health - 12, 0, 100); r({ emo: 'speechless', say: line('pot_tea'), disc: 'sprout_tea', act: '茶倒進花盆' }); break;
+    case 'cookie': r({ emo: 'speechless', say: line('pot_cookie'), act: '餅乾放進花盆' }); break;
+    case 'fan': sp.water = clamp(sp.water - 20, 0, 100); r({ emo: 'calm', say: line('pot_fan'), act: '對芽搧風' }); break;
+    case 'crayon': r({ emo: 'happy', say: line('pot_crayon'), act: '在花盆上畫畫' }); break;
+    case 'umbrella': S.loc.umbrella = 'pot'; r({ emo: 'happy', say: line('pot_umbrella'), act: '雨傘撐在花盆上' }); break;
+    case 'blanket': S.loc.blanket = 'pot'; r({ emo: 'happy', say: line('pot_blanket'), act: '毯子蓋在花盆上' }); break;
+    case 'bell': S.loc.bell = 'pot'; Sound.bell(); r({ emo: 'sparkle', say: line('pot_bell'), act: '鈴鐺掛在芽上' }); break;
+    case 'teddy': r({ emo: 'happy', say: line('pot_teddy'), act: '布偶放在花盆旁' }); return false;
     default: return false;
   }
   UI.renderPot && UI.renderPot();

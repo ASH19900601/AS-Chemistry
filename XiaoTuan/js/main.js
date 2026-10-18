@@ -45,10 +45,10 @@ function placeScenery() {
   const pot = $('#pot');
   pot.style.left = (P.potX * L.W) + 'px';
   pot.style.top = (P.ground * L.H) + 'px';
-  const line = $('#line');
-  line.style.left = (P.lineL * L.W) + 'px';
-  line.style.width = ((P.lineR - P.lineL) * L.W) + 'px';
-  line.style.top = (P.lineY * L.H) + 'px';
+  const rope = $('#line');
+  rope.style.left = (P.lineL * L.W) + 'px';
+  rope.style.width = ((P.lineR - P.lineL) * L.W) + 'px';
+  rope.style.top = (P.lineY * L.H) + 'px';
 }
 
 function toStageXY(cx, cy) {
@@ -137,7 +137,7 @@ function dropItem(id, source, cx, cy) {
   }
   if (source === 'nest' && target !== 'nest' && target !== 'tuan') takeFromNest(id);
   if (source === 'pot' && target !== 'pot' && !X.sleeping && target !== 'tuan') {
-    if (id === 'umbrella' && S.env.rain > 15) react({ emo: 'afraid', say: '芽芽要淋雨了！', act: '拿走花盆上的傘' });
+    if (id === 'umbrella' && S.env.rain > 15) react({ emo: 'afraid', say: line('pot_umbrella_taken'), act: '拿走花盆上的傘' });
   }
   renderNest(); renderPot(); renderAttachments();
 }
@@ -205,8 +205,8 @@ function ringBell() {
   touch(); note('ring');
   Sound.bell();
   if (X.sleeping) { wakeUp('grumpy'); return; }
-  if (recent('ring', 10000) >= 5) { tr('snark', 3); react({ emo: 'speechless', say: '好吵…一直搖。', act: '搖鈴鐺' }); return; }
-  react({ emo: 'happy', say: pick(['叮鈴叮鈴～', '鈴鐺在唱歌！']), fx: 'note', anim: 'bounce', disc: 'bell_ring', act: '搖鈴鐺' });
+  if (recent('ring', 10000) >= 5) { tr('snark', 3); react({ emo: 'speechless', say: line('ring_spam'), act: '搖鈴鐺' }); return; }
+  react({ emo: 'happy', say: line('bell_ring'), fx: 'note', anim: 'bounce', disc: 'bell_ring', act: '搖鈴鐺' });
 }
 
 // ----- 拖動小團 -----
@@ -273,7 +273,7 @@ function onPieceDown(e) {
     el.classList.remove('wiggle'); void el.offsetWidth; el.classList.add('wiggle');
     if (now() - lastNestGuard > 3000) {
       lastNestGuard = now();
-      react({ emo: 'sulk', say: '我在看著喔。不准碰。', anim: 'struggle', disc: 'nest_guarded', act: '想動窩裡的東西' });
+      react({ emo: 'sulk', say: line('nest_guarded'), anim: 'struggle', disc: 'nest_guarded', act: '想動窩裡的東西' });
     }
     return;
   }
@@ -298,7 +298,7 @@ function onPieceDown(e) {
     renderNest();
     const after = nestTidy();
     if (after > before + 4 && after >= 90 && before < 80) {
-      if (!X.sleeping) { tr('grudge', -3); tr('trust', 3); react({ emo: 'moved', say: '你幫我整理了？謝謝！', fx: 'heart', disc: 'player_tidy', act: '整理小窩' }); }
+      if (!X.sleeping) { tr('grudge', -3); tr('trust', 3); react({ emo: 'moved', say: line('player_tidy'), fx: 'heart', disc: 'player_tidy', act: '整理小窩' }); }
     } else if (after < before - 4 && now() - lastPieceMess > 2500) {
       lastPieceMess = now();
       Sound.rustle();
@@ -322,7 +322,7 @@ function onStageHover(e) {
     const h = $('#att-held');
     h.classList.add('guard');
     setTimeout(() => h.classList.remove('guard'), 1800);
-    react({ emo: 'sulk', say: '這是我的喔。', anim: 'shrink', disc: 'guard_hover', act: '手靠近' + ITEMS[X.held].name });
+    react({ emo: 'sulk', say: line('guard_hover'), anim: 'shrink', disc: 'guard_hover', act: '手靠近' + ITEMS[X.held].name });
   }
 }
 
@@ -755,9 +755,9 @@ function start(hot) {
   updateFace(true);
   const returning = Object.keys(S.disc).length > 0;
   setTimeout(() => {
-    if (S.T.grudge > 40) react({ emo: 'sulk', say: '…你回來了。哼。', act: '見面' });
-    else if (returning) react({ emo: 'happy', say: '你回來了！', fx: 'heart', act: '見面' });
-    else react({ emo: 'shy', say: '你好…我是小團。', fx: 'note', act: '見面' });
+    if (S.T.grudge > 40) react({ emo: 'sulk', say: line('greet_grudge'), act: '見面' });
+    else if (returning) react({ emo: 'happy', say: line('greet_back'), fx: 'heart', act: '見面' });
+    else react({ emo: 'shy', say: line('greet_new'), fx: 'note', act: '見面' });
   }, 600);
   lastT = now();
   requestAnimationFrame(frame);
