@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lumi 流光 AI</title>
+<style>
+@property --ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+
+:root {
+  --bg: #07051a;
+  --b1: #8b5cf6; --b2: #22d3ee; --b3: #ec4899; --b4: #34d399; --b5: #6366f1;
+  --a1: #a78bfa; --a2: #22d3ee; --a3: #f472b6;
+  --text: rgba(255,255,255,.94);
+  --text-2: rgba(255,255,255,.66);
+  --text-3: rgba(255,255,255,.42);
+  --glass: linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.04));
+  --glass-strong: linear-gradient(135deg, rgba(255,255,255,.2), rgba(255,255,255,.06));
+  --line: rgba(255,255,255,.16);
+  --line-hi: rgba(255,255,255,.32);
+  --shadow: 0 24px 60px -12px rgba(0,0,0,.55);
+  --rainbow: conic-gradient(from var(--ang), #ff4ecd, #a855f7, #6366f1, #22d3ee, #4ade80, #facc15, #fb7185, #ff4ecd);
+  --radius: 22px;
+  --ease: cubic-bezier(.2,.8,.2,1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; border: 0; background: none; }
+.i { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Background ---------- */
+.bg { position: fixed; inset: 0; overflow: hidden; z-index: 0; }
+.blob {
+  position: absolute; border-radius: 50%;
+  filter: blur(90px); opacity: .75; mix-blend-mode: screen;
+  transition: background 1.2s var(--ease);
+  animation: drift 26s ease-in-out infinite alternate;
+}
+.blob:nth-child(1) { width: 52vmax; height: 52vmax; left: -14vmax; top: -18vmax; background: var(--b1); }
+.blob:nth-child(2) { width: 42vmax; height: 42vmax; right: -12vmax; top: -10vmax; background: var(--b2); animation-duration: 32s; animation-delay: -6s; }
+.blob:nth-child(3) { width: 46vmax; height: 46vmax; left: 18vmax; bottom: -24vmax; background: var(--b3); animation-duration: 29s; animation-delay: -12s; }
+.blob:nth-child(4) { width: 30vmax; height: 30vmax; right: 6vmax; bottom: -6vmax; background: var(--b4); animation-duration: 36s; animation-delay: -3s; opacity: .55; }
+.blob:nth-child(5) { width: 26vmax; height: 26vmax; left: 38vmax; top: 18vmax; background: var(--b5); animation-duration: 24s; animation-delay: -9s; opacity: .5; }
+@keyframes drift {
+  0%   { transform: translate(0,0) scale(1) rotate(0deg); }
+  33%  { transform: translate(8vmax,6vmax) scale(1.12) rotate(40deg); }
+  66%  { transform: translate(-6vmax,10vmax) scale(.92) rotate(-30deg); }
+  100% { transform: translate(4vmax,-6vmax) scale(1.06) rotate(20deg); }
+}
+.grid-lines {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+}
+.grain {
+  position: absolute; inset: -50%; opacity: .09; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+#sparkles { position: absolute; inset: 0; width: 100%; height: 100%; }
+.spotlight {
+  position: fixed; inset: 0; pointer-events: none; z-index: 1;
+  background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 30%), rgba(255,255,255,.08), transparent 60%);
+}
+
+/* ---------- Glass primitives ---------- */
+.glass {
+  position: relative;
+  background: var(--glass);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.28), inset 0 -1px 0 rgba(255,255,255,.04), var(--shadow);
+}
+.rainbow-border::before {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px;
+  background: var(--rainbow);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: spin 5s linear infinite; pointer-events: none;
+}
+@keyframes spin { to { --ang: 360deg; } }
+.grad-text {
+  background: linear-gradient(100deg, var(--a1), var(--a2) 45%, var(--a3) 90%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+@keyframes shimmer { to { background-position: 200% center; } }
+
+.icon-btn {
+  display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px;
+  color: var(--text-2); transition: all .25s var(--ease);
+}
+.icon-btn:hover { color: var(--text); background: rgba(255,255,255,.1); transform: translateY(-1px); }
+.icon-btn:active { transform: scale(.94); }
+
+/* ---------- App layout ---------- */
+.app {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 290px 1fr; gap: 16px;
+  height: 100vh; height: 100dvh; padding: 16px;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  display: flex; flex-direction: column; gap: 14px;
+  border-radius: 28px; padding: 18px 14px; min-height: 0;
+}
+.brand { display: flex; align-items: center; gap: 12px; padding: 4px 6px 6px; }
+.orb {
+  position: relative; width: 40px; height: 40px; border-radius: 50%; flex: none;
+  background: var(--rainbow); animation: spin 6s linear infinite;
+  box-shadow: 0 0 24px rgba(168,85,247,.6);
+}
+.orb::after {
+  content: ""; position: absolute; inset: 3px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.95), rgba(255,255,255,.25) 28%, rgba(20,10,50,.6) 70%);
+  backdrop-filter: blur(4px);
+}
+.brand-name { font-size: 20px; font-weight: 800; letter-spacing: .5px; line-height: 1.1; }
+.brand-sub { font-size: 12px; color: var(--text-3); letter-spacing: 2px; }
+
+.new-chat {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 8px;
+  height: 46px; border-radius: 16px; font-weight: 600;
+  background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.05));
+  transition: transform .25s var(--ease), box-shadow .25s;
+}
+.new-chat:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -8px rgba(236,72,153,.55); }
+.new-chat .kbd { margin-left: auto; position: absolute; right: 12px; font-size: 11px; color: var(--text-3); border: 1px solid var(--line); border-radius: 6px; padding: 0 6px; }
+
+.search {
+  display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px;
+  border-radius: 13px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08);
+  color: var(--text-3); transition: border-color .2s, background .2s;
+}
+.search:focus-within { border-color: var(--line-hi); background: rgba(255,255,255,.1); }
+.search input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; font-size: 14px; color: var(--text); }
+.search input::placeholder { color: var(--text-3); }
+.search .i { width: 17px; height: 17px; }
+
+.history { flex: 1; overflow-y: auto; margin: 0 -6px; padding: 0 6px; scrollbar-width: none; }
+.history::-webkit-scrollbar { display: none; }
+.group-title { font-size: 12px; color: var(--text-3); padding: 12px 8px 6px; letter-spacing: 1px; }
+.h-item {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  padding: 9px 10px; border-radius: 12px; font-size: 14px; color: var(--text-2);
+  border: 1px solid transparent; transition: all .2s var(--ease);
+}
+.h-item span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.h-item:hover { background: rgba(255,255,255,.07); color: var(--text); }
+.h-item.active {
+  background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
+  border-color: rgba(255,255,255,.18); color: var(--text);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; flex: none; box-shadow: 0 0 10px currentColor; }
+
+.pro {
+  position: relative; overflow: hidden; border-radius: 18px; padding: 14px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--a3) 45%, transparent), color-mix(in srgb, var(--a1) 40%, transparent) 55%, color-mix(in srgb, var(--a2) 40%, transparent));
+  border: 1px solid rgba(255,255,255,.25);
+  transition: background 1s;
+}
+.pro::after {
+  content: ""; position: absolute; top: -40%; left: -60%; width: 50%; height: 180%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+  transform: rotate(20deg); animation: sweep 4.5s ease-in-out infinite;
+}
+@keyframes sweep { 0%, 60% { left: -60%; } 100% { left: 130%; } }
+.pro b { display: flex; align-items: center; gap: 6px; font-size: 14px; }
+.pro p { font-size: 12px; color: rgba(255,255,255,.8); margin: 4px 0 10px; }
+.pro button {
+  width: 100%; height: 32px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  background: rgba(255,255,255,.92); color: #2a1458;
+}
+
+.me { display: flex; align-items: center; gap: 10px; padding: 6px; border-radius: 14px; }
+.avatar {
+  width: 36px; height: 36px; border-radius: 12px; flex: none; display: grid; place-items: center;
+  font-weight: 700; font-size: 14px;
+  background: linear-gradient(135deg, #fb7185, #a855f7 60%, #22d3ee);
+  box-shadow: 0 6px 16px -4px rgba(168,85,247,.6);
+}
+.me-name { font-size: 14px; font-weight: 600; line-height: 1.2; }
+.me-plan { font-size: 12px; color: var(--text-3); }
+.me .icon-btn { margin-left: auto; }
+
+/* ---------- Main ---------- */
+.main { display: flex; flex-direction: column; min-width: 0; min-height: 0; border-radius: 28px; overflow: hidden; }
+.topbar {
+  display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.menu-btn { display: none; }
+.model {
+  display: flex; align-items: center; gap: 8px; height: 38px; padding: 0 12px 0 8px;
+  border-radius: 13px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+  font-weight: 600; transition: background .2s;
+}
+.model:hover { background: rgba(255,255,255,.12); }
+.model .chip-orb { width: 22px; height: 22px; border-radius: 8px; background: linear-gradient(135deg, var(--a1), var(--a2), var(--a3)); transition: background 1s; }
+.model small { font-weight: 500; color: var(--text-3); font-size: 12px; }
+.model .i { width: 16px; height: 16px; color: var(--text-3); }
+.status { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-3); }
+.status i { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 0 rgba(74,222,128,.6); animation: pulse 2s infinite; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(74,222,128,0); } 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); } }
+.top-actions { margin-left: auto; display: flex; gap: 4px; }
+
+.chat { flex: 1; overflow-y: auto; scroll-behavior: smooth; padding: 28px 16px 12px; }
+.chat::-webkit-scrollbar { width: 8px; }
+.chat::-webkit-scrollbar-thumb { background: rgba(255,255,255,.14); border-radius: 8px; }
+.thread { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 26px; }
+
+/* Hero */
+.hero { display: none; max-width: 820px; margin: 4vh auto 0; text-align: center; }
+.empty .hero { display: block; animation: rise .7s var(--ease); }
+.empty .thread { display: none; }
+.hero .orb { width: 84px; height: 84px; margin: 0 auto 22px; box-shadow: 0 0 60px rgba(168,85,247,.6), 0 0 120px rgba(34,211,238,.3); }
+.hero .orb::after { inset: 5px; }
+.hero h1 { font-size: clamp(28px, 4.4vw, 44px); line-height: 1.2; font-weight: 800; letter-spacing: -.5px; }
+.hero p { color: var(--text-2); margin: 10px 0 30px; }
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; text-align: left; }
+.card {
+  border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px;
+  transition: transform .35s var(--ease), border-color .3s, box-shadow .35s;
+}
+.card:hover { transform: translateY(-6px) rotate(-.5deg); border-color: var(--line-hi); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 30px 60px -16px rgba(0,0,0,.6), 0 0 40px -10px var(--c1); }
+.tile {
+  width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; color: #fff;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  box-shadow: 0 8px 20px -6px var(--c1), inset 0 1px 0 rgba(255,255,255,.4);
+}
+.card b { font-size: 15px; }
+.card small { color: var(--text-3); font-size: 13px; }
+
+/* Messages */
+.msg { display: flex; gap: 12px; animation: rise .5s var(--ease) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+.msg .orb { width: 34px; height: 34px; margin-top: 2px; }
+.msg.user { flex-direction: row-reverse; }
+.msg.user .avatar { width: 34px; height: 34px; border-radius: 11px; font-size: 13px; }
+.body { min-width: 0; max-width: calc(100% - 46px); display: flex; flex-direction: column; gap: 8px; }
+.msg.user .body { align-items: flex-end; }
+.name { font-size: 12px; color: var(--text-3); display: flex; gap: 8px; align-items: center; }
+.name b { color: var(--text-2); font-weight: 600; }
+.bubble { border-radius: 6px 22px 22px 22px; padding: 14px 18px; }
+.bubble p + p, .bubble p + .code, .bubble .code + p, .bubble p + .palettes, .bubble .palettes + p, .bubble p + .preview, .bubble .preview + p { margin-top: 12px; }
+.msg.user .bubble {
+  border-radius: 22px 6px 22px 22px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--a3) 55%, transparent), color-mix(in srgb, var(--a1) 55%, transparent) 60%, color-mix(in srgb, var(--a2) 45%, transparent));
+  border-color: rgba(255,255,255,.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 18px 40px -14px color-mix(in srgb, var(--a3) 70%, transparent);
+  transition: background 1s;
+}
+.bubble strong { font-weight: 700; }
+.bubble ul { padding-left: 1.2em; margin-top: 8px; }
+.bubble li::marker { color: var(--a2); }
+.hl { padding: 1px 7px; border-radius: 7px; background: rgba(255,255,255,.12); font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 13px; }
+
+.code { border-radius: 16px; overflow: hidden; background: rgba(8,5,25,.55); border: 1px solid rgba(255,255,255,.1); }
+.code-head { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: rgba(255,255,255,.05); font-size: 12px; color: var(--text-3); }
+.code-head i { width: 10px; height: 10px; border-radius: 50%; }
+.code-head span { margin-left: 6px; }
+.copy { margin-left: auto; display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-2); padding: 3px 8px; border-radius: 8px; transition: background .2s; }
+.copy:hover { background: rgba(255,255,255,.1); }
+.copy .i { width: 14px; height: 14px; }
+pre { padding: 14px 16px; overflow-x: auto; font: 13px/1.7 "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; color: #e2e8f0; }
+.t-sel { color: #f9a8d4; } .t-prop { color: #7dd3fc; } .t-val { color: #c4b5fd; } .t-num { color: #fcd34d; } .t-fn { color: #6ee7b7; } .t-p { color: rgba(255,255,255,.4); }
+
+.preview {
+  display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+  padding: 26px 16px; border-radius: 16px; position: relative; overflow: hidden;
+  background: radial-gradient(circle at 20% 30%, var(--b3), transparent 50%), radial-gradient(circle at 80% 70%, var(--b2), transparent 50%), radial-gradient(circle at 50% 50%, var(--b1), transparent 70%), #120b30;
+  transition: background 1s;
+}
+.preview-label { position: absolute; top: 8px; left: 12px; font-size: 11px; letter-spacing: 1px; color: rgba(255,255,255,.7); }
+.glass-btn {
+  padding: 12px 30px; border-radius: 999px; color: #fff; font-weight: 600;
+  background: linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,255,255,.06));
+  backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255,255,255,.4);
+  box-shadow: 0 8px 32px rgba(139,92,246,.35), inset 0 1px 0 rgba(255,255,255,.5);
+  transition: transform .25s var(--ease), box-shadow .25s;
+}
+.glass-btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 14px 40px rgba(236,72,153,.45), inset 0 1px 0 rgba(255,255,255,.6); }
+.glass-btn.ghost { background: rgba(255,255,255,.08); }
+
+.palettes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.palette {
+  text-align: left; padding: 10px; border-radius: 16px; background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1); transition: all .3s var(--ease);
+}
+.palette:hover { background: rgba(255,255,255,.11); transform: translateY(-2px); }
+.palette.active { border-color: rgba(255,255,255,.45); box-shadow: 0 0 0 3px rgba(255,255,255,.08); }
+.swatches { display: flex; height: 38px; border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+.swatches i { flex: 1; transition: flex .35s var(--ease); }
+.palette:hover .swatches i:hover { flex: 2.2; }
+.palette b { font-size: 13px; display: flex; justify-content: space-between; }
+.palette b small { color: var(--text-3); font-weight: 500; }
+
+.actions { display: flex; gap: 2px; opacity: .75; transition: opacity .2s; }
+.msg:hover .actions { opacity: 1; }
+.actions .icon-btn { width: 30px; height: 30px; border-radius: 9px; }
+.actions .i { width: 16px; height: 16px; }
+.actions .icon-btn.on { color: var(--a2); }
+.flip { transform: rotate(180deg); }
+
+.typing { display: inline-flex; gap: 6px; padding: 16px 18px; }
+.typing i { width: 8px; height: 8px; border-radius: 50%; animation: bounce 1.2s infinite ease-in-out; }
+.typing i:nth-child(1) { background: var(--a3); }
+.typing i:nth-child(2) { background: var(--a1); animation-delay: .15s; }
+.typing i:nth-child(3) { background: var(--a2); animation-delay: .3s; }
+@keyframes bounce { 0%, 80%, 100% { transform: translateY(0); opacity: .5; } 40% { transform: translateY(-7px); opacity: 1; } }
+.thinking { font-size: 12px; color: var(--text-3); display: flex; align-items: center; gap: 6px; }
+.thinking .i { width: 14px; height: 14px; color: var(--a1); animation: spinz 2s linear infinite; }
+@keyframes spinz { to { transform: rotate(360deg); } }
+.caret { display: inline-block; width: 2px; height: 1.05em; vertical-align: -2px; margin-left: 2px; background: linear-gradient(var(--a1), var(--a2)); animation: blink 1s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Composer */
+.composer-zone { padding: 6px 16px 14px; }
+.composer-wrap { position: relative; max-width: 820px; margin: 0 auto; }
+.composer-wrap::after {
+  content: ""; position: absolute; inset: 6px 20px -4px; border-radius: 26px; z-index: -1;
+  background: var(--rainbow); filter: blur(26px); opacity: .45; animation: spin 5s linear infinite;
+  transition: opacity .4s;
+}
+.composer-wrap:focus-within::after { opacity: .8; }
+.composer { border-radius: 24px; padding: 12px 12px 10px 18px; background: linear-gradient(135deg, rgba(30,18,70,.55), rgba(20,12,50,.35)); }
+.composer textarea {
+  width: 100%; resize: none; border: 0; outline: 0; background: none; max-height: 180px;
+  font-size: 15px; line-height: 1.6; padding: 4px 0; color: var(--text);
+}
+.composer textarea::placeholder { color: var(--text-3); }
+.tools { display: flex; align-items: center; gap: 4px; margin-top: 6px; }
+.chip {
+  display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 999px;
+  font-size: 13px; color: var(--text-2); border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04);
+  transition: all .25s var(--ease);
+}
+.chip .i { width: 15px; height: 15px; }
+.chip:hover { color: var(--text); background: rgba(255,255,255,.1); }
+.chip.on {
+  color: #fff; border-color: transparent;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--a1) 70%, transparent), color-mix(in srgb, var(--a2) 60%, transparent));
+  box-shadow: 0 6px 18px -6px var(--a1);
+}
+.tools .spacer { flex: 1; }
+.counter { font-size: 12px; color: var(--text-3); margin-right: 6px; }
+.send {
+  width: 40px; height: 40px; border-radius: 14px; display: grid; place-items: center; color: #fff;
+  background: linear-gradient(135deg, var(--a3), var(--a1) 55%, var(--a2));
+  box-shadow: 0 8px 20px -6px var(--a3), inset 0 1px 0 rgba(255,255,255,.45);
+  transition: transform .25s var(--ease), filter .25s, opacity .25s;
+}
+.send:hover { transform: translateY(-2px) rotate(-6deg); filter: brightness(1.12); }
+.send:active { transform: scale(.92); }
+.send:disabled { opacity: .45; filter: grayscale(.4); cursor: not-allowed; transform: none; }
+.hint { text-align: center; font-size: 12px; color: var(--text-3); margin-top: 10px; }
+
+/* Toast */
+.toast {
+  position: fixed; left: 50%; bottom: 28px; z-index: 50; transform: translate(-50%, 30px);
+  padding: 10px 18px; border-radius: 14px; font-size: 14px; opacity: 0; pointer-events: none;
+  transition: all .4s var(--ease);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+.scrim { display: none; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 860px) {
+  .app { grid-template-columns: 1fr; padding: 10px; }
+  .sidebar {
+    position: fixed; z-index: 30; top: 10px; bottom: 10px; left: 10px; width: min(300px, 84vw);
+    transform: translateX(-115%); transition: transform .45s var(--ease);
+    background: linear-gradient(135deg, rgba(40,24,90,.75), rgba(20,12,50,.65));
+  }
+  .sidebar.open { transform: none; }
+  .scrim { display: block; position: fixed; inset: 0; z-index: 25; background: rgba(5,3,20,.5); opacity: 0; pointer-events: none; transition: opacity .4s; }
+  .scrim.show { opacity: 1; pointer-events: auto; }
+  .menu-btn { display: grid; }
+  .status, .model small { display: none; }
+  .main { border-radius: 24px; }
+  .chat { padding: 20px 12px 8px; }
+  .composer-zone { padding: 4px 10px 10px; }
+  .chip .lbl { display: none; }
+  .chip { padding: 0 9px; }
+}
+@media (max-width: 520px) {
+  .cards { gap: 10px; }
+  .card { padding: 13px; }
+  .card small { display: none; }
+  .palettes { grid-template-columns: 1fr; }
+  .msg .orb, .msg.user .avatar { display: none; }
+  .body { max-width: 100%; }
+  .counter { display: none; }
+  .top-actions .icon-btn:nth-child(1) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h16"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.8 1.6-1.5 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.8.7-1.5 1.5-1.5H16a5 5 0 0 0 5-5c0-4.3-4-7.8-9-7.8z"/><circle cx="7.5" cy="11" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="7.3" r="1.2" fill="currentColor" stroke="none"/><circle cx="14.5" cy="7.3" r="1.2" fill="currentColor" stroke="none"/><circle cx="17" cy="11" r="1.2" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="M21 11.5l-8.6 8.6a5 5 0 0 1-7.1-7.1l9-9a3.4 3.4 0 0 1 4.8 4.8l-9 9a1.7 1.7 0 0 1-2.4-2.4l8.4-8.4"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="9" cy="9" r="1.8"/><path d="M21 15l-5-5L5 21"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+  <symbol id="i-like" viewBox="0 0 24 24"><path d="M7 10v10M3 10h4v10H3zM7 10l4-7a2.2 2.2 0 0 1 3.3 2.2L13.5 10h5.6a2 2 0 0 1 2 2.4l-1.3 6a2 2 0 0 1-2 1.6H7"/></symbol>
+  <symbol id="i-redo" viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6l2.5 2.5M20.5 3.5v5h-5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><circle cx="11" cy="11" r="2"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2 2 2 0 0 0 2 2h14"/></symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></symbol>
+</svg>
+
+<div class="bg" aria-hidden="true">
+  <div class="blob"></div><div class="blob"></div><div class="blob"></div><div class="blob"></div><div class="blob"></div>
+  <div class="grid-lines"></div>
+  <canvas id="sparkles"></canvas>
+  <div class="grain"></div>
+</div>
+<div class="spotlight" aria-hidden="true"></div>
+<div class="scrim" id="scrim"></div>
+
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar glass" id="sidebar">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <div class="brand-name grad-text">Lumi</div>
+        <div class="brand-sub">流光 · AI 助手</div>
+      </div>
+    </div>
+
+    <button class="new-chat rainbow-border" id="newChat">
+      <svg class="i"><use href="#i-plus"/></svg>新建对话<span class="kbd">⌘K</span>
+    </button>
+
+    <label class="search">
+      <svg class="i"><use href="#i-search"/></svg>
+      <input placeholder="搜索对话…" aria-label="搜索对话">
+    </label>
+
+    <nav class="history" id="history">
+      <div class="group-title">今天</div>
+      <button class="h-item active" data-demo="1"><i class="dot" style="color:#f472b6;background:#f472b6"></i><span>炫彩玻璃按钮的 CSS 写法</span></button>
+      <button class="h-item"><i class="dot" style="color:#22d3ee;background:#22d3ee"></i><span>周末去哪儿看日落</span></button>
+      <button class="h-item"><i class="dot" style="color:#a78bfa;background:#a78bfa"></i><span>帮我润色一封求职邮件</span></button>
+      <div class="group-title">昨天</div>
+      <button class="h-item"><i class="dot" style="color:#4ade80;background:#4ade80"></i><span>Python 列表推导式详解</span></button>
+      <button class="h-item"><i class="dot" style="color:#facc15;background:#facc15"></i><span>番茄炒蛋的十种做法</span></button>
+      <button class="h-item"><i class="dot" style="color:#fb7185;background:#fb7185"></i><span>给猫咪起个可爱的名字</span></button>
+      <div class="group-title">过去 7 天</div>
+      <button class="h-item"><i class="dot" style="color:#38bdf8;background:#38bdf8"></i><span>量子纠缠通俗解释</span></button>
+      <button class="h-item"><i class="dot" style="color:#c084fc;background:#c084fc"></i><span>赛博朋克短篇小说开头</span></button>
+      <button class="h-item"><i class="dot" style="color:#2dd4bf;background:#2dd4bf"></i><span>健身新手一周训练计划</span></button>
+      <button class="h-item"><i class="dot" style="color:#f97316;background:#f97316"></i><span>年终总结 PPT 大纲</span></button>
+    </nav>
+
+    <div class="pro">
+      <b><svg class="i" style="width:16px;height:16px"><use href="#i-crown"/></svg>升级 Lumi Pro</b>
+      <p>解锁更快的极光模型、无限对话与专属主题。</p>
+      <button>立即体验</button>
+    </div>
+
+    <div class="me">
+      <div class="avatar">哥</div>
+      <div>
+        <div class="me-name">哥哥</div>
+        <div class="me-plan">免费版 · 剩余 42 次</div>
+      </div>
+      <button class="icon-btn" aria-label="设置"><svg class="i"><use href="#i-gear"/></svg></button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main glass" id="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="菜单"><svg class="i"><use href="#i-menu"/></svg></button>
+      <button class="model">
+        <span class="chip-orb"></span>Lumi-4 Aurora <small>最强推理</small>
+        <svg class="i"><use href="#i-down"/></svg>
+      </button>
+      <span class="status"><i></i>在线 · 响应 0.3s</span>
+      <div class="top-actions">
+        <button class="icon-btn" aria-label="分享" data-toast="分享链接已复制（演示）"><svg class="i"><use href="#i-share"/></svg></button>
+        <button class="icon-btn" id="themeBtn" aria-label="切换配色"><svg class="i"><use href="#i-palette"/></svg></button>
+        <button class="icon-btn" aria-label="更多" data-toast="更多功能敬请期待 ✨"><svg class="i"><use href="#i-dots"/></svg></button>
+      </div>
+    </header>
+
+    <section class="chat" id="chat">
+      <div class="hero">
+        <div class="orb"></div>
+        <h1><span class="grad-text">嗨，今天想创造点什么？</span></h1>
+        <p>我是 Lumi，一束会聊天的流光。写作、编程、灵感、规划，随时陪你。</p>
+        <div class="cards">
+          <button class="card glass" style="--c1:#ec4899;--c2:#f97316" data-prompt="帮我设计一张霓虹渐变风格的音乐节海报">
+            <span class="tile"><svg class="i"><use href="#i-pen"/></svg></span><b>设计一张海报</b><small>霓虹渐变风格音乐节</small>
+          </button>
+          <button class="card glass" style="--c1:#8b5cf6;--c2:#22d3ee" data-prompt="帮我写一个玻璃拟态风格的按钮组件">
+            <span class="tile"><svg class="i"><use href="#i-code"/></svg></span><b>写一段代码</b><small>玻璃拟态按钮组件</small>
+          </button>
+          <button class="card glass" style="--c1:#14b8a6;--c2:#84cc16" data-prompt="帮我规划一次五天的京都赏枫之旅">
+            <span class="tile"><svg class="i"><use href="#i-pin"/></svg></span><b>规划一次旅行</b><small>五天京都赏枫路线</small>
+          </button>
+          <button class="card glass" style="--c1:#6366f1;--c2:#f472b6" data-prompt="用通俗的话解释一下什么是量子纠缠">
+            <span class="tile"><svg class="i"><use href="#i-book"/></svg></span><b>解释一个概念</b><small>什么是量子纠缠？</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="thread" id="thread"></div>
+    </section>
+
+    <footer class="composer-zone">
+      <div class="composer-wrap">
+        <div class="composer glass rainbow-border">
+          <textarea id="input" rows="1" placeholder="给 Lumi 发送消息…"></textarea>
+          <div class="tools">
+            <button class="icon-btn" aria-label="上传文件" data-toast="附件上传仅为演示"><svg class="i"><use href="#i-clip"/></svg></button>
+            <button class="icon-btn" aria-label="上传图片" data-toast="图片上传仅为演示"><svg class="i"><use href="#i-image"/></svg></button>
+            <button class="chip" data-toggle><svg class="i"><use href="#i-globe"/></svg><span class="lbl">联网搜索</span></button>
+            <button class="chip on" data-toggle><svg class="i"><use href="#i-spark"/></svg><span class="lbl">深度思考</span></button>
+            <span class="spacer"></span>
+            <span class="counter" id="counter">0 / 4000</span>
+            <button class="icon-btn" aria-label="语音输入" data-toast="正在聆听…（演示）"><svg class="i"><use href="#i-mic"/></svg></button>
+            <button class="send" id="send" aria-label="发送" disabled><svg class="i"><use href="#i-up"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="hint">Enter 发送 · Shift + Enter 换行 · Lumi 可能会出错，请核实重要信息 · 本页面为纯前端演示</div>
+    </footer>
+  </main>
+</div>
+
+<div class="toast glass" id="toast"></div>
+
+<template id="demo-thread">
+  <div class="msg user">
+    <div class="avatar">哥</div>
+    <div class="body">
+      <div class="name">10:24 <b>哥哥</b></div>
+      <div class="bubble glass">帮我设计一个炫彩玻璃风格的按钮，顺便给我 CSS 代码～</div>
+    </div>
+  </div>
+
+  <div class="msg ai">
+    <div class="orb"></div>
+    <div class="body">
+      <div class="name"><b>Lumi</b> 10:24 · 已深度思考 3 秒</div>
+      <div class="bubble glass">
+        <p>当然可以！玻璃拟态（Glassmorphism）的关键是这三层叠加：</p>
+        <ul>
+          <li><strong>半透明渐变底色</strong>：白色由 25% 过渡到 5%，制造通透感</li>
+          <li><strong>背景模糊</strong>：<span class="hl">backdrop-filter</span> 搭配 <span class="hl">saturate</span> 让背后的色彩更鲜艳</li>
+          <li><strong>细腻的高光描边</strong>：1px 半透明边框加上内阴影，模拟玻璃边缘反光</li>
+        </ul>
+        <div class="code">
+          <div class="code-head"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span>glass-button.css</span>
+            <button class="copy"><svg class="i"><use href="#i-copy"/></svg><em>复制</em></button>
+          </div>
+<pre><span class="t-sel">.glass-btn</span> <span class="t-p">{</span>
+  <span class="t-prop">padding</span><span class="t-p">:</span> <span class="t-num">12px 30px</span><span class="t-p">;</span>
+  <span class="t-prop">border-radius</span><span class="t-p">:</span> <span class="t-num">999px</span><span class="t-p">;</span>
+  <span class="t-prop">color</span><span class="t-p">:</span> <span class="t-val">#fff</span><span class="t-p">;</span>
+  <span class="t-prop">background</span><span class="t-p">:</span> <span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-num">135deg</span><span class="t-p">,</span>
+    <span class="t-fn">rgba</span><span class="t-p">(</span><span class="t-num">255,255,255,.28</span><span class="t-p">),</span> <span class="t-fn">rgba</span><span class="t-p">(</span><span class="t-num">255,255,255,.06</span><span class="t-p">));</span>
+  <span class="t-prop">backdrop-filter</span><span class="t-p">:</span> <span class="t-fn">blur</span><span class="t-p">(</span><span class="t-num">16px</span><span class="t-p">)</span> <span class="t-fn">saturate</span><span class="t-p">(</span><span class="t-num">180%</span><span class="t-p">);</span>
+  <span class="t-prop">border</span><span class="t-p">:</span> <span class="t-num">1px</span> <span class="t-val">solid</span> <span class="t-fn">rgba</span><span class="t-p">(</span><span class="t-num">255,255,255,.4</span><span class="t-p">);</span>
+  <span class="t-prop">box-shadow</span><span class="t-p">:</span> <span class="t-num">0 8px 32px</span> <span class="t-fn">rgba</span><span class="t-p">(</span><span class="t-num">139,92,246,.35</span><span class="t-p">),</span>
+    <span class="t-val">inset</span> <span class="t-num">0 1px 0</span> <span class="t-fn">rgba</span><span class="t-p">(</span><span class="t-num">255,255,255,.5</span><span class="t-p">);</span>
+<span class="t-p">}</span></pre>
+        </div>
+        <div class="preview">
+          <span class="preview-label">实时预览</span>
+          <button class="glass-btn">立即开始 ✨</button>
+          <button class="glass-btn ghost">了解更多</button>
+        </div>
+        <p>把它放在色彩丰富的背景上效果最好，纯色背景会让玻璃感大打折扣哦。</p>
+      </div>
+      <div class="actions">
+        <button class="icon-btn" aria-label="复制"><svg class="i"><use href="#i-copy"/></svg></button>
+        <button class="icon-btn" aria-label="赞" data-like><svg class="i"><use href="#i-like"/></svg></button>
+        <button class="icon-btn" aria-label="踩" data-like><svg class="i flip"><use href="#i-like"/></svg></button>
+        <button class="icon-btn" aria-label="重新生成"><svg class="i"><use href="#i-redo"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="msg user">
+    <div class="avatar">哥</div>
+    <div class="body">
+      <div class="name">10:26 <b>哥哥</b></div>
+      <div class="bubble glass">好看！能再推荐几组配色吗？</div>
+    </div>
+  </div>
+
+  <div class="msg ai">
+    <div class="orb"></div>
+    <div class="body">
+      <div class="name"><b>Lumi</b> 10:26</div>
+      <div class="bubble glass">
+        <p>给你挑了四组很适合玻璃风格的配色，<strong>点一下就能把整个界面换成这套颜色</strong>：</p>
+        <div class="palettes" id="palettes"></div>
+        <p>小建议：背景色块的饱和度高一些，玻璃层的透明度低一些，层次感会更明显 🌈</p>
+      </div>
+      <div class="actions">
+        <button class="icon-btn" aria-label="复制"><svg class="i"><use href="#i-copy"/></svg></button>
+        <button class="icon-btn" aria-label="赞" data-like><svg class="i"><use href="#i-like"/></svg></button>
+        <button class="icon-btn" aria-label="踩" data-like><svg class="i flip"><use href="#i-like"/></svg></button>
+        <button class="icon-btn" aria-label="重新生成"><svg class="i"><use href="#i-redo"/></svg></button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const root = document.documentElement;
+  const chat = $('#chat'), thread = $('#thread'), input = $('#input'), send = $('#send');
+
+  /* ---------- Themes ---------- */
+  const themes = [
+    { id: 'aurora', name: '极光', en: 'Aurora', b: ['#8b5cf6', '#22d3ee', '#ec4899', '#34d399', '#6366f1'], a: ['#a78bfa', '#22d3ee', '#f472b6'] },
+    { id: 'sunset', name: '落日', en: 'Sunset', b: ['#f97316', '#ec4899', '#facc15', '#ef4444', '#a855f7'], a: ['#fb923c', '#facc15', '#f472b6'] },
+    { id: 'candy',  name: '糖果', en: 'Candy',  b: ['#f472b6', '#a78bfa', '#67e8f9', '#fde047', '#86efac'], a: ['#c4b5fd', '#67e8f9', '#f9a8d4'] },
+    { id: 'ocean',  name: '深海', en: 'Ocean',  b: ['#0ea5e9', '#14b8a6', '#6366f1', '#22d3ee', '#3b82f6'], a: ['#818cf8', '#2dd4bf', '#38bdf8'] },
+  ];
+  let themeIdx = 0;
+  function applyTheme(i, announce) {
+    themeIdx = i;
+    const t = themes[i];
+    t.b.forEach((c, k) => root.style.setProperty(`--b${k + 1}`, c));
+    t.a.forEach((c, k) => root.style.setProperty(`--a${k + 1}`, c));
+    $$('.palette').forEach(p => p.classList.toggle('active', +p.dataset.i === i));
+    if (announce) toast(`已切换到「${t.name} ${t.en}」配色`);
+  }
+  $('#themeBtn').addEventListener('click', () => applyTheme((themeIdx + 1) % themes.length, true));
+
+  function renderPalettes() {
+    const box = $('#palettes');
+    if (!box) return;
+    box.innerHTML = themes.map((t, i) => `
+      <button class="palette${i === themeIdx ? ' active' : ''}" data-i="${i}">
+        <div class="swatches">${t.b.map(c => `<i style="background:${c}" title="${c}"></i>`).join('')}</div>
+        <b>${t.name} ${t.en}<small>${t.b[0]}</small></b>
+      </button>`).join('');
+    box.addEventListener('click', e => {
+      const p = e.target.closest('.palette');
+      if (p) applyTheme(+p.dataset.i, true);
+    });
+  }
+
+  /* ---------- Conversation ---------- */
+  function loadDemo() {
+    chat.classList.remove('empty');
+    thread.innerHTML = '';
+    thread.append($('#demo-thread').content.cloneNode(true));
+    renderPalettes();
+    requestAnimationFrame(() => chat.scrollTop = chat.scrollHeight);
+  }
+  function startEmpty() {
+    chat.classList.add('empty');
+    thread.innerHTML = '';
+    chat.scrollTop = 0;
+  }
+
+  const escapeHTML = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const now = () => new Date().toTimeString().slice(0, 5);
+
+  const replies = [
+    ['收到啦！不过悄悄告诉你，这是一个纯前端演示页面，所以我其实并没有在思考～', '这个界面用了多层毛玻璃（backdrop-filter）、流动的极光背景和旋转的彩虹描边。试试右上角的调色板按钮，可以一键切换整套配色哦 ✨'],
+    ['好问题！让我想想……🤔', '如果这是真正的 AI，我现在会调用大模型认真回答你。但作为演示，我只能送你一段漂亮的占位文字，并在打字动画里尽情闪耀。'],
+    ['灵感来了 💡', '把半透明白色、高饱和模糊和细腻的内高光叠在一起，就是玻璃质感的秘密。再撒一点噪点纹理，画面会立刻高级起来。', '要不要试试左侧的「新建对话」，看看欢迎页的卡片动效？'],
+    ['这个想法很棒！🌈', '我已经把它记在小本本上了（并没有，因为这里没有后端）。不过界面上的每一个按钮都可以点点看，会有小惊喜～'],
+  ];
+  let replyIdx = 0, busy = false;
+
+  const actionsHTML = `
+    <div class="actions">
+      <button class="icon-btn" aria-label="复制"><svg class="i"><use href="#i-copy"/></svg></button>
+      <button class="icon-btn" aria-label="赞" data-like><svg class="i"><use href="#i-like"/></svg></button>
+      <button class="icon-btn" aria-label="踩" data-like><svg class="i flip"><use href="#i-like"/></svg></button>
+      <button class="icon-btn" aria-label="重新生成"><svg class="i"><use href="#i-redo"/></svg></button>
+    </div>`;
+
+  function scrollDown() { chat.scrollTop = chat.scrollHeight; }
+
+  function addUser(text) {
+    const el = document.createElement('div');
+    el.className = 'msg user';
+    el.innerHTML = `
+      <div class="avatar">哥</div>
+      <div class="body">
+        <div class="name">${now()} <b>哥哥</b></div>
+        <div class="bubble glass">${escapeHTML(text).replace(/\n/g, '<br>')}</div>
+      </div>`;
+    thread.append(el);
+    scrollDown();
+  }
+
+  function addAI() {
+    const deep = $$('.chip')[1].classList.contains('on');
+    const web = $$('.chip')[0].classList.contains('on');
+    const el = document.createElement('div');
+    el.className = 'msg ai';
+    el.innerHTML = `
+      <div class="orb"></div>
+      <div class="body">
+        <div class="name"><b>Lumi</b> ${now()}</div>
+        ${deep || web ? `<div class="thinking"><svg class="i"><use href="#i-spark"/></svg>${web ? '正在联网搜索…' : '正在深度思考…'}</div>` : ''}
+        <div class="bubble glass typing"><i></i><i></i><i></i></div>
+      </div>`;
+    thread.append(el);
+    scrollDown();
+
+    const paras = replies[replyIdx++ % replies.length];
+    setTimeout(() => {
+      const thinking = $('.thinking', el);
+      if (thinking) thinking.innerHTML = `<svg class="i" style="animation:none"><use href="#i-spark"/></svg>${web ? '已搜索 6 个网页' : '已深度思考 2 秒'}`;
+      const bubble = $('.bubble', el);
+      bubble.classList.remove('typing');
+      bubble.innerHTML = '';
+      stream(bubble, paras, () => {
+        el.querySelector('.body').insertAdjacentHTML('beforeend', actionsHTML);
+        busy = false;
+        updateSend();
+        scrollDown();
+      });
+    }, 1300);
+  }
+
+  function stream(bubble, paras, done) {
+    const caret = document.createElement('span');
+    caret.className = 'caret';
+    let p = 0, c = 0, node = null;
+    (function tick() {
+      if (p >= paras.length) { caret.remove(); return done(); }
+      if (!node) { node = document.createElement('p'); bubble.append(node); node.append(document.createTextNode(''), caret); }
+      const text = paras[p];
+      const step = 1 + Math.floor(Math.random() * 3);
+      c = Math.min(text.length, c + step);
+      node.firstChild.textContent = text.slice(0, c);
+      scrollDown();
+      if (c >= text.length) { p++; c = 0; node = null; setTimeout(tick, 220); }
+      else setTimeout(tick, 22 + Math.random() * 30);
+    })();
+  }
+
+  function submit(text) {
+    text = (text ?? input.value).trim();
+    if (!text || busy) return;
+    busy = true;
+    chat.classList.remove('empty');
+    $$('.h-item').forEach(h => h.classList.remove('active'));
+    addUser(text);
+    input.value = '';
+    autosize();
+    updateSend();
+    setTimeout(addAI, 380);
+  }
+
+  /* ---------- Composer ---------- */
+  function autosize() {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 180) + 'px';
+    $('#counter').textContent = `${input.value.length} / 4000`;
+  }
+  function updateSend() { send.disabled = busy || !input.value.trim(); }
+  input.addEventListener('input', () => { autosize(); updateSend(); });
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); submit(); }
+  });
+  send.addEventListener('click', () => submit());
+  $$('[data-toggle]').forEach(b => b.addEventListener('click', () => b.classList.toggle('on')));
+  $$('.card').forEach(c => c.addEventListener('click', () => submit(c.dataset.prompt)));
+
+  /* ---------- Sidebar ---------- */
+  const sidebar = $('#sidebar'), scrim = $('#scrim');
+  const closeSidebar = () => { sidebar.classList.remove('open'); scrim.classList.remove('show'); };
+  $('#menuBtn').addEventListener('click', () => { sidebar.classList.add('open'); scrim.classList.add('show'); });
+  scrim.addEventListener('click', closeSidebar);
+  $('#newChat').addEventListener('click', () => {
+    $$('.h-item').forEach(h => h.classList.remove('active'));
+    startEmpty(); closeSidebar(); input.focus();
+  });
+  $('#history').addEventListener('click', e => {
+    const item = e.target.closest('.h-item');
+    if (!item) return;
+    $$('.h-item').forEach(h => h.classList.toggle('active', h === item));
+    if (item.dataset.demo) loadDemo();
+    else { startEmpty(); toast('这是演示页面，历史对话没有真实内容哦'); }
+    closeSidebar();
+  });
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); $('#newChat').click(); }
+  });
+
+  /* ---------- Misc interactions ---------- */
+  chat.addEventListener('click', e => {
+    const copy = e.target.closest('.copy');
+    if (copy) {
+      const code = copy.closest('.code').querySelector('pre').innerText;
+      navigator.clipboard?.writeText(code).catch(() => {});
+      const label = copy.querySelector('em');
+      label.textContent = '已复制';
+      setTimeout(() => label.textContent = '复制', 1600);
+      return;
+    }
+    const like = e.target.closest('[data-like]');
+    if (like) {
+      const on = !like.classList.contains('on');
+      $$('[data-like]', like.parentElement).forEach(b => b.classList.remove('on'));
+      like.classList.toggle('on', on);
+      if (on) toast(like.getAttribute('aria-label') === '赞' ? '感谢反馈，Lumi 很开心 💖' : '收到，Lumi 会继续努力的');
+      return;
+    }
+    const btn = e.target.closest('.actions .icon-btn');
+    if (btn) toast(btn.getAttribute('aria-label') === '复制' ? '已复制到剪贴板' : '重新生成仅为演示 ✨');
+  });
+
+  let toastTimer;
+  function toast(msg) {
+    const t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+  }
+  $$('[data-toast]').forEach(b => b.addEventListener('click', () => toast(b.dataset.toast)));
+  $$('.pro button').forEach(b => b.addEventListener('click', () => toast('Pro 会员仅为演示，无需付费 😉')));
+
+  window.addEventListener('pointermove', e => {
+    root.style.setProperty('--mx', e.clientX + 'px');
+    root.style.setProperty('--my', e.clientY + 'px');
+  });
+
+  /* ---------- Sparkles ---------- */
+  const cv = $('#sparkles'), ctx = cv.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W, H, dots = [];
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr;
+    dots = Array.from({ length: Math.round(innerWidth / 28) }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      r: (Math.random() * 1.6 + .4) * dpr,
+      vy: -(Math.random() * .25 + .05) * dpr, vx: (Math.random() - .5) * .15 * dpr,
+      ph: Math.random() * Math.PI * 2, hue: Math.random() * 360,
+    }));
+  }
+  function frame(t) {
+    ctx.clearRect(0, 0, W, H);
+    for (const d of dots) {
+      d.x += d.vx; d.y += d.vy;
+      if (d.y < -10) { d.y = H + 10; d.x = Math.random() * W; }
+      const a = .35 + .65 * Math.abs(Math.sin(t / 900 + d.ph));
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${(d.hue + t / 40) % 360}, 100%, 80%, ${a})`;
+      ctx.shadowColor = ctx.fillStyle; ctx.shadowBlur = 8;
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(frame);
+
+  loadDemo();
+})();
+</script>
+</body>
+</html>
